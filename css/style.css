@@ -228,7 +228,6 @@ body {
 .widget h3,
 #header-description h3 {
   font-size: 1.5rem;
-  color: white;
 }
 .article-entry h4,
 .widget h4,
@@ -573,7 +572,7 @@ body {
   width: 600px;
   margin: 20px auto;
   padding: 10px 0;
-  color: white;
+  color: #666;
   letter-spacing: 5px;
 }
 .header-nav {
