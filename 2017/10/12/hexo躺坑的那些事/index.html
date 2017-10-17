@@ -17,7 +17,7 @@
 <meta property="og:description" content="简介工具：gitpage + Node.js + Hexo流程：        1.安装gitbash        2.注册github并建立github pages        3.安装node.js        4.安装hexo并初始化        5.连接到github        6.更改hexo配置文件        7.上传到github pages        8.绑定域">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1508244667&di=28db8a9f426c23f6dff9947783ddba16&src=http://c.hiphotos.baidu.com/zhidao/pic/item/b64543a98226cffc3cef5decbe014a90f703eaa3.jpg">
-<meta property="og:updated_time" content="2017-10-17T15:01:33.589Z">
+<meta property="og:updated_time" content="2017-10-17T15:05:42.723Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo躺坑的那些事">
 <meta name="twitter:description" content="简介工具：gitpage + Node.js + Hexo流程：        1.安装gitbash        2.注册github并建立github pages        3.安装node.js        4.安装hexo并初始化        5.连接到github        6.更改hexo配置文件        7.上传到github pages        8.绑定域">
@@ -154,8 +154,8 @@
 <h3 id="deploy失效"><a href="#deploy失效" class="headerlink" title="deploy失效"></a>deploy失效</h3><p>检查Github Pages类型库的名称为yourname.github.io的主页，页面文件应当在master分支下，无md文件。<br>库名不是yourname.github.io的主页，页面文件应当在gh-pages分支下，文件结构与个人主页基本一致，无md文件。</p>
 <h3 id="更换主题失效"><a href="#更换主题失效" class="headerlink" title="更换主题失效"></a>更换主题失效</h3><p>在修改主题文件之后，页面的文件依然没有更新，使用hexo clean命令并删除.deploy文件，重新部署生成网页文件后上传。</p>
 <h3 id="添加文件"><a href="#添加文件" class="headerlink" title="添加文件"></a>添加文件</h3><p>在source文件夹下的所有md文件都会被hexo渲染成html文件,添加文件md文件或html等文件可以利用主题的source目录，也就是themes/themes-name/source，这个文件夹里面的所有文件都会被复制到网站的根目录中去。</p>
-<h3 id="部署成功，本地测试有效，上传后页面无变化"><a href="#部署成功，本地测试有效，上传后页面无变化" class="headerlink" title="部署成功，本地测试有效，上传后页面无变化"></a>部署成功，本地测试有效，上传后页面无变化</h3><p>大部分是浏览器的锅，hexo是纯静态页面，浏览器会缓存该页面。此时可以打开chrome的隐身窗口，隐身状态无缓存。</p>
-<h3 id="如何书写md文档"><a href="#如何书写md文档" class="headerlink" title="如何书写md文档"></a>如何书写md文档</h3><p><br>md全称Markdown标记语言，但它相比HTML更加简单,一是体现在标记符的数量上，二是体现在标记符的书写上。要制约的只有一些 HTML 区块元素――比如 <code>&lt;div&gt;</code>、<code>&lt;table&gt;</code>、<code>&lt;pre&gt;</code>、<code>&lt;p&gt;</code> 等标签，必须在前后加上空行与其它内容区隔开，还要求它们的开始标签与结尾标签不能用制表符或空格来缩进。Markdown 的生成器有足够智能，不会在 HTML 区块标签外加上不必要的 <code>&lt;p&gt;</code> 标签。在 HTML 区块标签间的 Markdown 格式语法将不会被处理。比如，你在 HTML 区块内使用 Markdown 样式的<em>强调</em>会没有效果。<br></p>
+<h3 id="本地成功，部署失效"><a href="#本地成功，部署失效" class="headerlink" title="本地成功，部署失效"></a>本地成功，部署失效</h3><p>大部分是浏览器的锅，hexo是纯静态页面，浏览器会缓存该页面。此时可以打开chrome的隐身窗口，隐身状态无缓存。</p>
+<h2 id="如何书写md文档"><a href="#如何书写md文档" class="headerlink" title="如何书写md文档"></a>如何书写md文档</h2><p><br>md全称Markdown标记语言，但它相比HTML更加简单,一是体现在标记符的数量上，二是体现在标记符的书写上。要制约的只有一些 HTML 区块元素――比如 <code>&lt;div&gt;</code>、<code>&lt;table&gt;</code>、<code>&lt;pre&gt;</code>、<code>&lt;p&gt;</code> 等标签，必须在前后加上空行与其它内容区隔开，还要求它们的开始标签与结尾标签不能用制表符或空格来缩进。Markdown 的生成器有足够智能，不会在 HTML 区块标签外加上不必要的 <code>&lt;p&gt;</code> 标签。在 HTML 区块标签间的 Markdown 格式语法将不会被处理。比如，你在 HTML 区块内使用 Markdown 样式的<em>强调</em>会没有效果。<br></p>
 
 <ul>
 <li><p>标题<br><code># 标题</code></p>
@@ -190,7 +190,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年10月17日 23:01</p>
+        <p>最后更新： 2017年10月17日 23:05</p>
         <p>原始链接： <a class="post-url" href="/2017/10/12/hexo躺坑的那些事/" title="hexo躺坑的那些事">http://www.lousenjay.info/2017/10/12/hexo躺坑的那些事/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
@@ -275,7 +275,7 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#填坑"><span class="post-toc-text">填坑</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置文件"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deploy失效"><span class="post-toc-text">deploy失效</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更换主题失效"><span class="post-toc-text">更换主题失效</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加文件"><span class="post-toc-text">添加文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#部署成功，本地测试有效，上传后页面无变化"><span class="post-toc-text">部署成功，本地测试有效，上传后页面无变化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如何书写md文档"><span class="post-toc-text">如何书写md文档</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#填坑"><span class="post-toc-text">填坑</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置文件"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deploy失效"><span class="post-toc-text">deploy失效</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更换主题失效"><span class="post-toc-text">更换主题失效</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加文件"><span class="post-toc-text">添加文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#本地成功，部署失效"><span class="post-toc-text">本地成功，部署失效</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何书写md文档"><span class="post-toc-text">如何书写md文档</span></a></li></ol>
         </nav>
     </aside>
     
