@@ -8,18 +8,20 @@
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog" />
   
-  <meta name="description" content="编写中ing">
+  <meta name="description" content="简介工具：gitpage + Node.js + Hexo流程：        1.安装gitbash        2.注册github并建立github pages        3.安装node.js        4.安装hexo并初始化        5.连接到github        6.更改hexo配置文件        7.上传到github pages        8.绑定域">
 <meta name="keywords" content="Hexo,Blog">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo躺坑的那些事">
 <meta property="og:url" content="http://www.lousenjay.info/2017/10/12/hexo躺坑的那些事/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="编写中ing">
+<meta property="og:description" content="简介工具：gitpage + Node.js + Hexo流程：        1.安装gitbash        2.注册github并建立github pages        3.安装node.js        4.安装hexo并初始化        5.连接到github        6.更改hexo配置文件        7.上传到github pages        8.绑定域">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-14T01:54:55.038Z">
+<meta property="og:image" content="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1508244667&di=28db8a9f426c23f6dff9947783ddba16&src=http://c.hiphotos.baidu.com/zhidao/pic/item/b64543a98226cffc3cef5decbe014a90f703eaa3.jpg">
+<meta property="og:updated_time" content="2017-10-17T13:02:58.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo躺坑的那些事">
-<meta name="twitter:description" content="编写中ing">
+<meta name="twitter:description" content="简介工具：gitpage + Node.js + Hexo流程：        1.安装gitbash        2.注册github并建立github pages        3.安装node.js        4.安装hexo并初始化        5.连接到github        6.更改hexo配置文件        7.上传到github pages        8.绑定域">
+<meta name="twitter:image" content="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1508244667&di=28db8a9f426c23f6dff9947783ddba16&src=http://c.hiphotos.baidu.com/zhidao/pic/item/b64543a98226cffc3cef5decbe014a90f703eaa3.jpg">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -146,13 +148,43 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <blockquote>
-<p>编写中ing</p>
+            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>工具：gitpage + Node.js + Hexo<br>流程：<br>        1.安装gitbash<br>        2.注册github并建立github pages<br>        3.安装node.js<br>        4.安装hexo并初始化<br>        5.连接到github<br>        6.更改hexo配置文件<br>        7.上传到github pages<br>        8.绑定域名（可选）</p>
+<h2 id="填坑"><a href="#填坑" class="headerlink" title="填坑"></a>填坑</h2><h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy: </div><div class="line">  type: git</div><div class="line">  repo: https://github.com/LousenJay/LousenJay.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
+<p>注：属性与属性值之间必须有一个” “且为半角</p>
+<h3 id="deploy失效"><a href="#deploy失效" class="headerlink" title="deploy失效"></a>deploy失效</h3><p>检查Github Pages类型库的名称为yourname.github.io的主页，页面文件应当在master分支下，没有Markdown文件。<br>库名不是yourname.github.io的主页，页面文件应当在gh-pages分支下，文件结构与个人主页基本一致，同样没有Markdown文件。</p>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>在修改主题文件之后，页面的文件依然没有更新，使用hexo clean命令并删除.deploy文件，重新部署生成网页文件后上传。</p>
+<h3 id="添加文件"><a href="#添加文件" class="headerlink" title="添加文件"></a>添加文件</h3><p>在source文件夹下的所有md文件都会被hexo渲染成html文件,添加文件md文件或html等文件可以利用主题的source目录，也就是themes/themes-name/source，这个文件夹里面的所有文件都会被复制到网站的根目录中去。</p>
+<h3 id="如何书写md文档"><a href="#如何书写md文档" class="headerlink" title="如何书写md文档"></a>如何书写md文档</h3><p>md全称Markdown标记语言，但它相比HTML更加简单,一是体现在标记符的数量上，二是体现在标记符的书写上。HTML标记符号非常多，并且需要标记内容的开始和结束位置，而markdown只有四个基本的标记符号，只要在开始位置标记即可。</p>
+<ul>
+<li>标题<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1></li>
+<li>引用<blockquote>
+<p>引用内容</p>
 </blockquote>
+</li>
+<li>分隔符</li>
+</ul>
+<hr>
+<ul>
+<li>列表<br>使用* - +中的任何一个符号加空格就可以创建无序列表<br>使用数字+点+空格创建有序列表<br>列表可以嵌套，使用时在嵌套列表前空格</li>
+<li>链接<br><a href="http://www.lousenjay.info">主页</a><blockquote>
+<p><a href="url">文字</a></p>
+</blockquote>
+</li>
+<li>图片<br><img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&amp;quality=100&amp;size=b4000_4000&amp;sec=1508244667&amp;di=28db8a9f426c23f6dff9947783ddba16&amp;src=http://c.hiphotos.baidu.com/zhidao/pic/item/b64543a98226cffc3cef5decbe014a90f703eaa3.jpg" alt="banner"><blockquote>
+<p><a href="url">名称</a></p>
+</blockquote>
+</li>
+<li>代码段<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">print(&quot;hello world&quot;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在代码上下使用```</p>
+<ul>
+<li>字体样式<br>倾斜<em> </em><br>加粗<strong> </strong><br>倾斜加粗<strong><em> </em></strong></li>
+</ul>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年10月14日 09:54</p>
+        <p>最后更新： 2017年10月17日 21:02</p>
         <p>原始链接： <a class="post-url" href="/2017/10/12/hexo躺坑的那些事/" title="hexo躺坑的那些事">http://www.lousenjay.info/2017/10/12/hexo躺坑的那些事/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
@@ -235,6 +267,12 @@
 </article>
 
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#填坑"><span class="post-toc-text">填坑</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置文件"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deploy失效"><span class="post-toc-text">deploy失效</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#主题"><span class="post-toc-text">主题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加文件"><span class="post-toc-text">添加文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如何书写md文档"><span class="post-toc-text">如何书写md文档</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#一级标题"><span class="post-toc-text">一级标题</span></a>
+        </nav>
+    </aside>
+    
 
 <nav id="article-nav">
   
