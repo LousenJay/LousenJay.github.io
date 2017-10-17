@@ -17,7 +17,7 @@
 <meta property="og:description" content="简介工具：gitpage + Node.js + Hexo流程：        1.安装gitbash        2.注册github并建立github pages        3.安装node.js        4.安装hexo并初始化        5.连接到github        6.更改hexo配置文件        7.上传到github pages        8.绑定域">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1508244667&di=28db8a9f426c23f6dff9947783ddba16&src=http://c.hiphotos.baidu.com/zhidao/pic/item/b64543a98226cffc3cef5decbe014a90f703eaa3.jpg">
-<meta property="og:updated_time" content="2017-10-17T13:43:17.735Z">
+<meta property="og:updated_time" content="2017-10-17T13:55:59.344Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo躺坑的那些事">
 <meta name="twitter:description" content="简介工具：gitpage + Node.js + Hexo流程：        1.安装gitbash        2.注册github并建立github pages        3.安装node.js        4.安装hexo并初始化        5.连接到github        6.更改hexo配置文件        7.上传到github pages        8.绑定域">
@@ -157,27 +157,36 @@
 <h3 id="如何书写md文档"><a href="#如何书写md文档" class="headerlink" title="如何书写md文档"></a>如何书写md文档</h3><p><br>md全称Markdown标记语言，但它相比HTML更加简单,一是体现在标记符的数量上，二是体现在标记符的书写上。要制约的只有一些 HTML 区块元素――比如 <code>&lt;div&gt;</code>、<code>&lt;table&gt;</code>、<code>&lt;pre&gt;</code>、<code>&lt;p&gt;</code> 等标签，必须在前后加上空行与其它内容区隔开，还要求它们的开始标签与结尾标签不能用制表符或空格来缩进。Markdown 的生成器有足够智能，不会在 HTML 区块标签外加上不必要的 <code>&lt;p&gt;</code> 标签。在 HTML 区块标签间的 Markdown 格式语法将不会被处理。比如，你在 HTML 区块内使用 Markdown 样式的<em>强调</em>会没有效果。<br></p>
 
 <ul>
-<li>标题<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1></li>
-<li>引用<blockquote>
-<p>引用内容</p>
+<li><p>标题<br><code># 标题</code></p>
+</li>
+<li><p>引用</p>
+<blockquote>
+<p>引用内容<br><code>&gt; 引用内容</code></p>
 </blockquote>
 </li>
-<li>分隔符<br><code>---</code>或<code>***</code></li>
-<li>列表<br>使用* - +中的任何一个符号加空格就可以创建无序列表<br>使用数字+点+空格创建有序列表<br>列表可以嵌套，使用时在嵌套列表前空格</li>
-<li>链接<br><a href="http://www.lousenjay.info">主页</a><br><code>[文字](url)</code></li>
-<li>图片<br><img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&amp;quality=100&amp;size=b4000_4000&amp;sec=1508244667&amp;di=28db8a9f426c23f6dff9947783ddba16&amp;src=http://c.hiphotos.baidu.com/zhidao/pic/item/b64543a98226cffc3cef5decbe014a90f703eaa3.jpg" alt="banner"><br><code>[名称](url)</code></li>
-<li>代码段<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">print(&quot;hello world&quot;);</div><div class="line">println();</div></pre></td></tr></table></figure>
+<li><p>分隔符<br><code>---</code>或<code>***</code></p>
+</li>
+<li><p>列表<br>使用* - +中的任何一个符号加空格就可以创建无序列表<br>使用数字+点+空格创建有序列表<br>列表可以嵌套，使用时在嵌套列表前空格</p>
+</li>
+<li><p>链接<br><a href="http://www.lousenjay.info">主页</a><br><code>[文字](url)</code></p>
+</li>
+<li><p>图片<br><img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&amp;quality=100&amp;size=b4000_4000&amp;sec=1508244667&amp;di=28db8a9f426c23f6dff9947783ddba16&amp;src=http://c.hiphotos.baidu.com/zhidao/pic/item/b64543a98226cffc3cef5decbe014a90f703eaa3.jpg" alt="banner"><br><code>[名称](url)</code></p>
+</li>
+<li><p>代码段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">print(&quot;hello world&quot;);</div><div class="line">println();</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>使用三个`</p>
 <ul>
-<li>单行代码<br><code>println()</code><br>使用`</li>
-<li>字体样式<br>倾斜<code>* *</code><br>加粗<code>** **</code><br>倾斜加粗<code>*** ***</code></li>
+<li><p>单行代码<br><code>println()</code><br>使用`</p>
+</li>
+<li><p>字体样式<br>倾斜<code>* *</code><br>加粗<code>** **</code><br>倾斜加粗<code>*** ***</code></p>
+</li>
 </ul>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年10月17日 21:43</p>
+        <p>最后更新： 2017年10月17日 21:55</p>
         <p>原始链接： <a class="post-url" href="/2017/10/12/hexo躺坑的那些事/" title="hexo躺坑的那些事">http://www.lousenjay.info/2017/10/12/hexo躺坑的那些事/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
@@ -262,7 +271,7 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#填坑"><span class="post-toc-text">填坑</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置文件"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deploy失效"><span class="post-toc-text">deploy失效</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#主题"><span class="post-toc-text">主题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加文件"><span class="post-toc-text">添加文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如何书写md文档"><span class="post-toc-text">如何书写md文档</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#一级标题"><span class="post-toc-text">一级标题</span></a>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#填坑"><span class="post-toc-text">填坑</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置文件"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deploy失效"><span class="post-toc-text">deploy失效</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#主题"><span class="post-toc-text">主题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加文件"><span class="post-toc-text">添加文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如何书写md文档"><span class="post-toc-text">如何书写md文档</span></a></li></ol></li></ol>
         </nav>
     </aside>
     
