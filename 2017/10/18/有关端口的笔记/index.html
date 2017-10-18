@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>虚拟端口 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog" />
+  
+  <meta name="description" content="简介端口可分为虚拟端口和物理端口，其中虚拟端口指计算机内部或交换机路由器内的端口，不可见。例如计算机中的80端口、21端口、23端口等。最近，在上传网站到服务器时，ftp一直登录不上去，曾一度怀疑是校园网禁掉了21端口，借此机会了解了有关端口的一些操作。 如何查看端口win+R——cmd输入命令：netstat -ano，列出所有端口的情况 如何关闭占用端口的进程确定对应端口的PID打开windo">
+<meta name="keywords" content="虚拟端口">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟端口">
+<meta property="og:url" content="http://www.lousenjay.info/2017/10/18/有关端口的笔记/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="简介端口可分为虚拟端口和物理端口，其中虚拟端口指计算机内部或交换机路由器内的端口，不可见。例如计算机中的80端口、21端口、23端口等。最近，在上传网站到服务器时，ftp一直登录不上去，曾一度怀疑是校园网禁掉了21端口，借此机会了解了有关端口的一些操作。 如何查看端口win+R——cmd输入命令：netstat -ano，列出所有端口的情况 如何关闭占用端口的进程确定对应端口的PID打开windo">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.opendrive.com/download/MjZfNzExMTU4MV9DdUhxQg?preview=1&folder_id=MjZfODUyNTQwXzVVeExt">
+<meta property="og:image" content="https://www.opendrive.com/download/MjZfNzExMTU4Ml8zY0V4Ug?preview=1&folder_id=MjZfODUyNTQwXzVVeExt">
+<meta property="og:image" content="https://www.opendrive.com/download/MjZfNzExMTU4M19hcnA0NA?preview=1&folder_id=MjZfODUyNTQwXzVVeExt">
+<meta property="og:image" content="https://www.opendrive.com/download/MjZfNzExMTU3NF9jTDB0VA?preview=1&folder_id=MjZfODUyNTQwXzVVeExt">
+<meta property="og:image" content="https://www.opendrive.com/download/MjZfNzExMTU3NV9SNUxQWg?preview=1&folder_id=MjZfODUyNTQwXzVVeExt">
+<meta property="og:image" content="https://www.opendrive.com/download/MjZfNzExMTU3Nl84S2x0aQ?preview=1&folder_id=MjZfODUyNTQwXzVVeExt">
+<meta property="og:image" content="https://www.opendrive.com/download/MjZfNzExMTU3N193Q3hvVg?preview=1&folder_id=MjZfODUyNTQwXzVVeExt">
+<meta property="og:image" content="https://www.opendrive.com/download/MjZfNzExMTU3OF9VM2doRQ?preview=1&folder_id=MjZfODUyNTQwXzVVeExt">
+<meta property="og:image" content="https://www.opendrive.com/download/MjZfNzExMTU3OV9EQTBZaw?preview=1&folder_id=MjZfODUyNTQwXzVVeExt">
+<meta property="og:image" content="https://www.opendrive.com/download/MjZfNzExMTU4MF9HU05ySA?preview=1&folder_id=MjZfODUyNTQwXzVVeExt">
+<meta property="og:updated_time" content="2017-10-18T14:05:47.685Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="虚拟端口">
+<meta name="twitter:description" content="简介端口可分为虚拟端口和物理端口，其中虚拟端口指计算机内部或交换机路由器内的端口，不可见。例如计算机中的80端口、21端口、23端口等。最近，在上传网站到服务器时，ftp一直登录不上去，曾一度怀疑是校园网禁掉了21端口，借此机会了解了有关端口的一些操作。 如何查看端口win+R——cmd输入命令：netstat -ano，列出所有端口的情况 如何关闭占用端口的进程确定对应端口的PID打开windo">
+<meta name="twitter:image" content="https://www.opendrive.com/download/MjZfNzExMTU4MV9DdUhxQg?preview=1&folder_id=MjZfODUyNTQwXzVVeExt">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个萌新的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="//user.qzone.qq.com/1135497143/infocenter">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-有关端口的笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      虚拟端口
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/虚拟端口/">虚拟端口</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2017-10-18
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>端口可分为虚拟端口和物理端口，其中虚拟端口指计算机内部或交换机路由器内的端口，不可见。例如计算机中的80端口、21端口、23端口等。最近，在上传网站到服务器时，ftp一直登录不上去，曾一度怀疑是校园网禁掉了21端口，借此机会了解了有关端口的<br>一些操作。</p>
+<h3 id="如何查看端口"><a href="#如何查看端口" class="headerlink" title="如何查看端口"></a>如何查看端口</h3><p>win+R——cmd<br>输入命令：netstat -ano，列出所有端口的情况<br><img src="https://www.opendrive.com/download/MjZfNzExMTU4MV9DdUhxQg?preview=1&amp;folder_id=MjZfODUyNTQwXzVVeExt" alt=""></p>
+<h3 id="如何关闭占用端口的进程"><a href="#如何关闭占用端口的进程" class="headerlink" title="如何关闭占用端口的进程"></a>如何关闭占用端口的进程</h3><p>确定对应端口的PID<br><img src="https://www.opendrive.com/download/MjZfNzExMTU4Ml8zY0V4Ug?preview=1&amp;folder_id=MjZfODUyNTQwXzVVeExt" alt=""><br>打开windows资源管理器<br>查看——选择列——勾选PID<br>在进程找到对应PID的进程<br><img src="https://www.opendrive.com/download/MjZfNzExMTU4M19hcnA0NA?preview=1&amp;folder_id=MjZfODUyNTQwXzVVeExt" alt=""><br>右键——结束进程</p>
+<h3 id="如何开启端口（win7）"><a href="#如何开启端口（win7）" class="headerlink" title="如何开启端口（win7）"></a>如何开启端口（win7）</h3><p>控制面板——Windows防火墙——高级设置——入站规则——新建规则<br><img src="https://www.opendrive.com/download/MjZfNzExMTU3NF9jTDB0VA?preview=1&amp;folder_id=MjZfODUyNTQwXzVVeExt" alt=""><br><img src="https://www.opendrive.com/download/MjZfNzExMTU3NV9SNUxQWg?preview=1&amp;folder_id=MjZfODUyNTQwXzVVeExt" alt=""><br><img src="https://www.opendrive.com/download/MjZfNzExMTU3Nl84S2x0aQ?preview=1&amp;folder_id=MjZfODUyNTQwXzVVeExt" alt=""><br><img src="https://www.opendrive.com/download/MjZfNzExMTU3N193Q3hvVg?preview=1&amp;folder_id=MjZfODUyNTQwXzVVeExt" alt=""><br><img src="https://www.opendrive.com/download/MjZfNzExMTU3OF9VM2doRQ?preview=1&amp;folder_id=MjZfODUyNTQwXzVVeExt" alt=""><br><img src="https://www.opendrive.com/download/MjZfNzExMTU3OV9EQTBZaw?preview=1&amp;folder_id=MjZfODUyNTQwXzVVeExt" alt=""></p>
+<h3 id="如何关闭端口"><a href="#如何关闭端口" class="headerlink" title="如何关闭端口"></a>如何关闭端口</h3><p>控制面板——Windows防火墙——高级设置——入站规则——新建规则——添加端口——双击端口<br><img src="https://www.opendrive.com/download/MjZfNzExMTU4MF9HU05ySA?preview=1&amp;folder_id=MjZfODUyNTQwXzVVeExt" alt=""></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年10月18日 22:05</p>
+        <p>原始链接： <a class="post-url" href="/2017/10/18/有关端口的笔记/" title="虚拟端口">http://www.lousenjay.info/2017/10/18/有关端口的笔记/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2017/10/18/有关端口的笔记/&title=《虚拟端口》 — 若闲小阁&pic=images/cover_1.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2017/10/18/有关端口的笔记/&title=《虚拟端口》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2017/10/18/有关端口的笔记/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《虚拟端口》 — 若闲小阁&url=http://www.lousenjay.info/2017/10/18/有关端口的笔记/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2017/10/18/有关端口的笔记/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2017/10/18/有关端口的笔记/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/虚拟端口/" class="color5">虚拟端口</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如何查看端口"><span class="post-toc-text">如何查看端口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如何关闭占用端口的进程"><span class="post-toc-text">如何关闭占用端口的进程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如何开启端口（win7）"><span class="post-toc-text">如何开启端口（win7）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如何关闭端口"><span class="post-toc-text">如何关闭端口</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/12/hexo躺坑的那些事/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">hexo躺坑的那些事</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/虚拟端口/">虚拟端口</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+  
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="150" height="300" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 250px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: -30px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/z16/z16.model.json",0.5)</script>
+  
+</body>
+</html>
