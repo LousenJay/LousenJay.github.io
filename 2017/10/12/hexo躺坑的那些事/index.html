@@ -17,7 +17,7 @@
 <meta property="og:description" content="Hexo是一个简洁、高效的博客框架，对于有一定编程基础的人来说比较友好，也可以根据个人爱好修改框架。但是第一次搭建hexo总会遇到各种各样的情况。就我个人所遇到的问题，在此归纳总结。 工具：github pages + Node.js + Hexo + 域名流程：        1.安装gitbash        2.注册github并建立github pages        3.安装node">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1508244667&di=28db8a9f426c23f6dff9947783ddba16&src=http://c.hiphotos.baidu.com/zhidao/pic/item/b64543a98226cffc3cef5decbe014a90f703eaa3.jpg">
-<meta property="og:updated_time" content="2017-10-30T07:45:15.334Z">
+<meta property="og:updated_time" content="2017-10-30T09:19:30.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo躺坑的那些事">
 <meta name="twitter:description" content="Hexo是一个简洁、高效的博客框架，对于有一定编程基础的人来说比较友好，也可以根据个人爱好修改框架。但是第一次搭建hexo总会遇到各种各样的情况。就我个人所遇到的问题，在此归纳总结。 工具：github pages + Node.js + Hexo + 域名流程：        1.安装gitbash        2.注册github并建立github pages        3.安装node">
@@ -155,13 +155,13 @@
             
             <p>Hexo是一个简洁、高效的博客框架，对于有一定编程基础的人来说比较友好，也可以根据个人爱好修改框架。但是第一次搭建hexo总会遇到各种各样的情况。就我个人所遇到的问题，在此归纳总结。</p>
 <p>工具：github pages + Node.js + Hexo + 域名<br>流程：<br>        1.安装gitbash<br>        2.注册github并建立github pages<br>        3.安装node.js<br>        4.安装hexo并初始化<br>        5.连接到github<br>        6.更改hexo配置文件<br>        7.上传到github pages<br>        8.绑定域名（可选）<br>        9.写博文</p>
-<h2 id="填坑"><a href="#填坑" class="headerlink" title="填坑"></a>填坑</h2><h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy: </div><div class="line">  type: git</div><div class="line">  repo: https://github.com/LousenJay/LousenJay.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
+<h2 id="一、填坑"><a href="#一、填坑" class="headerlink" title="一、填坑"></a>一、填坑</h2><h3 id="1-1-配置文件"><a href="#1-1-配置文件" class="headerlink" title="1.1 配置文件"></a>1.1 配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy: </div><div class="line">  type: git</div><div class="line">  repo: https://github.com/LousenJay/LousenJay.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
 <p>注：属性与属性值之间必须有一个” “且为半角</p>
-<h3 id="deploy失效"><a href="#deploy失效" class="headerlink" title="deploy失效"></a>deploy失效</h3><p>检查Github Pages类型库的名称为yourname.github.io的主页，页面文件应当在master分支下，无md文件。<br>库名不是yourname.github.io的主页，页面文件应当在gh-pages分支下，文件结构与个人主页基本一致，无md文件。</p>
-<h3 id="更换主题失效"><a href="#更换主题失效" class="headerlink" title="更换主题失效"></a>更换主题失效</h3><p>在修改主题文件之后，页面的文件依然没有更新，使用hexo clean命令并删除.deploy文件，重新部署生成网页文件后上传。</p>
-<h3 id="添加文件"><a href="#添加文件" class="headerlink" title="添加文件"></a>添加文件</h3><p>在source文件夹下的所有md文件都会被hexo渲染成html文件,添加文件md文件或html等文件可以利用主题的source目录，也就是themes/themes-name/source，这个文件夹里面的所有文件都会被复制到网站的根目录中去。</p>
-<h3 id="本地成功，部署失效"><a href="#本地成功，部署失效" class="headerlink" title="本地成功，部署失效"></a>本地成功，部署失效</h3><p>大部分是浏览器的锅，hexo是纯静态页面，浏览器会缓存该页面。此时可以打开chrome的隐身窗口，隐身状态无缓存。</p>
-<h2 id="Hexo常用指令"><a href="#Hexo常用指令" class="headerlink" title="Hexo常用指令"></a>Hexo常用指令</h2><p>每次部署的步骤，可按以下三步来进行。</p>
+<h3 id="1-2-deploy失效"><a href="#1-2-deploy失效" class="headerlink" title="1.2 deploy失效"></a>1.2 deploy失效</h3><p>检查Github Pages类型库的名称为yourname.github.io的主页，页面文件应当在master分支下，无md文件。<br>库名不是yourname.github.io的主页，页面文件应当在gh-pages分支下，文件结构与个人主页基本一致，无md文件。</p>
+<h3 id="1-3-更换主题失效"><a href="#1-3-更换主题失效" class="headerlink" title="1.3 更换主题失效"></a>1.3 更换主题失效</h3><p>在修改主题文件之后，页面的文件依然没有更新，使用hexo clean命令并删除.deploy文件，重新部署生成网页文件后上传。</p>
+<h3 id="1-4-添加文件"><a href="#1-4-添加文件" class="headerlink" title="1.4 添加文件"></a>1.4 添加文件</h3><p>在source文件夹下的所有md文件都会被hexo渲染成html文件,添加文件md文件或html等文件可以利用主题的source目录，也就是themes/themes-name/source，这个文件夹里面的所有文件都会被复制到网站的根目录中去。</p>
+<h3 id="1-5本地成功，部署失效"><a href="#1-5本地成功，部署失效" class="headerlink" title="1.5本地成功，部署失效"></a>1.5本地成功，部署失效</h3><p>大部分是浏览器的锅，hexo是纯静态页面，浏览器会缓存该页面。此时可以打开chrome的隐身窗口，隐身状态无缓存。</p>
+<h2 id="二、Hexo常用指令"><a href="#二、Hexo常用指令" class="headerlink" title="二、Hexo常用指令"></a>二、Hexo常用指令</h2><p>每次部署的步骤，可按以下三步来进行。</p>
 <pre><code>hexo clean
 
 hexo generate
@@ -175,10 +175,10 @@ hexo deploy
 <p>hexo deploy #将.deploy目录部署到GitHub</p>
 <p>hexo help # 查看帮助</p>
 <p>hexo version #查看Hexo的版本</p>
-<h2 id="Hexo文件"><a href="#Hexo文件" class="headerlink" title="Hexo文件"></a>Hexo文件</h2><p><br>.deploy #需要部署的文件<br>node_modules #Hexo插件<br>public #生成的静态网页文件<br>scaffolds #模板<br>source #博客正文和其他源文件, 404 favicon CNAME 等都应该放在这里<br>_drafts #草稿<br>_posts #文章<br>themes #主题<br>_config.yml #全局配置文件<br>package.json<br></p>
+<h2 id="三、Hexo文件"><a href="#三、Hexo文件" class="headerlink" title="三、Hexo文件"></a>三、Hexo文件</h2><p><br>.deploy #需要部署的文件<br>node_modules #Hexo插件<br>public #生成的静态网页文件<br>scaffolds #模板<br>source #博客正文和其他源文件, 404 favicon CNAME 等都应该放在这里<br>_drafts #草稿<br>_posts #文章<br>themes #主题<br>_config.yml #全局配置文件<br>package.json<br></p>
 
-<h2 id="修改页面"><a href="#修改页面" class="headerlink" title="修改页面"></a>修改页面</h2><p>源文件在themes的layout文件夹<br>css和js在themes的source文件夹<br>CNAME存放于themes的source文件夹根目录<br>插件修改在node_modules/插件文件夹/插件文件</p>
-<h2 id="如何写博文"><a href="#如何写博文" class="headerlink" title="如何写博文"></a>如何写博文</h2><p><br>Hexo博文采用的是md语言，md全称Markdown标记语言，但它相比HTML更加简单,一是体现在标记符的数量上，二是体现在标记符的书写上。要制约的只有一些 HTML 区块元素――比如 <code>&lt;div&gt;</code>、<code>&lt;table&gt;</code>、<code>&lt;pre&gt;</code>、<code>&lt;p&gt;</code> 等标签，必须在前后加上空行与其它内容区隔开，还要求它们的开始标签与结尾标签不能用制表符或空格来缩进。Markdown 的生成器有足够智能，不会在 HTML 区块标签外加上不必要的 <code>&lt;p&gt;</code> 标签。在 HTML 区块标签间的 Markdown 格式语法将不会被处理。比如，你在 HTML 区块内使用 Markdown 样式的<em>强调</em>会没有效果。<br></p>
+<h2 id="四、修改页面"><a href="#四、修改页面" class="headerlink" title="四、修改页面"></a>四、修改页面</h2><p>源文件在themes的layout文件夹<br>css和js在themes的source文件夹<br>CNAME存放于themes的source文件夹根目录<br>插件修改在node_modules/插件文件夹/插件文件</p>
+<h2 id="五、如何写博文"><a href="#五、如何写博文" class="headerlink" title="五、如何写博文"></a>五、如何写博文</h2><p><br>Hexo博文采用的是md语言，md全称Markdown标记语言，但它相比HTML更加简单,一是体现在标记符的数量上，二是体现在标记符的书写上。要制约的只有一些 HTML 区块元素――比如 <code>&lt;div&gt;</code>、<code>&lt;table&gt;</code>、<code>&lt;pre&gt;</code>、<code>&lt;p&gt;</code> 等标签，必须在前后加上空行与其它内容区隔开，还要求它们的开始标签与结尾标签不能用制表符或空格来缩进。Markdown 的生成器有足够智能，不会在 HTML 区块标签外加上不必要的 <code>&lt;p&gt;</code> 标签。在 HTML 区块标签间的 Markdown 格式语法将不会被处理。比如，你在 HTML 区块内使用 Markdown 样式的<em>强调</em>会没有效果。<br></p>
 
 <ul>
 <li><p>标题<br><code># 标题</code></p>
@@ -213,7 +213,7 @@ hexo deploy
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年10月30日 15:45</p>
+        <p>最后更新： 2017年10月30日 17:19</p>
         <p>原始链接： <a class="post-url" href="/2017/10/12/hexo躺坑的那些事/" title="Hexo躺坑的那些事">http://www.lousenjay.info/2017/10/12/hexo躺坑的那些事/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
@@ -298,7 +298,7 @@ hexo deploy
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#填坑"><span class="post-toc-text">填坑</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置文件"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deploy失效"><span class="post-toc-text">deploy失效</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更换主题失效"><span class="post-toc-text">更换主题失效</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加文件"><span class="post-toc-text">添加文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#本地成功，部署失效"><span class="post-toc-text">本地成功，部署失效</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Hexo常用指令"><span class="post-toc-text">Hexo常用指令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Hexo文件"><span class="post-toc-text">Hexo文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改页面"><span class="post-toc-text">修改页面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何写博文"><span class="post-toc-text">如何写博文</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、填坑"><span class="post-toc-text">一、填坑</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-1-配置文件"><span class="post-toc-text">1.1 配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-deploy失效"><span class="post-toc-text">1.2 deploy失效</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-更换主题失效"><span class="post-toc-text">1.3 更换主题失效</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-4-添加文件"><span class="post-toc-text">1.4 添加文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-5本地成功，部署失效"><span class="post-toc-text">1.5本地成功，部署失效</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、Hexo常用指令"><span class="post-toc-text">二、Hexo常用指令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、Hexo文件"><span class="post-toc-text">三、Hexo文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四、修改页面"><span class="post-toc-text">四、修改页面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#五、如何写博文"><span class="post-toc-text">五、如何写博文</span></a></li></ol>
         </nav>
     </aside>
     
