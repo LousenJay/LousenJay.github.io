@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>MySQL学习笔记 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，故一般中小型网站的开发都选择MySQL作为网站数据库。以下为，自学途中整理的一些笔记以及遇到的一些问题。 一. 用户授权在使用MySQL的过程中，MySQL本身已经创建了一个root用户，如果想自己建立一个用户，需给">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL学习笔记">
+<meta property="og:url" content="http://www.lousenjay.info/2018/01/25/MySQL学习笔记/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，故一般中小型网站的开发都选择MySQL作为网站数据库。以下为，自学途中整理的一些笔记以及遇到的一些问题。 一. 用户授权在使用MySQL的过程中，MySQL本身已经创建了一个root用户，如果想自己建立一个用户，需给">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-25T12:22:45.153Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL学习笔记">
+<meta name="twitter:description" content="MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，故一般中小型网站的开发都选择MySQL作为网站数据库。以下为，自学途中整理的一些笔记以及遇到的一些问题。 一. 用户授权在使用MySQL的过程中，MySQL本身已经创建了一个root用户，如果想自己建立一个用户，需给">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-MySQL学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      MySQL学习笔记
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/数据库/">数据库</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-01-25
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，故一般中小型网站的开发都选择MySQL作为网站数据库。以下为，自学途中整理的一些笔记以及遇到的一些问题。</p>
+<h3 id="一-用户授权"><a href="#一-用户授权" class="headerlink" title="一. 用户授权"></a>一. 用户授权</h3><pre><code>在使用MySQL的过程中，MySQL本身已经创建了一个root用户，如果想自己建立一个用户，需给该用户分配一定的权限。
+1. 创建用户 create user &apos;username&apos;@&apos;host&apos; identified by &apos;password&apos;
+2. 授权 grant all privileges on *.* to &apos;username&apos;@&apos;host&apos; identified by &apos;password&apos; with grant option
+3. 设置或更改密码 set password for &apos;username&apos;@&apos;host&apos;=password(&quot;newpassword&quot;)
+4. 撤销用户权限 revoke privilege on databasename.tablename from &apos;username&apos;@&apos;host&apos;
+5. 查看权限 show grants for &apos;username&apos;@&apos;host&apos;
+6. 删除用户 drop user &apos;username&apos;@&apos;host&apos;
+</code></pre><h3 id="二-SQL语句介绍"><a href="#二-SQL语句介绍" class="headerlink" title="二. SQL语句介绍"></a>二. SQL语句介绍</h3><ul>
+<li>查询语句：select</li>
+<li>DML语句：insert、update、delete</li>
+<li>DDL语句：create、alter、drop、truncate</li>
+<li>DCL语句：grant、revoke</li>
+<li>事务控制语句：commit、rollback、savepoint</li>
+</ul>
+<h4 id="DDL语句"><a href="#DDL语句" class="headerlink" title="DDL语句"></a>DDL语句</h4><p>DDl语句是操作数据库对象的语句<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#建表语句</div><div class="line">create table test(</div><div class="line"> id int primary key,</div><div class="line"> price decimal,</div><div class="line"> name varchar(255),</div><div class="line"> date datetime,</div><div class="line"> message text</div><div class="line">)</div><div class="line"></div><div class="line">修改表结构语句</div><div class="line">#增加列定义</div><div class="line">alter table test</div><div class="line">add(</div><div class="line">sex varchar(10) default &apos;男&apos;</div><div class="line">)</div><div class="line"></div><div class="line">#修改列定义</div><div class="line">alter table test</div><div class="line">modify id varchar(255) primary key</div><div class="line"></div><div class="line">#删除列定义</div><div class="line">alter table test</div><div class="line">drop sex</div><div class="line"></div><div class="line">#重命名数据表</div><div class="line">alter table test</div><div class="line">rename to test_2</div></pre></td></tr></table></figure></p>
+<h4 id="数据库约束"><a href="#数据库约束" class="headerlink" title="数据库约束"></a>数据库约束</h4><ul>
+<li>not null</li>
+<li>unique</li>
+<li>primary key</li>
+<li>foreign key</li>
+<li>check(MySQL不支持check约束)</li>
+</ul>
+<p>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#职位表</div><div class="line">create table posit(</div><div class="line">id int auto_increment primary key,</div><div class="line">name varchar(255) not null</div><div class="line">);</div><div class="line">#职员表</div><div class="line">create table employee(</div><div class="line">id int primary key,</div><div class="line">name varchar(255) not null,</div><div class="line">sex varchar(255) default&apos;男&apos;,</div><div class="line">birth datetime not null,</div><div class="line">age int not null,</div><div class="line">posit_id int,</div><div class="line">foreign key(posit_id) references posit(id)</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<h4 id="DML语句"><a href="#DML语句" class="headerlink" title="DML语句"></a>DML语句</h4><p>DML主要操作数据表里的数据</p>
+<ul>
+<li>insert into</li>
+<li>update</li>
+<li>delete from</li>
+</ul>
+<p>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#插入数据</div><div class="line">insert into teacher(id,name) values(1,&apos;张三&apos;)</div><div class="line">#修改数据</div><div class="line">update teacher</div><div class="line">set name = &apos;李四&apos;</div><div class="line">where id = 1</div><div class="line">#删除数据</div><div class="line">delete from student</div><div class="line">where student = 1</div></pre></td></tr></table></figure></p>
+<h3 id="三-查询语句"><a href="#三-查询语句" class="headerlink" title="三. 查询语句"></a>三. 查询语句</h3><h4 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h4><p>例：<br><code>select e.id,e.name,p.name from employee e,posit p</code></p>
+<h4 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h4><p>例：<br><code>select * from student where name like &#39;张%&#39;</code><br>注：_代表一个字符，%代表任意个字符</p>
+<h4 id="多表连接查询"><a href="#多表连接查询" class="headerlink" title="多表连接查询"></a>多表连接查询</h4><ul>
+<li>交叉连接</li>
+<li>自然连接</li>
+<li>using子句连接</li>
+<li>on子句连接</li>
+<li>左、右、全外连接（MySQL不支持全外连接）</li>
+</ul>
+<p>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># on子句连接最常用</div><div class="line">select s.* ,t.name</div><div class="line">from student s</div><div class="line">join teacher t</div><div class="line">on s.id = t.id</div></pre></td></tr></table></figure></p>
+<h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><ul>
+<li><p>出现在from语句后当成数据表（行内视图）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">select * </div><div class="line">from (select * from student) s</div><div class="line">where s.id &gt; 3</div></pre></td></tr></table></figure>
+</li>
+<li><p>出现在where语句后面作为过滤条件的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">select * from student s</div><div class="line">where s.id &gt;</div><div class="line">(select t.id from teacher t where t.name = &apos;张三&apos;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="四-集合运算"><a href="#四-集合运算" class="headerlink" title="四. 集合运算"></a>四. 集合运算</h3><ul>
+<li>union运算（并）<br><code>select 语句 union select语句</code></li>
+<li>minus运算（差）<br><code>select 语句 minus select语句</code></li>
+<li>intersect运算（交）<br><code>select 语句 intersect select语句</code></li>
+</ul>
+<p>注：MySQL只支持union运算</p>
+<h3 id="五-数据库函数"><a href="#五-数据库函数" class="headerlink" title="五. 数据库函数"></a>五. 数据库函数</h3><p>用于处理数据或复杂的计算</p>
+<ul>
+<li><p>单行函数</p>
+<ul>
+<li>char_length(‘xx’):字符长度</li>
+<li>sin(int x):计算sin值</li>
+<li>adddate(‘1998-04-05’,200):为指定日期添加指定天数</li>
+<li>curdate():获取当前日期</li>
+<li>curtime():获取当前时间</li>
+<li>MD5(‘xx’):MD5加密函数</li>
+</ul>
+</li>
+<li><p>多行函数（组函数）</p>
+<ul>
+<li>avg():计算多行的平均值</li>
+<li>count():计算多行的总条数</li>
+<li>max():计算多行的最大值</li>
+<li>min():计算多行的最小值</li>
+<li>sum():计算多行的总和</li>
+</ul>
+</li>
+</ul>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年01月25日 20:22</p>
+        <p>原始链接： <a class="post-url" href="/2018/01/25/MySQL学习笔记/" title="MySQL学习笔记">http://www.lousenjay.info/2018/01/25/MySQL学习笔记/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/01/25/MySQL学习笔记/&title=《MySQL学习笔记》 — 若闲小阁&pic=http://wx4.sinaimg.cn/large/a10c01f6gy1fkoj5rb7lsj20ci069dgf.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/01/25/MySQL学习笔记/&title=《MySQL学习笔记》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/01/25/MySQL学习笔记/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL学习笔记》 — 若闲小阁&url=http://www.lousenjay.info/2018/01/25/MySQL学习笔记/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/01/25/MySQL学习笔记/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/01/25/MySQL学习笔记/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/MySQL/" class="color1">MySQL</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一-用户授权"><span class="post-toc-text">一. 用户授权</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二-SQL语句介绍"><span class="post-toc-text">二. SQL语句介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DDL语句"><span class="post-toc-text">DDL语句</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#数据库约束"><span class="post-toc-text">数据库约束</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DML语句"><span class="post-toc-text">DML语句</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三-查询语句"><span class="post-toc-text">三. 查询语句</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#多表查询"><span class="post-toc-text">多表查询</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#模糊查询"><span class="post-toc-text">模糊查询</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#多表连接查询"><span class="post-toc-text">多表连接查询</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#子查询"><span class="post-toc-text">子查询</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四-集合运算"><span class="post-toc-text">四. 集合运算</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#五-数据库函数"><span class="post-toc-text">五. 数据库函数</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/29/Java复习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Java复习笔记</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="MySQL学习笔记" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/虚拟端口/">虚拟端口</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+  
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="150" height="300" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 200px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: 0px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/haru/haru.model.json",0.5)</script>
+  
+</body>
+</html>
