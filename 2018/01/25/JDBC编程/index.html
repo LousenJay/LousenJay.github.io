@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JDBC编程 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="JDBC（Java DataBase Connectivity,java数据库连接）是一种用于执行SQL语句的JavaAPI，可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。以下整理了JDBC连接MySQL数据库的常用步骤。 环境：Windows 7工具：MyEclipse 2017      mysql-connector-java-5.1.6.jar 一. JDBC">
+<meta name="keywords" content="MySQL,数据库,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JDBC编程">
+<meta property="og:url" content="http://www.lousenjay.info/2018/01/25/JDBC编程/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="JDBC（Java DataBase Connectivity,java数据库连接）是一种用于执行SQL语句的JavaAPI，可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。以下整理了JDBC连接MySQL数据库的常用步骤。 环境：Windows 7工具：MyEclipse 2017      mysql-connector-java-5.1.6.jar 一. JDBC">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-25T13:10:12.878Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JDBC编程">
+<meta name="twitter:description" content="JDBC（Java DataBase Connectivity,java数据库连接）是一种用于执行SQL语句的JavaAPI，可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。以下整理了JDBC连接MySQL数据库的常用步骤。 环境：Windows 7工具：MyEclipse 2017      mysql-connector-java-5.1.6.jar 一. JDBC">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-JDBC编程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      JDBC编程
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Java/">Java</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-01-25
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>JDBC（Java DataBase Connectivity,java数据库连接）是一种用于执行SQL语句的JavaAPI，可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。以下整理了JDBC连接MySQL数据库的常用步骤。</p>
+<p>环境：Windows 7<br>工具：MyEclipse 2017<br>      mysql-connector-java-5.1.6.jar</p>
+<h3 id="一-JDBC编程步骤"><a href="#一-JDBC编程步骤" class="headerlink" title="一. JDBC编程步骤"></a>一. JDBC编程步骤</h3><ol>
+<li><p>导包<br>在工程目录中创建lib文件夹，将下载好的JDBC放到该文件夹中，右键点击选择Bulid path，然后选择 Add to build path</p>
+</li>
+<li><p>加载驱动<br>Class.forName(“com.mysql.jdbc.Driver”);</p>
+</li>
+<li><p>获取数据库连接<br>Connection con = DriverManager.getConnection(url,user,password)<br>url=”mysql://hostname:3306/databasename”</p>
+</li>
+<li><p>通过Connection对象创建Statement对象</p>
+</li>
+</ol>
+<ul>
+<li>CreateStatement():创建基本的statement对象</li>
+<li>PrepareStatement(String sql):根据传入的sql语句创建预编译的Statement对象</li>
+<li>prepareCall(String sql):根据传入的sql语句创建CallableStatement对象</li>
+</ul>
+<p>推荐使用PreparedStatement创建<br>PreparedStatement ps = con.PrepareStatement(String sql);</p>
+<ol>
+<li>使用Statement执行SQL语句</li>
+</ol>
+<ul>
+<li>execute():可以执行任何SQL语句，但比较麻烦</li>
+<li>executeUpdate():主要用于执行DML和DDL语句。执行DML语句返回受影响的行数，执行DDL语句返回0</li>
+<li>executeQuery():只能执行查询语句，执行后返回代表查询结果的ResultSet对象</li>
+</ul>
+<p>ps.executeUpdate();<br>ps.executeQuery();</p>
+<ol>
+<li>操作结果集</li>
+</ol>
+<ul>
+<li>next()、previous()、first()、last()等移动记录指针的办法</li>
+<li>getXxx()方法获取记录指针指向行、特定列的值</li>
+</ul>
+<ol>
+<li>回收数据库资源<br>关闭ResultSet、Statement和Connection等资源</li>
+</ol>
+<h3 id="二-连接数据库并读取数据"><a href="#二-连接数据库并读取数据" class="headerlink" title="二. 连接数据库并读取数据"></a>二. 连接数据库并读取数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">package com.lousen.test_10;</div><div class="line"></div><div class="line">import java.sql.Connection;</div><div class="line">import java.sql.DriverManager;</div><div class="line">import java.sql.ResultSet;</div><div class="line">import java.sql.SQLException;</div><div class="line">import java.sql.Statement;</div><div class="line"></div><div class="line">public class SqlTest &#123;</div><div class="line">	public static void main(String[] args)&#123;</div><div class="line">		try &#123;</div><div class="line">			//1.加载MySQL驱动</div><div class="line">			Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</div><div class="line">			//2.获取数据库连接</div><div class="line">			Connection con = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/test?useSSL=false&quot;,&quot;lousen&quot;, &quot;1135497143&quot;);</div><div class="line">			if(!con.isClosed())&#123;</div><div class="line">				System.out.println(&quot;成功连接到MySQL数据库!&quot;);</div><div class="line">			&#125;</div><div class="line">			//3.创建statement类对象，用于执行SQL语句</div><div class="line">			Statement state = con.createStatement();</div><div class="line">			String sql = &quot;select * from employee&quot;;	//要执行的sql语句</div><div class="line">			//4.ResultSet类，用来存放获取的结果集</div><div class="line">			ResultSet rs = state.executeQuery(sql);</div><div class="line">			</div><div class="line">			while(rs.next())&#123;</div><div class="line">			String name = rs.getString(&quot;name&quot;);	//获取name这列数值</div><div class="line">				System.out.println(name);</div><div class="line">			&#125;</div><div class="line">			rs.close();</div><div class="line">			con.close();			</div><div class="line">		&#125; catch (ClassNotFoundException e) &#123;</div><div class="line">			//数据库驱动异常处理</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125; catch (SQLException e) &#123;</div><div class="line">			// 数据库连接异常处理</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="三-DML语句操作"><a href="#三-DML语句操作" class="headerlink" title="三. DML语句操作"></a>三. DML语句操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">package com.lousen.test_10;</div><div class="line"></div><div class="line">import java.sql.Connection;</div><div class="line">import java.sql.DriverManager;</div><div class="line">import java.sql.PreparedStatement;</div><div class="line">import java.text.DateFormat;</div><div class="line">import java.text.ParseException;</div><div class="line">import java.text.SimpleDateFormat;</div><div class="line">import java.util.Date;</div><div class="line">import java.sql.SQLException;</div><div class="line"></div><div class="line">public class SqlTest_3 &#123;</div><div class="line">	public static void main(String[] args) throws ParseException&#123;</div><div class="line">		try &#123;</div><div class="line">			Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</div><div class="line">			String url = &quot;jdbc:mysql://localhost:3306/test?useSSL=false&quot;;</div><div class="line">			String user = &quot;lousen&quot;;</div><div class="line">			String pwd = &quot;1135497143&quot;;</div><div class="line">			Connection con = DriverManager.getConnection(url,user,pwd);</div><div class="line">			String sql = &quot;insert into employee values(?,?,?,?,?,?)&quot;; //增</div><div class="line">			//String sql = &quot;update employee set name = ? ,posit_id=? where id = 9&quot;; //改</div><div class="line">			//String sql = &quot;delete from employee where id &gt; ?&quot;; //删</div><div class="line">			//预处理添加数据</div><div class="line">			PreparedStatement ps = con.prepareStatement(sql);</div><div class="line">			ps.setInt(1, 9); //设置参数1，即id=9</div><div class="line">			ps.setString(2,&quot;蒂花之秀&quot;);</div><div class="line">			ps.setString(3,&quot;男&quot;);</div><div class="line">			DateFormat dateFormat2 = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</div><div class="line">			Date myDate2 = dateFormat2.parse(&quot;1993-09-13&quot;);</div><div class="line">			ps.setDate(4,new java.sql.Date(myDate2.getTime()));</div><div class="line">			ps.setInt(5,24);</div><div class="line">			ps.setInt(6, 8);</div><div class="line">			ps.executeUpdate(); //执行更新</div><div class="line">		&#125; catch (ClassNotFoundException e) &#123;</div><div class="line">			// TODO Auto-generated catch block</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125; catch (SQLException e) &#123;</div><div class="line">			// TODO Auto-generated catch block</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="四-DDL语句操作"><a href="#四-DDL语句操作" class="headerlink" title="四. DDL语句操作"></a>四. DDL语句操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">package com.lousen.test_10;</div><div class="line"></div><div class="line">import java.sql.Connection;</div><div class="line">import java.sql.DriverManager;</div><div class="line">import java.sql.PreparedStatement;</div><div class="line">import java.sql.SQLException;</div><div class="line"></div><div class="line">public class SqlTest_6 &#123;</div><div class="line">	public static void main(String[] args)&#123;</div><div class="line">			</div><div class="line">			try &#123;</div><div class="line">				Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</div><div class="line">				Connection con = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/test?useSSL=false&quot;,&quot;lousen&quot;, &quot;1135497143&quot;);</div><div class="line">				</div><div class="line">				//String sql = &quot;create table test_3(id int primary key,name varchar(255) not null)&quot;; //建表</div><div class="line">				//String sql = &quot;alter table test_3 add (sex varchar(10) default &apos;男&apos;)&quot;; //修改表</div><div class="line">				String sql = &quot;drop table test_3&quot;;	//删除表</div><div class="line">				PreparedStatement ps = con.prepareStatement(sql);</div><div class="line">				System.out.println(ps.executeUpdate()); //执行更新并输出受影响的行数</div><div class="line">			&#125; catch (ClassNotFoundException e) &#123;</div><div class="line">				// TODO Auto-generated catch block</div><div class="line">				e.printStackTrace();</div><div class="line">			&#125; catch (SQLException e) &#123;</div><div class="line">				// TODO Auto-generated catch block</div><div class="line">				e.printStackTrace();</div><div class="line">			&#125;</div><div class="line">			</div><div class="line">		&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年01月25日 21:10</p>
+        <p>原始链接： <a class="post-url" href="/2018/01/25/JDBC编程/" title="JDBC编程">http://www.lousenjay.info/2018/01/25/JDBC编程/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/01/25/JDBC编程/&title=《JDBC编程》 — 若闲小阁&pic=http://wx3.sinaimg.cn/large/a10c01f6gy1fkoj5ryh9lj20ci069753.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/01/25/JDBC编程/&title=《JDBC编程》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/01/25/JDBC编程/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JDBC编程》 — 若闲小阁&url=http://www.lousenjay.info/2018/01/25/JDBC编程/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/01/25/JDBC编程/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/01/25/JDBC编程/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/MySQL/" class="color1">MySQL</a>
+      
+    <a href="/tags/数据库/" class="color4">数据库</a>
+      
+    <a href="/tags/Java/" class="color5">Java</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一-JDBC编程步骤"><span class="post-toc-text">一. JDBC编程步骤</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二-连接数据库并读取数据"><span class="post-toc-text">二. 连接数据库并读取数据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三-DML语句操作"><span class="post-toc-text">三. DML语句操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四-DDL语句操作"><span class="post-toc-text">四. DDL语句操作</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/01/25/MySQL学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">MySQL学习笔记</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="JDBC编程" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/虚拟端口/">虚拟端口</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+  
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="150" height="300" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 200px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: 0px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/haru/haru.model.json",0.5)</script>
+  
+</body>
+</html>

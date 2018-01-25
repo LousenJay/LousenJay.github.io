@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，故一般中小型网站的开发都选择MySQL作为网站数据库。以下为，自学途中整理的一些笔记以及遇到的一些问题。 一. 用户授权在使用MySQL的过程中，MySQL本身已经创建了一个root用户，如果想自己建立一个用户，需给">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-01-25T12:22:45.153Z">
+<meta property="og:updated_time" content="2018-01-25T12:29:36.137Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL学习笔记">
 <meta name="twitter:description" content="MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，故一般中小型网站的开发都选择MySQL作为网站数据库。以下为，自学途中整理的一些笔记以及遇到的一些问题。 一. 用户授权在使用MySQL的过程中，MySQL本身已经创建了一个root用户，如果想自己建立一个用户，需给">
@@ -152,21 +152,23 @@
       
             
             <p>MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，故一般中小型网站的开发都选择MySQL作为网站数据库。以下为，自学途中整理的一些笔记以及遇到的一些问题。</p>
-<h3 id="一-用户授权"><a href="#一-用户授权" class="headerlink" title="一. 用户授权"></a>一. 用户授权</h3><pre><code>在使用MySQL的过程中，MySQL本身已经创建了一个root用户，如果想自己建立一个用户，需给该用户分配一定的权限。
-1. 创建用户 create user &apos;username&apos;@&apos;host&apos; identified by &apos;password&apos;
-2. 授权 grant all privileges on *.* to &apos;username&apos;@&apos;host&apos; identified by &apos;password&apos; with grant option
-3. 设置或更改密码 set password for &apos;username&apos;@&apos;host&apos;=password(&quot;newpassword&quot;)
-4. 撤销用户权限 revoke privilege on databasename.tablename from &apos;username&apos;@&apos;host&apos;
-5. 查看权限 show grants for &apos;username&apos;@&apos;host&apos;
-6. 删除用户 drop user &apos;username&apos;@&apos;host&apos;
-</code></pre><h3 id="二-SQL语句介绍"><a href="#二-SQL语句介绍" class="headerlink" title="二. SQL语句介绍"></a>二. SQL语句介绍</h3><ul>
+<h3 id="一-用户授权"><a href="#一-用户授权" class="headerlink" title="一. 用户授权"></a>一. 用户授权</h3><p>在使用MySQL的过程中，MySQL本身已经创建了一个root用户，如果想自己建立一个用户，需给该用户分配一定的权限。</p>
+<ol>
+<li>创建用户 create user ‘username’@’host’ identified by ‘password’</li>
+<li>授权 grant all privileges on <em>.</em> to ‘username’@’host’ identified by ‘password’ with grant option</li>
+<li>设置或更改密码 set password for ‘username’@’host’=password(“newpassword”)</li>
+<li>撤销用户权限 revoke privilege on databasename.tablename from ‘username’@’host’</li>
+<li>查看权限 show grants for ‘username’@’host’</li>
+<li>删除用户 drop user ‘username’@’host’</li>
+</ol>
+<h3 id="二-SQL语句介绍"><a href="#二-SQL语句介绍" class="headerlink" title="二. SQL语句介绍"></a>二. SQL语句介绍</h3><ul>
 <li>查询语句：select</li>
 <li>DML语句：insert、update、delete</li>
 <li>DDL语句：create、alter、drop、truncate</li>
 <li>DCL语句：grant、revoke</li>
 <li>事务控制语句：commit、rollback、savepoint</li>
 </ul>
-<h4 id="DDL语句"><a href="#DDL语句" class="headerlink" title="DDL语句"></a>DDL语句</h4><p>DDl语句是操作数据库对象的语句<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#建表语句</div><div class="line">create table test(</div><div class="line"> id int primary key,</div><div class="line"> price decimal,</div><div class="line"> name varchar(255),</div><div class="line"> date datetime,</div><div class="line"> message text</div><div class="line">)</div><div class="line"></div><div class="line">修改表结构语句</div><div class="line">#增加列定义</div><div class="line">alter table test</div><div class="line">add(</div><div class="line">sex varchar(10) default &apos;男&apos;</div><div class="line">)</div><div class="line"></div><div class="line">#修改列定义</div><div class="line">alter table test</div><div class="line">modify id varchar(255) primary key</div><div class="line"></div><div class="line">#删除列定义</div><div class="line">alter table test</div><div class="line">drop sex</div><div class="line"></div><div class="line">#重命名数据表</div><div class="line">alter table test</div><div class="line">rename to test_2</div></pre></td></tr></table></figure></p>
+<h4 id="DDL语句"><a href="#DDL语句" class="headerlink" title="DDL语句"></a>DDL语句</h4><p>DDL语句是操作数据库对象的语句<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#建表语句</div><div class="line">create table test(</div><div class="line"> id int primary key,</div><div class="line"> price decimal,</div><div class="line"> name varchar(255),</div><div class="line"> date datetime,</div><div class="line"> message text</div><div class="line">)</div><div class="line"></div><div class="line">修改表结构语句</div><div class="line">#增加列定义</div><div class="line">alter table test</div><div class="line">add(</div><div class="line">sex varchar(10) default &apos;男&apos;</div><div class="line">)</div><div class="line"></div><div class="line">#修改列定义</div><div class="line">alter table test</div><div class="line">modify id varchar(255) primary key</div><div class="line"></div><div class="line">#删除列定义</div><div class="line">alter table test</div><div class="line">drop sex</div><div class="line"></div><div class="line">#重命名数据表</div><div class="line">alter table test</div><div class="line">rename to test_2</div></pre></td></tr></table></figure></p>
 <h4 id="数据库约束"><a href="#数据库约束" class="headerlink" title="数据库约束"></a>数据库约束</h4><ul>
 <li>not null</li>
 <li>unique</li>
@@ -231,7 +233,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年01月25日 20:22</p>
+        <p>最后更新： 2018年01月25日 20:29</p>
         <p>原始链接： <a class="post-url" href="/2018/01/25/MySQL学习笔记/" title="MySQL学习笔记">http://www.lousenjay.info/2018/01/25/MySQL学习笔记/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
@@ -321,6 +323,16 @@
 
 <nav id="article-nav">
   
+    <a href="/2018/01/25/JDBC编程/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          JDBC编程
+        
+      </span>
+    </a>
+  
   
     <a href="/2017/10/29/Java复习笔记/" id="article-nav-older" class="article-nav-link-wrap">
       <span class="article-nav-title">Java复习笔记</span>
@@ -396,7 +408,7 @@
             <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/虚拟端口/">虚拟端口</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
+            <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -435,7 +447,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
+            <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
         </div>
     </div>
 </div>
