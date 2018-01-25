@@ -8,18 +8,18 @@
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="JDBC（Java DataBase Connectivity,java数据库连接）是一种用于执行SQL语句的JavaAPI，可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。以下整理了JDBC连接MySQL数据库的常用步骤。 环境：Windows 7工具：MyEclipse 2017      mysql-connector-java-5.1.6.jar 一. JDBC">
-<meta name="keywords" content="MySQL,数据库,Java">
+  <meta name="description" content="JDBC（Java DataBase Connectivity,java数据库连接）是一种用于执行SQL语句的JavaAPI，可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。以下整理了JDBC连接MySQL数据库的常用步骤。 环境：Windows 7工具：    MyEclipse 2017    mysql-connector-java-5.1.6.jar 一. JD">
+<meta name="keywords" content="Java,MySQL,数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JDBC编程">
 <meta property="og:url" content="http://www.lousenjay.info/2018/01/25/JDBC编程/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="JDBC（Java DataBase Connectivity,java数据库连接）是一种用于执行SQL语句的JavaAPI，可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。以下整理了JDBC连接MySQL数据库的常用步骤。 环境：Windows 7工具：MyEclipse 2017      mysql-connector-java-5.1.6.jar 一. JDBC">
+<meta property="og:description" content="JDBC（Java DataBase Connectivity,java数据库连接）是一种用于执行SQL语句的JavaAPI，可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。以下整理了JDBC连接MySQL数据库的常用步骤。 环境：Windows 7工具：    MyEclipse 2017    mysql-connector-java-5.1.6.jar 一. JD">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-01-25T13:10:12.878Z">
+<meta property="og:updated_time" content="2018-01-25T13:14:29.814Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JDBC编程">
-<meta name="twitter:description" content="JDBC（Java DataBase Connectivity,java数据库连接）是一种用于执行SQL语句的JavaAPI，可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。以下整理了JDBC连接MySQL数据库的常用步骤。 环境：Windows 7工具：MyEclipse 2017      mysql-connector-java-5.1.6.jar 一. JDBC">
+<meta name="twitter:description" content="JDBC（Java DataBase Connectivity,java数据库连接）是一种用于执行SQL语句的JavaAPI，可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。以下整理了JDBC连接MySQL数据库的常用步骤。 环境：Windows 7工具：    MyEclipse 2017    mysql-connector-java-5.1.6.jar 一. JD">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -152,48 +152,36 @@
       
             
             <p>JDBC（Java DataBase Connectivity,java数据库连接）是一种用于执行SQL语句的JavaAPI，可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。以下整理了JDBC连接MySQL数据库的常用步骤。</p>
-<p>环境：Windows 7<br>工具：MyEclipse 2017<br>      mysql-connector-java-5.1.6.jar</p>
-<h3 id="一-JDBC编程步骤"><a href="#一-JDBC编程步骤" class="headerlink" title="一. JDBC编程步骤"></a>一. JDBC编程步骤</h3><ol>
-<li><p>导包<br>在工程目录中创建lib文件夹，将下载好的JDBC放到该文件夹中，右键点击选择Bulid path，然后选择 Add to build path</p>
-</li>
-<li><p>加载驱动<br>Class.forName(“com.mysql.jdbc.Driver”);</p>
-</li>
-<li><p>获取数据库连接<br>Connection con = DriverManager.getConnection(url,user,password)<br>url=”mysql://hostname:3306/databasename”</p>
-</li>
-<li><p>通过Connection对象创建Statement对象</p>
-</li>
-</ol>
+<p>环境：Windows 7<br>工具：<br>    MyEclipse 2017<br>    mysql-connector-java-5.1.6.jar</p>
+<h3 id="一-JDBC编程步骤"><a href="#一-JDBC编程步骤" class="headerlink" title="一. JDBC编程步骤"></a>一. JDBC编程步骤</h3><p>1.导包<br>在工程目录中创建lib文件夹，将下载好的JDBC放到该文件夹中，右键点击选择Bulid path，然后选择 Add to build path</p>
+<p>2.加载驱动<br>Class.forName(“com.mysql.jdbc.Driver”);</p>
+<p>3.获取数据库连接<br>Connection con = DriverManager.getConnection(url,user,password)<br>url=”mysql://hostname:3306/databasename”</p>
+<p>4.通过Connection对象创建Statement对象</p>
 <ul>
 <li>CreateStatement():创建基本的statement对象</li>
 <li>PrepareStatement(String sql):根据传入的sql语句创建预编译的Statement对象</li>
 <li>prepareCall(String sql):根据传入的sql语句创建CallableStatement对象</li>
 </ul>
 <p>推荐使用PreparedStatement创建<br>PreparedStatement ps = con.PrepareStatement(String sql);</p>
-<ol>
-<li>使用Statement执行SQL语句</li>
-</ol>
+<p>5.使用Statement执行SQL语句</p>
 <ul>
 <li>execute():可以执行任何SQL语句，但比较麻烦</li>
 <li>executeUpdate():主要用于执行DML和DDL语句。执行DML语句返回受影响的行数，执行DDL语句返回0</li>
 <li>executeQuery():只能执行查询语句，执行后返回代表查询结果的ResultSet对象</li>
 </ul>
 <p>ps.executeUpdate();<br>ps.executeQuery();</p>
-<ol>
-<li>操作结果集</li>
-</ol>
+<p>6.操作结果集</p>
 <ul>
 <li>next()、previous()、first()、last()等移动记录指针的办法</li>
 <li>getXxx()方法获取记录指针指向行、特定列的值</li>
 </ul>
-<ol>
-<li>回收数据库资源<br>关闭ResultSet、Statement和Connection等资源</li>
-</ol>
+<p>7.回收数据库资源<br>关闭ResultSet、Statement和Connection等资源</p>
 <h3 id="二-连接数据库并读取数据"><a href="#二-连接数据库并读取数据" class="headerlink" title="二. 连接数据库并读取数据"></a>二. 连接数据库并读取数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">package com.lousen.test_10;</div><div class="line"></div><div class="line">import java.sql.Connection;</div><div class="line">import java.sql.DriverManager;</div><div class="line">import java.sql.ResultSet;</div><div class="line">import java.sql.SQLException;</div><div class="line">import java.sql.Statement;</div><div class="line"></div><div class="line">public class SqlTest &#123;</div><div class="line">	public static void main(String[] args)&#123;</div><div class="line">		try &#123;</div><div class="line">			//1.加载MySQL驱动</div><div class="line">			Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</div><div class="line">			//2.获取数据库连接</div><div class="line">			Connection con = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/test?useSSL=false&quot;,&quot;lousen&quot;, &quot;1135497143&quot;);</div><div class="line">			if(!con.isClosed())&#123;</div><div class="line">				System.out.println(&quot;成功连接到MySQL数据库!&quot;);</div><div class="line">			&#125;</div><div class="line">			//3.创建statement类对象，用于执行SQL语句</div><div class="line">			Statement state = con.createStatement();</div><div class="line">			String sql = &quot;select * from employee&quot;;	//要执行的sql语句</div><div class="line">			//4.ResultSet类，用来存放获取的结果集</div><div class="line">			ResultSet rs = state.executeQuery(sql);</div><div class="line">			</div><div class="line">			while(rs.next())&#123;</div><div class="line">			String name = rs.getString(&quot;name&quot;);	//获取name这列数值</div><div class="line">				System.out.println(name);</div><div class="line">			&#125;</div><div class="line">			rs.close();</div><div class="line">			con.close();			</div><div class="line">		&#125; catch (ClassNotFoundException e) &#123;</div><div class="line">			//数据库驱动异常处理</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125; catch (SQLException e) &#123;</div><div class="line">			// 数据库连接异常处理</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="三-DML语句操作"><a href="#三-DML语句操作" class="headerlink" title="三. DML语句操作"></a>三. DML语句操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">package com.lousen.test_10;</div><div class="line"></div><div class="line">import java.sql.Connection;</div><div class="line">import java.sql.DriverManager;</div><div class="line">import java.sql.PreparedStatement;</div><div class="line">import java.text.DateFormat;</div><div class="line">import java.text.ParseException;</div><div class="line">import java.text.SimpleDateFormat;</div><div class="line">import java.util.Date;</div><div class="line">import java.sql.SQLException;</div><div class="line"></div><div class="line">public class SqlTest_3 &#123;</div><div class="line">	public static void main(String[] args) throws ParseException&#123;</div><div class="line">		try &#123;</div><div class="line">			Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</div><div class="line">			String url = &quot;jdbc:mysql://localhost:3306/test?useSSL=false&quot;;</div><div class="line">			String user = &quot;lousen&quot;;</div><div class="line">			String pwd = &quot;1135497143&quot;;</div><div class="line">			Connection con = DriverManager.getConnection(url,user,pwd);</div><div class="line">			String sql = &quot;insert into employee values(?,?,?,?,?,?)&quot;; //增</div><div class="line">			//String sql = &quot;update employee set name = ? ,posit_id=? where id = 9&quot;; //改</div><div class="line">			//String sql = &quot;delete from employee where id &gt; ?&quot;; //删</div><div class="line">			//预处理添加数据</div><div class="line">			PreparedStatement ps = con.prepareStatement(sql);</div><div class="line">			ps.setInt(1, 9); //设置参数1，即id=9</div><div class="line">			ps.setString(2,&quot;蒂花之秀&quot;);</div><div class="line">			ps.setString(3,&quot;男&quot;);</div><div class="line">			DateFormat dateFormat2 = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</div><div class="line">			Date myDate2 = dateFormat2.parse(&quot;1993-09-13&quot;);</div><div class="line">			ps.setDate(4,new java.sql.Date(myDate2.getTime()));</div><div class="line">			ps.setInt(5,24);</div><div class="line">			ps.setInt(6, 8);</div><div class="line">			ps.executeUpdate(); //执行更新</div><div class="line">		&#125; catch (ClassNotFoundException e) &#123;</div><div class="line">			// TODO Auto-generated catch block</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125; catch (SQLException e) &#123;</div><div class="line">			// TODO Auto-generated catch block</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="四-DDL语句操作"><a href="#四-DDL语句操作" class="headerlink" title="四. DDL语句操作"></a>四. DDL语句操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">package com.lousen.test_10;</div><div class="line"></div><div class="line">import java.sql.Connection;</div><div class="line">import java.sql.DriverManager;</div><div class="line">import java.sql.PreparedStatement;</div><div class="line">import java.sql.SQLException;</div><div class="line"></div><div class="line">public class SqlTest_6 &#123;</div><div class="line">	public static void main(String[] args)&#123;</div><div class="line">			</div><div class="line">			try &#123;</div><div class="line">				Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</div><div class="line">				Connection con = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/test?useSSL=false&quot;,&quot;lousen&quot;, &quot;1135497143&quot;);</div><div class="line">				</div><div class="line">				//String sql = &quot;create table test_3(id int primary key,name varchar(255) not null)&quot;; //建表</div><div class="line">				//String sql = &quot;alter table test_3 add (sex varchar(10) default &apos;男&apos;)&quot;; //修改表</div><div class="line">				String sql = &quot;drop table test_3&quot;;	//删除表</div><div class="line">				PreparedStatement ps = con.prepareStatement(sql);</div><div class="line">				System.out.println(ps.executeUpdate()); //执行更新并输出受影响的行数</div><div class="line">			&#125; catch (ClassNotFoundException e) &#123;</div><div class="line">				// TODO Auto-generated catch block</div><div class="line">				e.printStackTrace();</div><div class="line">			&#125; catch (SQLException e) &#123;</div><div class="line">				// TODO Auto-generated catch block</div><div class="line">				e.printStackTrace();</div><div class="line">			&#125;</div><div class="line">			</div><div class="line">		&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年01月25日 21:10</p>
+        <p>最后更新： 2018年01月25日 21:14</p>
         <p>原始链接： <a class="post-url" href="/2018/01/25/JDBC编程/" title="JDBC编程">http://www.lousenjay.info/2018/01/25/JDBC编程/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
@@ -263,11 +251,11 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
+    <a href="/tags/Java/" class="color5">Java</a>
+      
     <a href="/tags/MySQL/" class="color1">MySQL</a>
       
     <a href="/tags/数据库/" class="color4">数据库</a>
-      
-    <a href="/tags/Java/" class="color5">Java</a>
       
   </li>
 
@@ -286,6 +274,16 @@
     
 
 <nav id="article-nav">
+  
+    <a href="/2018/01/25/数据库连接池/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          数据库连接池
+        
+      </span>
+    </a>
   
   
     <a href="/2018/01/25/MySQL学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
@@ -362,7 +360,7 @@
             <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/虚拟端口/">虚拟端口</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
+            <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -401,7 +399,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
+            <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
         </div>
     </div>
 </div>
