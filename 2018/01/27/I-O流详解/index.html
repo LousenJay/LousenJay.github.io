@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>I/O流详解 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="Java的IO流是实现输入/输出流的基础，它可以方便的实现数据的输入/输出操作，在Java中把不同的输入输出源（键盘、文件、网络连接等）抽象描述为流，通过流的方式允许Java程序使用相同的方式来访问不同的输入/输出源。 一. 流的分类 输入流和输出流（根据内存判断） 字节流和字符流（8位字节和16位字符） 节点流和处理流（包装流）  InputStream/Reader （读取）所有输入流的基类，">
+<meta name="keywords" content="I&#x2F;O">
+<meta property="og:type" content="article">
+<meta property="og:title" content="I&#x2F;O流详解">
+<meta property="og:url" content="http://www.lousenjay.info/2018/01/27/I-O流详解/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="Java的IO流是实现输入/输出流的基础，它可以方便的实现数据的输入/输出操作，在Java中把不同的输入输出源（键盘、文件、网络连接等）抽象描述为流，通过流的方式允许Java程序使用相同的方式来访问不同的输入/输出源。 一. 流的分类 输入流和输出流（根据内存判断） 字节流和字符流（8位字节和16位字符） 节点流和处理流（包装流）  InputStream/Reader （读取）所有输入流的基类，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-27T12:17:43.549Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="I&#x2F;O流详解">
+<meta name="twitter:description" content="Java的IO流是实现输入/输出流的基础，它可以方便的实现数据的输入/输出操作，在Java中把不同的输入输出源（键盘、文件、网络连接等）抽象描述为流，通过流的方式允许Java程序使用相同的方式来访问不同的输入/输出源。 一. 流的分类 输入流和输出流（根据内存判断） 字节流和字符流（8位字节和16位字符） 节点流和处理流（包装流）  InputStream/Reader （读取）所有输入流的基类，">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-I-O流详解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      I/O流详解
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Java/">Java</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-01-27
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>Java的IO流是实现输入/输出流的基础，它可以方便的实现数据的输入/输出操作，在Java中把不同的输入输出源（键盘、文件、网络连接等）抽象描述为流，通过流的方式允许Java程序使用相同的方式来访问不同的输入/输出源。</p>
+<h3 id="一-流的分类"><a href="#一-流的分类" class="headerlink" title="一. 流的分类"></a>一. 流的分类</h3><ul>
+<li>输入流和输出流（根据内存判断）</li>
+<li>字节流和字符流（8位字节和16位字符）</li>
+<li>节点流和处理流（包装流）</li>
+</ul>
+<p>InputStream/Reader （读取）<br>所有输入流的基类，前者是字节输入流，后者是字符输入流</p>
+<p>OutputStream/Writer （写入）<br>所有输出流的基类，前者是字节输出流，后者是字符输出流</p>
+<h3 id="二-FileInputStream和FileOutputStream（字节流）"><a href="#二-FileInputStream和FileOutputStream（字节流）" class="headerlink" title="二. FileInputStream和FileOutputStream（字节流）"></a>二. FileInputStream和FileOutputStream（字节流）</h3><p>FileInputStream：从本地磁盘读取字节数据。<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//创建字节输入流，即要读取的文件</div><div class="line">FileInputStream fis  = new FileInputStream(&quot;D:\\学习\\Java\\b\\a.txt&quot;);</div><div class="line">//创建一个长度为1024的“竹筒”</div><div class="line">byte[] bbuf = new byte[1024];</div><div class="line">//用于保存实际读取的字节</div><div class="line">int hasRead = 0;</div><div class="line">//循环读取数据</div><div class="line">while((hasRead=fis.read(bbuf))&gt;0)&#123;</div><div class="line">	//将字节数组转换为字符串输入</div><div class="line">	System.out.println(new String(bbuf,0,hasRead));</div><div class="line">&#125;</div><div class="line">//关闭文件输入流</div><div class="line">fis.close();</div></pre></td></tr></table></figure></p>
+<p>FileOutputStream:将字节数据写到指定文件。如果文件存在则写到指定文件，如果目标文件不存在则自动创建该文件，如果目标文件所在目录也不存在，则报错<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">//用FileInputStream输入，FileOutputStream输出来实现文件复制</div><div class="line">try (FileInputStream fis = new FileInputStream(&quot;D:\\学习\\Java\\b\\a.txt&quot;);//从读取的文件</div><div class="line">		FileOutputStream fos = new FileOutputStream(&quot;D:\\学习\\Java\\b\\c.txt&quot;);//创建要写入的文件</div><div class="line">		)&#123;</div><div class="line">	byte[] buff = new byte[64];</div><div class="line">	int hasRead = 0;</div><div class="line">	//循环读取数据</div><div class="line">	while((hasRead = fis.read(buff))&gt;0)&#123;</div><div class="line">		//写入文件</div><div class="line">		fos.write(buff, 0, hasRead);</div><div class="line">	&#125;</div><div class="line">&#125; catch (FileNotFoundException e) &#123;</div><div class="line">	// TODO Auto-generated catch block</div><div class="line">	e.printStackTrace();</div><div class="line">&#125; catch (IOException e) &#123;</div><div class="line">	// TODO Auto-generated catch block</div><div class="line">	e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="三-FileReader和FileWriter（字符流）"><a href="#三-FileReader和FileWriter（字符流）" class="headerlink" title="三. FileReader和FileWriter（字符流）"></a>三. FileReader和FileWriter（字符流）</h3><p>FileReader：以字符为基本单读取文本文件<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//创建字符输入流，即要读取的文件</div><div class="line">FileReader fr  = new FileReader(&quot;D:\\学习\\Java\\b\\a.txt&quot;);</div><div class="line">//创建一个长度为32的“竹筒”</div><div class="line">char[] cbuf = new char[32];</div><div class="line">//用于保存实际读取的字符</div><div class="line">int hasRead = 0;</div><div class="line">//循环读取数据</div><div class="line">while((hasRead=fr.read(cbuf))&gt;0)&#123;</div><div class="line">	//将字符数组转换为字符串输入</div><div class="line">	System.out.println(new String(cbuf,0,hasRead));</div><div class="line">&#125;</div><div class="line">//关闭文件输入流</div><div class="line">fr.close();</div></pre></td></tr></table></figure></p>
+<p>FileWriter:将字符数据写入到文本文件<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">try (FileWriter fw = new FileWriter(&quot;D:\\学习\\Java\\b\\d.txt&quot;))</div><div class="line">&#123;		</div><div class="line">	fw.write(&quot;白日依山尽\r\n&quot;);</div><div class="line">	fw.write(&quot;黄河入海流\r\n&quot;);</div><div class="line">	fw.write(&quot;欲穷千里目\r\n&quot;);</div><div class="line">	fw.write(&quot;更上一层楼\r\n&quot;);	</div><div class="line">&#125; catch (IOException e) &#123;</div><div class="line">	// TODO Auto-generated catch block</div><div class="line">	e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="四-PrintStream和PrintWriter（处理流）"><a href="#四-PrintStream和PrintWriter（处理流）" class="headerlink" title="四. PrintStream和PrintWriter（处理流）"></a>四. PrintStream和PrintWriter（处理流）</h3><p>PrintStream：打印类，只能封装OutputStream类型的字节输出流<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">try(FileOutputStream fos = new FileOutputStream(&quot;D:\\学习\\Java\\b\\e.txt&quot;); //创建要写入的文件</div><div class="line">		PrintStream ps = new PrintStream(fos); //用PrintStream处理流来包装OutputStream</div><div class="line">		) &#123;</div><div class="line">	ps.print(&quot;成功&quot;); //用PrintStream直接写入数据</div><div class="line">&#125; catch (IOException e1) &#123;</div><div class="line">	// TODO Auto-generated catch block</div><div class="line">	e1.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>PrintWriter:打印类，既可封装OutputStream类型的字节输出流，也能封装Writer类型的字符输出流<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">try (FileWriter fw = new FileWriter(&quot;D:\\学习\\Java\\b\\f.txt&quot;); //创建写入的文件</div><div class="line">		PrintWriter pw = new PrintWriter(fw); //用PrintWriter处理流包装Writer</div><div class="line">		)&#123;			</div><div class="line">	pw.print(&quot;f测试成功&quot;); //直接写入数据</div><div class="line">&#125; catch (IOException e) &#123;</div><div class="line">	// TODO Auto-generated catch block</div><div class="line">	e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="五-BufferedReader和BufferedWriter（字符流）"><a href="#五-BufferedReader和BufferedWriter（字符流）" class="headerlink" title="五. BufferedReader和BufferedWriter（字符流）"></a>五. BufferedReader和BufferedWriter（字符流）</h3><p>BufferedReader:是从字符输入流中读取文本，将多个字符存入缓存提供读取字符、数据或行的有效方法。<br>BufferedWriter:将字符输出流缓冲后写出。（缓冲区容量可以在构造方法中指定）</p>
+<h3 id="六-InputStreamReader和OutputStreamWriter（转换流）"><a href="#六-InputStreamReader和OutputStreamWriter（转换流）" class="headerlink" title="六. InputStreamReader和OutputStreamWriter（转换流）"></a>六. InputStreamReader和OutputStreamWriter（转换流）</h3><p>InputStreamReader：将字节输入流转换成字符输入流<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">try(//将system.in（字节）对象转换为reader（字符）对象</div><div class="line">		InputStreamReader reader = new InputStreamReader(System.in);</div><div class="line">		//将普通的reader包装成BufferedReader</div><div class="line">		BufferedReader br = new BufferedReader(reader);</div><div class="line">		) &#123;</div><div class="line">	String line = null;</div><div class="line">	while((line = br.readLine())!=null)&#123;</div><div class="line">		if(line.equals(&quot;exit&quot;))&#123;</div><div class="line">			System.exit(1);</div><div class="line">		&#125;</div><div class="line">		System.out.println(&quot;输入的内容为：&quot;+ line);</div><div class="line">	&#125;		</div><div class="line">&#125; catch (Exception e) &#123;</div><div class="line">	// TODO Auto-generated catch block</div><div class="line">	e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>OutputStreamWriter：将字节输出流转换成字符输出流</p>
+<h3 id="七-重定向标准输入-输出"><a href="#七-重定向标准输入-输出" class="headerlink" title="七. 重定向标准输入/输出"></a>七. 重定向标准输入/输出</h3><p>在默认情况下，当程序通过System.in来获取输入时，实际上是从键盘读取输入，当程序通过System.out执行输出时，程序总是输出到屏幕<br>例：重定向到指定文件输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//设置输出文件路径</div><div class="line">try (PrintStream ps  = new PrintStream(new FileOutputStream(&quot;D:\\学习\\Java\\b\\g.txt&quot;));)&#123;</div><div class="line">	//将标准输出重定向到ps输出流</div><div class="line">	System.setOut(ps);			</div><div class="line">	System.out.println(&quot;g测试成功&quot;);			</div><div class="line">&#125; catch (IOException e) &#123;</div><div class="line">	// TODO Auto-generated catch block</div><div class="line">	e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>例：重定向到指定文件输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//设置要读取的文件路径</div><div class="line">try(FileInputStream fis = new FileInputStream(&quot;D:\\学习\\Java\\b\\g.txt&quot;)) &#123;	</div><div class="line">	//将标准输入重定向到fis输入流</div><div class="line">	System.setIn(fis);</div><div class="line">	Scanner sc  = new Scanner(System.in);</div><div class="line">	sc.useDelimiter(&quot;\n&quot;); //将回车符作为分隔符</div><div class="line">	while(sc.hasNext())&#123;</div><div class="line">		System.out.println(&quot;内容：&quot;+sc.next());</div><div class="line">	&#125;</div><div class="line">&#125; catch (FileNotFoundException e) &#123;</div><div class="line">	// TODO Auto-generated catch block</div><div class="line">	e.printStackTrace();</div><div class="line">&#125; catch (IOException e1) &#123;</div><div class="line">	// TODO Auto-generated catch block</div><div class="line">	e1.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="八-RandomAccessFile"><a href="#八-RandomAccessFile" class="headerlink" title="八. RandomAccessFile"></a>八. RandomAccessFile</h3><p>既可以读取文件内容，也可以向文件输出内容<br>任意访问，可以跳转到文件的任意地方读写数据<br>只能读写文件，不能读写其他IO节点</p>
+<p>例：读取文件指定位置后的数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">try &#123;</div><div class="line">	//设定要读取的文件</div><div class="line">	RandomAccessFile raf = new RandomAccessFile(&quot;D:\\学习\\Java\\b\\g.txt&quot;,&quot;r&quot;);</div><div class="line">	raf.seek(3); //从3字节处开始读取</div><div class="line">	byte[] buff = new byte[1024];</div><div class="line">	int hasRead = 0;</div><div class="line">	//循环读取</div><div class="line">	while((hasRead = raf.read(buff))&gt;0)&#123;</div><div class="line">		System.out.print(new String(buff,0,hasRead));</div><div class="line">	&#125;</div><div class="line">	raf.close();	</div><div class="line">&#125; catch (IOException e) &#123;</div><div class="line">	// TODO Auto-generated catch block</div><div class="line">	e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>例：向指定文件后面追加内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//设定要写入的文件</div><div class="line">try (RandomAccessFile raf = new RandomAccessFile(&quot;D:\\学习\\Java\\b\\g.txt&quot;,&quot;rw&quot;))&#123;</div><div class="line">	//指针跳转到当前文件结尾处开始写入	</div><div class="line">	raf.seek(raf.length());</div><div class="line">	raf.write(&quot;追加内容\r\n&quot;.getBytes());</div><div class="line">&#125; catch (IOException e) &#123;</div><div class="line">	// TODO Auto-generated catch block</div><div class="line">	e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>例：向文件指定位置插入插入数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">//使用临时文件来保存插入点后的数据</div><div class="line">File temp = File.createTempFile(&quot;temp&quot;, null);</div><div class="line">temp.deleteOnExit();	</div><div class="line">try (RandomAccessFile raf = new RandomAccessFile(fileName,&quot;rw&quot;); //设置项指定文件执行读写操作</div><div class="line">		FileOutputStream tempOut  = new FileOutputStream(temp); //向指定文件执行写入操作</div><div class="line">		FileInputStream tempIn = new FileInputStream(temp);		//向指定文件执行读取操作</div><div class="line">		)</div><div class="line">&#123;</div><div class="line">	raf.seek(pos); //跳转到文件指定点</div><div class="line">	/*将指定点后的数据保存到临时文件中*/</div><div class="line">	byte[] buff = new byte[32];</div><div class="line">	int hasRead = 0;</div><div class="line">	while((hasRead = raf.read(buff))&gt;0)&#123;</div><div class="line">		tempOut.write(buff,0,hasRead);	//从raf中读取数据到tempOut中去</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	raf.seek(pos); //重新的跳转到文件指定点</div><div class="line">	raf.write(insertContent.getBytes()); //将数据写入到指定点后面</div><div class="line">	//从临时文件tempIn中读取数据写入到raf文件中</div><div class="line">	while((hasRead = tempIn.read(buff))&gt;0)&#123;</div><div class="line">		raf.write(buff,0,hasRead);  </div><div class="line">	&#125;			</div><div class="line">&#125;	</div><div class="line">&#125;	</div><div class="line">public static void main(String[] args) throws IOException&#123;		</div><div class="line">insert(&quot;D:\\学习\\Java\\b\\g.txt&quot;,3,&quot;中间插入&quot;);		</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="九-对象序列化"><a href="#九-对象序列化" class="headerlink" title="九. 对象序列化"></a>九. 对象序列化</h3><p>对象序列化指将一个Java对象写入IO流中。对象的反序列化则指从IO流中恢复该Java对象。<br>序列化机制会把内存中的Java对象转换成与平台无关的二进制流，从而永久地保存在磁盘上或是通过网络传输到另一个网络节点。<br>为了使某个类是可序列化的，必须实现Serializable和Externalizable接口</p>
+<p>序列化对象<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">//建立一个普通的Java类Person实现了Serializable接口</div><div class="line">public class Person implements java.io.Serializable &#123;</div><div class="line">	private String name;</div><div class="line">	private int age;</div><div class="line">	public Person(String name,int age)&#123;</div><div class="line">		System.out.println(&quot;有参构造函数&quot;);</div><div class="line">		this.name = name;</div><div class="line">		this.age = age;</div><div class="line">	&#125;</div><div class="line">	public String getName() &#123;</div><div class="line">		return name;</div><div class="line">	&#125;</div><div class="line">	public void setName(String name) &#123;</div><div class="line">		this.name = name;</div><div class="line">	&#125;</div><div class="line">	public int getAge() &#123;</div><div class="line">		return age;</div><div class="line">	&#125;</div><div class="line">	public void setAge(int age) &#123;</div><div class="line">		this.age = age;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div><div class="line"></div><div class="line">public static void main(String[] args)&#123;</div><div class="line">	//创建一个ObjectOutputStream输出流</div><div class="line">	try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(&quot;D:\\学习\\Java\\b\\h.txt&quot;));)&#123;</div><div class="line">		Person per = new Person(&quot;孙悟空&quot;,500);</div><div class="line">		oos.writeObject(per); //将per对象写入输出流</div><div class="line">	&#125; catch (FileNotFoundException e) &#123;</div><div class="line">		// TODO Auto-generated catch block</div><div class="line">		e.printStackTrace();</div><div class="line">	&#125; catch (IOException e) &#123;</div><div class="line">		// TODO Auto-generated catch block</div><div class="line">		e.printStackTrace();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>反序列化对象<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public static void main(String[] args) throws ClassNotFoundException&#123;</div><div class="line">	//创建一个ObjectInputStream输入流</div><div class="line">	try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(&quot;D:\\学习\\Java\\b\\h.txt&quot;));)&#123;</div><div class="line">		Person per = (Person)ois.readObject(); //从输入流读取一个java对象，并强制转换为Person类型</div><div class="line">		System.out.println(&quot;名字：&quot;+per.getName()+&quot;\n年龄：&quot;+per.getAge());</div><div class="line">	&#125; catch (FileNotFoundException e) &#123;</div><div class="line">		// TODO Auto-generated catch block</div><div class="line">		e.printStackTrace();</div><div class="line">	&#125; catch (IOException e) &#123;</div><div class="line">		// TODO Auto-generated catch block</div><div class="line">		e.printStackTrace();</div><div class="line">	&#125;		</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>序列化机制算法<br>1.所有保存到磁盘中的对象都有一个序列化编号。　<br>2.当程序试图序列化一个对象时，程序先检查该对象是否已经被序列化过。如果从未被序列化过，系统就会将该对象转换成字节序列并输出。如果已经序列化过，将直接输出一个序列化编号。</p>
+<p>序列化对象注意事项<br>1.对象的类名、属性都会被序列化；而方法、static属性（静态属性）、transient属性（即瞬态属性）都不会被序列化（这也就是第4条注意事项的原因）<br>2.虽然加static也能让某个属性不被序列化，但static不是这么用的<br>3.要序列化的对象的引用属性也必须是可序列化的，否则该对象不可序列化，除非以transient关键字修饰该属性使其不用序列化。<br>4.反序列化地象时必须有序列化对象生成的class文件（很多没有被序列化的数据需要从class文件获取）<br>5.当通过文件、网络来读取序列化后的对象时，必须按实际的写入顺序读取。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年01月27日 20:17</p>
+        <p>原始链接： <a class="post-url" href="/2018/01/27/I-O流详解/" title="I/O流详解">http://www.lousenjay.info/2018/01/27/I-O流详解/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/01/27/I-O流详解/&title=《I/O流详解》 — 若闲小阁&pic=http://wx4.sinaimg.cn/mw690/a10c01f6ly1fntsvqgrafj20ci069wfi.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/01/27/I-O流详解/&title=《I/O流详解》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/01/27/I-O流详解/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《I/O流详解》 — 若闲小阁&url=http://www.lousenjay.info/2018/01/27/I-O流详解/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/01/27/I-O流详解/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/01/27/I-O流详解/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/I/O/" class="color4">I/O</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一-流的分类"><span class="post-toc-text">一. 流的分类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二-FileInputStream和FileOutputStream（字节流）"><span class="post-toc-text">二. FileInputStream和FileOutputStream（字节流）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三-FileReader和FileWriter（字符流）"><span class="post-toc-text">三. FileReader和FileWriter（字符流）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四-PrintStream和PrintWriter（处理流）"><span class="post-toc-text">四. PrintStream和PrintWriter（处理流）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#五-BufferedReader和BufferedWriter（字符流）"><span class="post-toc-text">五. BufferedReader和BufferedWriter（字符流）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#六-InputStreamReader和OutputStreamWriter（转换流）"><span class="post-toc-text">六. InputStreamReader和OutputStreamWriter（转换流）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#七-重定向标准输入-输出"><span class="post-toc-text">七. 重定向标准输入/输出</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#八-RandomAccessFile"><span class="post-toc-text">八. RandomAccessFile</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#九-对象序列化"><span class="post-toc-text">九. 对象序列化</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/01/27/File类分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">File类分析</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="I-O流详解" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/计算机常识/">计算机常识</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 20px;">I/O</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/数据库/" style="font-size: 20px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 20px;">I/O</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/数据库/" style="font-size: 20px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+  
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="150" height="300" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 200px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: 0px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/haru/haru.model.json",0.5)</script>
+  
+</body>
+</html>

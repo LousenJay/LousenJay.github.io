@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>数据库连接池 | 若闲小阁</title>
+  <title>File类分析 | 若闲小阁</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="数据库连接池负责分配、管理和释放数据库连接，它允许应用程序重复使用一个现有的数据库连接，而不是再重新建立一个；释放空闲时间超过最大空闲时间的数据库连接来避免因为没有释放数据库连接而引起的数据库连接遗漏。这项技术能明显提高对数据库操作的性能。本文主要整理了C3P0数据源的数据库连接池的搭建。 环境：Windows 7工具：    MyEclipse 2017    mysql-connector-j">
-<meta name="keywords" content="数据库">
+  <meta name="description" content="如果希望在程序中操作文件和目录，都可以通过File类来实现。File能新建、删除、重命名文件和目录，File不能访问文件内容本身。如果需要访问文件内容本身，则需要使用I/O流。 一. 创建一个文件1234567891011//在工作空间目录下创建a.txt的文件    File f = new File(&amp;quot;a.txt&amp;quot;);     f.createNewFile();">
+<meta name="keywords" content="I&#x2F;O">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库连接池">
-<meta property="og:url" content="http://www.lousenjay.info/2018/01/25/数据库连接池/index.html">
+<meta property="og:title" content="File类分析">
+<meta property="og:url" content="http://www.lousenjay.info/2018/01/27/File类分析/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="数据库连接池负责分配、管理和释放数据库连接，它允许应用程序重复使用一个现有的数据库连接，而不是再重新建立一个；释放空闲时间超过最大空闲时间的数据库连接来避免因为没有释放数据库连接而引起的数据库连接遗漏。这项技术能明显提高对数据库操作的性能。本文主要整理了C3P0数据源的数据库连接池的搭建。 环境：Windows 7工具：    MyEclipse 2017    mysql-connector-j">
+<meta property="og:description" content="如果希望在程序中操作文件和目录，都可以通过File类来实现。File能新建、删除、重命名文件和目录，File不能访问文件内容本身。如果需要访问文件内容本身，则需要使用I/O流。 一. 创建一个文件1234567891011//在工作空间目录下创建a.txt的文件    File f = new File(&amp;quot;a.txt&amp;quot;);     f.createNewFile();">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-01-27T12:17:03.893Z">
+<meta property="og:updated_time" content="2018-01-27T12:17:23.581Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据库连接池">
-<meta name="twitter:description" content="数据库连接池负责分配、管理和释放数据库连接，它允许应用程序重复使用一个现有的数据库连接，而不是再重新建立一个；释放空闲时间超过最大空闲时间的数据库连接来避免因为没有释放数据库连接而引起的数据库连接遗漏。这项技术能明显提高对数据库操作的性能。本文主要整理了C3P0数据源的数据库连接池的搭建。 环境：Windows 7工具：    MyEclipse 2017    mysql-connector-j">
+<meta name="twitter:title" content="File类分析">
+<meta name="twitter:description" content="如果希望在程序中操作文件和目录，都可以通过File类来实现。File能新建、删除、重命名文件和目录，File不能访问文件内容本身。如果需要访问文件内容本身，则需要使用I/O流。 一. 创建一个文件1234567891011//在工作空间目录下创建a.txt的文件    File f = new File(&amp;quot;a.txt&amp;quot;);     f.createNewFile();">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -115,14 +115,14 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-数据库连接池" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-File类分析" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      数据库连接池
+      File类分析
     </h1>
     <div class="post-title-bar">
       <ul>
@@ -135,7 +135,7 @@
               </li>
           
         <li>
-          <i class="fa fa-calendar"></i>  2018-01-25
+          <i class="fa fa-calendar"></i>  2018-01-27
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -151,16 +151,26 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>数据库连接池负责分配、管理和释放数据库连接，它允许应用程序重复使用一个现有的数据库连接，而不是再重新建立一个；释放空闲时间超过最大空闲时间的数据库连接来避免因为没有释放数据库连接而引起的数据库连接遗漏。这项技术能明显提高对数据库操作的性能。本文主要整理了C3P0数据源的数据库连接池的搭建。</p>
-<p>环境：Windows 7<br>工具：<br>    MyEclipse 2017<br>    mysql-connector-java-5.1.6.jar</p>
-<p>一. 导包<br>需要导入以下两个包<br>c3po-0.905.2.jar:连接池的实现<br>mchange-commons-java-0.2.11.jar:连接池实现的依赖库</p>
-<p>二. 在src下创建c3p0-config.xml文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;c3p0-config&gt;  </div><div class="line">  &lt;default-config&gt;  </div><div class="line">    &lt;property name=&quot;driverClass&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;  </div><div class="line">    &lt;property name=&quot;jdbcUrl&quot;&gt;jdbc:mysql:///c3p0test&lt;/property&gt;  </div><div class="line">    &lt;property name=&quot;user&quot;&gt;root&lt;/property&gt;  </div><div class="line">    &lt;property name=&quot;password&quot;&gt;root&lt;/property&gt;  </div><div class="line">  &lt;/default-config&gt;  </div><div class="line">  </div><div class="line">  &lt;named-config name=&quot;mysql_test&quot;&gt;   //连接名</div><div class="line">    &lt;property name=&quot;driverClass&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;  </div><div class="line">    &lt;property name=&quot;jdbcUrl&quot;&gt;jdbc:mysql://localhost:3306/test?useSSL=false&lt;/property&gt;  </div><div class="line">    &lt;property name=&quot;user&quot;&gt;lousen&lt;/property&gt;  </div><div class="line">    &lt;property name=&quot;password&quot;&gt;1135497143&lt;/property&gt;  </div><div class="line">    &lt;property name=&quot;initialPoolSize&quot;&gt;10&lt;/property&gt;  //初始化连接数</div><div class="line">    &lt;property name=&quot;maxIdleTime&quot;&gt;30&lt;/property&gt;  //连接最大空闲时间</div><div class="line">    &lt;property name=&quot;maxPoolSize&quot;&gt;100&lt;/property&gt;  //最大连接数</div><div class="line">    &lt;property name=&quot;minPoolSize&quot;&gt;10&lt;/property&gt;  //最小连接数</div><div class="line">  &lt;/named-config&gt;  </div><div class="line">&lt;/c3p0-config&gt;</div></pre></td></tr></table></figure></p>
-<p>三. 使用数据库连接池<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">package com.lousen.test_10;</div><div class="line"></div><div class="line">import java.sql.Connection;</div><div class="line">import java.sql.SQLException;</div><div class="line"></div><div class="line">import com.mchange.v2.c3p0.ComboPooledDataSource;</div><div class="line"></div><div class="line">public class SqlTest_7 &#123;</div><div class="line">	public static ComboPooledDataSource ds = new ComboPooledDataSource(&quot;mysql_test&quot;);</div><div class="line">	public static void main(String[] args)&#123;</div><div class="line">		try &#123;</div><div class="line">			Connection con = ds.getConnection();</div><div class="line">			if(!con.isClosed())&#123;</div><div class="line">				System.out.println(&quot;数据库连接池连接成功！&quot;);</div><div class="line">			&#125;</div><div class="line">		&#125; catch (SQLException e) &#123;</div><div class="line">			// TODO Auto-generated catch block</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+            <p>如果希望在程序中操作文件和目录，都可以通过File类来实现。File能新建、删除、重命名文件和目录，File不能访问文件内容本身。如果需要访问文件内容本身，则需要使用I/O流。</p>
+<p>一. 创建一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//在工作空间目录下创建a.txt的文件</div><div class="line">    File f = new File(&quot;a.txt&quot;); </div><div class="line">    f.createNewFile(); </div><div class="line"></div><div class="line">    在G:\路径下创建一个a.txt的文件.如果已经有的话这不会重新创建</div><div class="line">    File f = new File(&quot;G:\\a.txt&quot;); </div><div class="line">    f.createNewFile();</div><div class="line"></div><div class="line">   如果路径写成\\a.txt,会在盘符下创建新的文件</div><div class="line">    File f = new File(&quot;\\a.txt&quot;); </div><div class="line">    f.createNewFile();</div></pre></td></tr></table></figure></p>
+<p>二. 创建一个文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">//在工作空间目录下创建a.txt的文件夹</div><div class="line">   File f = new File(&quot;a&quot;); </div><div class="line">   f.mkdir(); </div><div class="line"></div><div class="line">   在G:\路径下创建一个a.txt的文件夹.如果已经有的话这不会重新创建</div><div class="line">   File f = new File(&quot;G:\\a&quot;); </div><div class="line">   f.mkdir();</div><div class="line"></div><div class="line">   如果路径写成\\a.txt,会在盘符下创建新的文件夹</div><div class="line">   File f = new File(&quot;\\a&quot;); </div><div class="line">   f.mkdir();</div><div class="line"></div><div class="line">   在g盘下创建文件夹a,a 下创建一个b文件夹</div><div class="line">   File f = new File(&quot;G:\\a\\b&quot;); </div><div class="line">   f.mkdirs();   //注意mkdirs(),创建多个文件夹</div></pre></td></tr></table></figure></p>
+<p>三. 使用list()方法列出当前路径下的所有文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">File f =new File (&quot;D:\\学习\\Java\\b\\a&quot;);</div><div class="line">f.mkdirs();</div><div class="line">//列出当前路径下的所有文件</div><div class="line">String[] filelist = f.list();</div><div class="line">for (String filename : filelist)&#123;</div><div class="line">System.out.println(filename);</div><div class="line">	 &#125;</div></pre></td></tr></table></figure></p>
+<p>四. 文件名过滤器FilenameFilter<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">//在f1的文件夹中过滤出后缀名为&quot;txt&quot;的文件</div><div class="line">	public static void main(String[] args)&#123;</div><div class="line">		File f1 = new File(&quot;D:\\学习\\Java\\b&quot;);</div><div class="line">		String[] s = f1.list(new FilenameFilter() &#123;</div><div class="line">            public boolean accept(File dir, String name) &#123;</div><div class="line">                File f = new File(dir, name);</div><div class="line">                if (f.isDirectory()) &#123;</div><div class="line">                    return false;</div><div class="line">                &#125;</div><div class="line">                if (f.getName().endsWith(&quot;txt&quot;)) &#123;</div><div class="line">                    return true;</div><div class="line">                &#125;</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">		</div><div class="line">		for(String name : s)&#123;</div><div class="line">			System.out.println(name);</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>五. 文件过滤器FileFilter<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">//在f1文件夹中过滤出文件长度大于20KB的文件</div><div class="line">		File f1 = new File(&quot;D:\\学习\\Java\\b&quot;);</div><div class="line">		File[] fs = f1.listFiles(new FileFilter() &#123;</div><div class="line">		    public boolean accept(File pathname) &#123;</div><div class="line">			    if (pathname.length() &gt; 1024 * 20) &#123;</div><div class="line">			        return true;</div><div class="line">			    &#125;</div><div class="line">			        return false;</div><div class="line">			&#125;</div><div class="line">		&#125;);  </div><div class="line">		</div><div class="line">		for(File name : fs)&#123;</div><div class="line">			System.out.println(name);</div><div class="line">		&#125;</div></pre></td></tr></table></figure></p>
+<p>六. 其它一些常用方法</p>
+<ul>
+<li>f.delete();  //删除file</li>
+<li>f.exists();  //file是否存在</li>
+<li>f.getName(); //得到file名字</li>
+<li>f.isDirectory();  //file是否是文件夹</li>
+<li>f.isFile();    //file是否是文件</li>
+<li>f.length();   //file的长度</li>
+</ul>
 
             <div class="post-copyright">
     <div class="content">
         <p>最后更新： 2018年01月27日 20:17</p>
-        <p>原始链接： <a class="post-url" href="/2018/01/25/数据库连接池/" title="数据库连接池">http://www.lousenjay.info/2018/01/25/数据库连接池/</a></p>
+        <p>原始链接： <a class="post-url" href="/2018/01/27/File类分析/" title="File类分析">http://www.lousenjay.info/2018/01/27/File类分析/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
                 <img src="/images/logo.png" alt="Lousen Jay">
@@ -182,7 +192,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/01/25/数据库连接池/&title=《数据库连接池》 — 若闲小阁&pic=http://wx2.sinaimg.cn/mw690/a10c01f6ly1fntsvpb77qj20ci0690tf.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/01/27/File类分析/&title=《File类分析》 — 若闲小阁&pic=http://wx4.sinaimg.cn/mw690/a10c01f6ly1fntsvpyg9tj20ci069758.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -192,22 +202,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/01/25/数据库连接池/&title=《数据库连接池》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/01/27/File类分析/&title=《File类分析》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/01/25/数据库连接池/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/01/27/File类分析/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数据库连接池》 — 若闲小阁&url=http://www.lousenjay.info/2018/01/25/数据库连接池/&via=http://www.lousenjay.info" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《File类分析》 — 若闲小阁&url=http://www.lousenjay.info/2018/01/27/File类分析/&via=http://www.lousenjay.info" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/01/25/数据库连接池/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/01/27/File类分析/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -217,7 +227,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/01/25/数据库连接池/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/01/27/File类分析/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -229,7 +239,7 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/数据库/" class="color4">数据库</a>
+    <a href="/tags/I/O/" class="color4">I/O</a>
       
   </li>
 
@@ -243,19 +253,19 @@
 
 <nav id="article-nav">
   
-    <a href="/2018/01/27/File类分析/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/01/27/I-O流详解/" id="article-nav-newer" class="article-nav-link-wrap">
 
       <span class="article-nav-title">
         <i class="fa fa-hand-o-left" aria-hidden="true"></i>
         
-          File类分析
+          I/O流详解
         
       </span>
     </a>
   
   
-    <a href="/2018/01/25/JDBC编程/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">JDBC编程</span>
+    <a href="/2018/01/25/数据库连接池/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">数据库连接池</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
@@ -264,7 +274,7 @@
 
 
     
-        <div id="SOHUCS" sid="数据库连接池" ></div>
+        <div id="SOHUCS" sid="File类分析" ></div>
 <script type="text/javascript">
     (function(){
         var appid = 'cyti47zsk';
