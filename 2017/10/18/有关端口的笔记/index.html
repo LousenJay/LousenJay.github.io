@@ -8,13 +8,13 @@
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="端口可分为虚拟端口和物理端口，其中虚拟端口指计算机内部或交换机路由器内的端口，不可见。例如计算机中的80端口、21端口、23端口等。最近，在上传网站到服务器时，ftp一直登录不上去，曾一度怀疑是校园网禁掉了21端口，借此机会了解了有关端口的一些操作。 一. 如何查看端口win+R——cmd输入命令：netstat -ano，列出所有端口的情况  二. 如何关闭占用端口的进程确定对应端口的PID">
+  <meta name="description" content="端口可分为虚拟端口和物理端口，其中虚拟端口指计算机内部或交换机路由器内的端口，不可见。例如计算机中的80端口、21端口、23端口等。最近，在上传网站到服务器时，ftp一直登录不上去，曾一度怀疑是校园网禁掉了21端口，借此机会了解了有关端口的一些操作。 基本知识不同应用程序处理不同端口上的数据，同一台机器上不能有两个程序使用同一个端口，端口号可以从0~65535，通常分为以下三类：  公认端口：0~">
 <meta name="keywords" content="虚拟端口">
 <meta property="og:type" content="article">
 <meta property="og:title" content="虚拟端口">
 <meta property="og:url" content="http://www.lousenjay.info/2017/10/18/有关端口的笔记/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="端口可分为虚拟端口和物理端口，其中虚拟端口指计算机内部或交换机路由器内的端口，不可见。例如计算机中的80端口、21端口、23端口等。最近，在上传网站到服务器时，ftp一直登录不上去，曾一度怀疑是校园网禁掉了21端口，借此机会了解了有关端口的一些操作。 一. 如何查看端口win+R——cmd输入命令：netstat -ano，列出所有端口的情况  二. 如何关闭占用端口的进程确定对应端口的PID">
+<meta property="og:description" content="端口可分为虚拟端口和物理端口，其中虚拟端口指计算机内部或交换机路由器内的端口，不可见。例如计算机中的80端口、21端口、23端口等。最近，在上传网站到服务器时，ftp一直登录不上去，曾一度怀疑是校园网禁掉了21端口，借此机会了解了有关端口的一些操作。 基本知识不同应用程序处理不同端口上的数据，同一台机器上不能有两个程序使用同一个端口，端口号可以从0~65535，通常分为以下三类：  公认端口：0~">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://wx3.sinaimg.cn/mw690/a10c01f6gy1fkp33a3i10j20n90h540j.jpg">
 <meta property="og:image" content="http://wx2.sinaimg.cn/mw690/a10c01f6gy1fkp33b2ia3j20n90h5q4v.jpg">
@@ -26,10 +26,10 @@
 <meta property="og:image" content="http://wx4.sinaimg.cn/mw690/a10c01f6gy1fkp33esuvej20k80f50tn.jpg">
 <meta property="og:image" content="http://wx4.sinaimg.cn/mw690/a10c01f6gy1fkp33far4pj20k80f5751.jpg">
 <meta property="og:image" content="http://wx2.sinaimg.cn/mw690/a10c01f6gy1fkp33fpf4ej20cf0ep3za.jpg">
-<meta property="og:updated_time" content="2018-01-27T12:34:19.031Z">
+<meta property="og:updated_time" content="2018-02-04T06:24:23.021Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟端口">
-<meta name="twitter:description" content="端口可分为虚拟端口和物理端口，其中虚拟端口指计算机内部或交换机路由器内的端口，不可见。例如计算机中的80端口、21端口、23端口等。最近，在上传网站到服务器时，ftp一直登录不上去，曾一度怀疑是校园网禁掉了21端口，借此机会了解了有关端口的一些操作。 一. 如何查看端口win+R——cmd输入命令：netstat -ano，列出所有端口的情况  二. 如何关闭占用端口的进程确定对应端口的PID">
+<meta name="twitter:description" content="端口可分为虚拟端口和物理端口，其中虚拟端口指计算机内部或交换机路由器内的端口，不可见。例如计算机中的80端口、21端口、23端口等。最近，在上传网站到服务器时，ftp一直登录不上去，曾一度怀疑是校园网禁掉了21端口，借此机会了解了有关端口的一些操作。 基本知识不同应用程序处理不同端口上的数据，同一台机器上不能有两个程序使用同一个端口，端口号可以从0~65535，通常分为以下三类：  公认端口：0~">
 <meta name="twitter:image" content="http://wx3.sinaimg.cn/mw690/a10c01f6gy1fkp33a3i10j20n90h540j.jpg">
   
   
@@ -163,6 +163,12 @@
       
             
             <p>端口可分为虚拟端口和物理端口，其中虚拟端口指计算机内部或交换机路由器内的端口，不可见。例如计算机中的80端口、21端口、23端口等。最近，在上传网站到服务器时，ftp一直登录不上去，曾一度怀疑是校园网禁掉了21端口，借此机会了解了有关端口的一些操作。</p>
+<h3 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h3><p>不同应用程序处理不同端口上的数据，同一台机器上不能有两个程序使用同一个端口，端口号可以从0~65535，通常分为以下三类：</p>
+<ul>
+<li>公认端口：0~1023，它们紧密绑定一些特定的的服务</li>
+<li>注册端口：1024~49151，它们松散绑定一些服务。应用程序通常应该使用这个范围内的端口。</li>
+<li>动态和/或私有端口：49152~65535，这些端口是应用程序使用的动态端口，应用程序一般不会主动使用这些端口。</li>
+</ul>
 <h3 id="一-如何查看端口"><a href="#一-如何查看端口" class="headerlink" title="一. 如何查看端口"></a>一. 如何查看端口</h3><p>win+R——cmd<br>输入命令：netstat -ano，列出所有端口的情况</p>
 <p><img src="http://wx3.sinaimg.cn/mw690/a10c01f6gy1fkp33a3i10j20n90h540j.jpg" alt=""></p>
 <h3 id="二-如何关闭占用端口的进程"><a href="#二-如何关闭占用端口的进程" class="headerlink" title="二. 如何关闭占用端口的进程"></a>二. 如何关闭占用端口的进程</h3><p>确定对应端口的PID</p>
@@ -177,7 +183,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年01月27日 20:34</p>
+        <p>最后更新： 2018年02月04日 14:24</p>
         <p>原始链接： <a class="post-url" href="/2017/10/18/有关端口的笔记/" title="虚拟端口">http://www.lousenjay.info/2017/10/18/有关端口的笔记/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
@@ -260,7 +266,7 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一-如何查看端口"><span class="post-toc-text">一. 如何查看端口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二-如何关闭占用端口的进程"><span class="post-toc-text">二. 如何关闭占用端口的进程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三-如何开启端口（win7）"><span class="post-toc-text">三. 如何开启端口（win7）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四-如何关闭端口"><span class="post-toc-text">四. 如何关闭端口</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本知识"><span class="post-toc-text">基本知识</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一-如何查看端口"><span class="post-toc-text">一. 如何查看端口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二-如何关闭占用端口的进程"><span class="post-toc-text">二. 如何关闭占用端口的进程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三-如何开启端口（win7）"><span class="post-toc-text">三. 如何开启端口（win7）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四-如何关闭端口"><span class="post-toc-text">四. 如何关闭端口</span></a></li></ol>
         </nav>
     </aside>
     
@@ -352,7 +358,7 @@
             <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/计算机/">计算机</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 15px;">I/O</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+            <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 15px;">I/O</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -391,7 +397,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 15px;">I/O</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+            <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 15px;">I/O</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
         </div>
     </div>
 </div>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>多线程学习笔记 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="进程是处于运行过程中的程序，并具有一定的独立功能；线程是进程的组成部分，一个进程可以拥有多个线程，一个线程必须有一个父进程；操作系统可以同时执行多个任务，每个任务就是进程；就成可以同时执行多个任务，每个任务就是线程。 一. 线程的创建和启动 继承Thread类创建线程类 实现Runnable接口创建线程类 使用Callable和Future创建线程  二. 线程的生命周期分为新建、就绪、运行、阻塞">
+<meta name="keywords" content="Java,多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程学习笔记">
+<meta property="og:url" content="http://www.lousenjay.info/2018/02/04/多线程学习笔记/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="进程是处于运行过程中的程序，并具有一定的独立功能；线程是进程的组成部分，一个进程可以拥有多个线程，一个线程必须有一个父进程；操作系统可以同时执行多个任务，每个任务就是进程；就成可以同时执行多个任务，每个任务就是线程。 一. 线程的创建和启动 继承Thread类创建线程类 实现Runnable接口创建线程类 使用Callable和Future创建线程  二. 线程的生命周期分为新建、就绪、运行、阻塞">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/a10c01f6gy1fo4ildp1jwj20jk0agwf7.jpg">
+<meta property="og:updated_time" content="2018-02-04T09:06:13.876Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多线程学习笔记">
+<meta name="twitter:description" content="进程是处于运行过程中的程序，并具有一定的独立功能；线程是进程的组成部分，一个进程可以拥有多个线程，一个线程必须有一个父进程；操作系统可以同时执行多个任务，每个任务就是进程；就成可以同时执行多个任务，每个任务就是线程。 一. 线程的创建和启动 继承Thread类创建线程类 实现Runnable接口创建线程类 使用Callable和Future创建线程  二. 线程的生命周期分为新建、就绪、运行、阻塞">
+<meta name="twitter:image" content="http://wx1.sinaimg.cn/mw690/a10c01f6gy1fo4ildp1jwj20jk0agwf7.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-多线程学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      多线程学习笔记
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Java/">Java</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-02-04
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>进程是处于运行过程中的程序，并具有一定的独立功能；线程是进程的组成部分，一个进程可以拥有多个线程，一个线程必须有一个父进程；操作系统可以同时执行多个任务，每个任务就是进程；就成可以同时执行多个任务，每个任务就是线程。</p>
+<h3 id="一-线程的创建和启动"><a href="#一-线程的创建和启动" class="headerlink" title="一. 线程的创建和启动"></a>一. 线程的创建和启动</h3><ul>
+<li>继承Thread类创建线程类</li>
+<li>实现Runnable接口创建线程类</li>
+<li>使用Callable和Future创建线程</li>
+</ul>
+<h3 id="二-线程的生命周期"><a href="#二-线程的生命周期" class="headerlink" title="二. 线程的生命周期"></a>二. 线程的生命周期</h3><p>分为新建、就绪、运行、阻塞、死亡五个状态<br><img src="http://wx1.sinaimg.cn/mw690/a10c01f6gy1fo4ildp1jwj20jk0agwf7.jpg" alt="线程的生命周期"></p>
+<h3 id="三-线程的控制"><a href="#三-线程的控制" class="headerlink" title="三. 线程的控制"></a>三. 线程的控制</h3><ul>
+<li>join线程：让一个线程等待另一个线程完成的方法——join（）方法</li>
+<li>后台线程：在后台运行的，为其他线程提供服务</li>
+<li>线程睡眠：让当前正在执行的线程暂停一段时间，并进入阻塞状态，可通过调用Thread类的静态Sleep（）方法实现</li>
+<li>线程让步：让当前正在执行的线程暂停，并转入就绪状态，可以通过调用Thread类的静态yield（）方法实现</li>
+<li>改变线程优先级：每个线程执行时都具有一定的优先级，优先级高的线程获得较多的执行机会，而优先级低的线程则获得较少执行机会，可通过Thread类的SetPriority（）方法来设置</li>
+</ul>
+<h3 id="四-线程同步"><a href="#四-线程同步" class="headerlink" title="四. 线程同步"></a>四. 线程同步</h3><ol>
+<li>当时用多个线程来访问同一个数据时，很容易“偶然”出现线程安全问题</li>
+<li>为解决这个问题，Java的多线程支持引入同步监视器来解决这个问题，使用同步监视器的通用方法就是同步代码块</li>
+<li>与同步代码块对应，Java的多线程安全支持还提供了同步方法，同步方法就是使用Synchronized关键字来修饰某个方法</li>
+</ol>
+<h4 id="同步锁"><a href="#同步锁" class="headerlink" title="同步锁"></a>同步锁</h4><p>通过显示定义同步锁对象来实现同步，在这种机制下，同步锁由Lock对象充当。</p>
+<h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><p>当两个线程相互等待对方释放同步监视器时就会发生死锁。一旦发生死锁，整个程序既不会发生任何异常，也不会给出任何提示，只是所有线程处于阻塞状态，无法继续。</p>
+<h3 id="五-线程通信"><a href="#五-线程通信" class="headerlink" title="五. 线程通信"></a>五. 线程通信</h3><p>当线程在系统内运行时，线程的调度就有一定的透明性，程序通常无法准确控制线程的轮换执行，但Java也提供了一些机制来保证线程协调运行。</p>
+<p>综合实例：创建两个线程，一个线程打印1-52，另一个线程打印字母A-Z ，实现输出12A34B56C78D910E1112F1314G1516H1718I。。。。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">package com.lousen.duoxiancheng;</div><div class="line">/**</div><div class="line"> * 多线程</div><div class="line"> * 用java写两个线程，一个线程打印1-52，另一个线程打印字母A-Z </div><div class="line"> * 运行结果：12A34B56C78D910E1112F1314G1516H1718I。。。。</div><div class="line"> * */</div><div class="line">public class NotifyWait &#123;</div><div class="line">	public static void main(String[] args)&#123;</div><div class="line">		Object obj = new Object();</div><div class="line">		//启动两个线程</div><div class="line">		Thread1 t1 = new Thread1(obj);</div><div class="line">		Thread2 t2 = new Thread2(obj);</div><div class="line">		t1.start();</div><div class="line">		t2.start();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*创建线程1*/</div><div class="line">class Thread1 extends Thread &#123;</div><div class="line">	private Object obj;</div><div class="line">	public Thread1(Object obj)&#123;</div><div class="line">		this.obj = obj;</div><div class="line">	&#125;	</div><div class="line">	//重写run方法</div><div class="line">	public void run()&#123;</div><div class="line">		//加锁</div><div class="line">		synchronized(obj)&#123;</div><div class="line">			//打印1-52</div><div class="line">			for(int i = 1; i &lt; 53; i++ )&#123;</div><div class="line">				System.out.print(i);</div><div class="line">				if(i % 2 == 0)&#123;</div><div class="line">					//唤醒其他线程</div><div class="line">					obj.notifyAll();</div><div class="line">					try &#123;</div><div class="line">						obj.wait(); //释放对同步监视器的锁定</div><div class="line">					&#125; catch (InterruptedException e) &#123;</div><div class="line">						// TODO Auto-generated catch block</div><div class="line">						e.printStackTrace();</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*创建线程2*/</div><div class="line">class Thread2 extends Thread&#123;</div><div class="line">	Object obj = new Object();</div><div class="line">	public Thread2(Object obj)&#123;</div><div class="line">		this.obj = obj;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	//重写run方法</div><div class="line">	public void run()&#123;</div><div class="line">		//加锁</div><div class="line">		synchronized(obj)&#123;</div><div class="line">			//打印A-Z</div><div class="line">			for(int i = 0; i &lt; 26; i++)&#123;</div><div class="line">				System.out.print((char)(&apos;A&apos;+i));</div><div class="line">				obj.notifyAll(); //唤醒其他线程</div><div class="line">				try &#123;</div><div class="line">					obj.wait();</div><div class="line">				&#125; catch (InterruptedException e) &#123;</div><div class="line">					// TODO Auto-generated catch block</div><div class="line">					e.printStackTrace();</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年02月04日 17:06</p>
+        <p>原始链接： <a class="post-url" href="/2018/02/04/多线程学习笔记/" title="多线程学习笔记">http://www.lousenjay.info/2018/02/04/多线程学习笔记/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/02/04/多线程学习笔记/&title=《多线程学习笔记》 — 若闲小阁&pic=http://wx1.sinaimg.cn/mw690/a10c01f6ly1fntsvsghlqj20ci069q43.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/02/04/多线程学习笔记/&title=《多线程学习笔记》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/02/04/多线程学习笔记/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《多线程学习笔记》 — 若闲小阁&url=http://www.lousenjay.info/2018/02/04/多线程学习笔记/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/02/04/多线程学习笔记/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/02/04/多线程学习笔记/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Java/" class="color5">Java</a>
+      
+    <a href="/tags/多线程/" class="color4">多线程</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一-线程的创建和启动"><span class="post-toc-text">一. 线程的创建和启动</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二-线程的生命周期"><span class="post-toc-text">二. 线程的生命周期</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三-线程的控制"><span class="post-toc-text">三. 线程的控制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四-线程同步"><span class="post-toc-text">四. 线程同步</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#同步锁"><span class="post-toc-text">同步锁</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#死锁"><span class="post-toc-text">死锁</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#五-线程通信"><span class="post-toc-text">五. 线程通信</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/02/04/如何通过字符串来创建同名的类的对象/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          如何通过字符串来创建同名的类的对象
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/01/27/常用软件整理/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">常用软件整理</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="多线程学习笔记" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/计算机/">计算机</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 15px;">I/O</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 15px;">I/O</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+  
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="150" height="300" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 200px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: 0px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/haru/haru.model.json",0.5)</script>
+  
+</body>
+</html>
