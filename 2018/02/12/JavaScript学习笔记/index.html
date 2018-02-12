@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="JavaScript用于网页和用户之间的交互，完整的JavaScript由语言基础、BOM和DOM组成。 语言基础Script标签JavaScript代码必须放在script标签中，script标签可以放在html的任何地方，一般建议放在head标签里，若与多段script代码就会按照从上到下顺序执行。&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;&amp;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-12T11:29:47.349Z">
+<meta property="og:updated_time" content="2018-02-12T13:11:20.003Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript学习笔记">
 <meta name="twitter:description" content="JavaScript用于网页和用户之间的交互，完整的JavaScript由语言基础、BOM和DOM组成。 语言基础Script标签JavaScript代码必须放在script标签中，script标签可以放在html的任何地方，一般建议放在head标签里，若与多段script代码就会按照从上到下顺序执行。&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;&amp;">
@@ -286,21 +286,18 @@
 </li>
 </ol>
 <h4 id="自定义对象"><a href="#自定义对象" class="headerlink" title="自定义对象"></a>自定义对象</h4><ol>
-<li><p>创建自定义对象<br>通过new Object()<br>例：<br>var obj = new Object();    //创建一个自定义对象<br>obj.name = “lousen”; //定义一个属性并赋值<br>obj.love = function(){ //定义一个函数love<br> document.write(obj.name+”喜欢猫”);<br>}<br>obj.love(); //调用函数love</p>
+<li><p>创建自定义对象<br>通过new Object()<br>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var obj = new Object();	//创建一个自定义对象</div><div class="line">obj.name = &quot;lousen&quot;; //定义一个属性并赋值</div><div class="line">obj.love = function()&#123; //定义一个函数love</div><div class="line">	document.write(obj.name+&quot;喜欢猫&quot;);</div><div class="line">&#125; </div><div class="line">obj.love(); //调用函数love</div></pre></td></tr></table></figure>
 </li>
-<li><p>通过function设计一个对象<br>function Hero(name){<br> this.name = name;<br> this.love = function(){</p>
-<pre><code>document.write(this.name+&quot;喜欢&quot;);
-</code></pre><p> }<br>}<br>var c1 = new Hero(“狂三”);<br>c1.love();<br>var c2 = new Hero(“奈叶”);<br>c2.love();</p>
+<li><p>通过function设计一个对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function Hero(name)&#123;</div><div class="line">	this.name = name;</div><div class="line">	this.love = function()&#123;</div><div class="line">		document.write(this.name+&quot;喜欢&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">var c1 = new Hero(&quot;狂三&quot;);</div><div class="line">c1.love();</div><div class="line">var c2 = new Hero(&quot;奈叶&quot;);</div><div class="line">c2.love();</div></pre></td></tr></table></figure>
 </li>
-<li><p>为已存在的对象，增加新的方法<br>通过prototype实现<br>function Hero(name){</p>
-<pre><code>this.name = name;
-this.love = function(){
-document.write(this.name+&quot;喜欢&quot;);
-</code></pre><p> }<br>}<br>var c1 = new Hero(“狂三”);<br>c1.love();<br>var c2 = new Hero(“奈叶”);<br>c2.love();<br>Hero.prototype.from = function(){<br>document.write(this.name+”来自二次元”);<br>}<br>c1.from();<br>c2.from();</p>
+<li><p>为已存在的对象，增加新的方法<br>通过prototype实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function Hero(name)&#123;</div><div class="line">		this.name = name;</div><div class="line">		this.love = function()&#123;</div><div class="line">		document.write(this.name+&quot;喜欢&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">var c1 = new Hero(&quot;狂三&quot;);</div><div class="line">c1.love();</div><div class="line">var c2 = new Hero(&quot;奈叶&quot;);</div><div class="line">c2.love();</div><div class="line">Hero.prototype.from = function()&#123;</div><div class="line">document.write(this.name+&quot;来自二次元&quot;);</div><div class="line">&#125;</div><div class="line">c1.from();</div><div class="line">c2.from();</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h3><p>BOM即浏览器对象模型（Brower Object Model）</p>
-<h4 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h4><ol>
+<h2 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h2><p>BOM即浏览器对象模型（Brower Object Model）</p>
+<h3 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h3><ol>
 <li>获取文档显示区域的高度和宽度<br>一旦页面加载，就会自动创建window对象，所以无需手动创建window对象。通过window对象可以获取文档显示区域的高度和宽度 （即显示当前状态下内容的高度和宽度，可变）</li>
 </ol>
 <ul>
@@ -317,7 +314,7 @@ document.write(this.name+&quot;喜欢&quot;);
 <ol>
 <li>打开一个新的窗口<br>window.open(“url”); //不推荐使用，一般情况下优先使用超链接打开新窗口<br>Navigator<br>打印浏览器相关信息<br>navigator.appName; //返回浏览器产品名称<br>navigator.appVersion; //返回浏览器版本号<br>navigator.appCodeName; //返回浏览器内部代码<br>navigator.platform; //返回操作系统<br>navigator.Cookies; //返回是否启用Cookies<br>navigator.userAgent; //返回浏览器的用户代理报头</li>
 </ol>
-<h4 id="Screen"><a href="#Screen" class="headerlink" title="Screen"></a>Screen</h4><p>表示用户屏幕的相关信息</p>
+<h3 id="Screen"><a href="#Screen" class="headerlink" title="Screen"></a>Screen</h3><p>表示用户屏幕的相关信息</p>
 <ol>
 <li>返回用户的屏幕大小</li>
 </ol>
@@ -332,14 +329,14 @@ document.write(this.name+&quot;喜欢&quot;);
 <li>screen.avalidWidth</li>
 <li>screen.avalidHeight<br>注：因为有任务栏的存在，所以可用区域的高度会比屏幕高度小一点</li>
 </ul>
-<h4 id="History"><a href="#History" class="headerlink" title="History"></a>History</h4><p>用于记录访问历史</p>
+<h3 id="History"><a href="#History" class="headerlink" title="History"></a>History</h3><p>用于记录访问历史</p>
 <ol>
 <li><p>返回上一次的访问<br>通过history.back();<br>例：<br>funcation goback(){<br> history.back();<br>}</p>
 </li>
 <li><p>返回上上次<br>history.go(-2); //-1表示上一次，-2表示上上次，以此类推</p>
 </li>
 </ol>
-<h4 id="Location"><a href="#Location" class="headerlink" title="Location"></a>Location</h4><p>Location表示浏览器的地址栏</p>
+<h3 id="Location"><a href="#Location" class="headerlink" title="Location"></a>Location</h3><p>Location表示浏览器的地址栏</p>
 <ol>
 <li><p>刷新当前页面<br>location.reload();</p>
 </li>
@@ -350,7 +347,9 @@ document.write(this.name+&quot;喜欢&quot;);
 <li>location = “url” </li>
 <li>location.assign(“url”)</li>
 </ul>
-<p>3.其他属性</p>
+<ol>
+<li>其他属性</li>
+</ol>
 <ul>
 <li>location.protocol:返回协议</li>
 <li>location.hostname:返回主机名</li>
@@ -372,15 +371,15 @@ document.write(this.name+&quot;喜欢&quot;);
 <li><p>只执行一次<br>setTimeout(函数名,距离开始时间)<br>例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function test()&#123;</div><div class="line">	document.getElementById(&quot;t_1&quot;).innerHTML = &quot;测试成功！&quot;; //innerHTML表示修改该元素内容</div><div class="line">&#125; </div><div class="line">function p()&#123;</div><div class="line">	setTimeout(test(),3000); //1秒等于1000毫秒</div><div class="line">&#125;</div><div class="line">&lt;div id=&quot;t_1&quot;&gt;</div><div class="line">	&lt;button&gt;点击后，3000毫秒后显示&lt;/button&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
 </li>
-<li><p>不停的重复执行和终止重复执行<br>var t = setInterval(函数名，重复执行的时间间隔毫秒数) //重复执行<br>clearInterval(t); //终止重复执行<br>即重复执行同一个函数，重复的间隔由第二个参数指定<br>例：<br>var d = 0;<br>var t = setInterval(print,1000); //重复执行<br>function print(){<br> document.getElementById(“dt”).innerHTML= d++;<br> if(d == 5){</p>
-<pre><code>clearInterval(t); //终止重复执行
-</code></pre><p> }<br>}<br>注：不要在setInterval调用的函数中使用document.write(); 部分浏览器，只会执行一次打印结果，比如firefox有这个问题，其他浏览器没这个问题。</p>
+<li><p>不停的重复执行和终止重复执行<br>var t = setInterval(函数名，重复执行的时间间隔毫秒数) //重复执行<br>clearInterval(t); //终止重复执行<br>即重复执行同一个函数，重复的间隔由第二个参数指定<br>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var d = 0;</div><div class="line">var t = setInterval(print,1000); //重复执行</div><div class="line">function print()&#123;  </div><div class="line">	document.getElementById(&quot;dt&quot;).innerHTML= d++;</div><div class="line">	if(d == 5)&#123;</div><div class="line">		clearInterval(t); //终止重复执行</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="HTML-DOM"><a href="#HTML-DOM" class="headerlink" title="HTML DOM"></a>HTML DOM</h3><p>DOM是Document Object Model(文档对象模型)，DOM是把html里面的各种数据当作对象进行操作的一种思路。</p>
-<h4 id="节点概念"><a href="#节点概念" class="headerlink" title="节点概念"></a>节点概念</h4><p>DOM把所有的html都转换为节点<br>整个文档是一个节点<br>元素是一个节点<br>元素属性是一个节点<br>元素内容是一个节点<br>注释也是节点</p>
-<p>已知：<div id="d1">hello</div><br>var d = document.getElementById(“d1”);<br>document; //返回文档节点[object HTMLDocument]<br>d; //返回元素节点[object HTMLDivElement]<br>d.attributes[0]; //返回属性节点[object Attr]<br>d.childNodes[0]; //返回内容节点[object Text]</p>
-<h4 id="获取节点"><a href="#获取节点" class="headerlink" title="获取节点"></a>获取节点</h4><ol>
+<p>注：不要在setInterval调用的函数中使用document.write(); 部分浏览器，只会执行一次打印结果，比如firefox有这个问题，其他浏览器没这个问题。</p>
+<h2 id="HTML-DOM"><a href="#HTML-DOM" class="headerlink" title="HTML DOM"></a>HTML DOM</h2><p>DOM是Document Object Model(文档对象模型)，DOM是把html里面的各种数据当作对象进行操作的一种思路。</p>
+<h3 id="节点概念"><a href="#节点概念" class="headerlink" title="节点概念"></a>节点概念</h3><p>DOM把所有的html都转换为节点<br>整个文档是一个节点<br>元素是一个节点<br>元素属性是一个节点<br>元素内容是一个节点<br>注释也是节点</p>
+<p>已知：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div id = &quot;d1&quot;&gt;hello&lt;/div&gt;</div><div class="line">var d = document.getElementById(&quot;d1&quot;);</div><div class="line">document; //返回文档节点[object HTMLDocument]</div><div class="line">d; //返回元素节点[object HTMLDivElement]</div><div class="line">d.attributes[0]; //返回属性节点[object Attr]</div><div class="line">d.childNodes[0]; //返回内容节点[object Text]</div></pre></td></tr></table></figure></p>
+<h3 id="获取节点"><a href="#获取节点" class="headerlink" title="获取节点"></a>获取节点</h3><ol>
 <li><p>通过id获取元素节点<br>var t = document.getElementById();</p>
 </li>
 <li><p>通过标签名获取元素节点<br>var t = document.getElementByTagName();<br>注：可以同时获取多个元素节点，形成一个元素数组</p>
@@ -402,7 +401,8 @@ document.write(this.name+&quot;喜欢&quot;);
 <li><p>节点值<br>nodeValue表示一个节点值<br>例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;d1&quot;&gt;hello HTML DOM&lt;/div&gt;</div><div class="line">var  div1 = document.getElementById(&quot;d1&quot;);</div><div class="line">document.nodeValue 文档的节点值，是 null</div><div class="line">div1.nodeValue 元素的节点值，是null</div><div class="line">div1.attributes[0].nodeValue 属性的节点值，是对应的属性值 d1</div><div class="line">div1.childNodes[0].nodeValue 内容的节点值，是内容 即：hello HTML DOM</div></pre></td></tr></table></figure>
 </li>
-<li><p>节点类型值<br>nodeType表示一个节点类型值<br><div id="d1">hello HTML DOM</div><br>var  div1 = document.getElementById(“d1”);<br>document.nodeType 文档的节点类型，是 9<br>div1.nodeType 元素的节点类型，是 1<br>div1.attributes[0].nodeType 属性的节点类型，是 2<br>div1.childNodes[0].nodeType 内容的节点类型，是 3</p>
+<li><p>节点类型值<br>nodeType表示一个节点类型值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;d1&quot;&gt;hello HTML DOM&lt;/div&gt;</div><div class="line">var  div1 = document.getElementById(&quot;d1&quot;);</div><div class="line">document.nodeType 文档的节点类型，是 9</div><div class="line">div1.nodeType 元素的节点类型，是 1</div><div class="line">div1.attributes[0].nodeType 属性的节点类型，是 2</div><div class="line">div1.childNodes[0].nodeType 内容的节点类型，是 3</div></pre></td></tr></table></figure>
 </li>
 <li><p>修改元素的文本内容<br>先通过getElementById()获取元素节点，然后通过 childNodes[0].nodeValue进行 ，或者innerHTML进行<br>document.getElementById(“d1”).childNodes[0].nodeValue= “通过childNode[0].value改变内容”;<br>document.getElementById(“d1”).innerHTML= “通过innerHTML改变内容”;</p>
 </li>
@@ -413,7 +413,8 @@ document.write(this.name+&quot;喜欢&quot;);
 <p>注：class要通过className获取</p>
 <h3 id="改变样式"><a href="#改变样式" class="headerlink" title="改变样式"></a>改变样式</h3><p>先通过getElementById()获取元素节点，然后再通过style.属性来改变样式<br>常用样式：</p>
 <ol>
-<li><p>隐藏和显示<br><div id="d1">hello HTML DOM</div><br>var  div1 = document.getElementById(“d1”);<br>div1.style.display = “none”; //设置为隐藏<br>div1.style.display = “block”; //设置为显示</p>
+<li><p>隐藏和显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;d1&quot;&gt;hello HTML DOM&lt;/div&gt;</div><div class="line">var  div1 = document.getElementById(&quot;d1&quot;);</div><div class="line">div1.style.display = &quot;none&quot;; //设置为隐藏</div><div class="line">div1.style.display = &quot;block&quot;; //设置为显示</div></pre></td></tr></table></figure>
 </li>
 <li><p>改变背景色<br>div1.style.backgroundColor = “green”; //设置为绿色</p>
 </li>
@@ -462,14 +463,16 @@ document.write(this.name+&quot;喜欢&quot;);
 </ol>
 <h3 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h3><p>节点关系图：<a href="http://how2j.cn/k/dom/dom-children/523.html#nowhere" target="_blank" rel="external">http://how2j.cn/k/dom/dom-children/523.html#nowhere</a></p>
 <ol>
-<li><p>父节点关系<br>先通过getElementById获取元素节点，再通过parentNode获取该节点的父节点<br>例：<br><div id="d1">hello HTML DOM</div><br>var div1 = document.getElementById(“d1”);<br>var node = div1.parentNode;</p>
+<li><p>父节点关系<br>先通过getElementById获取元素节点，再通过parentNode获取该节点的父节点<br>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;d1&quot;&gt;hello HTML DOM&lt;/div&gt;</div><div class="line">var div1 = document.getElementById(&quot;d1&quot;);</div><div class="line">var node = div1.parentNode;</div></pre></td></tr></table></figure>
 </li>
 <li><p>同胞节点关系</p>
 </li>
 </ol>
 <ul>
 <li>previousSibling:获取前一个同胞节点</li>
-<li>nextSiling:获取后一个同胞节点<br>注：标签之间有任何字符、空白、换行都会产生文本元素，获取到的节点为#text，只有两个标签紧挨着才不会。<br>例：<br><div1></div1><div2></div2> //div1后一个同胞节点为div2<br><div3></div3> //div2后一个同胞节点为#text</li>
+<li>nextSiling:获取后一个同胞节点<br>注：标签之间有任何字符、空白、换行都会产生文本元素，获取到的节点为#text，只有两个标签紧挨着才不会。<br>例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;div1&gt;&lt;/div1&gt;&lt;div2&gt;&lt;/div2&gt; //div1后一个同胞节点为div2</div><div class="line">&lt;div3&gt;&lt;/div3&gt; //div2后一个同胞节点为#text</div></pre></td></tr></table></figure>
+</li>
 </ul>
 <ol>
 <li>子节点关系</li>
@@ -494,7 +497,8 @@ document.write(this.name+&quot;喜欢&quot;);
 </li>
 </ol>
 <h4 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h4><ol>
-<li><p>删除元素节点<br>先分别获取该元素的父节点和该节点，再通过removeChild删除该节点<br><div id="d1"><br><div id="d2">被删除</div><br></div><br>var a = document.getElementById(“d1”);<br>var b = document.getElementById(“d2”);<br>a.remove(b);</p>
+<li><p>删除元素节点<br>先分别获取该元素的父节点和该节点，再通过removeChild删除该节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div id = &quot;d1&quot;&gt;</div><div class="line">&lt;div id = &quot;d2&quot;&gt;被删除&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">var a = document.getElementById(&quot;d1&quot;);</div><div class="line">var b = document.getElementById(&quot;d2&quot;);</div><div class="line">a.remove(b);</div></pre></td></tr></table></figure>
 </li>
 <li><p>删除属性节点<br>先获取该元素节点，再调用removeAttribute删除指定属性<br>var a = document.getElementById(“al”);<br>a.removeAttribute(“href”); //移除id为al的超链接的href属性</p>
 </li>
@@ -511,7 +515,7 @@ document.write(this.name+&quot;喜欢&quot;);
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年02月12日 19:29</p>
+        <p>最后更新： 2018年02月12日 21:11</p>
         <p>原始链接： <a class="post-url" href="/2018/02/12/JavaScript学习笔记/" title="JavaScript学习笔记">http://www.lousenjay.info/2018/02/12/JavaScript学习笔记/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
@@ -594,7 +598,7 @@ document.write(this.name+&quot;喜欢&quot;);
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#语言基础"><span class="post-toc-text">语言基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Script标签"><span class="post-toc-text">Script标签</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注释"><span class="post-toc-text">注释</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#声明变量"><span class="post-toc-text">声明变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本数据类型"><span class="post-toc-text">基本数据类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类型转换"><span class="post-toc-text">类型转换</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#函数"><span class="post-toc-text">函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运算符"><span class="post-toc-text">运算符</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#条件语句"><span class="post-toc-text">条件语句</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#错误处理"><span class="post-toc-text">错误处理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象"><span class="post-toc-text">对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Number"><span class="post-toc-text">Number</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#String"><span class="post-toc-text">String</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#数组"><span class="post-toc-text">数组</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#日期对象"><span class="post-toc-text">日期对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Math对象"><span class="post-toc-text">Math对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#自定义对象"><span class="post-toc-text">自定义对象</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BOM"><span class="post-toc-text">BOM</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Window"><span class="post-toc-text">Window</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Screen"><span class="post-toc-text">Screen</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#History"><span class="post-toc-text">History</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Location"><span class="post-toc-text">Location</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#弹出框"><span class="post-toc-text">弹出框</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#计时器"><span class="post-toc-text">计时器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HTML-DOM"><span class="post-toc-text">HTML DOM</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#节点概念"><span class="post-toc-text">节点概念</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#获取节点"><span class="post-toc-text">获取节点</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节点的属性"><span class="post-toc-text">节点的属性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#改变样式"><span class="post-toc-text">改变样式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事件"><span class="post-toc-text">事件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节点关系"><span class="post-toc-text">节点关系</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建节点"><span class="post-toc-text">创建节点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#删除节点"><span class="post-toc-text">删除节点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#替换节点"><span class="post-toc-text">替换节点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#插入节点"><span class="post-toc-text">插入节点</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#语言基础"><span class="post-toc-text">语言基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Script标签"><span class="post-toc-text">Script标签</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注释"><span class="post-toc-text">注释</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#声明变量"><span class="post-toc-text">声明变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本数据类型"><span class="post-toc-text">基本数据类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类型转换"><span class="post-toc-text">类型转换</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#函数"><span class="post-toc-text">函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运算符"><span class="post-toc-text">运算符</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#条件语句"><span class="post-toc-text">条件语句</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#错误处理"><span class="post-toc-text">错误处理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象"><span class="post-toc-text">对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Number"><span class="post-toc-text">Number</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#String"><span class="post-toc-text">String</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#数组"><span class="post-toc-text">数组</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#日期对象"><span class="post-toc-text">日期对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Math对象"><span class="post-toc-text">Math对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#自定义对象"><span class="post-toc-text">自定义对象</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#BOM"><span class="post-toc-text">BOM</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Window"><span class="post-toc-text">Window</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Screen"><span class="post-toc-text">Screen</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#History"><span class="post-toc-text">History</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Location"><span class="post-toc-text">Location</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#弹出框"><span class="post-toc-text">弹出框</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#计时器"><span class="post-toc-text">计时器</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTML-DOM"><span class="post-toc-text">HTML DOM</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节点概念"><span class="post-toc-text">节点概念</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#获取节点"><span class="post-toc-text">获取节点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节点的属性"><span class="post-toc-text">节点的属性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#改变样式"><span class="post-toc-text">改变样式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事件"><span class="post-toc-text">事件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节点关系"><span class="post-toc-text">节点关系</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建节点"><span class="post-toc-text">创建节点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#删除节点"><span class="post-toc-text">删除节点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#替换节点"><span class="post-toc-text">替换节点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#插入节点"><span class="post-toc-text">插入节点</span></a></li></ol></li></ol></li></ol>
         </nav>
     </aside>
     
