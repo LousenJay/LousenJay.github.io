@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript学习笔记 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="JavaScript用于网页和用户之间的交互，完整的JavaScript由语言基础、BOM和DOM组成。 语言基础Script标签JavaScript代码必须放在script标签中，script标签可以放在html的任何地方，一般建议放在head标签里，若与多段script代码就会按照从上到下顺序执行。&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;&amp;">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript学习笔记">
+<meta property="og:url" content="http://www.lousenjay.info/2018/02/12/JavaScript学习笔记/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="JavaScript用于网页和用户之间的交互，完整的JavaScript由语言基础、BOM和DOM组成。 语言基础Script标签JavaScript代码必须放在script标签中，script标签可以放在html的任何地方，一般建议放在head标签里，若与多段script代码就会按照从上到下顺序执行。&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;&amp;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-12T11:29:47.349Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript学习笔记">
+<meta name="twitter:description" content="JavaScript用于网页和用户之间的交互，完整的JavaScript由语言基础、BOM和DOM组成。 语言基础Script标签JavaScript代码必须放在script标签中，script标签可以放在html的任何地方，一般建议放在head标签里，若与多段script代码就会按照从上到下顺序执行。&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;&amp;">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-JavaScript学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      JavaScript学习笔记
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/前端/">前端</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-02-12
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>JavaScript用于网页和用户之间的交互，完整的JavaScript由语言基础、BOM和DOM组成。</p>
+<h2 id="语言基础"><a href="#语言基础" class="headerlink" title="语言基础"></a>语言基础</h2><h3 id="Script标签"><a href="#Script标签" class="headerlink" title="Script标签"></a>Script标签</h3><p>JavaScript代码必须放在script标签中，script标签可以放在html的任何地方，一般建议放在head标签里，若与多段script代码就会按照从上到下顺序执行。<br><code>&lt;script type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</code></p>
+<p>引用外部js文件<br><code>&lt;script type=&quot;text/javascript&quot; src=&quot;&quot;&gt;&lt;/script&gt;</code></p>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><ul>
+<li>单行注释 /</li>
+<li>多行注释 /*</li>
+</ul>
+<h3 id="声明变量"><a href="#声明变量" class="headerlink" title="声明变量"></a>声明变量</h3><ol>
+<li>使用var声明变量<br>var a = 10;</li>
+<li>不使用var声明变量<br>a = 10;</li>
+</ol>
+<p>注：变量名命名规则和java一样</p>
+<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><ul>
+<li>undefined 声明了但未赋值 var x;</li>
+<li>Boolean 声明布尔类型 var x = true;</li>
+<li>Number 声明数字类型 var a = 10;</li>
+<li>String 声明字符串类型 var a = “hello”;</li>
+<li>null 空对象/对象不存在 </li>
+</ul>
+<p>注：JavaScript没用字符概念，只有字符串，故单引号和双引号都表示字符串<br>注：用var定义的变量为动态类型，会根据变量的实际值而改变<br>注：可用typeof来判断变量当前的类型 document.write(typeof x);</p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><ol>
+<li><p>伪对象<br>JavaScript的基本类型也是伪对象，他们都有属性和方法。</p>
+</li>
+<li><p>转换为字符串toString()<br>var a = 10;<br>a.toString();</p>
+</li>
+<li><p>数字转换为字符串toString()<br>toString() 转换为十进制<br>toString(2) 转换为二进制<br>toString(8) 转换为八进制<br>toString(16) 转换为十六进制</p>
+</li>
+<li><p>转换为数字<br>parseInt() 转换为整数<br>parseFloat 转换为浮点数<br>Number() 转换为数字</p>
+</li>
+</ol>
+<p>注：若被转换的字符串中，同时由数字和字符构成，那么parseInt会一直定位到数字，直到出现非数字字符，返回NaN。Number会直接返回NaN。</p>
+<ol>
+<li><p>转换为Boolean<br>转换字符串： 非空即0<br>转换数字： 非0即true<br>转换对象： 非null即true</p>
+</li>
+<li><p>String()和toString()的区别<br>对于null的处理，String()会返回字符串”null”,toString()就会报错，无法继续执行</p>
+</li>
+</ol>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>函数即一段可以重复执行的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	function print(m)&#123;</div><div class="line">		document.write(m);</div><div class="line">	&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>注：js中形参为可变类型，故不需要先声明</p>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><p>同Java</p>
+<h3 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h3><p>同Java</p>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>try catch<br>同Java</p>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><p>JavaScript中的对象是有着属性和方法的一种特殊数据类型，常见的对象有Number、String、Date、Array等</p>
+<h4 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h4><ol>
+<li><p>创建数字对象<br>var x = new Number(“123”);</p>
+</li>
+<li><p>非数字NaN<br>可通过函数isNaN来判断是否为数字<br>当通过非数字创建Number时就会得到NaN</p>
+</li>
+<li><p>返回一个数字的小数表达式<br>toFixed(2); //保留两位小数点</p>
+</li>
+<li><p>返回一个数字的科学计数法表达<br>toExponential();</p>
+</li>
+<li><p>返回一个数字对象的基本数字类型<br>var a = new Number(“123”);<br>var b = a.valueOf(); //基本数字类型</p>
+</li>
+</ol>
+<h4 id="String"><a href="#String" class="headerlink" title="String"></a>String</h4><ol>
+<li><p>创建字符串对象<br>var x = new String(“abc”);</p>
+</li>
+<li><p>字符串长度<br>x.length;</p>
+</li>
+<li><p>返回指定位置的字符<br>charAt：返回指定位置的字符<br>charCodeAt：返回指定位置的字符对应的Unicode码</p>
+</li>
+<li><p>字符串拼接<br>var a = new String(“123”);<br>var b = new String(“abc”);<br>a.concat(y);</p>
+</li>
+<li><p>子字符串出现的位置<br>indexOf：返回自子符串第一次出现的位置<br>lastIndexOf：返回子字符串最后一次出现的位置<br>var a = new String(“abc”);<br>a.indexOf(“a”);</p>
+</li>
+<li><p>比较两段字符串是否相同<br>localeCompare比较，相同返回0，不相同返回非0<br>var a = new String(“abc”);<br>var b = new Strihg(“bac”);<br>a.localeCompare(b); //因为b在a前面故返回1</p>
+</li>
+<li><p>截取一段字符串<br>var x = new String(“hello world”);<br>x.subString(0,3);</p>
+</li>
+<li><p>根据分隔符，把字符串转换为数组<br>var x = new String(“hello world”);<br>x.split(“ “);//通过空格分隔符，得到数字{hello,world}<br>x.split(“ “,1);////通过空格分隔符，并保留前一个，得到数字{hello,world}</p>
+</li>
+<li><p>替换子字符串<br>只替换第一个<br>var x = new String(“hello world”);<br>x.replace(“l”,”o”); //把第一个l替换为o<br>替换所有<br>var regs = new RegExp(“l”,”g”);<br>x.replace(regs,”o”); //所有的l替换为o</p>
+</li>
+</ol>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>JavaScript中的数组时动态的，即长度是可以发生变化的</p>
+<ol>
+<li><p>创建一个数组对象<br>var a = new Array();<br>var b = new Array(1,2,3);</p>
+</li>
+<li><p>数组长度<br>a.length;</p>
+</li>
+<li><p>遍历数组<br>普通for循环<br>增强for循环<br>for(i in a){<br> a[i];<br>}</p>
+</li>
+<li><p>连接数组<br>var a = new Array(1,2,3);<br>var b = new Array(a,b,c);<br>var c = a.concat(b);</p>
+</li>
+<li><p>通过指定分隔符，返回一个数组的字符串表达式<br>var a = new Array(1,2,1);<br>a.join(“”); //返回121<br>a.join(“@”); //返回1@2@1</p>
+</li>
+<li><p>分别在最后位置插入数据和获取数据<br>push() 相当于入栈，有参<br>pop() 相当于出栈，无参</p>
+</li>
+<li><p>分别在最开始位置插入数据和获取数据<br>unshift() 在最前面加入，有参<br>shift() 在最前面删除，无参</p>
+</li>
+<li><p>对数组内容进行排序<br>var x = new Array(3,1,4,2);<br>x.sort(); //返回1,2,3,4</p>
+</li>
+<li><p>自定义排序算法<br>用比较函数作为参数传递给sort()<br>function compartor(v1,v2){<br> return v2-v1; //表示大的在前面<br>}<br>x.sort(compartor);</p>
+</li>
+<li><p>对数组进行反转<br>x.reverse();</p>
+</li>
+<li><p>获取子数组<br>var a = new Array(1,2,3,4);<br>a.slice(1);//相当于[1,+)<br>a.slice(1,3);//相当于[1,3)</p>
+</li>
+<li><p>删除和插入元素<br>splice既可以删除元素，也可以插入元素<br>var x = new Array(1,2,1,4,5);<br>x.splice(3,2); //从位置3开始删除两个元素<br>x.splice(3,0,2,3); //从位置3开始删除0个元素，并插入2,3，相当于从3开始插入2,3</p>
+</li>
+</ol>
+<h4 id="日期对象"><a href="#日期对象" class="headerlink" title="日期对象"></a>日期对象</h4><ol>
+<li><p>创建日期对象<br>var a = new Date(); //返回当前的具体日期<br>var d = new Date(“1996/2/4”);    //返回指定日期</p>
+</li>
+<li><p>分别获取年/月/日<br>var a = new Date();<br>a.getFullYear(); //返回当前年份<br>a.getMonth()+1; //返回当前月份，注：getMonth（）返回的月份是基0的，0代表1月份<br>a.getDate();     //返回当前天数</p>
+</li>
+<li><p>分别获取时：分：秒：毫秒<br>var a = new Date();<br>a.getHours();    //返回当前时<br>a.getMinutes();    //返回当前分<br>a.getSeconds();    //返回当前秒<br>a.getMillionSeconds();     //返回当前毫秒</p>
+</li>
+<li><p>获取一周的第几天（星期几）<br>getDay()<br>例：<br>var a = new Date().getDay(); //基值为0，通过日期对象获取数字形式的星期几<br>var week = new Array(“星期天”,”星期一”,”星期二”,”星期三”,”星期四”,”星期五”,”星期六”);<br>document.write(week[day]); //返回星期</p>
+</li>
+<li><p>修改日期和时间<br>例：<br>var d=new Date();<br>document.write(“修改日期对象的值为世界末日:<br>“);<br>d.setFullYear(2012);<br>d.setMonth(11); //月份时基0的，所以11表示12月<br>d.setDate(12);<br>d.setHours(0);<br>d.setMinutes(0);<br>d.setSeconds(0);</p>
+</li>
+</ol>
+<h4 id="Math对象"><a href="#Math对象" class="headerlink" title="Math对象"></a>Math对象</h4><ol>
+<li>自然对数和圆周率</li>
+</ol>
+<ul>
+<li>Math.E：自然对数，返回2.718281828459045</li>
+<li>Math.PI：圆周率，返回3.141592653589793 </li>
+</ul>
+<ol>
+<li><p>绝对值<br>通过方法abs()获取绝对值<br>var a = Math.abs(-5);</p>
+</li>
+<li><p>最大值、最小值<br>通过max()和min()<br>var a = Math.max(1,5,8,4,2); //返回8<br>var b = Math.min(1,5,8,4,2); //返回1</p>
+</li>
+<li><p>求幂<br>通过方法pow(a,a)求一个数的n次方<br>var a = Math.pow(3,3); //返回3的立方，即27</p>
+</li>
+<li><p>四舍五入<br>方法round()，小数四舍五入取整<br>var a = Math.round(3.4); //返回3</p>
+</li>
+<li><p>取随机数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">方法random()</div><div class="line">Math.random():一个0-1之间的随机数</div><div class="line">Math.round(Math.random()*5+5):一个5-10之间的随机整数</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="自定义对象"><a href="#自定义对象" class="headerlink" title="自定义对象"></a>自定义对象</h4><ol>
+<li><p>创建自定义对象<br>通过new Object()<br>例：<br>var obj = new Object();    //创建一个自定义对象<br>obj.name = “lousen”; //定义一个属性并赋值<br>obj.love = function(){ //定义一个函数love<br> document.write(obj.name+”喜欢猫”);<br>}<br>obj.love(); //调用函数love</p>
+</li>
+<li><p>通过function设计一个对象<br>function Hero(name){<br> this.name = name;<br> this.love = function(){</p>
+<pre><code>document.write(this.name+&quot;喜欢&quot;);
+</code></pre><p> }<br>}<br>var c1 = new Hero(“狂三”);<br>c1.love();<br>var c2 = new Hero(“奈叶”);<br>c2.love();</p>
+</li>
+<li><p>为已存在的对象，增加新的方法<br>通过prototype实现<br>function Hero(name){</p>
+<pre><code>this.name = name;
+this.love = function(){
+document.write(this.name+&quot;喜欢&quot;);
+</code></pre><p> }<br>}<br>var c1 = new Hero(“狂三”);<br>c1.love();<br>var c2 = new Hero(“奈叶”);<br>c2.love();<br>Hero.prototype.from = function(){<br>document.write(this.name+”来自二次元”);<br>}<br>c1.from();<br>c2.from();</p>
+</li>
+</ol>
+<h3 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h3><p>BOM即浏览器对象模型（Brower Object Model）</p>
+<h4 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h4><ol>
+<li>获取文档显示区域的高度和宽度<br>一旦页面加载，就会自动创建window对象，所以无需手动创建window对象。通过window对象可以获取文档显示区域的高度和宽度 （即显示当前状态下内容的高度和宽度，可变）</li>
+</ol>
+<ul>
+<li>window.innerWidth：内容的宽度</li>
+<li>window.innerHeight：内容的高度</li>
+</ul>
+<ol>
+<li>获取外部窗体的宽度和高度<br>即浏览器的高度和宽度，一般为固定值，根据不同的浏览器而不同</li>
+</ol>
+<ul>
+<li>window.outerWidth：窗体的宽度</li>
+<li>window.outerHeight：窗体的高度</li>
+</ul>
+<ol>
+<li>打开一个新的窗口<br>window.open(“url”); //不推荐使用，一般情况下优先使用超链接打开新窗口<br>Navigator<br>打印浏览器相关信息<br>navigator.appName; //返回浏览器产品名称<br>navigator.appVersion; //返回浏览器版本号<br>navigator.appCodeName; //返回浏览器内部代码<br>navigator.platform; //返回操作系统<br>navigator.Cookies; //返回是否启用Cookies<br>navigator.userAgent; //返回浏览器的用户代理报头</li>
+</ol>
+<h4 id="Screen"><a href="#Screen" class="headerlink" title="Screen"></a>Screen</h4><p>表示用户屏幕的相关信息</p>
+<ol>
+<li>返回用户的屏幕大小</li>
+</ol>
+<ul>
+<li>screen.width</li>
+<li>screen.height</li>
+</ul>
+<ol>
+<li>返回用户屏幕的可用大小</li>
+</ol>
+<ul>
+<li>screen.avalidWidth</li>
+<li>screen.avalidHeight<br>注：因为有任务栏的存在，所以可用区域的高度会比屏幕高度小一点</li>
+</ul>
+<h4 id="History"><a href="#History" class="headerlink" title="History"></a>History</h4><p>用于记录访问历史</p>
+<ol>
+<li><p>返回上一次的访问<br>通过history.back();<br>例：<br>funcation goback(){<br> history.back();<br>}</p>
+</li>
+<li><p>返回上上次<br>history.go(-2); //-1表示上一次，-2表示上上次，以此类推</p>
+</li>
+</ol>
+<h4 id="Location"><a href="#Location" class="headerlink" title="Location"></a>Location</h4><p>Location表示浏览器的地址栏</p>
+<ol>
+<li><p>刷新当前页面<br>location.reload();</p>
+</li>
+<li><p>跳转到另一个页面</p>
+</li>
+</ol>
+<ul>
+<li>location = “url” </li>
+<li>location.assign(“url”)</li>
+</ul>
+<p>3.其他属性</p>
+<ul>
+<li>location.protocol:返回协议</li>
+<li>location.hostname:返回主机名</li>
+<li>location.port:返回端口号</li>
+<li>location.host:返回主机名+端口号</li>
+<li>location.pathname:返回访问路径</li>
+<li>location.hash:返回锚点</li>
+<li>location.serach:返回参数列表</li>
+</ul>
+<h3 id="弹出框"><a href="#弹出框" class="headerlink" title="弹出框"></a>弹出框</h3><ol>
+<li><p>警告框<br>通过alert(),常用于消息提示<br>alert(“注册成功！”);</p>
+</li>
+<li><p>确认框<br>通过confirm(),常用于危险性操作的确认提示<br>confirm(“是否确认删除？”); //确认返回true，取消返回false</p>
+</li>
+<li><p>输入框<br>通过prompt(),弹出一个输入框供用户输入相关信息，因界面风格问题，很少在实际中使用<br>prompt(“请输入用户名：”);</p>
+</li>
+</ol>
+<h3 id="计时器"><a href="#计时器" class="headerlink" title="计时器"></a>计时器</h3><ol>
+<li><p>只执行一次<br>setTimeout(函数名,距离开始时间)<br>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function test()&#123;</div><div class="line">	document.getElementById(&quot;t_1&quot;).innerHTML = &quot;测试成功！&quot;; //innerHTML表示修改该元素内容</div><div class="line">&#125; </div><div class="line">function p()&#123;</div><div class="line">	setTimeout(test(),3000); //1秒等于1000毫秒</div><div class="line">&#125;</div><div class="line">&lt;div id=&quot;t_1&quot;&gt;</div><div class="line">	&lt;button&gt;点击后，3000毫秒后显示&lt;/button&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>不停的重复执行和终止重复执行<br>var t = setInterval(函数名，重复执行的时间间隔毫秒数) //重复执行<br>clearInterval(t); //终止重复执行<br>即重复执行同一个函数，重复的间隔由第二个参数指定<br>例：<br>var d = 0;<br>var t = setInterval(print,1000); //重复执行<br>function print(){<br> document.getElementById(“dt”).innerHTML= d++;<br> if(d == 5){</p>
+<pre><code>clearInterval(t); //终止重复执行
+</code></pre><p> }<br>}<br>注：不要在setInterval调用的函数中使用document.write(); 部分浏览器，只会执行一次打印结果，比如firefox有这个问题，其他浏览器没这个问题。</p>
+</li>
+</ol>
+<h3 id="HTML-DOM"><a href="#HTML-DOM" class="headerlink" title="HTML DOM"></a>HTML DOM</h3><p>DOM是Document Object Model(文档对象模型)，DOM是把html里面的各种数据当作对象进行操作的一种思路。</p>
+<h4 id="节点概念"><a href="#节点概念" class="headerlink" title="节点概念"></a>节点概念</h4><p>DOM把所有的html都转换为节点<br>整个文档是一个节点<br>元素是一个节点<br>元素属性是一个节点<br>元素内容是一个节点<br>注释也是节点</p>
+<p>已知：<div id="d1">hello</div><br>var d = document.getElementById(“d1”);<br>document; //返回文档节点[object HTMLDocument]<br>d; //返回元素节点[object HTMLDivElement]<br>d.attributes[0]; //返回属性节点[object Attr]<br>d.childNodes[0]; //返回内容节点[object Text]</p>
+<h4 id="获取节点"><a href="#获取节点" class="headerlink" title="获取节点"></a>获取节点</h4><ol>
+<li><p>通过id获取元素节点<br>var t = document.getElementById();</p>
+</li>
+<li><p>通过标签名获取元素节点<br>var t = document.getElementByTagName();<br>注：可以同时获取多个元素节点，形成一个元素数组</p>
+</li>
+<li><p>通过类名获取元素节点<br>var t = document.getElementByClassName();<br>注：同标签名，可以返回一个节点数组</p>
+</li>
+<li><p>通过表单的name获取元素节点<br>var t = document.getElementByName();</p>
+</li>
+<li><p>获取属性节点<br>先通过getElementById()获取元素节点,然后通过元素节点的attributes获取其下所有的属性节点<br>var t = document.getElementById(“div1”);<br>var a = t.attributes;<br>a[0].nodeName; //返回第一个属性的名称<br>a[0].nodeValue; //返回第一个属性的值<br>a[“id”]; //取出名称是id的属性</p>
+</li>
+<li><p>获取内容节点<br>首先通过document.getElementById()获取元素节点，然后通过childNodes获取其所有的子节点。 其中第一个子节点，就是其内容节点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;div id=&quot;d1&quot; align=&quot;center&quot; class=&quot;abc&quot;&gt;hello HTML DOM&lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line"> var  div1 = document.getElementById(&quot;d1&quot;);</div><div class="line"> var content = div1.childNodes[0];</div><div class="line"> content.nodeName; //返回内容节点名称#text</div><div class="line"> content.nodeValue; //返回内容节点值hello HTML DOM</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="节点的属性"><a href="#节点的属性" class="headerlink" title="节点的属性"></a>节点的属性</h3><ol>
+<li><p>节点名称<br>nodeName表示一个节点的名字<br>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;d1&quot;&gt;hello HTML DOM&lt;/div&gt;</div><div class="line">var  div1 = document.getElementById(&quot;d1&quot;);</div><div class="line">document.nodeName 文档的节点名，是 固定的#document</div><div class="line">div1.nodeName 元素的节点名，是对应的标签名 div</div><div class="line">div1.attributes[0].nodeName 属性的节点名，是对应的属性名 id</div><div class="line">div1.childNodes[0].nodeName 内容的节点名，是固定的 #text</div></pre></td></tr></table></figure>
+</li>
+<li><p>节点值<br>nodeValue表示一个节点值<br>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;d1&quot;&gt;hello HTML DOM&lt;/div&gt;</div><div class="line">var  div1 = document.getElementById(&quot;d1&quot;);</div><div class="line">document.nodeValue 文档的节点值，是 null</div><div class="line">div1.nodeValue 元素的节点值，是null</div><div class="line">div1.attributes[0].nodeValue 属性的节点值，是对应的属性值 d1</div><div class="line">div1.childNodes[0].nodeValue 内容的节点值，是内容 即：hello HTML DOM</div></pre></td></tr></table></figure>
+</li>
+<li><p>节点类型值<br>nodeType表示一个节点类型值<br><div id="d1">hello HTML DOM</div><br>var  div1 = document.getElementById(“d1”);<br>document.nodeType 文档的节点类型，是 9<br>div1.nodeType 元素的节点类型，是 1<br>div1.attributes[0].nodeType 属性的节点类型，是 2<br>div1.childNodes[0].nodeType 内容的节点类型，是 3</p>
+</li>
+<li><p>修改元素的文本内容<br>先通过getElementById()获取元素节点，然后通过 childNodes[0].nodeValue进行 ，或者innerHTML进行<br>document.getElementById(“d1”).childNodes[0].nodeValue= “通过childNode[0].value改变内容”;<br>document.getElementById(“d1”).innerHTML= “通过innerHTML改变内容”;</p>
+</li>
+<li><p>获取和修改元素的属性<br>元素上的属性，比如id,value可以通过.直接获取和修改<br>如果是自定义属性,可以通过以下方式来获取<br>getAttribute(“test”)  //获取自定义属性test<br>attributes[“test”].nodeValue<br>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var  div1 = document.getElementById(&quot;d1&quot;);</div><div class="line">div1.id; //返回d1</div><div class="line">div1.className; //返回c1</div><div class="line">div1.getAttribute(&quot;test&quot;); //返回t1</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>注：class要通过className获取</p>
+<h3 id="改变样式"><a href="#改变样式" class="headerlink" title="改变样式"></a>改变样式</h3><p>先通过getElementById()获取元素节点，然后再通过style.属性来改变样式<br>常用样式：</p>
+<ol>
+<li><p>隐藏和显示<br><div id="d1">hello HTML DOM</div><br>var  div1 = document.getElementById(“d1”);<br>div1.style.display = “none”; //设置为隐藏<br>div1.style.display = “block”; //设置为显示</p>
+</li>
+<li><p>改变背景色<br>div1.style.backgroundColor = “green”; //设置为绿色</p>
+</li>
+</ol>
+<h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><ol>
+<li>焦点事件</li>
+</ol>
+<ul>
+<li>onfocus：获取焦点</li>
+<li>onblur：失去焦点<br>注：一般用于输入框</li>
+</ul>
+<ol>
+<li>鼠标事件</li>
+</ol>
+<ul>
+<li>onmousedown：鼠标按下</li>
+<li>onmouseup：鼠标弹起</li>
+<li>onmousemove：鼠标经过</li>
+<li>onmouseover：鼠标进入</li>
+<li>onmouseout：鼠标离开<br>注：onmousemove和onmouseover的区别是，前者每次移动都会触发，后者仅触发一次</li>
+</ul>
+<ol>
+<li>键盘事件</li>
+</ol>
+<ul>
+<li>onkeydown:键盘按下</li>
+<li>onkeypress:键盘按下</li>
+<li>onkeyup:键盘弹起</li>
+</ul>
+<ol>
+<li>点击事件</li>
+</ol>
+<ul>
+<li>onclick:单击事件</li>
+<li>ondbclick:双击事件</li>
+</ul>
+<ol>
+<li><p>变化事件<br>onchange<br>当组件发生变化时，会触发的事件<br>注：对于输入框而言，只有在失去焦点的时候才会触发</p>
+</li>
+<li><p>提交事件<br>onsubmit<br>当form表单提交的时候会触发onsubmit事件</p>
+</li>
+<li><p>加载事件<br>onload<br>当整个文档加载成功或者一个图片加载成功会触发加载事件</p>
+</li>
+<li><p>当前组件<br>this<br>this表示触发事件的组件，可以在调用函数的时候，作为参数传进去<br>例：<br>onclick=get(this);</p>
+</li>
+</ol>
+<h3 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h3><p>节点关系图：<a href="http://how2j.cn/k/dom/dom-children/523.html#nowhere" target="_blank" rel="external">http://how2j.cn/k/dom/dom-children/523.html#nowhere</a></p>
+<ol>
+<li><p>父节点关系<br>先通过getElementById获取元素节点，再通过parentNode获取该节点的父节点<br>例：<br><div id="d1">hello HTML DOM</div><br>var div1 = document.getElementById(“d1”);<br>var node = div1.parentNode;</p>
+</li>
+<li><p>同胞节点关系</p>
+</li>
+</ol>
+<ul>
+<li>previousSibling:获取前一个同胞节点</li>
+<li>nextSiling:获取后一个同胞节点<br>注：标签之间有任何字符、空白、换行都会产生文本元素，获取到的节点为#text，只有两个标签紧挨着才不会。<br>例：<br><div1></div1><div2></div2> //div1后一个同胞节点为div2<br><div3></div3> //div2后一个同胞节点为#text</li>
+</ul>
+<ol>
+<li>子节点关系</li>
+</ol>
+<ul>
+<li>firstChild:第一个子节点</li>
+<li>lastChild:最后一个子节点</li>
+<li>childNodes:所有子节点<br>注：同上，如果父节点与子节点之间有任何字符、空白、换行都会产生文本元素，那么第一个子节点和最后一个子节点都会是#text，因为文本节点的存在，子元素个数返回要加上文本节点</li>
+</ul>
+<ol>
+<li>childNodes和children的区别<br>childNodes会包含文本节点，children不会包含文本节点</li>
+</ol>
+<h4 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h4><ol>
+<li><p>创建元素节点<br>通过createElement创建一个新的元素节点，再通过appendChild把该节点加入到另一个元素节点中<br>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var a = document.creatElement(&quot;br&quot;); //创建一个元素节点，换行&lt;br&gt;</div><div class="line">var div1 = document.getElementById(&quot;div1&quot;); //获取一个元素节点</div><div class="line">div1.appendChild(a);  //把换行放到div1中去</div></pre></td></tr></table></figure>
+</li>
+<li><p>创建文本节点<br>通过createElement创建一个新的文本元素节点p，再通过createTextNode创建一个内容节点text，将该内容节点text通过appendChild加入到p中；再获取要加入的元素节点div，通过appendChild把p加入到div中。<br>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var p = document.creatElement(&quot;p&quot;); //创建一个元素节点，段落</div><div class="line">var text = document.creatTextNode(&quot;文本内容&quot;); //创建一个内容节点</div><div class="line">p.appendChild(text); //把内容节点放到段落中</div><div class="line">var div1 = document.getElementById(&quot;div1&quot;); //获取一个元素节点</div><div class="line">div1.appendChild(p);  //把段落放到div中去</div></pre></td></tr></table></figure>
+</li>
+<li><p>创建属性节点<br>首先通过createElement创建一个新的元素节点a，然后通过createTextNode创建一个内容节点c,将该内容节点c通过appendChild加入到a；通过createAttribute创建一个属性节点href，设置href的属性值，通过setAttributeNode把该属性设置到元素节点a上；获取要加入的元素节点div1，最后用appendChild加入到div1中去。<br>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var a = document.creatElement(&quot;a&quot;); //创建一个元素节点，超链接</div><div class="line">var c = document.creatTextNode(&quot;这是链接&quot;); //创建一个内容节点</div><div class="line">a.appendChild(c); //把内容节点放到超链接中</div><div class="line">var href = document.createAttribute(&quot;href&quot;); //创建一个属性节点</div><div class="line">href.nodeValue = &quot;www.lousenjay.info&quot;; //设置属性值</div><div class="line">a.setAttributeNode(href); //把该属性设置到超链接中</div><div class="line">var div1 = document.getElementById(&quot;div1&quot;); //获取指定的元素节点，div</div><div class="line">div1.appendChild(a); ////把超链接设置到指定div中</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h4><ol>
+<li><p>删除元素节点<br>先分别获取该元素的父节点和该节点，再通过removeChild删除该节点<br><div id="d1"><br><div id="d2">被删除</div><br></div><br>var a = document.getElementById(“d1”);<br>var b = document.getElementById(“d2”);<br>a.remove(b);</p>
+</li>
+<li><p>删除属性节点<br>先获取该元素节点，再调用removeAttribute删除指定属性<br>var a = document.getElementById(“al”);<br>a.removeAttribute(“href”); //移除id为al的超链接的href属性</p>
+</li>
+<li><p>删除文本节点<br>先通过childNodes[0]获取文本节点，再通过removeChild删除该文本节点<br>var p = document.getElementById(“p1”);<br>var t = p.childNodes[0];<br>p.removeChild(t);<br>注：一般通过innerHTML直接设置为空</p>
+</li>
+</ol>
+<h4 id="替换节点"><a href="#替换节点" class="headerlink" title="替换节点"></a>替换节点</h4><p>a.获取父节点<br>b.创建子节点<br>c.获取被替换的子节点<br>d.通过replaceChild进行替换</p>
+<h4 id="插入节点"><a href="#插入节点" class="headerlink" title="插入节点"></a>插入节点</h4><ol>
+<li><p>追加节点<br>把新的节点放在最后面<br>a.创建新节点<br>b.获取父节点<br>c.通过appendChild追加</p>
+</li>
+<li><p>在指定位置插入<br>a.创建新节点<br>b.获取父节点<br>c.获取需要加入的子节点位置<br>d.通过insertBefore插入</p>
+</li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年02月12日 19:29</p>
+        <p>原始链接： <a class="post-url" href="/2018/02/12/JavaScript学习笔记/" title="JavaScript学习笔记">http://www.lousenjay.info/2018/02/12/JavaScript学习笔记/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/02/12/JavaScript学习笔记/&title=《JavaScript学习笔记》 — 若闲小阁&pic=http://wx3.sinaimg.cn/mw690/a10c01f6gy1fkoj5o3kwoj20ci069gmj.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/02/12/JavaScript学习笔记/&title=《JavaScript学习笔记》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/02/12/JavaScript学习笔记/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JavaScript学习笔记》 — 若闲小阁&url=http://www.lousenjay.info/2018/02/12/JavaScript学习笔记/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/02/12/JavaScript学习笔记/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/02/12/JavaScript学习笔记/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/JavaScript/" class="color1">JavaScript</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#语言基础"><span class="post-toc-text">语言基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Script标签"><span class="post-toc-text">Script标签</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注释"><span class="post-toc-text">注释</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#声明变量"><span class="post-toc-text">声明变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本数据类型"><span class="post-toc-text">基本数据类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类型转换"><span class="post-toc-text">类型转换</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#函数"><span class="post-toc-text">函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运算符"><span class="post-toc-text">运算符</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#条件语句"><span class="post-toc-text">条件语句</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#错误处理"><span class="post-toc-text">错误处理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象"><span class="post-toc-text">对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Number"><span class="post-toc-text">Number</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#String"><span class="post-toc-text">String</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#数组"><span class="post-toc-text">数组</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#日期对象"><span class="post-toc-text">日期对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Math对象"><span class="post-toc-text">Math对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#自定义对象"><span class="post-toc-text">自定义对象</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BOM"><span class="post-toc-text">BOM</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Window"><span class="post-toc-text">Window</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Screen"><span class="post-toc-text">Screen</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#History"><span class="post-toc-text">History</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Location"><span class="post-toc-text">Location</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#弹出框"><span class="post-toc-text">弹出框</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#计时器"><span class="post-toc-text">计时器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HTML-DOM"><span class="post-toc-text">HTML DOM</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#节点概念"><span class="post-toc-text">节点概念</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#获取节点"><span class="post-toc-text">获取节点</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节点的属性"><span class="post-toc-text">节点的属性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#改变样式"><span class="post-toc-text">改变样式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事件"><span class="post-toc-text">事件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节点关系"><span class="post-toc-text">节点关系</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建节点"><span class="post-toc-text">创建节点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#删除节点"><span class="post-toc-text">删除节点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#替换节点"><span class="post-toc-text">替换节点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#插入节点"><span class="post-toc-text">插入节点</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/02/12/JQuery学习笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          JQuery学习笔记
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/02/04/如何通过字符串来创建同名的类的对象/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">如何通过字符串来创建同名的类的对象</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="JavaScript学习笔记" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/计算机/">计算机</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 15px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 15px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+  
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="150" height="300" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 200px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: 0px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/haru/haru.model.json",0.5)</script>
+  
+</body>
+</html>

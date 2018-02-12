@@ -3,25 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hexo躺坑的那些事 | 若闲小阁</title>
+  <title>AJAX学习笔记 | 若闲小阁</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="Hexo是一个简洁、高效的博客框架，对于有一定编程基础的人来说比较友好，也可以根据个人爱好修改框架。但是第一次搭建hexo总会遇到各种各样的情况。就我个人所遇到的问题，在此归纳总结。 工具：github pages + Node.js + Hexo + 域名流程：        1.安装gitbash        2.注册github并建立github pages        3.安装node">
-<meta name="keywords" content="Hexo">
+  <meta name="description" content="Ajax(Asynchronous javascript and xml) 实现异步刷新，通过在后台与服务器进行少量数据交换，Ajax可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用Ajax）如果需要更新内容，必须重载整个网页页面。 一. 基于JavaScript的Ajax分布解析Ajax 创建XHR(XML Http Request)X">
+<meta name="keywords" content="AJAX">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo躺坑的那些事">
-<meta property="og:url" content="http://www.lousenjay.info/2017/10/12/hexo躺坑的那些事/index.html">
+<meta property="og:title" content="AJAX学习笔记">
+<meta property="og:url" content="http://www.lousenjay.info/2018/02/12/AJAX学习笔记/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="Hexo是一个简洁、高效的博客框架，对于有一定编程基础的人来说比较友好，也可以根据个人爱好修改框架。但是第一次搭建hexo总会遇到各种各样的情况。就我个人所遇到的问题，在此归纳总结。 工具：github pages + Node.js + Hexo + 域名流程：        1.安装gitbash        2.注册github并建立github pages        3.安装node">
+<meta property="og:description" content="Ajax(Asynchronous javascript and xml) 实现异步刷新，通过在后台与服务器进行少量数据交换，Ajax可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用Ajax）如果需要更新内容，必须重载整个网页页面。 一. 基于JavaScript的Ajax分布解析Ajax 创建XHR(XML Http Request)X">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1508244667&di=28db8a9f426c23f6dff9947783ddba16&src=http://c.hiphotos.baidu.com/zhidao/pic/item/b64543a98226cffc3cef5decbe014a90f703eaa3.jpg">
-<meta property="og:updated_time" content="2018-01-27T10:58:12.488Z">
+<meta property="og:updated_time" content="2018-02-12T03:19:23.341Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo躺坑的那些事">
-<meta name="twitter:description" content="Hexo是一个简洁、高效的博客框架，对于有一定编程基础的人来说比较友好，也可以根据个人爱好修改框架。但是第一次搭建hexo总会遇到各种各样的情况。就我个人所遇到的问题，在此归纳总结。 工具：github pages + Node.js + Hexo + 域名流程：        1.安装gitbash        2.注册github并建立github pages        3.安装node">
-<meta name="twitter:image" content="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1508244667&di=28db8a9f426c23f6dff9947783ddba16&src=http://c.hiphotos.baidu.com/zhidao/pic/item/b64543a98226cffc3cef5decbe014a90f703eaa3.jpg">
+<meta name="twitter:title" content="AJAX学习笔记">
+<meta name="twitter:description" content="Ajax(Asynchronous javascript and xml) 实现异步刷新，通过在后台与服务器进行少量数据交换，Ajax可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用Ajax）如果需要更新内容，必须重载整个网页页面。 一. 基于JavaScript的Ajax分布解析Ajax 创建XHR(XML Http Request)X">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -117,14 +115,14 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-hexo躺坑的那些事" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-AJAX学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      Hexo躺坑的那些事
+      AJAX学习笔记
     </h1>
     <div class="post-title-bar">
       <ul>
@@ -132,12 +130,12 @@
               <li>
                   <i class="fa fa-book"></i>
                   
-                      <a href="/categories/Blog/">Blog</a>
+                      <a href="/categories/前端/">前端</a>
                   
               </li>
           
         <li>
-          <i class="fa fa-calendar"></i>  2017-10-12
+          <i class="fa fa-calendar"></i>  2018-02-12
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -153,68 +151,41 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>Hexo是一个简洁、高效的博客框架，对于有一定编程基础的人来说比较友好，也可以根据个人爱好修改框架。但是第一次搭建hexo总会遇到各种各样的情况。就我个人所遇到的问题，在此归纳总结。</p>
-<p>工具：github pages + Node.js + Hexo + 域名<br>流程：<br>        1.安装gitbash<br>        2.注册github并建立github pages<br>        3.安装node.js<br>        4.安装hexo并初始化<br>        5.连接到github<br>        6.更改hexo配置文件<br>        7.上传到github pages<br>        8.绑定域名（可选）<br>        9.写博文</p>
-<h2 id="一-填坑"><a href="#一-填坑" class="headerlink" title="一. 填坑"></a>一. 填坑</h2><h3 id="1-1-配置文件"><a href="#1-1-配置文件" class="headerlink" title="1.1 配置文件"></a>1.1 配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy: </div><div class="line">  type: git</div><div class="line">  repo: https://github.com/LousenJay/LousenJay.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
-<p>注：属性与属性值之间必须有一个” “且为半角</p>
-<h3 id="1-2-deploy失效"><a href="#1-2-deploy失效" class="headerlink" title="1.2 deploy失效"></a>1.2 deploy失效</h3><p>检查Github Pages类型库的名称为yourname.github.io的主页，页面文件应当在master分支下，无md文件。<br>库名不是yourname.github.io的主页，页面文件应当在gh-pages分支下，文件结构与个人主页基本一致，无md文件。</p>
-<h3 id="1-3-更换主题失效"><a href="#1-3-更换主题失效" class="headerlink" title="1.3 更换主题失效"></a>1.3 更换主题失效</h3><p>在修改主题文件之后，页面的文件依然没有更新，使用hexo clean命令并删除.deploy文件，重新部署生成网页文件后上传。</p>
-<h3 id="1-4-添加文件"><a href="#1-4-添加文件" class="headerlink" title="1.4 添加文件"></a>1.4 添加文件</h3><p>在source文件夹下的所有md文件都会被hexo渲染成html文件,添加文件md文件或html等文件可以利用主题的source目录，也就是themes/themes-name/source，这个文件夹里面的所有文件都会被复制到网站的根目录中去。</p>
-<h3 id="1-5-本地成功，部署失效"><a href="#1-5-本地成功，部署失效" class="headerlink" title="1.5 本地成功，部署失效"></a>1.5 本地成功，部署失效</h3><p>大部分是浏览器的锅，hexo是纯静态页面，浏览器会缓存该页面。此时可以打开chrome的隐身窗口，隐身状态无缓存。</p>
-<h2 id="二-Hexo常用指令"><a href="#二-Hexo常用指令" class="headerlink" title="二. Hexo常用指令"></a>二. Hexo常用指令</h2><p>每次部署的步骤，可按以下三步来进行。</p>
-<pre><code>hexo clean
-
-hexo generate
-
-hexo deploy
-</code></pre><p>一些常用命令：</p>
-<p>hexo new “postName” #新建文章</p>
-<p>hexo new page”pageName” #新建页面</p>
-<p>hexo generate #生成静态页面至public目录</p>
-<p>hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）</p>
-<p>hexo deploy #将.deploy目录部署到GitHub</p>
-<p>hexo help # 查看帮助</p>
-<p>hexo version #查看Hexo的版本</p>
-<h2 id="三-Hexo文件"><a href="#三-Hexo文件" class="headerlink" title="三. Hexo文件"></a>三. Hexo文件</h2><p><br>.deploy #需要部署的文件<br>node_modules #Hexo插件<br>public #生成的静态网页文件<br>scaffolds #模板<br>source #博客正文和其他源文件, 404 favicon CNAME 等都应该放在这里<br>_drafts #草稿<br>_posts #文章<br>themes #主题<br>_config.yml #全局配置文件<br>package.json<br></p>
-
-<h2 id="四-修改页面"><a href="#四-修改页面" class="headerlink" title="四. 修改页面"></a>四. 修改页面</h2><p>源文件在themes的layout文件夹<br>css和js在themes的source文件夹<br>CNAME存放于themes的source文件夹根目录<br>插件修改在node_modules/插件文件夹/插件文件</p>
-<h2 id="五-如何写博文"><a href="#五-如何写博文" class="headerlink" title="五. 如何写博文"></a>五. 如何写博文</h2><p><br>Hexo博文采用的是md语言，md全称Markdown标记语言，但它相比HTML更加简单,一是体现在标记符的数量上，二是体现在标记符的书写上。要制约的只有一些 HTML 区块元素――比如 <code>&lt;div&gt;</code>、<code>&lt;table&gt;</code>、<code>&lt;pre&gt;</code>、<code>&lt;p&gt;</code> 等标签，必须在前后加上空行与其它内容区隔开，还要求它们的开始标签与结尾标签不能用制表符或空格来缩进。Markdown 的生成器有足够智能，不会在 HTML 区块标签外加上不必要的 <code>&lt;p&gt;</code> 标签。在 HTML 区块标签间的 Markdown 格式语法将不会被处理。比如，你在 HTML 区块内使用 Markdown 样式的<em>强调</em>会没有效果。<br></p>
-
-<ul>
-<li><p>标题<br><code># 标题</code></p>
+            <p>Ajax(Asynchronous javascript and xml) 实现异步刷新，通过在后台与服务器进行少量数据交换，Ajax可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用Ajax）如果需要更新内容，必须重载整个网页页面。</p>
+<h2 id="一-基于JavaScript的Ajax"><a href="#一-基于JavaScript的Ajax" class="headerlink" title="一. 基于JavaScript的Ajax"></a>一. 基于JavaScript的Ajax</h2><h3 id="分布解析Ajax"><a href="#分布解析Ajax" class="headerlink" title="分布解析Ajax"></a>分布解析Ajax</h3><ol>
+<li><p>创建XHR(XML Http Request)<br>XHR对象是一个JavaScript对象，Ajax就是通过它实现局部刷新的<br>var xmlhttp = new XMLHttpRequest();</p>
 </li>
-<li><p>引用</p>
-<blockquote>
-<p>引用内容</p>
-</blockquote>
+<li><p>设置响应函数<br>XHR对象的作用是和服务器进行交互，可以指定checkResult函数进行处理<br>xmlhttp.onreadystatechange = checkResult;</p>
 </li>
-</ul>
-<p><code>&gt; 引用内容</code></p>
-<ul>
-<li><p>分隔符<br><code>---</code>或<code>***</code></p>
+<li><p>设置并发出请求<br>xmlhttp.open(“GET”,url,true);<br>通过send函数进行实际访问<br>xmlhttp.send(null);<br>null表示没有参数，因为参数已经通过get方式放在url中了，只有用post，并且需要发送参数的时候，才会使用send<br>xmlhttp.send(“user=”+username+”&amp;password=”+password);</p>
 </li>
-<li><p>列表<br>使用* - +中的任何一个符号加空格就可以创建无序列表<br>使用数字+点+空格创建有序列表<br>列表可以嵌套，使用时在嵌套列表前空格</p>
+<li><p>处理响应信息<br>在checkResult函数中处理响应<br>function checkResult(){<br>if(xmlhttp.readyState==4&amp;&amp;xmlhttp.status==200){<br>document.getElementById(“checkResult”).innerHTML = xmlhttp.responseText;<br>}<br>}<br>xmlhttp.readyState 4 表示请求已完成<br>xmlhttp.status 200 表示响应成功<br>xmlhttp.responseText; 用于获取服务端传回来的文本<br>document.getElementById(‘checkResult’).innerHTML 设置span的内容为服务端传递回来的文本 </p>
 </li>
-<li><p>链接<br><a href="http://www.lousenjay.info">主页</a><br><code>[文字](url)</code></p>
+</ol>
+<h3 id="Ajax实例"><a href="#Ajax实例" class="headerlink" title="Ajax实例"></a>Ajax实例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;title&gt;Ajax分布解析&lt;/title&gt;</div><div class="line">	&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">		var xmlhttp;	</div><div class="line">		function check()&#123;</div><div class="line">			xmlhttp = new XMLHttpRequest();	//创建XHR</div><div class="line">			var user = document.getElementById(&quot;username&quot;).value; //获取输入的内容</div><div class="line">			/*设置地址，不可以使用file协议，只能使用http协议*/</div><div class="line">			var url = &quot;http://how2j.cn/study/checkName.jsp?name=&quot;+user; </div><div class="line">			xmlhttp.onreadystatechange = checkResult; //设置响应函数</div><div class="line">			xmlhttp.open(&quot;GET&quot;,url,true); //设置请求</div><div class="line">			xmlhttp.send(null); //发送请求</div><div class="line">		&#125;</div><div class="line">		function checkResult()&#123; //创建响应函数</div><div class="line">			if(xmlhttp.readyState==4&amp;&amp;xmlhttp.status==200)&#123;</div><div class="line">				document.getElementById(&quot;err&quot;).innerHTML = xmlhttp.responseText;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	账号：&lt;input id=&quot;username&quot; type=&quot;text&quot; name=&quot;user&quot; onkeyup=&quot;check()&quot; &gt;</div><div class="line">	&lt;span id = &quot;err&quot;&gt;&lt;/span&gt;</div><div class="line"></div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h2 id="二-基于JQuery的Ajax"><a href="#二-基于JQuery的Ajax" class="headerlink" title="二. 基于JQuery的Ajax"></a>二. 基于JQuery的Ajax</h2><h3 id="提交Ajax的方式"><a href="#提交Ajax的方式" class="headerlink" title="提交Ajax的方式"></a>提交Ajax的方式</h3><ol>
+<li><p>提交ajax请求<br>常见的调用方式$.ajax<br>$.ajax({<br> url:page, //表示访问的页面路径<br> data:{“name”:value}, //表示提交的参数<br> success:function(result){ //表示提交成功后返回对应的响应函数</p>
+<pre><code>$(&quot;#checkResult&quot;).html(result);
+</code></pre><p> }<br>})</p>
 </li>
-<li><p>图片<br><img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&amp;quality=100&amp;size=b4000_4000&amp;sec=1508244667&amp;di=28db8a9f426c23f6dff9947783ddba16&amp;src=http://c.hiphotos.baidu.com/zhidao/pic/item/b64543a98226cffc3cef5decbe014a90f703eaa3.jpg" alt="banner"><br><code>![名称](url)</code></p>
+<li><p>使用get方式提交ajax<br>$.get{<br> page,<br> {“name”:value},<br> function(result){ //表示提交成功后返回对应的响应函数</p>
+<pre><code>$(&quot;#checkResult&quot;).html(result);
+</code></pre><p> }<br>}<br>注：只有第一个参数是必须的</p>
 </li>
-<li><p>代码段</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">print(&quot;hello world&quot;);</div><div class="line">println();</div></pre></td></tr></table></figure>
+<li><p>使用post方式提交ajax<br>$.post{<br> page,<br> {“name”:value},<br> function(result){ //表示提交成功后返回对应的响应函数</p>
+<pre><code>$(&quot;#checkResult&quot;).html(result);
+</code></pre><p> }<br>}<br>注：只有第一个参数是必须的</p>
 </li>
-</ul>
-<p>使用三个`</p>
-<ul>
-<li><p>单行代码<br><code>println()</code><br>使用`</p>
+<li><p>使用load方式调用ajax<br>$(“#id”).load(page,[data]);<br>id: 用于显示AJAX服务端文本的元素Id<br>page: 服务端页面<br>data: 提交的数据，可选。<br>例：<br>$(function(){<br> $(“#name”).keyup(function(){<br>   var value = $(this).val();<br>   var page = “/study/checkName.jsp?name=”+value;<br>   $(“#checkResult”).load(page);<br> });<br>}); </p>
 </li>
-<li><p>字体样式<br>倾斜<code>* *</code><br>加粗<code>** **</code><br>倾斜加粗<code>*** ***</code></p>
-</li>
-</ul>
-
+</ol>
+<h3 id="Ajax实例-1"><a href="#Ajax实例-1" class="headerlink" title="Ajax实例"></a>Ajax实例</h3><p>&lt;!DOCTYPE html&gt;</p>
+<html><br><head><br>    <title>Ajax</title><br>    <meta charset="utf-8"><br>    <script type="text/javascript" src="jquery-2.1.1.min.js"></script><br>    <script type="text/javascript"><br><br>        $(function(){<br>            $(“#un”).keyup(function(){<br>                var page = “<a href="http://how2j.cn/study/checkName.jsp">http://how2j.cn/study/checkName.jsp</a>“;<br>                //通过$.ajax方式<br>                $.ajax({<br>                    url:page,<br>                    data:{“name”:$(“#un”).val()},<br>                    success:function(result){<br>                        $(“#checkResult”).html(result);<br>                    }<br>                });<br><br><br>                /<em>通过load方式<br>                var page2 = “<a href="http://how2j.cn/study/checkName.jsp?name=&quot;+$(&quot;#un&quot;).val(">http://how2j.cn/study/checkName.jsp?name=&quot;+$(&quot;#un&quot;).val(</a>);<br>                $(“#checkResult”).load(page2);
+                </em>/<br>            });<br>        });<br><br>    </script><br></head><br><body><br>    <div id="checkResult"></div><br>    <input id="un" type="text" name=""><br></body><br></html>
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年01月27日 18:58</p>
-        <p>原始链接： <a class="post-url" href="/2017/10/12/hexo躺坑的那些事/" title="Hexo躺坑的那些事">http://www.lousenjay.info/2017/10/12/hexo躺坑的那些事/</a></p>
+        <p>最后更新： 2018年02月12日 11:19</p>
+        <p>原始链接： <a class="post-url" href="/2018/02/12/AJAX学习笔记/" title="AJAX学习笔记">http://www.lousenjay.info/2018/02/12/AJAX学习笔记/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
                 <img src="/images/logo.png" alt="Lousen Jay">
@@ -236,7 +207,7 @@ hexo deploy
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2017/10/12/hexo躺坑的那些事/&title=《Hexo躺坑的那些事》 — 若闲小阁&pic=http://wx3.sinaimg.cn/mw690/a10c01f6gy1fkoj5o3kwoj20ci069gmj.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/02/12/AJAX学习笔记/&title=《AJAX学习笔记》 — 若闲小阁&pic=http://wx3.sinaimg.cn/mw690/a10c01f6gy1fkoj5o3kwoj20ci069gmj.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -246,22 +217,22 @@ hexo deploy
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2017/10/12/hexo躺坑的那些事/&title=《Hexo躺坑的那些事》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/02/12/AJAX学习笔记/&title=《AJAX学习笔记》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2017/10/12/hexo躺坑的那些事/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/02/12/AJAX学习笔记/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hexo躺坑的那些事》 — 若闲小阁&url=http://www.lousenjay.info/2017/10/12/hexo躺坑的那些事/&via=http://www.lousenjay.info" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《AJAX学习笔记》 — 若闲小阁&url=http://www.lousenjay.info/2018/02/12/AJAX学习笔记/&via=http://www.lousenjay.info" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2017/10/12/hexo躺坑的那些事/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/02/12/AJAX学习笔记/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -271,7 +242,7 @@ hexo deploy
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2017/10/12/hexo躺坑的那些事/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/02/12/AJAX学习笔记/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -283,7 +254,7 @@ hexo deploy
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/Hexo/" class="color5">Hexo</a>
+    <a href="/tags/AJAX/" class="color5">AJAX</a>
       
   </li>
 
@@ -296,30 +267,35 @@ hexo deploy
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一-填坑"><span class="post-toc-text">一. 填坑</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-1-配置文件"><span class="post-toc-text">1.1 配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-deploy失效"><span class="post-toc-text">1.2 deploy失效</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-更换主题失效"><span class="post-toc-text">1.3 更换主题失效</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-4-添加文件"><span class="post-toc-text">1.4 添加文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-5-本地成功，部署失效"><span class="post-toc-text">1.5 本地成功，部署失效</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二-Hexo常用指令"><span class="post-toc-text">二. Hexo常用指令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三-Hexo文件"><span class="post-toc-text">三. Hexo文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四-修改页面"><span class="post-toc-text">四. 修改页面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#五-如何写博文"><span class="post-toc-text">五. 如何写博文</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一-基于JavaScript的Ajax"><span class="post-toc-text">一. 基于JavaScript的Ajax</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分布解析Ajax"><span class="post-toc-text">分布解析Ajax</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Ajax实例"><span class="post-toc-text">Ajax实例</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二-基于JQuery的Ajax"><span class="post-toc-text">二. 基于JQuery的Ajax</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#提交Ajax的方式"><span class="post-toc-text">提交Ajax的方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Ajax实例-1"><span class="post-toc-text">Ajax实例</span></a></li></ol></li></ol>
         </nav>
     </aside>
     
 
 <nav id="article-nav">
   
-    <a href="/2017/10/18/有关端口的笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/02/12/JavaScript练习实例/" id="article-nav-newer" class="article-nav-link-wrap">
 
       <span class="article-nav-title">
         <i class="fa fa-hand-o-left" aria-hidden="true"></i>
         
-          虚拟端口
+          JavaScript练习实例
         
       </span>
     </a>
   
+  
+    <a href="/2018/02/12/JSON学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">JSON学习笔记</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
   
 </nav>
 
 
 
     
-        <div id="SOHUCS" sid="hexo躺坑的那些事" ></div>
+        <div id="SOHUCS" sid="AJAX学习笔记" ></div>
 <script type="text/javascript">
     (function(){
         var appid = 'cyti47zsk';

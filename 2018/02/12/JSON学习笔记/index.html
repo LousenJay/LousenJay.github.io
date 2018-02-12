@@ -3,21 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: 数据库 | 若闲小阁</title>
+  <title>JSON学习笔记 | 若闲小阁</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="LousenJay&apos;s Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="若闲小阁">
-<meta property="og:url" content="http://www.lousenjay.info/categories/数据库/index.html">
+  <meta name="description" content="JSON(java script object notation)即JavaScript对象表示法，是一种存储数据方式。本质上就是js的”自定义对象”。  创建json对象json对象由名称:值组成var test = {“name”:”张三”,”age”:18,”sex”:”男”};注：名称必须用””包含起来，值可以是任意js数据类型  访问json对象通过.访问json对象var test =">
+<meta name="keywords" content="JSON">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSON学习笔记">
+<meta property="og:url" content="http://www.lousenjay.info/2018/02/12/JSON学习笔记/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="LousenJay&apos;s Blog">
+<meta property="og:description" content="JSON(java script object notation)即JavaScript对象表示法，是一种存储数据方式。本质上就是js的”自定义对象”。  创建json对象json对象由名称:值组成var test = {“name”:”张三”,”age”:18,”sex”:”男”};注：名称必须用””包含起来，值可以是任意js数据类型  访问json对象通过.访问json对象var test =">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-12T03:25:46.726Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="若闲小阁">
-<meta name="twitter:description" content="LousenJay&apos;s Blog">
+<meta name="twitter:title" content="JSON学习笔记">
+<meta name="twitter:description" content="JSON(java script object notation)即JavaScript对象表示法，是一种存储数据方式。本质上就是js的”自定义对象”。  创建json对象json对象由名称:值组成var test = {“name”:”张三”,”age”:18,”sex”:”男”};注：名称必须用””包含起来，值可以是任意js数据类型  访问json对象通过.访问json对象var test =">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -113,53 +115,176 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap">
-  
-  
+        <section id="main" class="body-wrap"><article id="post-JSON学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/01/25/MySQL学习笔记/" class="archive-article-date">
-  <time datetime="2018-01-25T10:11:59.000Z" itemprop="datePublished">01-25</time>
-</a>
-      
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/25/MySQL学习笔记/"  >MySQL学习笔记</a>
+    <h1 class="post-title" itemprop="name">
+      JSON学习笔记
     </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/前端/">前端</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-02-12
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
   
 
-    </header>
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
       
-        <div class="archive-post-footer">
+            
+            <p>JSON(java script object notation)即JavaScript对象表示法，是一种存储数据方式。本质上就是js的”自定义对象”。</p>
+<ol>
+<li><p>创建json对象<br>json对象由名称:值组成<br>var test = {“name”:”张三”,”age”:18,”sex”:”男”};<br>注：名称必须用””包含起来，值可以是任意js数据类型</p>
+</li>
+<li><p>访问json对象<br>通过.访问json对象<br>var test = {“name”:”张三”,”age”:18,”sex”:”男”};<br>test.name; //返回张三</p>
+</li>
+<li><p>创建json数组<br>通过[]创建json数组<br>var test = [<br> {“name”:”张三”,”age”:18},<br> {“name”:”李四”,”age”:16},<br> {“name”:”王五”,”age”:22}<br>]</p>
+</li>
+<li><p>访问json数组<br>test[0].name; //返回张三</p>
+</li>
+<li><p>JSON对象和JavaScript对象<br>JSON实质上就是JavaScript的自定义对象，故无需转化</p>
+</li>
+<li><p>字符串转化为JSON<br>通过字符串拼接得到的是一个json结构的字符串，并不是json对象，需要通过eval转换得到。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a = &quot;&#123;\&quot;name\&quot;:\&quot;张三\&quot;,&quot;;</div><div class="line">var b = &quot;\&quot;age\&quot;:25&quot;;</div><div class="line">var c = a+b;</div><div class="line">var test = eval(&quot;(&quot;+c+&quot;)&quot;); //得到json对象</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>或者使用jquery的$.parseJSON转换函数<br>$.parseJSON(字符串)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var a = &quot;&#123;\&quot;name\&quot;:\&quot;张三\&quot;,\&quot;age\&quot;:20&#125;&quot;;</div><div class="line">$.parseJSON(a);</div></pre></td></tr></table></figure></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年02月12日 11:25</p>
+        <p>原始链接： <a class="post-url" href="/2018/02/12/JSON学习笔记/" title="JSON学习笔记">http://www.lousenjay.info/2018/02/12/JSON学习笔记/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/02/12/JSON学习笔记/&title=《JSON学习笔记》 — 若闲小阁&pic=http://wx3.sinaimg.cn/mw690/a10c01f6gy1fkoj5o3kwoj20ci069gmj.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/02/12/JSON学习笔记/&title=《JSON学习笔记》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/02/12/JSON学习笔记/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JSON学习笔记》 — 若闲小阁&url=http://www.lousenjay.info/2018/02/12/JSON学习笔记/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/02/12/JSON学习笔记/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/02/12/JSON学习笔记/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
             
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/MySQL/" class="color1">MySQL</a>
+    <a href="/tags/JSON/" class="color5">JSON</a>
       
   </li>
 
-        </div>
-      
+        </ul>
+        
+    </footer>
   </div>
 </article>
 
-  
-  
-    </div></section>
-  
 
+
+<nav id="article-nav">
+  
+    <a href="/2018/02/12/AJAX学习笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          AJAX学习笔记
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/02/12/JQuery学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">JQuery学习笔记</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="JSON学习笔记" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
 </section>
         
       </div>
