@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>拼图游戏</title>
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/waifu.css"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+</head>
+<body>
+	<h2 align="center">TSDM学园祭（原创交流区）</h2>
+    <h5 align="center">假装有美工(づ￣3￣)づ╭❤～</h5>
+	<div id="contain">
+    	<!--live2d-->
+        <div class="waifu">
+            <div class="waifu-tips"></div>
+            <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+            <div class="waifu-tool">
+                <span class="fui-home"></span>
+                <span class="fui-chat"></span>
+                <span class="fui-eye"></span>
+                <span class="fui-user"></span>
+                <span class="fui-photo"></span>
+                <span class="fui-info-circle"></span>
+                <span class="fui-cross"></span>
+            </div>
+        </div>
+        <!--拼图主体部分desu~-->
+        <div class="main" style="background:url(images/bg.jpg)">
+            <div class="puzzle" id="0_0" data-x="0" data-y="0" onclick="moveImg('0_0')" style="background-image: url(images/cy_01.gif);"></div>
+            <div class="puzzle" id="1_0" data-x="1" data-y="0" onclick="moveImg('1_0')" style="background-image: url(images/cy_02.gif);"></div>
+            <div class="puzzle" id="2_0" data-x="2" data-y="0" onclick="moveImg('2_0')" style="background-image: url(images/cy_03.gif);"></div>
+            <div class="puzzle" id="0_1" data-x="0" data-y="1" onclick="moveImg('0_1')" style="background-image: url(images/cy_04.gif);"></div>
+            <div class="puzzle" id="1_1" data-x="1" data-y="1" onclick="moveImg('1_1')" style="background-image: url(images/cy_05.gif);"></div>
+            <div class="puzzle" id="2_1" data-x="2" data-y="1" onclick="moveImg('2_1')" style="background-image: url(images/cy_06.gif);"></div>
+            <div class="puzzle" id="0_2" data-x="0" data-y="2" onclick="moveImg('0_2')" style="background-image: url(images/cy_07.gif);"></div>
+            <div class="puzzle" id="1_2" data-x="1" data-y="2" onclick="moveImg('1_2')" style="background-image: url(images/cy_08.gif);"></div>
+            <div class="puzzle" id="2_2" data-x="2" data-y="2"></div>
+        </div>
+        <!--对照图desu~-->
+        <div style="float:left;left:20px;position:relative;">
+            <img src="images/cy.gif" style="width:602px;height:450px;"/>
+            <br />
+            <br />
+            使用步数：<label id="lblNum">0</label>步
+            <br />
+            <br />
+            <button onclick="refresh()">重置</button>
+        </div>
+    </div>
+    
+    <script src="assets/waifu-tips.js"></script>
+    <script src="assets/live2d.js"></script>
+    <script type="text/javascript">initModel("assets/")</script>
+    <script>
+        $(function () {
+            Upset();
+        });
+    </script>
+</body>
+</html>
