@@ -10,10 +10,9 @@ html
 
 body
 {	
-
+	width: 100%;
 	background:url('http://wx3.sinaimg.cn/large/a10c01f6gy1fkyc83ki2sj21hc0u07j3.jpg');
 	background-size:cover;
-	
 	}
 	
 
@@ -25,45 +24,82 @@ a
 
 /*主菜单位置*/
 #menue 
-{	position:fixed;
-	margin-top:20%;
-	margin-left:19%;
-
+{	
+    position:absolute;
+	width:100%;
+	height:auto;
+	
 }
+
+#m1
+{
+	 position:absolute;
+	 margin-left:20%;
+	 margin-top:19.5%;
+	 width:15%;
+	 height:auto;
+	}
+	
+#m2
+{
+	 position:absolute;
+	 margin-left:20%;
+	 margin-top:22.5%;
+	 width:15%;
+	 height:auto;
+	
+	}
+
+#m3
+{
+	 position:absolute;
+	 margin-left:20%;
+	 margin-top:25.5%;
+	 width:15%;
+	 height:auto;
+	}
 
 
 /*钉宫四萌位置*/
 #d1
 {
-	 position:fixed;
-    top:160px;
-    right:800px;
-	
+	 position:absolute;
+	 margin-left:34%;
+	 margin-top:8%;
+	 width:10%;
+	 height:auto;
+
 	}
 
 #d2
 {
-	position:fixed;
-    top:500px;
-    right:1600px;
-	
+	 position:absolute;
+	 margin-left:9%;
+	 margin-top:7%;
+	 width:10%;
+	 height:auto;
+
 	}
 	
 #d3
 {
-	 position:fixed;
-    top:160px;
-    right:1600px;
-	
+	 position:absolute;
+	 margin-left:9%;
+	 margin-top:25%;
+	 width:10%;
+	 height:auto;
+
 	}
 	
 	
 #d4
 {
-	position:fixed;
-    top:500px;
-    right:900px;
-	
+	 position:absolute;
+	 margin-left:36%;
+	 margin-top:25%;
+	 width:10%;
+	 height:auto;
+
 	}
 	
 	

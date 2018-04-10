@@ -3,8 +3,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
 <meta author="集"/>
 <link type="image/x-icon" href="img/xs.ico" rel="shortcut icon">
+<link rel="stylesheet" type="text/css" href="http://www.lousenjay.info/live2d/assets/waifu.css"/>
 <title>主界面</title>
 
 <link href="wk.css" rel="stylesheet" type="text/css">
@@ -31,6 +33,21 @@ function f1(){
 
 
 <body>
+
+<!--live2d-->
+<div class="waifu">
+    <div class="waifu-tips"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="waifu-tool">
+        <span class="fui-home"></span>
+        <span class="fui-chat"></span>
+        <span class="fui-eye"></span>
+        <span class="fui-user"></span>
+        <span class="fui-photo"></span>
+        <span class="fui-info-circle"></span>
+        <span class="fui-cross"></span>
+    </div>
+</div>
 
 <!--菜单-->
 <div class="GalMenu GalDropDown">
@@ -69,11 +86,11 @@ function f1(){
     <div id="menue">
     
         
-        <a href="yssd.html"><img class="img1" src="img/b1.png"></a>
+        <a href="yssd.html"><img id="m1" class="img1" src="img/b1.png"></a>
         <br>
-        <a href="ydgd.html"><img class="img1" src="img/b2.png"></a>
+        <a href="ydgd.html"><img id="m2" class="img1" src="img/b2.png"></a>
         <br>   
-        <a href="fqzl.html" onClick="f1()"><img class="img1" src="img/b3.png"></a>
+        <a href="fqzl.html" onClick="f1()"><img id="m3" class="img1" src="img/b3.png"></a>
         <br>
     
     
@@ -115,8 +132,10 @@ function f1(){
     </audio>
     
     
-
-
+    <script src="http://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
+    <script src="http://www.lousenjay.info/live2d/assets/live2d.js"></script>
+    <script type="text/javascript">initModel("http://www.lousenjay.info/live2d/assets/")</script>
+    
 </body>
 
 </html>

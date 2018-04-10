@@ -1,9 +1,9 @@
 <!--图片放大效果-->
 $(function(){
-  $w = 334;/*$('.img1').width()*/
-  $h = 73;/*$('.img1').height()*/
-  $w2 = $w + 5;
-  $h2 = $h + 5;
+  $w = $('.img1').width();/*$('.img1').width()*/
+  $h = $('.img1').height();/*$('.img1').height()*/
+  $w2 = $w + 2;
+  $h2 = $h + 2;
 
   $('.img1').hover(function(){
 	   $(this).animate({height:$h2,width:$w2},200);

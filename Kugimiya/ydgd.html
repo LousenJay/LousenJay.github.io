@@ -12,7 +12,7 @@
   <script src="jquery-2.1.1.min.js" type="text/javascript"></script>
   <link rel="stylesheet" href="normalize.css">
   <link rel="stylesheet" href="GalMenu.css">
-
+  <link rel="stylesheet" type="text/css" href="http://www.lousenjay.info/live2d/assets/waifu.css"/>
 
   	<style type="text/css">
 	body{
@@ -27,7 +27,10 @@
   <style>
 body {
   font-size: 24px;
+  background-size:100% 100%;
 }
+img, object { max-width: 100%;}
+
 .row a {
   float: left;
 }
@@ -73,11 +76,13 @@ body {
   display: none;
 }
 .manual {
-  text-align: center;
-  font-size: 1em;
-  position: relative;
-  line-height: 1.8em;
-  top: 20px;
+  position: absolute;
+  width:100%;
+  height:auto;
+  font-size: 100%;
+  line-height: 181%;
+  margin-top:2%;
+  margin-left:45%;
 }
 .sp {
   position: absolute;
@@ -146,6 +151,20 @@ body {
 
 <body background="http://wx1.sinaimg.cn/large/a10c01f6gy1fkyc82pbapg21hc0u0779.gif">
 
+<!--live2d-->
+<div class="waifu">
+    <div class="waifu-tips"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="waifu-tool">
+        <span class="fui-home"></span>
+        <span class="fui-chat"></span>
+        <span class="fui-eye"></span>
+        <span class="fui-user"></span>
+        <span class="fui-photo"></span>
+        <span class="fui-info-circle"></span>
+        <span class="fui-cross"></span>
+    </div>
+</div>
 
 
 <div class="snow-container"></div>
@@ -242,11 +261,7 @@ body {
 2. 按下对应键盘【键盘耐久度-999】<br>
 3. 苟利钉宫生死以 岂因剧毒避趋之？<br>
 犯人： <a href="http://www.lousenjay.info/" style="color: blue" target="_blank">樱满_集</a>、<a href="http://www.tsdm.me/home.php?mod=space&uid=1141096" style="color: blue" target="_blank">还是我 </a>
-<div style="font-size: 15px ; color: #FF3">据说某个按键有娇喘...？</div>
-<div class="fb-like" data-href="bxw2442570236.my3w.com " data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-
-<div class="g-plusone" data-annotation="inline" data-width="300" data-href="bxw2442570236.my3w.com "></div>
-
+<div style="color: #FF3">据说某个按键有娇喘...？</div>
 </div>
 <img src="img/dg_01_B.png" alt="" class="preload">
 <img src="img/dg_02_B.png" alt="" class="preload">
@@ -338,8 +353,12 @@ body {
 <script src="" async defer>
   {lang: 'zh-TW'}
 </script>
+    <script src="http://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
+    <script src="http://www.lousenjay.info/live2d/assets/live2d.js"></script>
+    <script type="text/javascript">initModel("http://www.lousenjay.info/live2d/assets/")</script>
 
 
 
 
-</body></html>
+</body>
+</html>
