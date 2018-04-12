@@ -2,7 +2,7 @@
     position: fixed;
     bottom: 0;
     right: 30px; /*调整模型位置*/
-    z-index: 1;
+    z-index: 9999;
     font-size: 0;
     transition: all .3s ease-in-out;
     -webkit-transform: translateY(3px);
