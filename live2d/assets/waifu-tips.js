@@ -88,7 +88,7 @@ $('.waifu-tool .fui-photo').click(function (){
         } else if (now > 21 && now <= 23) {
             text = '已经这么晚了呀，早点休息吧，晚安~';
         } else {
-            text = '嗨~ 快来逗我玩吧！';
+            text = '嗨~ master快来逗我玩吧！';
         }
     } else {
         if(document.referrer !== ''){
@@ -96,7 +96,7 @@ $('.waifu-tool .fui-photo').click(function (){
             referrer.href = document.referrer;
             var domain = referrer.hostname.split('.')[1];
             if (window.location.hostname == referrer.hostname) {
-                text = '欢迎食用<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>~';
+                text = 'My master~ 欢迎食用<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>';
             } else if (domain == 'baidu') {
                 text = 'Hello! 来自 百度搜索 的朋友<br>你是搜索 <span style="color:#0099cc;">' + referrer.search.split('&wd=')[1].split('&')[0] + '</span> 找到的我吗？';
             } else if (domain == 'so') {
@@ -107,7 +107,7 @@ $('.waifu-tool .fui-photo').click(function (){
                 text = 'Hello! 来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的朋友';
             }
         } else {
-            text = '欢迎食用<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>~';
+            text = '欢迎食用<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>~，这里是<span style="color:#EE92A6;">集</span>的小宠物desu~';
         }
     }
     showMessage(text, 6000);
