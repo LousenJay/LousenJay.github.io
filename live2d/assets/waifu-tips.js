@@ -54,7 +54,7 @@ $('.waifu-tool .fui-info-circle').click(function (){
 
 $('.waifu-tool .fui-cross').click(function (){
     sessionStorage.setItem('waifu-dsiplay', 'none');
-    showMessage('愿你有一天能与重要的人重逢', 1300, true);
+    showMessage('愿你有一天能与重要的人重逢~', 1300, true);
     window.setTimeout(function() {$('.waifu').hide();}, 1300);
 });
 
@@ -107,7 +107,7 @@ $('.waifu-tool .fui-photo').click(function (){
                 text = 'Hello! 来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的朋友';
             }
         } else {
-            text = '欢迎食用<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>~，这里是<span style="color:#EE92A6;">集</span>的小宠物desu~';
+            text = '欢迎食用<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>~，这里是<span style="color:#FF0000;">【集】</span>的小宠物desu~';
         }
     }
     showMessage(text, 6000);
