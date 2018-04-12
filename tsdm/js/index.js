@@ -117,7 +117,7 @@ function moveImg(id) {
     }
     
     if (isSuccess) {
-        setTimeout(function(){ alert("厉害了，我的哥！")},500);
+        setTimeout(function(){ alert("恭喜您通关，您一共使用了"+num+"步！")},500);
     }
 }
 
