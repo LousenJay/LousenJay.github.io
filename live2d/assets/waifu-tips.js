@@ -175,7 +175,7 @@ function initModel(waifuPath){
         /* 首次访问加载 指定模型 的 指定材质 */
         
         var modelId = 6;            // 模型 ID
-        var modelTexturesId = 6;    // 材质 ID
+        var modelTexturesId = 16;    // 材质 ID
         
     } loadModel(modelId, modelTexturesId);
 	
