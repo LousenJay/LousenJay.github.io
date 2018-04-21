@@ -265,3 +265,6 @@ function IChangePosition(id) {
 function refresh(){
   location.reload();
 }
+
+
+

@@ -1,7 +1,24 @@
+html
+{
+	cursor:url('../images/moe.cur'),url(../images/moe.cur),auto;
+	
+	}
+a{
+	cursor:url('../images/moe2.cur'),url(../images/moe2.cur),auto;
+	}
+.btn,.waifu-tool span{
+	cursor:url('../images/moe2.cur'),url(../images/moe2.cur),auto;
+	
+	}
+.audioplayer-bar-loaded,.audioplayer-bar-played,.audioplayer-playpause,.audioplayer-playpause a,.audioplayer-volume-adjust,.image-buttons input{
+	cursor:url('../images/moe2.cur'),url(../images/moe2.cur),auto;
+	}
+
 body{
 	width:100%;
 	height:auto;
 	}
+
 
 .main {
 	width: 100%; height: 490px;position:absolute;
@@ -12,6 +29,7 @@ body{
 	border: 1px solid #fff;
 	position:absolute;
 	background-size:100% auto;
+	margin-left:4%;
 }
 .container{
 	width:94%;

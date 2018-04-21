@@ -107,7 +107,7 @@ $('.waifu-tool .fui-photo').click(function (){
                 text = 'Hello! 来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的朋友';
             }
         } else {
-            text = '欢迎食用<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>~，这里是<span style="color:#FF0000;">【集】</span>的小宠物desu~';
+            text = '欢迎食用<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>~，这里是<span style="color:#FF0000;">【集】</span>的看板娘desu~';
         }
     }
     showMessage(text, 6000);
