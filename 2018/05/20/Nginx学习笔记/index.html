@@ -8,18 +8,18 @@
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="以在Linux上发布项目网上商城为例，主要详细介绍如何在Linux下搭建Nginx+TomCat集群，顺便介绍在window下搭建Nginx+TomCat集群。 在Linux下在Linux系统上安装JDKa.检测是否安装了openjdk      运行java -version b.若有需要将其卸载 c.查看安装了哪些jdk    rpm -qa | grep java d.卸载    先卸载 o">
+  <meta name="description" content="以在Linux上发布项目网上商城为例，主要详细介绍如何在Linux下搭建Nginx+TomCat集群，顺便介绍在window下搭建Nginx+TomCat集群，统一开发环境为32位避免发生不必要的错误。 准备工作在Linux系统上安装JDKa.检测是否安装了openjdk      运行java -version b.若有需要将其卸载 c.查看安装了哪些jdk    rpm -qa | grep">
 <meta name="keywords" content="Linux,Nginx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx学习笔记">
 <meta property="og:url" content="http://www.lousenjay.info/2018/05/20/Nginx学习笔记/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="以在Linux上发布项目网上商城为例，主要详细介绍如何在Linux下搭建Nginx+TomCat集群，顺便介绍在window下搭建Nginx+TomCat集群。 在Linux下在Linux系统上安装JDKa.检测是否安装了openjdk      运行java -version b.若有需要将其卸载 c.查看安装了哪些jdk    rpm -qa | grep java d.卸载    先卸载 o">
+<meta property="og:description" content="以在Linux上发布项目网上商城为例，主要详细介绍如何在Linux下搭建Nginx+TomCat集群，顺便介绍在window下搭建Nginx+TomCat集群，统一开发环境为32位避免发生不必要的错误。 准备工作在Linux系统上安装JDKa.检测是否安装了openjdk      运行java -version b.若有需要将其卸载 c.查看安装了哪些jdk    rpm -qa | grep">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-20T14:43:38.215Z">
+<meta property="og:updated_time" content="2018-05-23T09:19:52.180Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx学习笔记">
-<meta name="twitter:description" content="以在Linux上发布项目网上商城为例，主要详细介绍如何在Linux下搭建Nginx+TomCat集群，顺便介绍在window下搭建Nginx+TomCat集群。 在Linux下在Linux系统上安装JDKa.检测是否安装了openjdk      运行java -version b.若有需要将其卸载 c.查看安装了哪些jdk    rpm -qa | grep java d.卸载    先卸载 o">
+<meta name="twitter:description" content="以在Linux上发布项目网上商城为例，主要详细介绍如何在Linux下搭建Nginx+TomCat集群，顺便介绍在window下搭建Nginx+TomCat集群，统一开发环境为32位避免发生不必要的错误。 准备工作在Linux系统上安装JDKa.检测是否安装了openjdk      运行java -version b.若有需要将其卸载 c.查看安装了哪些jdk    rpm -qa | grep">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -155,11 +155,11 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>以在Linux上发布项目网上商城为例，主要详细介绍如何在Linux下搭建Nginx+TomCat集群，顺便介绍在window下搭建Nginx+TomCat集群。</p>
-<h3 id="在Linux下"><a href="#在Linux下" class="headerlink" title="在Linux下"></a>在Linux下</h3><h4 id="在Linux系统上安装JDK"><a href="#在Linux系统上安装JDK" class="headerlink" title="在Linux系统上安装JDK"></a>在Linux系统上安装JDK</h4><p>a.检测是否安装了openjdk<br>      运行<code>java -version</code></p>
+            <p>以在Linux上发布项目网上商城为例，主要详细介绍如何在Linux下搭建Nginx+TomCat集群，顺便介绍在window下搭建Nginx+TomCat集群，统一开发环境为32位避免发生不必要的错误。</p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><h4 id="在Linux系统上安装JDK"><a href="#在Linux系统上安装JDK" class="headerlink" title="在Linux系统上安装JDK"></a>在Linux系统上安装JDK</h4><p>a.检测是否安装了openjdk<br>      运行<code>java -version</code></p>
 <p>b.若有需要将其卸载</p>
 <p>c.查看安装了哪些jdk<br>    <code>rpm -qa | grep java</code></p>
-<p>d.卸载<br>    先卸载 openjdk 1.7(通过rpm命令—–软件包管理器)<br>        rpm -e –nodeps （卸载的包）<br>        <code>rpm -e --nodeps java-1.7.0-openjdk-1.7.0.131-2.6.9.0.el6_8.x86_64</code><br>    再卸载 openjdk 1.6<br>        <code>rpm -e --nodeps java-1.6.0-openjdk-1.6.0.41-1.13.13.1.el6_8.x86_64</code></p>
+<p>d.卸载<br>    先卸载 openjdk 1.7(通过rpm命令—–软件包管理器)<br>        rpm -e –nodeps （卸载的包）<br>        <code>rpm -e --nodeps java-1.7.0-openjdk-1.7.0.131-2.6.9.0.el6_8.i686</code><br>    再卸载 openjdk 1.6<br>        <code>rpm -e --nodeps java-1.6.0-openjdk-1.6.0.41-1.13.13.1.el6_8.i686</code></p>
 <p>e.安装jdk<br>    上传jdk 通过ftp软件（FileZilla）上传(上传到root目录下)<br>    在 /usr/local创建一个 java目录<br>        <code>mkdir java</code><br>    将上传的jdk复制到 java目录下<br>        <code>cp /root/jdk.xxxxx.gz /usr/local/java</code><br>    将其解压<br>        <code>tar -xvf jdk.xxx.gz</code></p>
 <p>f.安装依赖（通过yum命令从指定服务器自动下载rpm包并安装——前端软件包管理器）<br>    <code>yum install glibc.i686</code></p>
 <p>g.配置环境变量<br>    编辑 <code>vi /etc/profile</code><br>    在文件最后添加一下信息</p>
@@ -172,21 +172,49 @@
 使更改的配置立即生效  `source /etc/profile`  
 </code></pre><p>h.检测是否安装成功<br>    java -version</p>
 <h4 id="在Linux下安装MySQL"><a href="#在Linux下安装MySQL" class="headerlink" title="在Linux下安装MySQL"></a>在Linux下安装MySQL</h4><p>a.检测是否安装了mysql<br>    <code>rpm  -qa | grep mysql</code></p>
-<p>b.卸载系统自带的mysql<br>    rpm -e –nodeps (卸载的包)<br>    <code>rpm -e --nodeps mysql-libs-5.1.71-1.el6.i686</code></p>
+<p>b.卸载系统自带的mysql<br>    rpm -e –nodeps (卸载的包)<br>    <code>rpm -e --nodeps mysql-libs-5.1.73-8.el6_8.i686</code></p>
 <p>c.上传mysql 通过ftp软件（FileZilla）上传(上传到root目录下)</p>
 <p>d.在 /usr/local/ 创建一个mysql目录<br>    <code>mkdir mysql</code></p>
 <p>e.复制mysql到mysql目录下<br>    <code>cp /root/MySQL-5.5.49-1.linux2.6.i386.rpm-bundle.tar /usr/local/mysql</code></p>
 <p>f.解压MySQL-5.5.49-1.linux2.6.i386.rpm-bundle.tar (会有几个rpm文件)<br>    <code>tar -xvf MySQL-5.5.49-1.linux2.6.i386.rpm-bundle.tar</code></p>
-<p>g.安装<br>    安装依赖<br>        <code>yum install libaio.so.1</code><br>    安装mysql的服务器端<br>        <code>rpm -ivh MySQL-server-5.5.49-1.linux2.6.i386.rpm</code><br>        注意:第一次登录mysql的时候没有不需要密码的 以后都需要<br>    安装mysql的客户端<br>        <code>rpm -ivh MySQL-client-5.5.49-1.linux2.6.i386.rpm</code></p>
+<p>g.安装<br>    安装mysql的服务器端<br>        <code>rpm -ivh MySQL-server-5.5.49-1.linux2.6.i386.rpm --force --nodeps</code><br>        注意:第一次登录mysql的时候没有不需要密码的 以后都需要<br>    安装mysql的客户端<br>        <code>rpm -ivh MySQL-client-5.5.49-1.linux2.6.i386.rpm --force --nodeps</code></p>
 <p>h.查看mysql的服务状态<br>    <code>service mysql status</code><br>  启动 mysql<br>    <code>service mysql start</code><br>  停止mysql<br>    <code>service mysql stop</code></p>
-<p>i.修改mysql的root的密码<br>    登录:<code>mysql -uroot</code><br>    修改密码:<br>        <code>use mysql;</code><br>        <code>update user set password = password(&#39;1234&#39;) where user = &#39;root&#39;;</code><br>        <code>flush privileges;</code> (刷新)</p>
-<p>j.开启远程访问<br>    <code>grant all privileges on *.* to &#39;root&#39; @&#39;%&#39; identified by &#39;1234&#39;;</code><br>    <code>flush privileges;</code></p>
+<p>i.修改mysql的root的密码<br>    登录:<code>mysql -u root -p</code><br>    修改密码:<br>        <code>use mysql;</code><br>        <code>update user set password = password(&#39;111111&#39;) where user = &#39;root&#39;;</code><br>        <code>flush privileges;</code> (刷新)</p>
+<p>j.开启远程访问<br>    <code>grant all privileges on *.* to &#39;root&#39; @&#39;%&#39; identified by &#39;111111&#39;;</code><br>    <code>flush privileges;</code></p>
 <p>k.开启防火墙端口 3306 (先用exit命令退出mysql)<br>    3306端口放行<br>    <code>/sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT</code><br>    将该设置添加到防火墙的规则中<br>    <code>/etc/rc.d/init.d/iptables save</code></p>
 <p>l:设置mysql的服务随着系统的启动而启动<br>    加入到系统服务：<br>    <code>chkconfig --add mysql</code><br>    自动启动：<br>    <code>chkconfig mysql on</code></p>
+<h4 id="在Linux下安装TomCat"><a href="#在Linux下安装TomCat" class="headerlink" title="在Linux下安装TomCat"></a>在Linux下安装TomCat</h4><p>a.在/usr/local下    创建tomcat目录<br>    <code>mkdir tomcat</code></p>
+<p>b.复制apache-tomcat-7.0.52.tar.gz到/usr/local/tomcat<br>    <code>cp apache-tomcat-7.0.52.tar.gz /usr/local/tomcat</code></p>
+<p>c.解压tomcat<br>    <code>tar -xvf apache-tomcat-7.0.52.tar.gz</code></p>
+<p>d.进入apache-tomcat-7.0.52/bin启动tomcat<br>    方式1:<br>        <code>sh startup.sh</code><br>    方式2:<br>        <code>./startup.sh</code></p>
+<p>e.开启端口号8080<br>    8080端口放行<br>    <code>/sbin/iptables -I INPUT -p tcp --dport 8080 -j ACCEPT</code><br>    将该设置添加到防火墙的规则中<br>    <code>/etc/rc.d/init.d/iptables save</code></p>
+<p>注意:<br>    查看日志文件<br>        <code>tail -f logs/catalina.out</code><br>    退出 ctrl+c</p>
+<h4 id="发布项目"><a href="#发布项目" class="headerlink" title="发布项目"></a>发布项目</h4><p>a.数据库和表<br>    备份store28的数据库<br>    在windows下<br>        <code>mysqldump -uroot -p1234 store28 &gt; g:/1.sql</code><br>    将1.sql上传 root目录<br>    通过远程工具还原数据库<br>        先登录mysql <code>mysql -u lousen -p</code><br>        创建数据库 <code>create database productstore</code><br>        进入productstore <code>use productstore;</code><br>        还原     <code>source /root/1.sql;</code></p>
+<p>b.项目<br>    将项目打包war<br>    war包的特点:<br>        在tomcat/webapps目录下 只要tomcat启动 war会自动解压<br>    将store.war上传到虚拟机的root目录下<br>    将store.war移动到tomcat/webapps下即可<br>        <code>cp store.war /usr/local/tomcat/apache-tomcat-7.0.52/webapps</code></p>
+<h4 id="在Linux下安装Ngnix"><a href="#在Linux下安装Ngnix" class="headerlink" title="在Linux下安装Ngnix"></a>在Linux下安装Ngnix</h4><p>a.先将 nginx上传到linux上</p>
+<p>b.解压nginx<br>    <code>mkdir /usr/local/nginx</code><br>    <code>cp ngnxi /usr/local/nginx/</code><br>    <code>tar -xvf nginx</code></p>
+<p>c.先编译nginx<br>    安装依赖包<br>        <code>yum install gcc-c++</code><br>        <code>yum install -y pcre pcre-devel</code><br>        <code>yum install -y zlib zlib-devel</code><br>        <code>yum install -y openssl openssl-devel</code><br>    执行编译<br>        先进入nginx-1.8.0的目录<br>        执行<br>            <code>./configure</code></p>
+<p>d.安装nginx<br>    执行<br>        <code>make</code><br>        <code>make install</code></p>
+<p>e.启动nginx<br>    cd nginx-1.8.0目录下<br>        配置文件在conf<br>        进入sbin目录<br>        启动nginx<br>            <code>./nginx</code><br>        退出ngnix (等待程序执行后再关闭)<br>            <code>./nginx -s quit</code><br>        关闭命令（直接关闭）<br>            <code>./nginx -s stop</code><br>        动态加载配置文件<br>            <code>./nginx -s reload</code></p>
+<p>f.将端口号80放行(可以更改端口号为8888)<br>    <code>/sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT</code><br>    将该设置添加到防火墙的规则中<br>    <code>/etc/rc.d/init.d/iptables save</code></p>
+<h3 id="在Linux下搭建集群"><a href="#在Linux下搭建集群" class="headerlink" title="在Linux下搭建集群"></a>在Linux下搭建集群</h3><p>1.在/usr/local/目录下创建tomcat1<br>    <code>mkdir tomcat1</code><br>2.把tomcat复制到tomcat1解包并修改端口号为8090<br>    <code>cp apache-tomcat-7.0.52.tar.gz /usr/local/tomcat1</code><br>    <code>tar -xvf tomcat</code><br>    <code>vim server.xml</code></p>
+<p>3.把测试项目上传到tomcat1的webapps目录下<br>    <code>cp test /usr/local/tomcat1/apache-tomcat-7.0.52/webapps</code></p>
+<p>4.在webapps目录下创建test目录并解压项目到该目录<br>    <code>mkdir test</code><br>    <code>mv test.war test</code><br>    <code>jar -xvf test.war</code></p>
+<p>5.复制tomcat1为tomcat2<br>    <code>cp -r tomcat1 tomcat2</code></p>
+<p>6.修改tomcat2的端口号为8100<br>    <code>vim server.xml</code></p>
+<p>7.修改测试项目文件<br>    <code>vim index.jsp</code></p>
+<p>8.修改nginx配置文件<br>    <code>vim nginx.conf</code><br>    需要在http节点上添加一个<br>        upstream servlet_xujie{<br>            server 127.0.0.1:8090;<br>            server 127.0.0.1:8100;<br>            ip_hash;<br>        }<br>    修改location /下的反向代理<br>        proxy_pass <a href="http://servlet_xujie" target="_blank" rel="external">http://servlet_xujie</a>;</p>
+<p>9.动态加载配置文件<br>    进入sbin目录<br>    <code>./nginx -s reload</code></p>
+<p>10.启动tomcat1和tomcat2和nginx</p>
+<h3 id="在Window下搭建集群"><a href="#在Window下搭建集群" class="headerlink" title="在Window下搭建集群"></a>在Window下搭建集群</h3><p>1.新建两个目录tomcat1 tomcat2</p>
+<p>2.修改tomcat2的端口，在tomcat1的端口上+10</p>
+<p>3.解压nginx<br>    修改nginx的 nginx.conf文件<br>    在locatioin / 下添加了反向代理<br>        proxy_pass <a href="http://localhost:8080(代理服务器地址" target="_blank" rel="external">http://localhost:8080(代理服务器地址</a>)<br>    这是只是代理一台服务器</p>
+<p>4.代理集群<br>    需要在http节点上添加一个<br>        upstream servlet_xujie{<br>            server 127.0.0.1:8080;<br>            server 127.0.0.1:8090;<br>        }<br>    修改location /下的反向代理<br>        proxy_pass <a href="http://servlet_xujie" target="_blank" rel="external">http://servlet_xujie</a>;</p>
+<p>5.session共享问题<br>    解决方式1:只能在window下好使<br>        web服务器解决(广播机制)<br>        注意:tomcat下性能低<br>        修改两个地方:<br>            1.修改tomcat的server.xml 支持共享<br>                将引擎标签下的<br>                <cluster classname="org.apache.catalina.ha.tcp.SimpleTcpCluster"><br>                注释去掉<br>            2.修改项目的配置文件web.xml节点中添加一个节点<br>            <code>&lt;distributable/&gt;</code><br>    解决方式2:<br>        可以将session的id放入redis中<br>    解决方式3:<br>        保证一个ip地址永远的访问一台web服务器,就不存在session共享问题了,在linux<br>        在nginx的配置文件中<br>            upstream中添加 ip_hash;</cluster></p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年05月20日 22:43</p>
+        <p>最后更新： 2018年05月23日 17:19</p>
         <p>原始链接： <a class="post-url" href="/2018/05/20/Nginx学习笔记/" title="Nginx学习笔记">http://www.lousenjay.info/2018/05/20/Nginx学习笔记/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
@@ -271,12 +299,22 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在Linux下"><span class="post-toc-text">在Linux下</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在Linux系统上安装JDK"><span class="post-toc-text">在Linux系统上安装JDK</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在Linux下安装MySQL"><span class="post-toc-text">在Linux下安装MySQL</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#准备工作"><span class="post-toc-text">准备工作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在Linux系统上安装JDK"><span class="post-toc-text">在Linux系统上安装JDK</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在Linux下安装MySQL"><span class="post-toc-text">在Linux下安装MySQL</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在Linux下安装TomCat"><span class="post-toc-text">在Linux下安装TomCat</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#发布项目"><span class="post-toc-text">发布项目</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在Linux下安装Ngnix"><span class="post-toc-text">在Linux下安装Ngnix</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在Linux下搭建集群"><span class="post-toc-text">在Linux下搭建集群</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在Window下搭建集群"><span class="post-toc-text">在Window下搭建集群</span></a></li></ol>
         </nav>
     </aside>
     
 
 <nav id="article-nav">
+  
+    <a href="/2018/05/21/Linux躺坑的那些事/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Linux躺坑的那些事
+        
+      </span>
+    </a>
   
   
     <a href="/2018/05/19/Linux学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
@@ -354,7 +392,7 @@
             <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/计算机/">计算机</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 15px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 13.33px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 13.33px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -393,7 +431,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 15px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 13.33px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 13.33px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
         </div>
     </div>
 </div>

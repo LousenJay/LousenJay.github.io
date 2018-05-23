@@ -3,21 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: OS | 若闲小阁</title>
+  <title>Linux躺坑的那些事 | 若闲小阁</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="LousenJay&apos;s Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="若闲小阁">
-<meta property="og:url" content="http://www.lousenjay.info/categories/OS/index.html">
+  <meta name="description" content="接触Linux才两天，我就已经重装了整整五次Linux的系统，在熟悉Linux系统的过程中，大大小小遇到不少坑，以下整理了在使用Linux系统时遇到的问题，以及需要注意的事项。 注意事项第一：遇到问题上网查找解决方案时，请不要轻易使用任何rpm -e –nodeps或rm -rf等指令，因为这不一定能解决问题，而且后果很严重，我两次重装系统的原因都是因为误删了文件导致Linux系统出错，甚至无法进">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux躺坑的那些事">
+<meta property="og:url" content="http://www.lousenjay.info/2018/05/21/Linux躺坑的那些事/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="LousenJay&apos;s Blog">
+<meta property="og:description" content="接触Linux才两天，我就已经重装了整整五次Linux的系统，在熟悉Linux系统的过程中，大大小小遇到不少坑，以下整理了在使用Linux系统时遇到的问题，以及需要注意的事项。 注意事项第一：遇到问题上网查找解决方案时，请不要轻易使用任何rpm -e –nodeps或rm -rf等指令，因为这不一定能解决问题，而且后果很严重，我两次重装系统的原因都是因为误删了文件导致Linux系统出错，甚至无法进">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-22T13:30:37.308Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="若闲小阁">
-<meta name="twitter:description" content="LousenJay&apos;s Blog">
+<meta name="twitter:title" content="Linux躺坑的那些事">
+<meta name="twitter:description" content="接触Linux才两天，我就已经重装了整整五次Linux的系统，在熟悉Linux系统的过程中，大大小小遇到不少坑，以下整理了在使用Linux系统时遇到的问题，以及需要注意的事项。 注意事项第一：遇到问题上网查找解决方案时，请不要轻易使用任何rpm -e –nodeps或rm -rf等指令，因为这不一定能解决问题，而且后果很严重，我两次重装系统的原因都是因为误删了文件导致Linux系统出错，甚至无法进">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -117,55 +119,166 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap">
-  
-  
+        <section id="main" class="body-wrap"><article id="post-Linux躺坑的那些事" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/05/19/Linux学习笔记/" class="archive-article-date">
-  <time datetime="2018-05-19T01:51:33.000Z" itemprop="datePublished">05-19</time>
-</a>
-      
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/19/Linux学习笔记/"  >Linux学习笔记</a>
+    <h1 class="post-title" itemprop="name">
+      Linux躺坑的那些事
     </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/服务器/">服务器</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-05-21
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
   
 
-    </header>
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
       
-        <div class="archive-post-footer">
+            
+            <p>接触Linux才两天，我就已经重装了整整五次Linux的系统，在熟悉Linux系统的过程中，大大小小遇到不少坑，以下整理了在使用Linux系统时遇到的问题，以及需要注意的事项。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>第一：遇到问题上网查找解决方案时，请不要轻易使用任何rpm -e –nodeps或rm -rf等指令，因为这不一定能解决问题，而且后果很严重，我两次重装系统的原因都是因为误删了文件导致Linux系统出错，甚至无法进入系统。</p>
+<p>第二：统一软件和CentOS的版本，最好不要在64位的CentOS上安装32位的软件，很容易出问题。</p>
+<p>第三：在mysql中操作权限后记得用<code>flush privileges;</code>刷新权限</p>
+<h3 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h3><p>1.环境：windows 7——VMware——centos<br>Too many socket connect attempts<br>解决方法：需要启动“VMware Authorization Service”服务</p>
+<p>2.误删Linux系统文件如libgcc将导致无法正常使用yum和rpm命令，并且无法正常启动系统<br>解决方法：<br>a.不要关闭系统，赶紧找一个一样的复制进来，不然就进不了系统了<br>b.如果进不了系统，只能进入救援模式，挂载到其他系统了</p>
+<p>3.E437: terminal capability ＂cm＂ required<br>这个错误一般是环境变量TERM没有配置或者配置错误所致<br>解决方法：<br>执行<code>export TERM=xterm</code><br>或者将export TERM=xterm 添加至profile文件中即可</p>
+<p>4.warning: xxx.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY<br>这是由于yum安装了旧版本的GPG keys造成的<br>解决方法：<code>rpm -ivh xxx.rpm --force --nodeps</code>(在后面加上–force –nodeps)</p>
+<p>5.Access denied for user ‘root’@’localhost’ (using password: YES)<br>root无法登陆数据库<br>解决办法：<br>    a.先停止数据库 <code>service mysql stop</code><br>    b.进入init.d目录 <code>cd /etc/init.d</code><br>    c.启用安全模式 <code>mysqld_safe --user=mysql --skip-grant-tables --skip-networking</code><br>    d.进入mysql <code>mysql</code><br>    e.用sql语句修改root的密码 <code>set password for &#39;root&#39;@&#39;localhost&#39;=password(&#39;111111&#39;);</code><br>    f.刷新权限 <code>flush privileges;</code><br>    g.退出mysql <code>exit;</code><br>    h.重启mysql服务 <code>service mysql restart;</code><br>    i.重新登录mysql <code>mysql -u root -p</code></p>
+<p>6.Failed to get local InetAddress for VMID. This is unlikely to matter. At all. We’ll add some extra randomness java.net.UnknownHostException: Linux1: Linux1: 域名解析暂时失败<br>解决办法：<br>    a.vi /etc/hosts<br>    b.在第一行127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4后加上主机名保存即可<br>    c.像这样<code>127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4 Linux1</code></p>
+<p>7.CentOS系统时间与实际时间对不上<br>解决办法：<br>a.date （查看本地时间）<br>b.hwclock –show （查看硬件的时间）<br>c.如果硬件的时间是对不上，那就对硬件的时间进行修改<br>d.hwclock –set –date ‘2018-5-22 21:29:10’ （设置硬件时间）<br>e.hwclock  –hctosys （设置系统时间和硬件时间同步）<br>f.clock -w （保存时钟）<br>g.最后在通过重启，快速重启后，查看系统时间是否真正生效！</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年05月22日 21:30</p>
+        <p>原始链接： <a class="post-url" href="/2018/05/21/Linux躺坑的那些事/" title="Linux躺坑的那些事">http://www.lousenjay.info/2018/05/21/Linux躺坑的那些事/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/05/21/Linux躺坑的那些事/&title=《Linux躺坑的那些事》 — 若闲小阁&pic=https://xiaoduola.xyz/api.php" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/05/21/Linux躺坑的那些事/&title=《Linux躺坑的那些事》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/05/21/Linux躺坑的那些事/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux躺坑的那些事》 — 若闲小阁&url=http://www.lousenjay.info/2018/05/21/Linux躺坑的那些事/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/05/21/Linux躺坑的那些事/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/05/21/Linux躺坑的那些事/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
             
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
     <a href="/tags/Linux/" class="color1">Linux</a>
       
-    <a href="/tags/CentOS/" class="color2">CentOS</a>
-      
   </li>
 
-        </div>
-      
+        </ul>
+        
+    </footer>
   </div>
 </article>
 
-  
-  
-    </div></section>
-  
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注意事项"><span class="post-toc-text">注意事项</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常见错误"><span class="post-toc-text">常见错误</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/20/Nginx学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Nginx学习笔记</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="Linux躺坑的那些事" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
 </section>
         
       </div>
