@@ -8,18 +8,18 @@
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题  a.首先连接管理员账户conn sys/pwd as sysdba;  b.执行scott.sql文件 找到scott.sql文件放在D盘根目录 `@D:\scott.sql`  c.连接scott conn scott/TIGER;  d.查看当前用户 show user;">
+  <meta name="description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题  a.首先连接管理员账户conn sys/pwd as sysdba;  b.执行scott.sql文件  找到scott.sql文件放在D盘根目录  @D:\scott.sql  c.连接scott conn scott/TIGER;  d.查看当前用户 show user;">
 <meta name="keywords" content="Oracle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Oracle详解">
 <meta property="og:url" content="http://www.lousenjay.info/2018/06/02/Oracle详解/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题  a.首先连接管理员账户conn sys/pwd as sysdba;  b.执行scott.sql文件 找到scott.sql文件放在D盘根目录 `@D:\scott.sql`  c.连接scott conn scott/TIGER;  d.查看当前用户 show user;">
+<meta property="og:description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题  a.首先连接管理员账户conn sys/pwd as sysdba;  b.执行scott.sql文件  找到scott.sql文件放在D盘根目录  @D:\scott.sql  c.连接scott conn scott/TIGER;  d.查看当前用户 show user;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-05T11:52:04.365Z">
+<meta property="og:updated_time" content="2018-06-05T11:59:13.877Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle详解">
-<meta name="twitter:description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题  a.首先连接管理员账户conn sys/pwd as sysdba;  b.执行scott.sql文件 找到scott.sql文件放在D盘根目录 `@D:\scott.sql`  c.连接scott conn scott/TIGER;  d.查看当前用户 show user;">
+<meta name="twitter:description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题  a.首先连接管理员账户conn sys/pwd as sysdba;  b.执行scott.sql文件  找到scott.sql文件放在D盘根目录  @D:\scott.sql  c.连接scott conn scott/TIGER;  d.查看当前用户 show user;">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -160,10 +160,8 @@
 <ul>
 <li><p>a.首先连接管理员账户conn sys/pwd as sysdba;</p>
 </li>
-<li><p>b.执行scott.sql文件</p>
-<pre><code>找到scott.sql文件放在D盘根目录
-`@D:\scott.sql`
-</code></pre></li>
+<li><p>b.执行scott.sql文件<br>  找到scott.sql文件放在D盘根目录<br>  <code>@D:\scott.sql</code></p>
+</li>
 <li><p>c.连接scott <code>conn scott/TIGER;</code></p>
 </li>
 <li><p>d.查看当前用户 <code>show user;</code></p>
@@ -188,12 +186,10 @@
 <p>5.Oracle字符大小写敏感，日期格式敏感<br>    Oracle严格区分字符串的大小写<br>    默认日期格式DD-MON-RR（日-月-年）<br>    查看默认日期格式<br>    <code>select * from v$nls_parameters;</code></p>
 <p>6.更改日期格式</p>
 <ul>
-<li><p>a.更改当前会话的日期格式</p>
-<pre><code>`alter session set NLS_DATE_FORMAT=&apos;yyyy-mm-dd&apos;;`
-</code></pre></li>
-<li><p>b.更改所有数据库的日期格式（需sys权限）</p>
-<pre><code>`alter system set NLS_DATE_FORMAT=&apos;yyyy-mm-dd&apos;;`
-</code></pre></li>
+<li><p>a.更改当前会话的日期格式<br>  <code>alter session set NLS_DATE_FORMAT=&#39;yyyy-mm-dd&#39;;</code></p>
+</li>
+<li><p>b.更改所有数据库的日期格式（需sys权限）<br>  <code>alter system set NLS_DATE_FORMAT=&#39;yyyy-mm-dd&#39;;</code></p>
+</li>
 </ul>
 <p>7.where解析的顺序<br>    从右到左，故在使用例如or的逻辑表达式时可以优化，正确的写在右边就可以不用执行左边的了，提高效率</p>
 <h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><p>1.查看当前用户的表<br>    <code>select * from tab;</code></p>
@@ -227,19 +223,15 @@
 </li>
 </ul>
 <p>3.去掉查询结果中重复的数据（distnict作用于后面的所有列）<br>    <code>select distinct job,dept from emp;</code></p>
-<p>4.连接符||<br>    <code>select &#39;Hello&#39; || &#39; World&#39; &quot;字符串&quot; from dual;</code><br>    ps：dual表即伪表无实际含义，仅为符合语法（from后必须跟表）</p>
-<pre><code>查询员工信息：xxx的薪水是xxx
-`select ename||&apos;的薪水是&apos;||sal &quot;信息&quot; from emp;`
-</code></pre><p>5.在。。。之间（between and）<br>    从员工表查询工资在[1000,2000]的数据<br>    select * from emp where sal between 1000 and 2000;`<br>    注：a.含有边界   b.小值在前，大值在后</p>
-<p>6.在。。。中（in）<br>    从员工表查询部门号是10和20的员工<br>    <code>select * from emp where deptno in(10,20);</code></p>
-<pre><code>从员工表查询部门号不是10和20的员工
-`select * from emp where deptno not in (10,20);`
-
-注：如果集合中有null，不能使用not in，但可以使用in
-</code></pre><p>7.模糊查询<br>    查询名字是4个字的员工<br>    <code>select * from emp where ename like &#39;____&#39;</code></p>
-<pre><code>查询名字中含有下划线的员工
-`select * from emp where ename like &apos;%\_%&apos; escape &apos;\&apos;`
-</code></pre><p>8.order by (order by作用于后面的所有列，desc只作用于离它最近的列)</p>
+<p>4.连接符||<br><code>select &#39;Hello&#39; || &#39; World&#39; &quot;字符串&quot; from dual;</code><br>ps：dual表即伪表无实际含义，仅为符合语法（from后必须跟表）</p>
+<p>查询员工信息：xxx的薪水是xxx<br><code>select ename||&#39;的薪水是&#39;||sal &quot;信息&quot; from emp;</code></p>
+<p>5.在。。。之间（between and）<br>从员工表查询工资在[1000,2000]的数据<br>select * from emp where sal between 1000 and 2000;`<br>注：a.含有边界   b.小值在前，大值在后</p>
+<p>6.在。。。中（in）<br>从员工表查询部门号是10和20的员工<br><code>select * from emp where deptno in(10,20);</code></p>
+<p>从员工表查询部门号不是10和20的员工<br><code>select * from emp where deptno not in (10,20);</code></p>
+<p>注：如果集合中有null，不能使用not in，但可以使用in</p>
+<p>7.模糊查询<br>查询名字是4个字的员工<br><code>select * from emp where ename like &#39;____&#39;</code></p>
+<p>查询名字中含有下划线的员工<br><code>select * from emp where ename like &#39;%\_%&#39; escape &#39;\&#39;</code></p>
+<p>8.order by (order by作用于后面的所有列，desc只作用于离它最近的列)</p>
 <ul>
 <li><p>a.order by后面可以 + 列、表达式、别名、序号（列的序号）</p>
 <p>  查询员工id，姓名，月薪，年薪并按年薪降序排列（表达式）<br>  <code>select empno,ename,sal,sal*12  from emp order by sal*12 desc</code></p>
@@ -271,46 +263,35 @@
 </ul>
 <p>2.字符控制函数</p>
 <ul>
-<li>a.concat（连接字符串）<pre><code>`select concat(&apos;hello&apos;,&apos; world&apos;) from dual;`
-</code></pre></li>
+<li>a.concat（连接字符串）<br>  <code>select concat(&#39;hello&#39;,&#39; world&#39;) from dual;</code></li>
 </ul>
 <ul>
-<li>b.substr（截取字符串）<pre><code>`select substr(&apos;Hello World&apos;,1,5) from dual;`
-</code></pre></li>
+<li>b.substr（截取字符串）<br>  <code>select substr(&#39;Hello World&#39;,1,5) from dual;</code></li>
 </ul>
 <ul>
-<li>c.length（字符数），legthb（字节数）<pre><code>`select length(&apos;Hello World&apos;) 字符数,lengthb(&apos;Hello World&apos;) 字节数 from dual;`
-`select length(&apos;上海&apos;) 字符数,lengthb(&apos;上海&apos;) 字节数 from dual;`
-</code></pre></li>
+<li>c.length（字符数），legthb（字节数）<br>  <code>select length(&#39;Hello World&#39;) 字符数,lengthb(&#39;Hello World&#39;) 字节数 from dual;</code><br>  <code>select length(&#39;上海&#39;) 字符数,lengthb(&#39;上海&#39;) 字节数 from dual;</code></li>
 </ul>
 <ul>
-<li>d.instr（查询自子符串的位置，从1开始数）<pre><code>`select instr(&apos;hello world&apos;,&apos;ll&apos;) 位置 from dual;`
-</code></pre></li>
+<li>d.instr（查询自子符串的位置，从1开始数）<br>  <code>select instr(&#39;hello world&#39;,&#39;ll&#39;) 位置 from dual;</code></li>
 </ul>
 <ul>
-<li>e.lpad（左填充） rpad（右填充）<pre><code>`select lpad(&apos;abcd&apos;,10,&apos;*&apos;) 左,rpad(&apos;abcd&apos;,10,&apos;*&apos;) 右 from dual;`
-</code></pre></li>
+<li>e.lpad（左填充） rpad（右填充）<br>  <code>select lpad(&#39;abcd&#39;,10,&#39;*&#39;) 左,rpad(&#39;abcd&#39;,10,&#39;*&#39;) 右 from dual;</code></li>
 </ul>
 <ul>
-<li>f.trim（去掉前后指定的字符）<pre><code>`select trim(&apos;H&apos; from &apos;Hello WorldH&apos;) from dual;`
-</code></pre></li>
+<li>f.trim（去掉前后指定的字符）<br>  <code>select trim(&#39;H&#39; from &#39;Hello WorldH&#39;) from dual;</code></li>
 </ul>
 <ul>
-<li>g.replace（替换指定的字符）<pre><code>`select replace(&apos;Hello World&apos;,&apos;l&apos;,&apos;*&apos;) from dual;`
-</code></pre></li>
+<li>g.replace（替换指定的字符）<br>  <code>select replace(&#39;Hello World&#39;,&#39;l&#39;,&#39;*&#39;) from dual;</code></li>
 </ul>
 <p>二.数字函数</p>
 <ul>
-<li>round（四舍五入）<pre><code>`select round(45.926,2) 一,round(45.926,1) 二,round(45.926,0) 三,round(45.926,-1) 四,round(45.926,-2) 五 from dual;`
-</code></pre></li>
+<li>round（四舍五入）<br>  <code>select round(45.926,2) 一,round(45.926,1) 二,round(45.926,0) 三,round(45.926,-1) 四,round(45.926,-2) 五 from dual;</code></li>
 </ul>
 <ul>
-<li>trunc（截断）<pre><code>`select trunc(45.926,2) 一,trunc(45.926,1) 二,trunc(45.926,0) 三,trunc(45.926,-1) 四,trunc(45.926,-2) 五 from dual;`
-</code></pre></li>
+<li>trunc（截断）<br>  <code>select trunc(45.926,2) 一,trunc(45.926,1) 二,trunc(45.926,0) 三,trunc(45.926,-1) 四,trunc(45.926,-2) 五 from dual;</code></li>
 </ul>
 <ul>
-<li>mod（求余）<pre><code>`select mod(1600,300) 余数 from dual;`
-</code></pre></li>
+<li>mod（求余）<br>  <code>select mod(1600,300) 余数 from dual;</code></li>
 </ul>
 <p>三.日期函数<br>    Oracle中的日期型数据实际含有两个值：日期和时间。<br>    默认日期格式为：DD-MON-RR</p>
 <ol>
@@ -345,22 +326,16 @@
 </li>
 </ol>
 <ul>
-<li>to_char（日期格式转换）<pre><code>`to_char(date,&apos;yyyy-mm-dd hh24:mi:ss&apos;)`
-注：&apos;YYYY&apos;=年，&apos;MM&apos;=月，&apos;DD&apos;=日，&apos;DAY&apos;=星期
-</code></pre></li>
+<li>to_char（日期格式转换）<br>  <code>to_char(date,&#39;yyyy-mm-dd hh24:mi:ss&#39;)</code><br>  注：’YYYY’=年，’MM’=月，’DD’=日，’DAY’=星期</li>
 </ul>
 <ul>
-<li>to_char（数字格式转换）<pre><code>`to_char(number,&apos;L9,999.99&apos;)`
-注：&apos;9&apos;=数字，&apos;0&apos;=零，&apos;$&apos;=美元，&apos;L&apos;=本地货币符号，&apos;.&apos;=小数点,&apos;,&apos;=千位符
-</code></pre></li>
+<li>to_char（数字格式转换）<br>  <code>to_char(number,&#39;L9,999.99&#39;)</code><br>  注：’9’=数字，’0’=零，’$’=美元，’L’=本地货币符号，’.’=小数点,’,’=千位符</li>
 </ul>
 <ul>
-<li>to_number(字符转数字)<pre><code>`to_number(&apos;$123.33&apos;,&apos;$999.99&apos;)`
-</code></pre></li>
+<li>to_number(字符转数字)<br>  <code>to_number(&#39;$123.33&#39;,&#39;$999.99&#39;)</code></li>
 </ul>
 <ul>
-<li>to_date（字符转日期）<pre><code>`to_date(&apos;2018-05-26 12:38:49&apos;,&apos;yyyy-mm-dd hh24:mi:ss&apos;)`
-</code></pre></li>
+<li>to_date（字符转日期）<br>  <code>to_date(&#39;2018-05-26 12:38:49&#39;,&#39;yyyy-mm-dd hh24:mi:ss&#39;)</code></li>
 </ul>
 <p>五.通用函数（适用于任何数据类型，包括null）</p>
 <ol>
@@ -456,7 +431,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年06月05日 19:52</p>
+        <p>最后更新： 2018年06月05日 19:59</p>
         <p>原始链接： <a class="post-url" href="/2018/06/02/Oracle详解/" title="Oracle详解">http://www.lousenjay.info/2018/06/02/Oracle详解/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
