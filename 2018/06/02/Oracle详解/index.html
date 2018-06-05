@@ -8,18 +8,18 @@
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题    a.首先连接管理员账户conn sys/pwd as sysdba;    b.执行scott.sql文件        找到scott.sql文件放在D盘根目录        @D:\scott.sql    c.连接scott conn scott/TIGER;">
+  <meta name="description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题  a.首先连接管理员账户conn sys/pwd as sysdba;  b.执行scott.sql文件  找到scott.sql文件放在D盘根目录  @D:\scott.sql  c.连接scott conn scott/TIGER; d.查看当前用户 show user;">
 <meta name="keywords" content="Oracle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Oracle详解">
 <meta property="og:url" content="http://www.lousenjay.info/2018/06/02/Oracle详解/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题    a.首先连接管理员账户conn sys/pwd as sysdba;    b.执行scott.sql文件        找到scott.sql文件放在D盘根目录        @D:\scott.sql    c.连接scott conn scott/TIGER;">
+<meta property="og:description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题  a.首先连接管理员账户conn sys/pwd as sysdba;  b.执行scott.sql文件  找到scott.sql文件放在D盘根目录  @D:\scott.sql  c.连接scott conn scott/TIGER; d.查看当前用户 show user;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-05T09:53:10.378Z">
+<meta property="og:updated_time" content="2018-06-05T11:29:11.751Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle详解">
-<meta name="twitter:description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题    a.首先连接管理员账户conn sys/pwd as sysdba;    b.执行scott.sql文件        找到scott.sql文件放在D盘根目录        @D:\scott.sql    c.连接scott conn scott/TIGER;">
+<meta name="twitter:description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题  a.首先连接管理员账户conn sys/pwd as sysdba;  b.执行scott.sql文件  找到scott.sql文件放在D盘根目录  @D:\scott.sql  c.连接scott conn scott/TIGER; d.查看当前用户 show user;">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -156,13 +156,28 @@
       
             
             <p>环境：Windows 7 64位，Oracle 11g，SQLPlus</p>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1.oracle没有Scott用户的问题<br>    a.首先连接管理员账户conn sys/pwd as sysdba;<br>    b.执行scott.sql文件<br>        找到scott.sql文件放在D盘根目录<br>        <code>@D:\scott.sql</code><br>    c.连接scott <code>conn scott/TIGER;</code><br>    d.查看当前用户 <code>show user;</code><br>    e.若要修改scott用户密码先登录管理员账户<br>    g.更改scott用户密码 <code>alter user scott identified by lousen;</code></p>
-<p>2.SQL中的null值<br>    a.包含null的表达式都为null<br>        解决办法：a不为null就返回a，a为null则返回b <code>NVL(a,b)</code></p>
-<pre><code>b.null永远!=null (不能写=null)
-    解决办法：`select * from emp where comm is null`
-
-c.空值是无效的，未指定的，未知的或不可预计的值，空值不是0或者空格
-</code></pre><p>3.日期和字符串都用单引号表示<code>&#39;&#39;</code></p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1.oracle没有Scott用户的问题</p>
+<ul>
+<li><p>a.首先连接管理员账户conn sys/pwd as sysdba;</p>
+</li>
+<li><p>b.执行scott.sql文件<br>  找到scott.sql文件放在D盘根目录<br>  <code>@D:\scott.sql</code></p>
+</li>
+<li>c.连接scott <code>conn scott/TIGER;</code></li>
+<li>d.查看当前用户 <code>show user;</code></li>
+<li>e.若要修改scott用户密码先登录管理员账户</li>
+<li>g.更改scott用户密码 <code>alter user scott identified by lousen;</code></li>
+</ul>
+<p>2.SQL中的null值</p>
+<ul>
+<li>包含null的表达式都为null<br>  解决办法：a不为null就返回a，a为null则返回b <code>NVL(a,b)</code></li>
+</ul>
+<ul>
+<li>null永远!=null (不能写=null)<br>  解决办法：<code>select * from emp where comm is null</code></li>
+</ul>
+<ul>
+<li>空值是无效的，未指定的，未知的或不可预计的值，空值不是0或者空格</li>
+</ul>
+<p>3.日期和字符串都用单引号表示<code>&#39;&#39;</code></p>
 <p>4.SQL语句和SQLPlus命令的区别<br>    SQL：一种语言，ANSI标准，关键字不能缩写，使用语句控制数据库中的表的定义信息和表中的数据。<br>    SQLPlus：一种环境，Oracle的特性之一，关键字可以缩写，命令不能改变数据库中的数据的值集中运行。</p>
 <p>5.Oracle字符大小写敏感，日期格式敏感<br>    Oracle严格区分字符串的大小写<br>    默认日期格式DD-MON-RR（日-月-年）<br>    查看默认日期格式<br>    <code>select * from v$nls_parameters;</code></p>
 <p>6.更改日期格式<br>    a.更改当前会话的日期格式<br>        <code>alter session set NLS_DATE_FORMAT=&#39;yyyy-mm-dd&#39;;</code><br>    b.更改所有数据库的日期格式（需sys权限）<br>        <code>alter system set NLS_DATE_FORMAT=&#39;yyyy-mm-dd&#39;;</code></p>
@@ -389,7 +404,7 @@ c.null的排序 (注：在排序时null值最大)
 </code></pre>
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年06月05日 17:53</p>
+        <p>最后更新： 2018年06月05日 19:29</p>
         <p>原始链接： <a class="post-url" href="/2018/06/02/Oracle详解/" title="Oracle详解">http://www.lousenjay.info/2018/06/02/Oracle详解/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
