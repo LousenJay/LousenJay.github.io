@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Oracle详解 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题    a.首先连接管理员账户conn sys/pwd as sysdba;    b.执行scott.sql文件        找到scott.sql文件放在D盘根目录        @D:\scott.sql    c.连接scott conn scott/TIGER;">
+<meta name="keywords" content="Oracle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle详解">
+<meta property="og:url" content="http://www.lousenjay.info/2018/06/02/Oracle详解/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题    a.首先连接管理员账户conn sys/pwd as sysdba;    b.执行scott.sql文件        找到scott.sql文件放在D盘根目录        @D:\scott.sql    c.连接scott conn scott/TIGER;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-06-05T09:53:10.378Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Oracle详解">
+<meta name="twitter:description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题    a.首先连接管理员账户conn sys/pwd as sysdba;    b.执行scott.sql文件        找到scott.sql文件放在D盘根目录        @D:\scott.sql    c.连接scott conn scott/TIGER;">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="http://www.lousenjay.info/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Oracle详解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Oracle详解
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/数据库/">数据库</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-06-02
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>环境：Windows 7 64位，Oracle 11g，SQLPlus</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1.oracle没有Scott用户的问题<br>    a.首先连接管理员账户conn sys/pwd as sysdba;<br>    b.执行scott.sql文件<br>        找到scott.sql文件放在D盘根目录<br>        <code>@D:\scott.sql</code><br>    c.连接scott <code>conn scott/TIGER;</code><br>    d.查看当前用户 <code>show user;</code><br>    e.若要修改scott用户密码先登录管理员账户<br>    g.更改scott用户密码 <code>alter user scott identified by lousen;</code></p>
+<p>2.SQL中的null值<br>    a.包含null的表达式都为null<br>        解决办法：a不为null就返回a，a为null则返回b <code>NVL(a,b)</code></p>
+<pre><code>b.null永远!=null (不能写=null)
+    解决办法：`select * from emp where comm is null`
+
+c.空值是无效的，未指定的，未知的或不可预计的值，空值不是0或者空格
+</code></pre><p>3.日期和字符串都用单引号表示<code>&#39;&#39;</code></p>
+<p>4.SQL语句和SQLPlus命令的区别<br>    SQL：一种语言，ANSI标准，关键字不能缩写，使用语句控制数据库中的表的定义信息和表中的数据。<br>    SQLPlus：一种环境，Oracle的特性之一，关键字可以缩写，命令不能改变数据库中的数据的值集中运行。</p>
+<p>5.Oracle字符大小写敏感，日期格式敏感<br>    Oracle严格区分字符串的大小写<br>    默认日期格式DD-MON-RR（日-月-年）<br>    查看默认日期格式<br>    <code>select * from v$nls_parameters;</code></p>
+<p>6.更改日期格式<br>    a.更改当前会话的日期格式<br>        <code>alter session set NLS_DATE_FORMAT=&#39;yyyy-mm-dd&#39;;</code><br>    b.更改所有数据库的日期格式（需sys权限）<br>        <code>alter system set NLS_DATE_FORMAT=&#39;yyyy-mm-dd&#39;;</code></p>
+<p>7.where解析的顺序<br>    从右到左，故在使用例如or的逻辑表达式时可以优化，正确的写在右边就可以不用执行左边的了，提高效率</p>
+<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><p>1.查看当前用户的表<br>    <code>select * from tab;</code></p>
+<p>2.查看指定表结构<br>    <code>desc emp;</code></p>
+<p>3.设置行宽<br>    先查看当前行宽<br>        <code>show linesize</code><br>    修改行宽<br>        <code>set linesize 200</code>    </p>
+<p>4.设置列宽(format=for)<br>    设置ename列的宽为8个字符<br>        <code>col ename format a8</code><br>    设置sal列的宽为4个数字的长度<br>        <code>col sal for 9999</code></p>
+<p>5.设置页面分页显示的行数<br>    <code>set pagesize 20</code></p>
+<p>6.修改上一句sql语句<br>    a.进入上一句sql语句修改 <code>ed</code><br>    b.执行上一句sql语句 <code>/</code></p>
+<p>7.清屏<br>    <code>host cls</code></p>
+<p>8.录屏<br>    把操作记录在d盘根目录下的笔记.txt中<br>    开始：<code>spool d:\笔记.txt</code><br>    结束：<code>spool off</code></p>
+<h3 id="基本查询操作"><a href="#基本查询操作" class="headerlink" title="基本查询操作"></a>基本查询操作</h3><p>1.给列起别名有三种方式<br>    a.<code>select name as &quot;姓名&quot; from user;</code><br>    b.<code>select name &quot;姓名&quot; from user;</code>(推荐使用)<br>    c.<code>select name 姓名 from user;</code></p>
+<p>2.查询表中所有数据<br>    a.<code>select * from user;</code>（需要解析<code>*</code>）<br>    b.<code>select name,age,sex,password from user;</code>(sql优化推荐使用)</p>
+<p>3.去掉查询结果中重复的数据（distnict作用于后面的所有列）<br>    <code>select distinct job,dept from emp;</code></p>
+<p>4.连接符||<br>    <code>select &#39;Hello&#39; || &#39; World&#39; &quot;字符串&quot; from dual;</code><br>    ps：dual表即伪表无实际含义，仅为符合语法（from后必须跟表）</p>
+<pre><code>查询员工信息：xxx的薪水是xxx
+`select ename||&apos;的薪水是&apos;||sal &quot;信息&quot; from emp;`
+</code></pre><p>5.在。。。之间（between and）<br>    从员工表查询工资在[1000,2000]的数据<br>    select * from emp where sal between 1000 and 2000;`<br>    注：a.含有边界   b.小值在前，大值在后</p>
+<p>6.在。。。中（in）<br>    从员工表查询部门号是10和20的员工<br>    <code>select * from emp where deptno in(10,20);</code></p>
+<pre><code>从员工表查询部门号不是10和20的员工
+`select * from emp where deptno not in (10,20);`
+
+注：如果集合中有null，不能使用not in，但可以使用in
+</code></pre><p>7.模糊查询<br>    查询名字是4个字的员工<br>    <code>select * from emp where ename like &#39;____&#39;</code></p>
+<pre><code>查询名字中含有下划线的员工
+`select * from emp where ename like &apos;%\_%&apos; escape &apos;\&apos;`
+</code></pre><p>8.order by (order by作用于后面的所有列，desc只作用于离它最近的列)<br>    a.order by后面可以 + 列、表达式、别名、序号（列的序号）</p>
+<pre><code>    查询员工id，姓名，月薪，年薪并按年薪降序排列（表达式）
+    `select empno,ename,sal,sal*12  from emp order by sal*12 desc`
+
+    查询员工id，姓名，月薪，年薪并按年薪降序排列（别名）
+    `select empno,ename,sal,sal*12 &quot;年薪&quot; from emp order by &quot;年薪&quot; desc`
+
+    查询员工id，姓名，月薪，年薪并按年薪降序排列（序号）
+    `select empno,ename,sal,sal*12 &quot;年薪&quot; from emp order by 4 desc`
+
+b.多个列排序
+    从员工表查询数据，先根据员工编号升序排列，编号相同的话就根据月薪升序排列
+    `select * from emp order by deptno,sal;`
+
+    从员工表查询数据，先根据员工编号升序排列，编号相同的话就根据月薪降序排列
+    `select * from emp order by deptno,sal desc;`
+
+    从员工表查询数据，先根据员工编号降序排列，编号相同的话就根据月薪降序排列
+    `select * from emp order by deptno desc,sal desc;`
+
+c.null的排序 (注：在排序时null值最大)
+    查询员工的信息，按照奖金升序排序，null在下边
+    `select * from emp order by comm;`
+
+    查询员工的信息，按照奖金降序排序，null在上边
+    `select * from emp order by comm desc;`
+
+    如何实现降序排列的null值在上边呢？
+    `select * from emp order by comm desc nulls last;`
+</code></pre><h3 id="单行函数"><a href="#单行函数" class="headerlink" title="单行函数"></a>单行函数</h3><p>一.字符函数<br>    1.大小写控制函数<br>        a.lower（转小写）<br>        b.upper（转大写）<br>        c.initcap（首字母大写）<br>    <code>select lower(&#39;Hello WOrld&#39;) 转小写,upper(&#39;Hello WOrld&#39;) 转大写,initcap(&#39;hello wOrld&#39;) 首字母大写 from dual;</code></p>
+<pre><code>2.字符控制函数
+    a.concat（连接字符串）
+        `select concat(&apos;hello&apos;,&apos; world&apos;) from dual;`
+
+    b.substr（截取字符串）
+        `select substr(&apos;Hello World&apos;,1,5) from dual;`
+
+    c.length（字符数），legthb（字节数）
+        `select length(&apos;Hello World&apos;) 字符数,lengthb(&apos;Hello World&apos;) 字节数 from dual;`
+        `select length(&apos;上海&apos;) 字符数,lengthb(&apos;上海&apos;) 字节数 from dual;`
+
+    d.instr（查询自子符串的位置，从1开始数）
+        `select instr(&apos;hello world&apos;,&apos;ll&apos;) 位置 from dual;`
+
+    e.lpad（左填充） rpad（右填充）
+        `select lpad(&apos;abcd&apos;,10,&apos;*&apos;) 左,rpad(&apos;abcd&apos;,10,&apos;*&apos;) 右 from dual;`
+
+    f.trim（去掉前后指定的字符）
+        `select trim(&apos;H&apos; from &apos;Hello WorldH&apos;) from dual;`
+
+    g.replace（替换指定的字符）
+        `select replace(&apos;Hello World&apos;,&apos;l&apos;,&apos;*&apos;) from dual;`
+</code></pre><p>二.数字函数<br>    1.round（四舍五入）<br>        <code>select round(45.926,2) 一,round(45.926,1) 二,round(45.926,0) 三,round(45.926,-1) 四,round(45.926,-2) 五 from dual;</code></p>
+<pre><code>2.trunc（截断）
+    `select trunc(45.926,2) 一,trunc(45.926,1) 二,trunc(45.926,0) 三,trunc(45.926,-1) 四,trunc(45.926,-2) 五 from dual;`
+
+3.mod（求余）
+    `select mod(1600,300) 余数 from dual;`
+</code></pre><p>三.日期函数<br>    Oracle中的日期型数据实际含有两个值：日期和时间。<br>    默认日期格式为：DD-MON-RR</p>
+<pre><code>1.当前日期
+    `select sysdate from dual;`
+
+2.格式化时间
+    `select to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;`
+
+3.日期的数学运算
+    a.在日期上加上或减去一个数字（天数）结果还是日期
+    b.两个日期相减返回日期之差的天数
+    c.可以用数字除24向日期中加上或减去小时
+
+    `select ename,hiredate,(sysdate-hiredate) 天,(sysdate-hiredate)/7 星期,(sysdate-hiredate)/30 月,(sysdate-hiredate)/365 年 from emp;`
+
+    注：不允许日期+日期
+
+4.months_between（相差的月数）
+    `select ename,hiredate,(sysdate-hiredate)/30 一,months_between(sysdate,hiredate) 二 from emp;`
+
+5.add_months(向指定日期添加指定月数)
+    `select add_months(sysdate,53) from dual;`
+
+6.last_day(本月的最后一天)
+    `select last_day(sysdate) from dual;`
+
+7.next_day(指定日期的下一个星期,&apos;1&apos;表示下个星期日,或直接用&apos;sunday&apos;表示)
+    `select next_day(sysdate,&apos;1&apos;) from dual;`
+
+8.在日期中插入字符串
+    `select to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&quot;今天是&quot;day&apos;) from dual;`
+
+9.round(日期的四舍五入)
+    同数字
+
+10.trunc(日期的截取)
+    同数字
+</code></pre><p>四.数据类型转换<br>    1.隐式<br>        varchar2 or char -&gt; number<br>        varchar2 or char -&gt; date<br>        number -&gt; varchar2<br>        date -&gt; varchar2</p>
+<pre><code>2.显式
+    a.to_char（日期格式转换）
+        `to_char(date,&apos;yyyy-mm-dd hh24:mi:ss&apos;)`
+        注：&apos;YYYY&apos;=年，&apos;MM&apos;=月，&apos;DD&apos;=日，&apos;DAY&apos;=星期
+
+    b.to_char（数字格式转换）
+        `to_char(number,&apos;L9,999.99&apos;)`
+        注：&apos;9&apos;=数字，&apos;0&apos;=零，&apos;$&apos;=美元，&apos;L&apos;=本地货币符号，&apos;.&apos;=小数点,&apos;,&apos;=千位符
+
+    c.to_number(字符转数字)
+        `to_number(&apos;$123.33&apos;,&apos;$999.99&apos;)`
+
+    d.to_date（字符转日期）
+        `to_date(&apos;2018-05-26 12:38:49&apos;,&apos;yyyy-mm-dd hh24:mi:ss&apos;)`
+</code></pre><p>五.通用函数（适用于任何数据类型，包括null）<br>    1.nvl (a,b)<br>        当a为null时，返回b，否则返回a</p>
+<pre><code>2.nvl（a,b,c）
+    当a为null时，返回c，否则返回b
+
+3.nullif（a,b）
+    当a=b时，返回null，否则返回a
+
+4.coalesce（a,b,c...）
+    从左到右找到第一个不为null的值并返回
+</code></pre><p>六.条件表达式<br>    1.case表达式<br>        实现董事长工资+1000，经理+800，其他+400<br>        <code>select empno,ename,job,sal 涨前,case job when &#39;PRESIDENT&#39; then sal+1000 when &#39;MANAGER&#39; then sal+800 else sal+400 end 涨后 from emp;</code></p>
+<pre><code>2.decode表达式（Oracle独有）
+    实现董事长工资+1000，经理+800，其他+400
+    `select empno,ename,job,sal 涨前,decode(job,&apos;PRESIDENT&apos;,sal+1000,&apos;MANAGER&apos;,sal+800,sal+400) 涨后 from emp;`
+</code></pre><h3 id="多行函数（分组函数）"><a href="#多行函数（分组函数）" class="headerlink" title="多行函数（分组函数）"></a>多行函数（分组函数）</h3><p>一.什么是分组函数<br>    分组函数作用于一组数据，并对一组数据返回一个值。</p>
+<p>二.常见的组函数<br>    1.AVG<br>        计算所有员工的平均工资<br>        <code>select avg(sal) &quot;平均工资&quot; from emp;</code></p>
+<pre><code>2.COUNT
+    计算所有员工的数量
+    `select count(*) &quot;总数&quot; from emp;`
+
+3.MAX
+    查找最高工资
+    `select max(sal) &quot;最高工资&quot; from emp;`
+
+4.MIN
+    查找最低工资
+    `select min(sal) &quot;最低工资&quot; from emp;`
+
+5.SUM
+    计算工资之和
+    `select sum(sal) &quot;总和&quot; from emp;`
+</code></pre><p>三.组函数与空值<br>    组函数忽略空值。<br>    例：计算平均值时，如果存在空值，不同的方式得到的平均值结果也不同<br>    1.用总奖金数除以总人数（总人数不会有null，但有人的奖金为null）<br>        <code>select sum(comm)/count(*) from emp;</code></p>
+<pre><code>2.用总奖金数除以总获得奖金的人数(并不会把null加入运算)
+    `select sum(comm)/count(comm) from emp;`
+
+3.直接用avg组函数(并不会把null加入运算)
+    `select avg(comm) from emp;`
+
+故：需根据具体情况来看使用哪种平均数。以上三种情况1的值和2,3的不同，2和3的值相同。
+
+在组函数中使用NVL函数，使分组函数无法忽略空值。
+    `select avg(nvl(comm,0)) from emp;`
+</code></pre><p>四.多个列的分组（GROUP BY）<br>    使用group by子句将表中的数据分成若干组。<br>    1.group by子句（单列）<br>        注1：在select列表中所有未包含在组函数中的列，都应该包含在group by子句中 。<br>        例：按部门计算每个部门的平均工资<br>            <code>select deptno,avg(sal) from emp group by deptno;</code></p>
+<pre><code>    注2：然而，包含在group by子句中的列不必包含在select列表中。
+        `select avg(sal) from emp group by deptno;`
+
+2.group by子句（多列）
+    先按第一个列分组，第一个列相同在按第二列分组，以此类推。
+    `select deptno,job,sum(sal) from emp group by deptno,job order by 1;`
+</code></pre><p>五.过滤分组（HAVING）<br>    使用having过滤分组的前提条件。<br>        1.行已经被分组了<br>        2.使用了组函数<br>        3.满足having子句中条件的分组将被显示<br>    例：按部门查找每个部门的最高工资并显示大于3000的数据<br>        <code>select deptno,max(sal) from emp group by deptno having max(sal)&gt;3000;</code></p>
+<pre><code>where和having的区别：
+    where后面不可以使用多行函数。
+    `select deptno,avg(sal) from emp where deptno=10 group by deptno;`
+    等价于
+    `select deptno,avg(sal) from emp group by deptno having deptno=10;`
+
+注：sql优化原则，尽量使用where，先过滤再分组，降低负荷。
+</code></pre><p>六.group by子句的增强<br>    <code>select deptno,job,sum(sal) from emp group by rollup(deptno,job);</code><br>    等价于<br>    <code>select deptno,job,sum(sal) from emp group by deptno,job;</code><br>    +<br>    <code>select deptno,sum(sal) from emp group by deptno;</code><br>    +<br>    <code>select sum(sal) from emp;</code></p>
+<pre><code>可按照报表的格式输出数据。
+例：根据部门和职位计算工资总和的报表
+1.取消deptno的重复列显示，每行空两格。
+    `break on deptno skip 2`
+2.执行group by子句语句的增强
+    `select deptno,job,sum(sal) from emp group by rollup(deptno,job);`
+3.取消报表格式
+    `break on null;`
+</code></pre><h3 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h3><p>一.笛卡尔集<br>    1.产生条件<br>        省略连接条件<br>        连接条件无效<br>        所有表中的所有行互相连接</p>
+<pre><code>2.为避免笛卡尔集，可以在where中加入有效的连接条件
+    例：有n张表，则需要至少（n-1）个有效的连接条件
+
+3.在实际运行环境中，应避免使用笛卡尔全集
+    例:有两张表，则产生的表（笛卡尔全集）的数据为两张表的列相加，两张表的行相乘
+</code></pre><p>二.等值连接<br>    例：从员工表和部门表查询员工信息：员工号 姓名 月薪 部门名称<br>    <code>select e.empno,e.ename,e.sal,d.dname from emp e,dept d where e.deptno=d.deptno;</code></p>
+<p>三.不等值连接<br>    例：从员工表和工资级别表查询工资级别在最低级别和最高级别之间的员工的信息：员工号 姓名 月薪 工资级别<br>        <code>select e.empno,e.ename,e.sal,s.grade from emp e,salgrade s where e.sal between s.losal and s.hisal;</code></p>
+<p>四.外连接<br>    对于某些不成立的记录，仍然希望包含在最后的结果中。<br>    例：where e.deptno=d.deptno<br>    当该部门不存在员工时，e.deptno为null,这个结果将不会被显示，若想要显示需使用外连接</p>
+<pre><code>1.左外连接
+    当where e.deptno=d.deptno不成立的时候，等号左边的表仍然被包含在最后的结果中
+    写法：where e.deptno=d.deptno(+)
+    `select d.deptno 部门号,d.dname 部门名称,count(e.empno) 人数 from emp e,dept d where e.deptno=d.deptno(+) group by d.deptno,d.dname;`
+
+2.右外连接
+    当where e.deptno=d.deptno不成立的时候，等号右边的表仍然被包含在最后的结果中
+    写法：where e.deptno(+)=d.deptno
+    `select d.deptno 部门号,d.dname 部门名称,count(e.empno) 人数 from emp e,dept d where e.deptno(+)=d.deptno group by d.deptno,d.dname;`
+</code></pre><p>五.自连接<br>    通过表的别名，将同一张表视为多张表<br>    例：从员工表中查询员工信息： 员工姓名 老板姓名<br>        <code>select e.ename 员工姓名,b.ename 老板姓名 from emp e,emp b where     e.mgr=b.empno;</code></p>
+<pre><code>注：自连接不适合大表操作
+</code></pre><p>六.层次查询<br>    代替自连接查询，只对一张表进行操作，适合大表操作<br>    原理:树形结构<br>    例：从员工表中查询员工信息： 员工姓名 老板姓名<br>    分析：当前员工的mgr即为上一层（prior）的员工，（mgr is null表示根节点）<br>        <code>select level,empno,ename,mgr from emp connect by prior empno=mgr start with mgr is null;</code></p>
+<pre><code>注：level是伪列
+</code></pre>
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年06月05日 17:53</p>
+        <p>原始链接： <a class="post-url" href="/2018/06/02/Oracle详解/" title="Oracle详解">http://www.lousenjay.info/2018/06/02/Oracle详解/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/06/02/Oracle详解/&title=《Oracle详解》 — 若闲小阁&pic=https://xiaoduola.xyz/api.php" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/06/02/Oracle详解/&title=《Oracle详解》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/06/02/Oracle详解/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Oracle详解》 — 若闲小阁&url=http://www.lousenjay.info/2018/06/02/Oracle详解/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/06/02/Oracle详解/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/06/02/Oracle详解/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Oracle/" class="color2">Oracle</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注意事项"><span class="post-toc-text">注意事项</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本操作"><span class="post-toc-text">基本操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本查询操作"><span class="post-toc-text">基本查询操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#单行函数"><span class="post-toc-text">单行函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多行函数（分组函数）"><span class="post-toc-text">多行函数（分组函数）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多表查询"><span class="post-toc-text">多表查询</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/21/Linux躺坑的那些事/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Linux躺坑的那些事</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="Oracle详解" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/计算机/">计算机</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 13.33px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 13.33px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/I-O/" style="font-size: 13.33px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 13.33px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="http://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
+	<script src="http://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("http://www.lousenjay.info/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>
