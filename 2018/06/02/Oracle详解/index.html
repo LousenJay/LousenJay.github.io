@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题  a.首先连接管理员账户conn sys/pwd as sysdba;  b.执行scott.sql文件  找到scott.sql文件放在D盘根目录  @D:\scott.sql  c.连接scott conn scott/TIGER;  d.查看当前用户 show user;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-05T11:59:13.877Z">
+<meta property="og:updated_time" content="2018-06-10T13:53:12.672Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle详解">
 <meta name="twitter:description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题  a.首先连接管理员账户conn sys/pwd as sysdba;  b.执行scott.sql文件  找到scott.sql文件放在D盘根目录  @D:\scott.sql  c.连接scott conn scott/TIGER;  d.查看当前用户 show user;">
@@ -206,6 +206,50 @@
 </ul>
 <p>7.清屏<br>    <code>host cls</code></p>
 <p>8.录屏<br>    把操作记录在d盘根目录下的笔记.txt中<br>    开始：<code>spool d:\笔记.txt</code><br>    结束：<code>spool off</code></p>
+<p>9.SQL执行时间的开关</p>
+<ul>
+<li>set timing on</li>
+<li>set timing off</li>
+</ul>
+<p>10.执行外部sql文件<br>例：执行d盘根目录下的test.sql语句<br><code>@d:\test.sql</code></p>
+<p>11.查看执行计划<br><code>explain plan for select * from ....</code><br><code>select * from table(dbms_xplan.display);</code><br>从右往左，从下往上看执行计划</p>
+<p>12.登录<br>    普通用户：<code>conn username/password[@ip:1521/orcl];</code><br>    超级管理员：<code>conn username/password[@ip:1521/orcl] as sysdba;</code></p>
+<p>13.查看当前连接数据库的用户<br>    <code>show user;</code></p>
+<p>14.查看当前用户下的表<br>    <code>select * from tab;</code><br>    注：超级管理员的权限很大，可以使用select * from [用户名].[表名] 来查看某用户下的表的数据</p>
+<p>15.打开输出开关<br>    <code>set serveroutput on;</code></p>
+<h3 id="Oracle的体系结构"><a href="#Oracle的体系结构" class="headerlink" title="Oracle的体系结构"></a>Oracle的体系结构</h3><ul>
+<li><p>数据库<br>  Oracle数据库是数据的物理存储。这就包括（数据文件ORA或者DBF、控制文件、联机日志、参数文件）。其实Oracle数据库的概念和其它数据库不一样，这里的数据库是一个操作系统只有一个库。可以看作是Oracle就只有一个大数据库。</p>
+</li>
+<li><p>实例<br>  一个Oracle实例（Oracle Instance）有一系列的后台进程（Backguound Processes)和内存结构（Memory Structures)组成。一个数据库可以有n个实例。</p>
+</li>
+<li><p>用户<br>  用户是在实例下建立的。不同实例可以建相同名字的用户。</p>
+</li>
+<li><p>表空间<br>  表空间是Oracle对物理数据库上相关数据文件（ORA或者DBF文件）的逻辑映射。一个数据库在逻辑上被划分成一到若干个表空间，每个表空间包含了在逻辑上相关联的一组结构。每个数据库至少有一个表空间(称之为system表空间)。</p>
+<p>  每个表空间由同一磁盘上的一个或多个文件组成，这些文件叫数据文件(datafile)。一个数据文件只能属于一个表空间。</p>
+</li>
+<li><p>数据文件<br>   数据文件是数据库的物理存储单位。数据库的数据是存储在表空间中的，真正是在某一个或者多个数据文件中。而一个表空间可以由一个或多个数据文件组成，一个数据文件只能属于一个表空间。一旦数据文件被加入到某个表空间后，就不能删除这个文件，如果要删除某个数据文件，只能删除其所属于的表空间才行。</p>
+</li>
+<li><p>创建表空间<br>  一个数据库下可以建立多个表空间，一个表空间可以建立多个用户、一个用户下可以建立多个表。</p>
+<p>  基本语法</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">create tablespace test  --表空间名称</div><div class="line">datafile &apos;d:\Oracle\Space\test.dbf&apos;	--表空间对应的数据文件</div><div class="line">size 50m	--定义的表空间初始大小</div><div class="line">autoextend on 	--自动增长，当表空间存储占满时，自动增长</div><div class="line">next 10m;	--指定一次增长的大小</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><p>数据库与其它数据库产品的区别在于，表和其它的数据库对象都是存储在用户下的。</p>
+<ol>
+<li><p>创建用户<br> 例：创建一个账号为tom，密码为123，默认表空间为test的用户</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">create user tom </div><div class="line">identified by 123</div><div class="line">default tablespace test</div></pre></td></tr></table></figure>
+</li>
+<li><p>用户赋权<br> 新创建的用户没有任何权限，登录后会有提示<br> Oracle中已存在三个重要的角色：connect角色，resource角色，dba角色。</p>
+<ul>
+<li>connect角色：是授予最终用户的典型权利，最基本的</li>
+<li>resource角色：是授予开发人员的</li>
+<li><p>dba角色：拥有全部特权，是系统最高权限</p>
+<p>例：授予tom角色resource权限<br><code>grant resource to tom;</code></p>
+<p>注：新用户必须在sys用户下给其赋予权限，否则无法正常登录</p>
+</li>
+</ul>
+</li>
+</ol>
 <h3 id="基本查询操作"><a href="#基本查询操作" class="headerlink" title="基本查询操作"></a>基本查询操作</h3><p>1.给列起别名有三种方式</p>
 <ul>
 <li><p>a.<code>select name as &quot;姓名&quot; from user;</code></p>
@@ -383,12 +427,13 @@
 <p>在组函数中使用NVL函数，使分组函数无法忽略空值。<br>    <code>select avg(nvl(comm,0)) from emp;</code></p>
 <p>四.多个列的分组（GROUP BY）<br>使用group by子句将表中的数据分成若干组。</p>
 <ol>
-<li>group by子句（单列）</li>
-</ol>
-<p>注1：在select列表中所有未包含在组函数中的列，都应该包含在group by子句中 。<br>例：按部门计算每个部门的平均工资<br>    <code>select deptno,avg(sal) from emp group by deptno;</code></p>
-<p>注2：然而，包含在group by子句中的列不必包含在select列表中。<br>    <code>select avg(sal) from emp group by deptno;</code></p>
-<ol>
-<li>group by子句（多列）<br>先按第一个列分组，第一个列相同在按第二列分组，以此类推。<br><code>select deptno,job,sum(sal) from emp group by deptno,job order by 1;</code></li>
+<li><p>group by子句（单列）<br> 注1：在select列表中所有未包含在组函数中的列，都应该包含在group by子句中 。<br> 例：按部门计算每个部门的平均工资</p>
+<pre><code>`select deptno,avg(sal) from emp group by deptno;`
+</code></pre><p> 注2：然而，包含在group by子句中的列不必包含在select列表中。</p>
+<pre><code>`select avg(sal) from emp group by deptno;`
+</code></pre></li>
+<li><p>group by子句（多列）<br> 先按第一个列分组，第一个列相同在按第二列分组，以此类推。<br> <code>select deptno,job,sum(sal) from emp group by deptno,job order by 1;</code></p>
+</li>
 </ol>
 <p>五.过滤分组（HAVING）<br>使用having过滤分组的前提条件。</p>
 <ol>
@@ -428,10 +473,527 @@
 <p>注：自连接不适合大表操作</p>
 <p>六.层次查询<br>代替自连接查询，只对一张表进行操作，适合大表操作<br>原理:树形结构<br>例：从员工表中查询员工信息： 员工姓名 老板姓名<br>分析：当前员工的mgr即为上一层（prior）的员工，（mgr is null表示根节点）<br>    <code>select level,empno,ename,mgr from emp connect by prior empno=mgr start with mgr is null;</code></p>
 <p>注：level是伪列</p>
+<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>在一个查询的内部还包含另一个查询，则此查询称为子查询<br>子查询所要解决的问题：不能一步求解</p>
+<ol>
+<li><p>常用格式<br> 例：查询工资比SCOTT高的员工信息<br> <code>select * from emp where sal &gt; (select sal from emp where ename=&#39;SCOTT&#39;);</code></p>
+</li>
+<li><p>需要注意的问题</p>
+<ul>
+<li><p>合理的书写风格</p>
+</li>
+<li><p>括号</p>
+</li>
+<li><p>可以在主查询的where、select、having、from后面使用子查询</p>
+<ul>
+<li><p>where<br>  <code>select * from emp where sal &gt; (select sal from emp where ename=&#39;SCOTT&#39;);</code></p>
+</li>
+<li><p>select<br>  <code>select empno,ename,sal,(select job from emp where empno=7839) from emp;</code></p>
+</li>
+<li><p>having<br>  <code>select deptno,sum(sal) from emp group by deptno having deptno=(select deptno from emp where ename=&#39;SCOTT&#39;);</code></p>
+</li>
+<li><p>from<br>  <code>select * from (select empno,ename,sal from emp );</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<pre><code>- 强调from后面的子查询
+    `select * from (select empno,ename,sal,sal*12 annsal from emp);`
+
+- 主查询和子查询可以不是同一张表，只要子查询返回的结果主查询可用即可
+    `select * from emp where deptno=(select deptno from dept where dname=&apos;SALES&apos;);`
+
+- 一般不在子查询中排序；但top-n分析问题中，必须对子查询排序
+    top-n问题：查询工资排名前三的员工的信息
+    `select rownum,empno,ename,sal from (select * from emp order by sal desc) where rownum&lt;=3;`
+
+    注：rownum是伪列，永远按照默认的顺序生成，rownum只能使用&lt;和&lt;=，不能使用&gt;和&gt;=
+    注：rownum永远从1开始，要分页需要使用特殊的手段
+    `select * from     (select rownum r,e1.* from (select * from emp order by sal) e1 where rownum &lt;=8 ) where r &gt;=5;`
+
+- 一般先执行子查询，再执行主查询；但相关子查询例外
+    相关子查询:将主查询中的值 作为参数传递给子查询
+    例：查询工资大于平均工资的员工的信息
+    `select empno,ename,sal,(select avg(sal) from emp where deptno=e.deptno) avgsal from emp e where sal &gt; (select avg(sal) from emp where deptno=e.deptno);`
+
+
+- 单行子查询只能使用单行操作符，多行子查询只能使用多行操作符
+
+- 子查询中的null
+</code></pre><ol>
+<li><p>SQL优化<br> 尽量使用多表查询代替子查询</p>
+</li>
+<li><p>多行子查询</p>
+<ul>
+<li><p>in（在集合中）<br>  例：查询部门名称是SALES和ACCOUNTING的员工<br>  <code>select * from emp where deptno in (select deptno from dept where dname=&#39;SALES&#39; or dname=&#39;ACCOUNTING&#39;);</code></p>
+</li>
+<li><p>any（和集合中任意一个值比较）<br>  例：查询工资比30号部门任意一个员工高的员工信息<br>  <code>select * from emp where sal &gt; any (select sal from emp where deptno=30);</code></p>
+</li>
+<li><p>all（和集合中的所有值比较）<br>  例：查询工资比30号部门所有员工高的员工信息<br>  <code>select * from emp where sal &gt; all (select sal from emp where deptno=30);</code></p>
+</li>
+</ul>
+</li>
+<li><p>多行子查询中的null</p>
+<ul>
+<li><p>in<br>  in后面的集合中可以包含null</p>
+</li>
+<li><p>not in<br>  not in后面的集合不可以包含null<br>  解决办法：<code>select * from emp where empno not in (select mgr from emp where mgr is not null);</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="集合运算"><a href="#集合运算" class="headerlink" title="集合运算"></a>集合运算</h3><ol>
+<li><p>UNION/UNION ALL（并集）</p>
+<ul>
+<li><p>UNION<br>返回两个集合的所有记录，重复部分只计算一次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">select deptno,job,sum(sal) from emp group by deptno,job</div><div class="line">   union</div><div class="line"> 	select deptno,to_char(null),sum(sal) from emp group by deptno</div><div class="line"> 	union</div><div class="line"> 	select to_number(null),to_char(null),sum(sal) from emp;</div></pre></td></tr></table></figure>
+<p>相当于<br><code>select deptno,job,sum(sal) from emp group by rollup(deptno,job);</code></p>
+</li>
+<li><p>UNION ALL<br>返回两个集合的所有记录，重复部分计算两次<br>SQL优化：两者都可以时，尽量使用union all</p>
+</li>
+</ul>
+</li>
+<li><p>INTERSECT（交集）<br> 返回同时属于两个集合的记录<br> 例：显示薪水同时位于700~1300和1201~1400的员工的信息<br> <code>select ename,sal from emp where sal between 700 and 1300 intersect select ename,sal from emp where sal between 1201 and 1400;</code></p>
+</li>
+<li><p>MINUS（差集）<br> 返回属于第一个集合，但不属于第二个集合的记录<br> 例：显示薪水位于700~1300但不位于1201~1400的员工的信息<br> <code>select ename,sal from emp where sal between 700 and 1300 minus select ename,sal from emp where sal between 1201 and 1400;</code></p>
+</li>
+<li><p>集合运算注意事项</p>
+<ul>
+<li>参与运算的各个集合必须列数相同 且类型一致</li>
+<li>采用第一个集合作为最后的表头（故别名应在第一个集合）</li>
+<li>order by永远写在最后（故order by应在最后一个集合）</li>
+<li>可使用括号来改变集合执行顺序</li>
+</ul>
+</li>
+<li><p>SQL优化原则<br> 尽量不要使用集合运算，集合越多效率越低</p>
+</li>
+</ol>
+<h3 id="处理数据"><a href="#处理数据" class="headerlink" title="处理数据"></a>处理数据</h3><ul>
+<li><p>SQL的类型</p>
+<ol>
+<li>DML（data manipulation language 数据操作语言）:insert update delete select</li>
+<li>DDL(data definition language 数据定义语言): create table,alter table,drop table,truncate table,create/drop view,sequence,index,synonym(同义词)</li>
+<li>DCL(data control language 数据控制语言）：grant(授权) revoke（撤销权限）</li>
+</ol>
+</li>
+<li><p>DML语句</p>
+<ol>
+<li><p>insert<br> 基本语法<br> <code>insert into emp(empno,ename,sal,deptno) values(1002,&#39;Mary&#39;,2000,10);</code></p>
+<p> 一次性插入多条数据<br> 例：一次性将emp中所有10号部门的员工插入到emp10中<br> <code>insert into emp10 select * from emp where deptno=10;</code><br> 注：不必书写values子句<br> 注：子查询中的值的列表应与insert子句中的列名对应（*代表结构完全一致）</p>
+<p> 注：海量插入数据</p>
+<ol>
+<li>数据泵（PLSQL程序：dbms_datapump）</li>
+<li>SQL*Loader工具</li>
+<li>外部表</li>
+</ol>
+</li>
+<li><p>delete<br> 基本语法<br> <code>delete from emp where deptno=10;</code></p>
+<p> delete和truncate的区别：</p>
+<ol>
+<li>delete逐条删除；truncate先摧毁表 再重建</li>
+<li>(*)delete是DML（可以回滚） truncate是DDL（不可以回滚）</li>
+<li>delete不会释放空间 truncate会</li>
+<li>delete可以闪回（flashback）  truncate不可以</li>
+<li><p>delete会产生碎片 truncate不会</p>
+<p>注：在ORACLE中delete比truncate速度快<br>原因：undo数据（还原数据）</p>
+</li>
+</ol>
+</li>
+<li><p>update<br> 基本语法<br> <code>update emp set deptno=20 where deptno=10;</code></p>
+</li>
+</ol>
+</li>
+<li><p>事务<br>  ORACLE中事务的标志</p>
+<ol>
+<li><p>起始标志<br> 事务中第一条DML语句</p>
+</li>
+<li><p>结束标志</p>
+<ul>
+<li><p>提交<br>  显式：commit<br>  隐式：正常退出exit，DDL，DCL</p>
+</li>
+<li><p>回滚<br>  显示：rollback<br>  隐式：非正常退出，断电，宕机</p>
+</li>
+</ul>
+<p>回滚到保留点</p>
+</li>
+</ol>
+<ul>
+<li>使用savepoint语句在当前事务中创建保存点</li>
+<li><p>使用roll back to savepoint语句回滚到指定的保存点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">savepoint a;</div><div class="line">insert...</div><div class="line">delete...</div><div class="line">...</div><div class="line">roll back to savepoint a;</div></pre></td></tr></table></figure>
+<p>数据库的隔离级别<br>Oracle 支持的 2 种事务隔离级别：READCOMMITED, SERIALIZABLE。Oracle 默认的事务隔离级别为: READ COMMITED</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="创建和管理表"><a href="#创建和管理表" class="headerlink" title="创建和管理表"></a>创建和管理表</h3><ul>
+<li><p>创建表<br>  基本语法</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">create table emp2(</div><div class="line">	ename varchar2(10),</div><div class="line">	age number</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>  在创建表的同时插入数据</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">create table empinfo</div><div class="line">as</div><div class="line">select e.empno,e.ename,e.sal,e.sal*12 annsal,d.dname</div><div class="line">from emp e, dept d</div><div class="line">where e.deptno=d.deptno;</div></pre></td></tr></table></figure>
+<p>  创建表时只复制表结构，不插入数据</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">create table emp3</div><div class="line">as</div><div class="line">select * from emp</div><div class="line">where 1=2;</div></pre></td></tr></table></figure>
+<p>  注：where的条件永为假，故只复制结构，不复制数据</p>
+</li>
+<li><p>修改表</p>
+<ol>
+<li><p>追加列<br> <code>alter table emp2 add photo blob;</code></p>
+</li>
+<li><p>修改列<br> <code>alter table emp2 modify ename varchar2(40);</code></p>
+</li>
+<li><p>删除列<br> <code>alter table emp2 drop column photo;</code></p>
+</li>
+<li><p>重命名列<br> <code>alter table emp2 rename column ename to username;</code></p>
+</li>
+<li><p>重命名表<br> <code>rename emp3 to test1;</code></p>
+</li>
+<li><p>删除表<br> <code>drop table test1;</code></p>
+</li>
+<li><p>Oracle的回收站</p>
+<ul>
+<li><p>查看回收站<br>  <code>show recyclebin;</code></p>
+</li>
+<li><p>清空回收站<br>  <code>purge recyclebin;</code></p>
+</li>
+<li><p>闪回<br>  <code>flashback table test1 to before drop;</code><br>  若已存在同名的表<br>  <code>flashback table test1 to before drop rename to test2;</code></p>
+</li>
+<li><p>查询回收站的表<br>  表名加上””即可</p>
+</li>
+<li><p>回收站有两个同名的表<br>  根据删除时间分辨<br>  闪回优先恢复最近删除的表</p>
+</li>
+<li><p>管理员用户没有回收站<br>  使用管理员用户进行删除操作时需十分谨慎</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>约束<br>  例：创建一个带约束的表</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">create table student</div><div class="line">  	(</div><div class="line"> 	sid number constraint student_pk primary key,</div><div class="line">	sname varchar2(20) constraint student_name_notnull not null,</div><div class="line">	gender varchar2(2) constraint student_gender check (gender in (&apos;男&apos;,&apos;女&apos;)),</div><div class="line"> 	email varchar2(40) constraint student_email_unique unique</div><div class="line">	constraint student_email_notnull not null,</div><div class="line">	deptno number constraint student_fk references dept(deptno) on delete set null</div><div class="line">);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="其他数据库对象"><a href="#其他数据库对象" class="headerlink" title="其他数据库对象"></a>其他数据库对象</h3><ul>
+<li><p>视图（view）<br>  视图的概念</p>
+<ul>
+<li>视图是一种虚表</li>
+<li>视图建立在已有表的基础上，视图依赖建立的表称为基表</li>
+<li>向视图提供数据内容的语句为select语句，可以将视图理解为存储起来的select语句</li>
+<li><p>视图向基表提供表数据的另一种形式</p>
+<p>视图的优点</p>
+</li>
+<li>限制数据访问</li>
+<li>简化复杂查询</li>
+<li>提供数据的独立性</li>
+<li><p>同样的数据，可以有不同的显示方式</p>
+<p>注：视图并不能提高性能<br>注：最好不要通过视图对表进行修改，通常加上with read only;</p>
+<p>基本语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">create  or replace  view empinfoview</div><div class="line">as</div><div class="line">select e.empno,e.ename,e.sal,e.sal*12 annsal,d.dname</div><div class="line">from emp e, dept d</div><div class="line">where e.deptno=d.deptno</div><div class="line">with read only;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>序列（sequence）<br>  序列的概念</p>
+<ul>
+<li>自动提供唯一的数值</li>
+<li>共享对象</li>
+<li>主要用于提供主键值</li>
+<li><p>将序列值装入内存可以提高访问效率</p>
+<p>注：最好一个表使用一个序列，不要多个表共用一个，否则会产生裂缝</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>序列的语法
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">create sequence dept_seq</div><div class="line">increment by n 【设置步长，默认为1】</div><div class="line">start with n   【设置起始数，默认为1】</div><div class="line">maxvalue n|nomaxvalue	【设置最大值，默认为nomaxvalue】</div><div class="line">minvalue n|nominvalue	【设置最小值，默认为nominvalue】</div><div class="line">cycle|nocycle	【设置是否循环，默认为不循环】</div><div class="line">cache n|nocache	【设置缓存长度，默认为20】</div></pre></td></tr></table></figure>
+
+故，一般情况下只需要使用`create sequence dept_seq;`即可，其他为默认值。
+
+
+
+如何使用序列
+配合nextval和currval伪列
+- nextval
+    返回序列下一个有效值，任何用户都可以使用
+
+- currval
+    返回序列当前的值
+
+- nextval必须在currval之前指定，两者必须同时有效
+
+一般在插入数据时使用
+`insert into test2 values(dept_seq.nextval,&apos;Mike&apos;);`
+
+
+序列裂缝
+- 回滚
+- 系统异常
+- 多个表共用同一序列
+
+
+删除序列
+删除之后，序列不可再次被引用
+`drop sequence dept_seq`
+</code></pre><ul>
+<li>索引（index）<br>  索引的概念<ul>
+<li>相当于目录</li>
+<li>一种独立于表的模式对象，可以存储在与表不同的磁盘或表空间中</li>
+<li>通过指针加快oracle服务器的查询速度</li>
+<li>索引被破坏不会对表产生影响，影响的只是查询速度</li>
+<li>索引一旦创建，oracle会自动进行维护</li>
+</ul>
+</li>
+</ul>
+<pre><code>创建索引
+- 自动创建
+定义primary key和unique时，oracle自动创建索引
+
+- 手动创建
+例：在表test2的name列上创建索引
+`create index test2_name_index on test2(name);`
+
+
+什么时候创建索引
+- 列中值分布范围广泛
+- 列经常出现在where子句或连接条件中
+- 表经常被访问且数据量很大，访问的数据大概占数据总量的2%到4%
+
+
+删除索引
+`drop index test2_name_index;`
+</code></pre><ul>
+<li>同义词<br>  同义词概念<ul>
+<li>使用同义词访问相同的对象</li>
+<li>方便访问其他用户的对象</li>
+<li>缩短对象名字的长度</li>
+<li>所有的数据对象都可以起别名 </li>
+</ul>
+</li>
+</ul>
+<pre><code>基本语法
+`create synonym hremp for hr.employess;`
+</code></pre><h3 id="PL-SQL"><a href="#PL-SQL" class="headerlink" title="PL/SQL"></a>PL/SQL</h3><p>PLSQL是Oracle对sql语言的过程化扩展，指在SQL命令语言中增加了过程处理语句（如分支、循环等），使SQL语言具有过程处理能力。</p>
+<p>运行环境：Windows 7 64位，plsqldevelop 10</p>
+<ol>
+<li><p>PL/SQL程序结构</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">declare</div><div class="line">	说明部分（变量说明，光标申请，例外声明）</div><div class="line">begin</div><div class="line">	语句序列</div><div class="line">exception</div><div class="line">	例外处理语句</div><div class="line">End;</div></pre></td></tr></table></figure>
+</li>
+<li><p>变量和常量说明</p>
+<ul>
+<li><p>说明变量<br>var1        char(10);    –oracle建表时字段的变量<br>married        boolean:=true;    –赋初值<br>psal          number(10,2);    –保留两位小数<br>my_name      emp.ename%type; –引用类型变量，即my_name的类型与emp.ename一致<br>emp_rec      emp%rowtype;    –记录型变量，代表一行的变量</p>
+</li>
+<li><p>记录型变量分量的引用<br>emp_rec.ename = ‘Mike’;</p>
+</li>
+<li><p>定义常量<br>married    constant boolean:=true;</p>
+<p>注意： := 赋值符号等价于java中的=号;<br>注意： = 逻辑等,判断两个值是否相等,等价于java中的==号？;</p>
+<p>例：查询员工号为7369的员工的姓名，薪水并打印</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">declare</div><div class="line">	pename emp.ename%type;</div><div class="line">	psal emp.sal%type;</div><div class="line">begin</div><div class="line">	select ename,sal into pename,psal from emp where empno=7369;</div><div class="line">	dbms_output.put_line(pename||&apos;的工资是&apos;||psal);</div><div class="line">end;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>if分支</p>
+<ul>
+<li><p>语法1<br>  IF   条件  THEN<br>   语句1;</p>
+<pre><code>语句2; 
+END IF;
+</code></pre></li>
+<li><p>语法2<br>  IF   条件  THEN<br>   语句1;<br>   ELSE</p>
+<pre><code>语句2; 
+END IF;
+</code></pre></li>
+<li><p>语法3<br>  IF   条件  THEN<br>  ELSIF   条件  THEN<br>  ELSIF   条件  THEN<br>  ELSIF   条件  THEN<br>  …<br>  ELSE     语句<br>  END IF;</p>
+</li>
+<li><p>例：判断不同年龄段的人群</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">   accept num prompt ‘请输入一个年龄’;</div><div class="line">declare</div><div class="line"> 		mynum number := &amp;num;</div><div class="line">begin</div><div class="line">	if mynum &lt; 18 then</div><div class="line">    	dbms_output.put_line(&apos;未成年人&apos;);</div><div class="line">	elsif mynum &gt;= 18 and mynum &lt; 40 then</div><div class="line">	    dbms_output.put_line(&apos;中年人&apos;);</div><div class="line">    elsif mynum &gt;= 40 then</div><div class="line">	    dbms_output.put_line(&apos;老年人&apos;);</div><div class="line">   	end if;</div><div class="line">end;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Loop循环</p>
+<ul>
+<li><p>语法1<br>  WHILE  条件  LOOP<br>  …<br>  END  LOOP; </p>
+</li>
+<li><p>语法2（推荐）<br>  Loop<br>  EXIT  when   条件;<br>  …<br>  End loop;</p>
+</li>
+<li><p>语法3<br>  FOR   I   IN   1 … 3    LOOP<br>  语句序列 ;<br>  END    LOOP ; </p>
+</li>
+<li><p>例：输出1到10的数字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">declare</div><div class="line">	mynum number := 1;</div><div class="line">begin</div><div class="line">	Loop</div><div class="line">	EXIT  when   mynum &gt; 10;</div><div class="line">	dbms_output.put_line(mynum);</div><div class="line">	mynum := mynum+1;</div><div class="line">	End loop;</div><div class="line">end;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>游标（光标）<br> 游标相当于java中集合的概念，可以用来存储查询返回的多条数据。</p>
+<p> 光标的属性：</p>
+<ol>
+<li>%isopen（游标打开状态）</li>
+<li>%rowcount（影响的行数）</li>
+<li>%found（游标中还有值）</li>
+<li><p>%notfound（游标中没有值）</p>
+<p>游标的使用步骤：</p>
+</li>
+<li>现在declare中定义游标：cursor c1 is select job from emp;  </li>
+<li>在begin打开游标：open c1;</li>
+<li>取一行游标的值到所定义的变量中：fetch c1 into pjob;</li>
+<li>游标退出循环的条件：exit when c1%notfound</li>
+<li><p>结束游标：close c1;</p>
+<p>注：pjob变量必须和emp表中的job列表的类型一致</p>
+<p>例1：使用游标输出emp表的员工姓名和工资</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">declare</div><div class="line">	--定义光标和变量</div><div class="line">	cursor cemp is select ename,sal from emp;</div><div class="line">	pename emp.ename%type;</div><div class="line">	psal emp.sal%type;</div><div class="line"></div><div class="line">begin</div><div class="line">	--打开光标</div><div class="line">	open cemp;</div><div class="line"></div><div class="line">	loop</div><div class="line">		--把光标中存储的值赋给变量</div><div class="line">		fetch cemp into pename,psal;</div><div class="line">		--当光标中没有值时退出循环</div><div class="line">		exit when cemp%notfound;</div><div class="line">		dbms_output.put_line(pename||&apos;的薪水是&apos;||psal);</div><div class="line"></div><div class="line">	end loop;</div><div class="line">	--关闭光标</div><div class="line">	close cemp;</div><div class="line"></div><div class="line">end;</div></pre></td></tr></table></figure>
+<p>例2:查询某部门的员工姓名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">declare</div><div class="line">  cursor cemp(dno emp.deptno%type) is select ename from emp where deptno=dno;</div><div class="line">  pename emp.ename%type;</div><div class="line">begin</div><div class="line">  open cemp(20);</div><div class="line">  loop</div><div class="line">    fetch cemp into pename;</div><div class="line">    exit when cemp%notfound;</div><div class="line">    dbms_output.put_line(pename);</div><div class="line">  end loop;</div><div class="line">  close cemp;</div><div class="line">end;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>异常<br> PLSQL的异常处理机制和Java十分相似，都是用来增强程序的健壮性和容错性的</p>
+<p> 系统定义异常</p>
+<ul>
+<li>no_data_found    (没有找到数据，空值异常)</li>
+<li>too_many_rows   (select …into语句匹配多个行) </li>
+<li>zero_divide   (除零异常)</li>
+<li>value_error   (算术或转换错误)</li>
+<li><p>timeout_on_resource  (在等待资源时发生超时)</p>
+<p>例：捕获除零异常</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">declare </div><div class="line">	mynum number;</div><div class="line">begin</div><div class="line">	mynum := 1/0;</div><div class="line">exception</div><div class="line">	when zero_divide then</div><div class="line">		dbms_output.put_line(&apos;除零异常&apos;);</div><div class="line">	when value_error then</div><div class="line">		dbms_output.put_line(&apos;转换异常&apos;);</div><div class="line">	when no_data_found then</div><div class="line">		dbms_output.put_line(&apos;空值异常&apos;);</div><div class="line">	when others then</div><div class="line">		dbms_output.put_line(&apos;其他异常&apos;);</div><div class="line">end;</div></pre></td></tr></table></figure>
+<p>自定义异常<br>在声明中定义异常，用raise抛出异常，再捕获异常</p>
+<p>例：查询部门编号是50的员工</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">declare</div><div class="line">	no_found exception;	 --自定义异常</div><div class="line">	cursor cemp is select ename from emp where deptno=50;</div><div class="line">	pename emp.ename%type;</div><div class="line"></div><div class="line">begin</div><div class="line">	open cemp;</div><div class="line">		fetch cemp into pename;</div><div class="line">		if cemp%notfound then</div><div class="line">			raise no_found;  --抛出异常</div><div class="line">		end if;</div><div class="line">	close cemp;</div><div class="line"></div><div class="line">	exception --捕获异常</div><div class="line">		when no_found then</div><div class="line">			dbms_output.put_line(&apos;没有找到该员工&apos;);</div><div class="line">		when others then</div><div class="line">			dbms_output.put_line(&apos;其他异常&apos;);</div><div class="line">end;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>综合练习<br> 例1：打印每个年份（80,81,82,87）入职员工的人数</p>
+<p> 详细设计：<br> sql语句<br>   select to_char(hiredate,’yyyy’) from emp;<br>   –&gt;游标–&gt;循环判断–&gt;退出循环–&gt;打印结果</p>
+<p> 变量<br>   count80 number := 0;<br>   count81 number := 0;<br>   count82 number := 0;<br>   count87 number := 0;</p>
+<p> 编码：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">declare</div><div class="line">  --入职年份</div><div class="line">  cursor cemp is select to_char(hiredate,&apos;yyyy&apos;) from emp;</div><div class="line">  phiredate varchar2(4);</div><div class="line">  --入职人数</div><div class="line">  count80 number := 0;</div><div class="line">  count81 number := 0;</div><div class="line">  count82 number := 0;</div><div class="line">  count87 number := 0;</div><div class="line"> begin</div><div class="line"> 	--打开光标</div><div class="line">   open cemp;</div><div class="line">   		--循环判断，累计叠加</div><div class="line">        loop</div><div class="line">           --获取年份</div><div class="line">          fetch cemp into phiredate;</div><div class="line">          exit when cemp%notfound;</div><div class="line">          </div><div class="line">          if phiredate = &apos;1980&apos; then</div><div class="line">            count80 := count80+1;</div><div class="line">           elsif phiredate = &apos;1981&apos; then</div><div class="line">            count81 := count81+1;</div><div class="line">           elsif phiredate = &apos;1982&apos; then</div><div class="line">            count82 := count82+1; </div><div class="line">            else</div><div class="line">              count87 := count87+1;</div><div class="line">           end if;</div><div class="line">           </div><div class="line">        end loop;</div><div class="line">    --关闭光标</div><div class="line">   close cemp;</div><div class="line">   --打印结果</div><div class="line">   dbms_output.put_line(&apos;总人数：&apos;||(count80+count81+count82+count87));</div><div class="line">   dbms_output.put_line(&apos;1980：&apos;||count80);</div><div class="line">   dbms_output.put_line(&apos;1981：&apos;||count81);</div><div class="line">   dbms_output.put_line(&apos;1982：&apos;||count82);</div><div class="line">   dbms_output.put_line(&apos;1987：&apos;||count87);</div><div class="line"> end;</div></pre></td></tr></table></figure>
+<p> 例2：为员工涨工资。从最低工资调起每人涨10％，但工资总额不能超过5万元,请计算涨工资的人数和涨工资后的工资总额，并输出涨工资人数及工资总额。</p>
+<p> 详细设计：<br> sql语句<br> select empno,sal from emp order by sal;<br> –&gt;游标–&gt;循环–&gt;退出条件：1.总金额&gt;5w 2.加上最后涨工资的员工总金额&gt;5w 3.not found</p>
+<p> 变量：1. 初始值  2.最终得到<br> 涨工资的人数: countEmp number := 0;<br> 涨后的工资总额：salTotal number;<br> 1.涨前总金额：select sum(sal) into salTotal from emp;<br> 2.涨后=涨前+sal*0.1</p>
+<p> 编码：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">declare </div><div class="line">	cursor cemp is select empno,sal from emp order by sal;</div><div class="line">	pempno emp.empno%type;</div><div class="line">	psal emp.sal%type;</div><div class="line">	--涨工资人数</div><div class="line">	countEmp number := 0;</div><div class="line">	--涨后总工资</div><div class="line">	salTotal number;</div><div class="line">begin</div><div class="line">	open cemp;</div><div class="line">	--涨后总工资的初始值为涨前总工资</div><div class="line">	select sum(sal) into salTotal from emp;</div><div class="line">	loop</div><div class="line">		--涨后总工资大于5w时</div><div class="line">		exit when salTotal &gt; 50000;</div><div class="line">			fetch cemp into pempno,psal;</div><div class="line">		--所有人涨完工资了</div><div class="line">		exit when cemp%notfound;</div><div class="line">		--加上最后涨工资的员工总金额&gt;5w </div><div class="line">		exit when (salTotal + 0.1*psal) &gt; 50000;</div><div class="line">			update emp set sal = psal*1.1 where empno=pempno;</div><div class="line">			countEmp := countEmp+1;</div><div class="line">			salTotal := salTotal + 0.1*psal;</div><div class="line">	end loop;</div><div class="line">	close cemp;</div><div class="line">	dbms_output.put_line(&apos;涨工资人数为：&apos;||countEmp);</div><div class="line">	dbms_output.put_line(&apos;涨后总工资：&apos;||salTotal);</div><div class="line">end;</div></pre></td></tr></table></figure>
+<p> 例3： 实现按部门分段(6000 以上、(6000 ，3000) 、3000 元以下)统计各工资段的职工人数、以及各部门的工资总额( 工资总额中不包括奖金)。</p>
+<p> 详细设计：<br> SQL语句<br> 外循环<br> 部门：select deptno from dept;<br> 内循环<br> 查部门中的员工薪水: select sal from emp where deptno=dno;</p>
+<p> 变量：1. 初始值  2.最终得到<br> 部门号<br> pdep emp.deptno%type;<br> 工资<br> psal emp.sal%type;<br> 每个段的人数<br> count1 number; count2 number; count3 number;<br> 部门的工资总额<br> salTotal number;</p>
+<ol>
+<li>select sum(sal) into salTotal  from emp where deptno=pdep;</li>
+<li>累加</li>
+</ol>
+</li>
+</ol>
+<pre><code>编码：
+先创建一张表msg来存储数据
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">create table msg(</div><div class="line">	deptno number,</div><div class="line">	count1 number,</div><div class="line">	count2 number,</div><div class="line">	count3 number,</div><div class="line">	salTotal number</div><div class="line">);</div></pre></td></tr></table></figure>
+
+用plsql处理数据，将所得数据插入msg表
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">declare</div><div class="line">	cursor cdept is select deptno from dept;</div><div class="line">	--声明部门号</div><div class="line">	pdep dept.deptno%type;</div><div class="line">	cursor cemp(dno emp.deptno%type) is select sal from emp where deptno = dno;</div><div class="line">	--声明薪水</div><div class="line">	psal emp.sal%type;</div><div class="line">	--声明每个部门每个工资段的人数</div><div class="line">	count1 number;</div><div class="line">	count2 number;</div><div class="line">	count3 number;</div><div class="line">	--声明部门工资总额</div><div class="line">	salTotal number;</div><div class="line">begin</div><div class="line">	--打开部门游标，循环部门</div><div class="line">	open cdept;</div><div class="line">	--进入外循环</div><div class="line">	loop</div><div class="line">	fetch cdept into pdep;</div><div class="line">	exit when cdept%notfound;</div><div class="line">		--初始化count</div><div class="line">		count1 := 0;</div><div class="line">		count2 := 0;</div><div class="line">		count3 := 0;</div><div class="line">		--获取每个部门员工总工资</div><div class="line">		select sum(sal) into salTotal from emp where deptno=pdep;</div><div class="line">		--打开工资游标，循环判断工资，累计叠加人数</div><div class="line">		open cemp(pdep);</div><div class="line"></div><div class="line">		--进入内循环</div><div class="line">		loop</div><div class="line">		fetch cemp into psal;</div><div class="line">		exit when cemp%notfound;</div><div class="line">			if psal &lt; 3000 then</div><div class="line">				count1 := count1+1;</div><div class="line">			elsif psal &gt;= 3000 and psal &lt; 6000 then</div><div class="line">				count2 := count2+1;</div><div class="line">			else</div><div class="line">				count3 := count3+1;</div><div class="line">			end if;</div><div class="line">		end loop;</div><div class="line">		close cemp;</div><div class="line">		--把结果插入到msg表中</div><div class="line">		insert into msg values(pdep,count1,count2,count3,nvl(salTotal,0));</div><div class="line">	end loop;</div><div class="line">	close cdept;</div><div class="line">	dbms_output.put_line(&apos;完成&apos;);</div><div class="line">end;</div></pre></td></tr></table></figure>
+</code></pre><ol>
+<li><p>存储过程和存储函数</p>
+<ul>
+<li><p>存储过程<br>  指存储在数据库中供所有用户程序调用的子程序叫存储过程。</p>
+<p>  例：给指定员工涨100工资，打印涨前和涨后工资<br>  先创建存储过程raiseSalary</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">--创建存储过程raiseSalary,eno为形参，in表示输入，number表示实参类型</div><div class="line">create or replace procedure raiseSalary(eno in number)</div><div class="line">as</div><div class="line">	--定义变量保存前的薪水</div><div class="line">	psal emp.sal%type;</div><div class="line">begin</div><div class="line">	--得到涨后薪水</div><div class="line">	update emp set sal = sal + 100 where empno=eno;</div><div class="line">	dbms_output.put_line(&apos;涨前:&apos;||psal||&apos;  涨后：&apos;||(psal+100));</div><div class="line">end;</div></pre></td></tr></table></figure>
+<p>  再调用存储过程raiseSalary</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">begin</div><div class="line">  --给形参赋值</div><div class="line">  raisesalary(eno =&gt; 7369);</div><div class="line">  commit;</div><div class="line">end;</div></pre></td></tr></table></figure>
+</li>
+<li><p>存储函数<br>  函数为一个命名的存储程序，可带参数，并返回一个计算值。使用方式和存储过程类似，但必须要有一个return子句，用于返回函数值。</p>
+<p>  例：查询某个员工的年收入</p>
+<p>  先创建存储函数queryEmpIncome</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">--创建存储函数queryEmpIncome，形参为eno，in表示输入，形参类型为number</div><div class="line">create or replace function queryEmpIncome(eno in number)</div><div class="line">--返回的值的类型</div><div class="line">return number</div><div class="line">as</div><div class="line">	--定义变量</div><div class="line">	psal emp.sal%type;</div><div class="line">	pcomm emp.comm%type;</div><div class="line">begin</div><div class="line">	select sal,comm into psal,pcomm from emp where empno=eno;</div><div class="line">	--返回年收入</div><div class="line">	return psal*12+nvl(pcomm,0);</div><div class="line">end;</div></pre></td></tr></table></figure>
+<p>  再调用存储函数</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">begin</div><div class="line">  :result := queryempincome(eno =&gt; 7369);</div><div class="line">end;</div></pre></td></tr></table></figure>
+</li>
+<li><p>过程和函数中的in/out<br>  一般来讲，存储过程和存储函数的区别在于函数可以有一个返回值；而过程没有返回值。</p>
+<p>  但是，存储过程和存储函数都可以通过out来指定一个或多个输出参数。我们可以利用out参数，在存储过程和存储函数返回多个值。</p>
+<p>  故，在一般原则下，只返回一个值就用存储函数，返回多个值就用存储过程。存储函数是旧版本的，为了兼容才保留下来的。</p>
+<p>  例：查询某个员工的姓名，月薪，职位。<br>  先创建存储过程queryEmpInfo</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">create or replace procedure queryEmpInfo(eno in number,pename out varchar2,psal out number,pjob out varchar2)</div><div class="line">as</div><div class="line">begin</div><div class="line">	select ename,sal,job into pename,psal,pjob from emp where empno = eno;</div><div class="line">end;</div></pre></td></tr></table></figure>
+<p>  再调用queryEmpInfo</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">begin</div><div class="line">  queryempinfo(eno =&gt; 7369,</div><div class="line">               pename =&gt; :pename,</div><div class="line">               psal =&gt; :psal,</div><div class="line">               pjob =&gt; :pjob);</div><div class="line">end;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在out参数中使用游标（适用于有很多输出out时）</p>
+<p>  例：查询某个部门中所有员工的信息</p>
+<p>  先申明包结构包头</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">--包头</div><div class="line">CREATE OR REPLACE PACKAGE MYPACKAGE AS </div><div class="line"></div><div class="line">  type empcursor is ref cursor;</div><div class="line">  procedure queryEmpList(dno in number,empList out empcursor);</div><div class="line"></div><div class="line">END;</div></pre></td></tr></table></figure>
+<p>  再创建包体</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">--包体</div><div class="line">CREATE OR REPLACE PACKAGE BODY &quot;MYPACKAGE&quot; AS</div><div class="line"></div><div class="line">  procedure queryEmpList(dno in number,empList out empcursor) AS</div><div class="line">  </div><div class="line">  BEGIN</div><div class="line">   </div><div class="line">    open empList for select * from emp where deptno=dno;</div><div class="line">   </div><div class="line">  END;</div><div class="line"></div><div class="line">END;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Java操作Oracle"><a href="#Java操作Oracle" class="headerlink" title="Java操作Oracle"></a>Java操作Oracle</h3><ol>
+<li><p>连接Oracle数据库</p>
+<ul>
+<li>先导入连接oracle的jar包</li>
+<li>注册驱动</li>
+<li>连接数据库</li>
+<li><p>关闭连接</p>
+<p>JDBCUtils.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">package demo;</div><div class="line"></div><div class="line">import java.sql.Connection;</div><div class="line">import java.sql.DriverManager;</div><div class="line">import java.sql.ResultSet;</div><div class="line">import java.sql.SQLException;</div><div class="line">import java.sql.Statement;</div><div class="line"></div><div class="line">public class JDBCUtils &#123;</div><div class="line"></div><div class="line">	private static String driver = &quot;oracle.jdbc.OracleDriver&quot;;</div><div class="line">	private static String url = &quot;jdbc:oracle:thin:@127.0.0.1:1521/xe&quot;;</div><div class="line">	private static String user = &quot;scott&quot;;</div><div class="line">	private static String password = &quot;TIGER&quot;;</div><div class="line">	</div><div class="line">	static&#123;</div><div class="line">		//注册驱动</div><div class="line">		try &#123;</div><div class="line">			Class.forName(driver);</div><div class="line">			//DriverManager.registerDriver(driver);</div><div class="line">		&#125; catch (ClassNotFoundException e) &#123;</div><div class="line">			throw new ExceptionInInitializerError(e);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	//连接数据库</div><div class="line">	public static Connection getConnection()&#123;</div><div class="line">		try &#123;</div><div class="line">			return DriverManager.getConnection(url, user, password);</div><div class="line">		&#125; catch (SQLException e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">		return null;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	//关闭连接</div><div class="line">	public static void release(Connection conn,Statement st,ResultSet rs)&#123;</div><div class="line">		if(rs != null)&#123;</div><div class="line">			try &#123;</div><div class="line">				rs.close();</div><div class="line">			&#125; catch (SQLException e) &#123;</div><div class="line">				e.printStackTrace();</div><div class="line">			&#125;finally&#123;</div><div class="line">				rs = null;//-----&gt; Java GC</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		if(st != null)&#123;</div><div class="line">			try &#123;</div><div class="line">				st.close();</div><div class="line">			&#125; catch (SQLException e) &#123;</div><div class="line">				e.printStackTrace();</div><div class="line">			&#125;finally&#123;</div><div class="line">				st = null;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		if(conn != null)&#123;</div><div class="line">			try &#123;</div><div class="line">				conn.close();</div><div class="line">			&#125; catch (SQLException e) &#123;</div><div class="line">				e.printStackTrace();</div><div class="line">			&#125;finally&#123;</div><div class="line">				conn = null;</div><div class="line">			&#125;</div><div class="line">		&#125;		</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>测试操作oracle的存储过程</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">@Test</div><div class="line">public void testProcedure()&#123;</div><div class="line">	// &#123;call &lt;procedure-name&gt;[(&lt;arg1&gt;,&lt;arg2&gt;, ...)]&#125;</div><div class="line">	String sql = &quot;&#123;call queryEmpInfo(?,?,?,?)&#125;&quot;;</div><div class="line">	</div><div class="line">	Connection conn = null;</div><div class="line">	CallableStatement call = null;</div><div class="line">	try &#123;</div><div class="line">		conn = JDBCUtils.getConnection();</div><div class="line">		call = conn.prepareCall(sql);</div><div class="line">		</div><div class="line">		//对于in参数，赋值</div><div class="line">		call.setInt(1, 7839);</div><div class="line">		</div><div class="line">		//对于out参数，申明</div><div class="line">		call.registerOutParameter(2, OracleTypes.VARCHAR);</div><div class="line">		call.registerOutParameter(3, OracleTypes.NUMBER);</div><div class="line">		call.registerOutParameter(4, OracleTypes.VARCHAR);</div><div class="line">		</div><div class="line">		//执行</div><div class="line">		call.execute();</div><div class="line">		</div><div class="line">		//取出结果</div><div class="line">		String name = call.getString(2);</div><div class="line">		double sal = call.getDouble(3);</div><div class="line">		String job = call.getString(4);</div><div class="line">		</div><div class="line">		System.out.println(name+&quot;\t&quot;+sal+&quot;\t&quot;+job);			</div><div class="line">	&#125; catch (Exception e) &#123;</div><div class="line">		e.printStackTrace();</div><div class="line">	&#125;finally&#123;</div><div class="line">		JDBCUtils.release(conn, call, null);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>测试操作oracle的存储函数</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">@Test</div><div class="line">public void testFunction()&#123;</div><div class="line">	//&#123;?= call &lt;procedure-name&gt;[(&lt;arg1&gt;,&lt;arg2&gt;, ...)]&#125;</div><div class="line">	String sql = &quot;&#123;?=call queryEmpIncome(?)&#125;&quot;;</div><div class="line">	</div><div class="line">	Connection conn = null;</div><div class="line">	CallableStatement call = null;</div><div class="line">	try &#123;</div><div class="line">		conn = JDBCUtils.getConnection();</div><div class="line">		call = conn.prepareCall(sql);</div><div class="line">		</div><div class="line">		//对于out参数，声明，第一个?代表返回值</div><div class="line">		call.registerOutParameter(1, OracleTypes.NUMBER);</div><div class="line">		</div><div class="line">		//对于in参数，赋值，第二个?代表输入的值</div><div class="line">		call.setInt(2, 7839);</div><div class="line">		</div><div class="line">		call.execute();</div><div class="line">		</div><div class="line">		//取出结果</div><div class="line">		double income = call.getDouble(1);</div><div class="line">		System.out.println(income);</div><div class="line">	&#125; catch (Exception e) &#123;</div><div class="line">		e.printStackTrace();</div><div class="line">	&#125;finally&#123;</div><div class="line">		JDBCUtils.release(conn, call, null);</div><div class="line">	&#125;		</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>测试操作oracle游标引用的存储过程</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">@Test</div><div class="line">public void testCursor()&#123;</div><div class="line">	String sql = &quot;&#123;call MYPACKAGE.QUERYEMPLIST(?,?)&#125;&quot;;</div><div class="line">	Connection conn = null;</div><div class="line">	CallableStatement call = null;</div><div class="line">	ResultSet rs = null;</div><div class="line">	try &#123;</div><div class="line">		conn = JDBCUtils.getConnection();</div><div class="line">		call = conn.prepareCall(sql);</div><div class="line">		</div><div class="line">		//对于in参数，赋值</div><div class="line">		call.setInt(1, 20);</div><div class="line">		</div><div class="line">		//对于out参数，申明</div><div class="line">		call.registerOutParameter(2, OracleTypes.CURSOR);</div><div class="line"></div><div class="line">		//执行</div><div class="line">		call.execute();</div><div class="line">		</div><div class="line">		//取出结果，cursor相当于集合</div><div class="line">		rs = ((OracleCallableStatement)call).getCursor(2);</div><div class="line">		while(rs.next())&#123;</div><div class="line">			String name = rs.getString(&quot;ename&quot;);</div><div class="line">			double sal = rs.getDouble(&quot;sal&quot;);</div><div class="line">			String job = rs.getString(&quot;job&quot;);</div><div class="line">			System.out.println(name+&quot;\t&quot;+sal+&quot;\t&quot;+job);</div><div class="line">		&#125;</div><div class="line">	&#125; catch (Exception e) &#123;</div><div class="line">		e.printStackTrace();</div><div class="line">	&#125;finally&#123;</div><div class="line">		JDBCUtils.release(conn, call, rs);</div><div class="line">	&#125;		</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h3><p>数据库触发器是一个与表相关联的、存储的PL/SQL程序。每当一个特定的数据操作语句(Insert,update,delete)在指定的表上发出时，Oracle自动地执行触发器中定义的语句序列。 </p>
+<ol>
+<li><p>触发器的作用</p>
+<ul>
+<li>数据确认</li>
+<li>实施复杂的安全性检查</li>
+<li>做审计，跟踪表上所做的数据操作（相当于日志）</li>
+<li>数据的备份和同步</li>
+</ul>
+</li>
+<li><p>触发器的类型</p>
+<ul>
+<li><p>语句级触发器<br>  在指定的操作语句操作之前或之后执行一次，不管这条语句影响了多少行。 </p>
+</li>
+<li><p>行级触发器（for each row）<br>  触发语句作用的每一条记录都被触发。在行级触发器中使用:old和:new伪记录变量,识别值的状态。</p>
+</li>
+</ul>
+</li>
+<li><p>触发器语法</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">CREATE  [or REPLACE] TRIGGER  触发器名</div><div class="line">   &#123;BEFORE | AFTER&#125;</div><div class="line">   &#123;DELETE | INSERT | UPDATE [OF 列名]&#125;</div><div class="line">   ON  表名</div><div class="line">   [FOR EACH ROW [WHEN(条件) ] ]</div><div class="line">declare</div><div class="line">    ……</div><div class="line">begin</div><div class="line">   PLSQL块 </div><div class="line">End 触发器名;</div></pre></td></tr></table></figure>
+</li>
+<li><p>触发器具体应用</p>
+<p> 例1：禁止在非工作时间插入新员工到emp2表</p>
+<p> 详细设计：</p>
+<ol>
+<li>周末：to_char(sysdate,’day’) in (‘sunday’,’saturday’)</li>
+<li>上班前，下班后（9am~18pm）：to_number(to_char(sysdate,’hh24’)) not between 9 and 17</li>
+<li><p>语句级</p>
+<p>代码实现:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">CREATE OR REPLACE TRIGGER  securityemp</div><div class="line">	BEFORE INSERT</div><div class="line">  ON EMP2</div><div class="line">declare</div><div class="line">begin</div><div class="line">   if to_char(sysdate,&apos;day&apos;) in (&apos;sunday&apos;,&apos;saturday&apos;) or to_number(to_char(sysdate,&apos;hh24&apos;)) not between 9 and 17 THEN</div><div class="line">			--禁止insert操作,在插入之前就手动抛出错误</div><div class="line">			raise_application_error(-20001,&apos;禁止在非工作时间插入新员工！&apos;);</div><div class="line">	 end if;</div><div class="line">End securityemp;</div></pre></td></tr></table></figure>
+<p>例2：涨后的薪水不能少于涨前的薪水（数据的确认）</p>
+<p>详细设计：</p>
+</li>
+<li>if 涨后的薪水 &lt; 涨前的薪水</li>
+<li><p>行级</p>
+<p>代码实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">create or replace trigger checksalary</div><div class="line">before update</div><div class="line">on emp</div><div class="line">for each row</div><div class="line">begin</div><div class="line">  --if 涨后的薪水 &lt; 涨前的薪水 then</div><div class="line">  if :new.sal &lt; :old.sal then</div><div class="line">    raise_application_error(-20002,&apos;涨后的薪水不能少于涨前的薪水.涨前:&apos;||:old.sal||&apos;   涨后:&apos;||:new.sal);</div><div class="line">  end if;</div><div class="line">end;</div></pre></td></tr></table></figure>
+<p>例3：限制每个部门人数不超过10人</p>
+<p>详细设计：</p>
+</li>
+<li>用游标存储所有部门</li>
+<li>循环判断每个部门人数+1后是否超过10人</li>
+<li><p>超过10人抛出错误</p>
+<p>代码实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">CREATE OR REPLACE TRIGGER  checkEmpNumber</div><div class="line">	BEFORE INSERT</div><div class="line">  ON EMP</div><div class="line">declare</div><div class="line">cursor cemp is select deptno from dept;</div><div class="line">cdept dept.deptno%type;</div><div class="line">countEmp number;</div><div class="line">BEGIN</div><div class="line">  open cemp;</div><div class="line">	loop</div><div class="line">		fetch cemp into cdept;</div><div class="line">		exit when cemp%notfound;</div><div class="line">		select count(*) into countEmp from emp where deptno = cdept;</div><div class="line">		if countEmp+1 &gt; 10 then</div><div class="line">			raise_application_error(-20003,&apos;部门：&apos;||cdept||&apos;  员工已有10人！&apos;);</div><div class="line">		end if;</div><div class="line">	end loop;</div><div class="line">	close cemp;</div><div class="line">END;</div></pre></td></tr></table></figure>
+<p>注：手动抛出的错误代码必须在[-20001,-20999]。</p>
+</li>
+</ol>
+</li>
+</ol>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年06月05日 19:59</p>
+        <p>最后更新： 2018年06月10日 21:53</p>
         <p>原始链接： <a class="post-url" href="/2018/06/02/Oracle详解/" title="Oracle详解">http://www.lousenjay.info/2018/06/02/Oracle详解/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
@@ -514,7 +1076,7 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注意事项"><span class="post-toc-text">注意事项</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本操作"><span class="post-toc-text">基本操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本查询操作"><span class="post-toc-text">基本查询操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#单行函数"><span class="post-toc-text">单行函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多行函数（分组函数）"><span class="post-toc-text">多行函数（分组函数）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多表查询"><span class="post-toc-text">多表查询</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注意事项"><span class="post-toc-text">注意事项</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本操作"><span class="post-toc-text">基本操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Oracle的体系结构"><span class="post-toc-text">Oracle的体系结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#用户"><span class="post-toc-text">用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本查询操作"><span class="post-toc-text">基本查询操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#单行函数"><span class="post-toc-text">单行函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多行函数（分组函数）"><span class="post-toc-text">多行函数（分组函数）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多表查询"><span class="post-toc-text">多表查询</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#子查询"><span class="post-toc-text">子查询</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#集合运算"><span class="post-toc-text">集合运算</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#处理数据"><span class="post-toc-text">处理数据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建和管理表"><span class="post-toc-text">创建和管理表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其他数据库对象"><span class="post-toc-text">其他数据库对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PL-SQL"><span class="post-toc-text">PL/SQL</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Java操作Oracle"><span class="post-toc-text">Java操作Oracle</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#触发器"><span class="post-toc-text">触发器</span></a></li></ol>
         </nav>
     </aside>
     
