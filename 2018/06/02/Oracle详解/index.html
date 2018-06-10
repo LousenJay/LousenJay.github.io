@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题  a.首先连接管理员账户conn sys/pwd as sysdba;  b.执行scott.sql文件  找到scott.sql文件放在D盘根目录  @D:\scott.sql  c.连接scott conn scott/TIGER;  d.查看当前用户 show user;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-10T13:53:12.672Z">
+<meta property="og:updated_time" content="2018-06-10T14:11:07.026Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle详解">
 <meta name="twitter:description" content="环境：Windows 7 64位，Oracle 11g，SQLPlus 注意事项1.oracle没有Scott用户的问题  a.首先连接管理员账户conn sys/pwd as sysdba;  b.执行scott.sql文件  找到scott.sql文件放在D盘根目录  @D:\scott.sql  c.连接scott conn scott/TIGER;  d.查看当前用户 show user;">
@@ -691,86 +691,76 @@
 </li>
 </ul>
 </li>
-<li><p>序列（sequence）<br>  序列的概念</p>
+<li><p>序列（sequence）</p>
+<ul>
+<li><p>序列的概念</p>
 <ul>
 <li>自动提供唯一的数值</li>
 <li>共享对象</li>
 <li>主要用于提供主键值</li>
-<li><p>将序列值装入内存可以提高访问效率</p>
-<p>注：最好一个表使用一个序列，不要多个表共用一个，否则会产生裂缝</p>
-</li>
+<li>将序列值装入内存可以提高访问效率<br>注：最好一个表使用一个序列，不要多个表共用一个，否则会产生裂缝</li>
 </ul>
 </li>
-</ul>
-<pre><code>序列的语法
+<li><p>序列的语法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">create sequence dept_seq</div><div class="line">increment by n 【设置步长，默认为1】</div><div class="line">start with n   【设置起始数，默认为1】</div><div class="line">maxvalue n|nomaxvalue	【设置最大值，默认为nomaxvalue】</div><div class="line">minvalue n|nominvalue	【设置最小值，默认为nominvalue】</div><div class="line">cycle|nocycle	【设置是否循环，默认为不循环】</div><div class="line">cache n|nocache	【设置缓存长度，默认为20】</div></pre></td></tr></table></figure>
-
-故，一般情况下只需要使用`create sequence dept_seq;`即可，其他为默认值。
-
-
-
-如何使用序列
-配合nextval和currval伪列
-- nextval
-    返回序列下一个有效值，任何用户都可以使用
-
-- currval
-    返回序列当前的值
-
-- nextval必须在currval之前指定，两者必须同时有效
-
-一般在插入数据时使用
-`insert into test2 values(dept_seq.nextval,&apos;Mike&apos;);`
-
-
-序列裂缝
-- 回滚
-- 系统异常
-- 多个表共用同一序列
-
-
-删除序列
-删除之后，序列不可再次被引用
-`drop sequence dept_seq`
-</code></pre><ul>
-<li>索引（index）<br>  索引的概念<ul>
-<li>相当于目录</li>
-<li>一种独立于表的模式对象，可以存储在与表不同的磁盘或表空间中</li>
-<li>通过指针加快oracle服务器的查询速度</li>
-<li>索引被破坏不会对表产生影响，影响的只是查询速度</li>
-<li>索引一旦创建，oracle会自动进行维护</li>
+<p>故，一般情况下只需要使用<code>create sequence dept_seq;</code>即可，其他为默认值。</p>
+</li>
+<li><p>如何使用序列<br>  配合nextval和currval伪列</p>
+<ul>
+<li><p>nextval<br>  返回序列下一个有效值，任何用户都可以使用</p>
+</li>
+<li><p>currval<br>  返回序列当前的值</p>
+</li>
+<li><p>nextval必须在currval之前指定，两者必须同时有效</p>
+<p>一般在插入数据时使用<br><code>insert into test2 values(dept_seq.nextval,&#39;Mike&#39;);</code></p>
+</li>
 </ul>
 </li>
 </ul>
-<pre><code>创建索引
-- 自动创建
-定义primary key和unique时，oracle自动创建索引
-
-- 手动创建
-例：在表test2的name列上创建索引
-`create index test2_name_index on test2(name);`
-
-
-什么时候创建索引
-- 列中值分布范围广泛
-- 列经常出现在where子句或连接条件中
-- 表经常被访问且数据量很大，访问的数据大概占数据总量的2%到4%
+</li>
+</ul>
+<pre><code>- 序列裂缝
+    - 回滚
+    - 系统异常
+    - 多个表共用同一序列
 
 
-删除索引
-`drop index test2_name_index;`
+- 删除序列
+    删除之后，序列不可再次被引用
+    `drop sequence dept_seq`
 </code></pre><ul>
-<li>同义词<br>  同义词概念<ul>
+<li><p>索引（index）<br>  索引的概念</p>
+<pre><code>- 相当于目录
+- 一种独立于表的模式对象，可以存储在与表不同的磁盘或表空间中
+- 通过指针加快oracle服务器的查询速度
+- 索引被破坏不会对表产生影响，影响的只是查询速度
+- 索引一旦创建，oracle会自动进行维护
+</code></pre><p>  创建索引</p>
+<ul>
+<li><p>自动创建<br>定义primary key和unique时，oracle自动创建索引</p>
+</li>
+<li><p>手动创建<br>例：在表test2的name列上创建索引<br><code>create index test2_name_index on test2(name);</code></p>
+<p>什么时候创建索引</p>
+</li>
+<li>列中值分布范围广泛</li>
+<li>列经常出现在where子句或连接条件中</li>
+<li><p>表经常被访问且数据量很大，访问的数据大概占数据总量的2%到4%</p>
+<p>删除索引<br><code>drop index test2_name_index;</code></p>
+</li>
+</ul>
+</li>
+<li><p>同义词<br>  同义词概念</p>
+<ul>
 <li>使用同义词访问相同的对象</li>
 <li>方便访问其他用户的对象</li>
 <li>缩短对象名字的长度</li>
-<li>所有的数据对象都可以起别名 </li>
+<li><p>所有的数据对象都可以起别名 </p>
+<p>基本语法<br><code>create synonym hremp for hr.employess;</code></p>
+</li>
 </ul>
 </li>
 </ul>
-<pre><code>基本语法
-`create synonym hremp for hr.employess;`
-</code></pre><h3 id="PL-SQL"><a href="#PL-SQL" class="headerlink" title="PL/SQL"></a>PL/SQL</h3><p>PLSQL是Oracle对sql语言的过程化扩展，指在SQL命令语言中增加了过程处理语句（如分支、循环等），使SQL语言具有过程处理能力。</p>
+<h3 id="PL-SQL"><a href="#PL-SQL" class="headerlink" title="PL/SQL"></a>PL/SQL</h3><p>PLSQL是Oracle对sql语言的过程化扩展，指在SQL命令语言中增加了过程处理语句（如分支、循环等），使SQL语言具有过程处理能力。</p>
 <p>运行环境：Windows 7 64位，plsqldevelop 10</p>
 <ol>
 <li><p>PL/SQL程序结构</p>
@@ -872,17 +862,14 @@ END IF;
 <p> 变量：1. 初始值  2.最终得到<br> 部门号<br> pdep emp.deptno%type;<br> 工资<br> psal emp.sal%type;<br> 每个段的人数<br> count1 number; count2 number; count3 number;<br> 部门的工资总额<br> salTotal number;</p>
 <ol>
 <li>select sum(sal) into salTotal  from emp where deptno=pdep;</li>
-<li>累加</li>
-</ol>
+<li><p>累加</p>
+<p>编码：<br>先创建一张表msg来存储数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">create table msg(</div><div class="line">	deptno number,</div><div class="line">	count1 number,</div><div class="line">	count2 number,</div><div class="line">	count3 number,</div><div class="line">	salTotal number</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>用plsql处理数据，将所得数据插入msg表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">declare</div><div class="line">	cursor cdept is select deptno from dept;</div><div class="line">	--声明部门号</div><div class="line">	pdep dept.deptno%type;</div><div class="line">	cursor cemp(dno emp.deptno%type) is select sal from emp where deptno = dno;</div><div class="line">	--声明薪水</div><div class="line">	psal emp.sal%type;</div><div class="line">	--声明每个部门每个工资段的人数</div><div class="line">	count1 number;</div><div class="line">	count2 number;</div><div class="line">	count3 number;</div><div class="line">	--声明部门工资总额</div><div class="line">	salTotal number;</div><div class="line">begin</div><div class="line">	--打开部门游标，循环部门</div><div class="line">	open cdept;</div><div class="line">	--进入外循环</div><div class="line">	loop</div><div class="line">	fetch cdept into pdep;</div><div class="line">	exit when cdept%notfound;</div><div class="line">		--初始化count</div><div class="line">		count1 := 0;</div><div class="line">		count2 := 0;</div><div class="line">		count3 := 0;</div><div class="line">		--获取每个部门员工总工资</div><div class="line">		select sum(sal) into salTotal from emp where deptno=pdep;</div><div class="line">		--打开工资游标，循环判断工资，累计叠加人数</div><div class="line">		open cemp(pdep);</div><div class="line"></div><div class="line">		--进入内循环</div><div class="line">		loop</div><div class="line">		fetch cemp into psal;</div><div class="line">		exit when cemp%notfound;</div><div class="line">			if psal &lt; 3000 then</div><div class="line">				count1 := count1+1;</div><div class="line">			elsif psal &gt;= 3000 and psal &lt; 6000 then</div><div class="line">				count2 := count2+1;</div><div class="line">			else</div><div class="line">				count3 := count3+1;</div><div class="line">			end if;</div><div class="line">		end loop;</div><div class="line">		close cemp;</div><div class="line">		--把结果插入到msg表中</div><div class="line">		insert into msg values(pdep,count1,count2,count3,nvl(salTotal,0));</div><div class="line">	end loop;</div><div class="line">	close cdept;</div><div class="line">	dbms_output.put_line(&apos;完成&apos;);</div><div class="line">end;</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<pre><code>编码：
-先创建一张表msg来存储数据
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">create table msg(</div><div class="line">	deptno number,</div><div class="line">	count1 number,</div><div class="line">	count2 number,</div><div class="line">	count3 number,</div><div class="line">	salTotal number</div><div class="line">);</div></pre></td></tr></table></figure>
-
-用plsql处理数据，将所得数据插入msg表
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">declare</div><div class="line">	cursor cdept is select deptno from dept;</div><div class="line">	--声明部门号</div><div class="line">	pdep dept.deptno%type;</div><div class="line">	cursor cemp(dno emp.deptno%type) is select sal from emp where deptno = dno;</div><div class="line">	--声明薪水</div><div class="line">	psal emp.sal%type;</div><div class="line">	--声明每个部门每个工资段的人数</div><div class="line">	count1 number;</div><div class="line">	count2 number;</div><div class="line">	count3 number;</div><div class="line">	--声明部门工资总额</div><div class="line">	salTotal number;</div><div class="line">begin</div><div class="line">	--打开部门游标，循环部门</div><div class="line">	open cdept;</div><div class="line">	--进入外循环</div><div class="line">	loop</div><div class="line">	fetch cdept into pdep;</div><div class="line">	exit when cdept%notfound;</div><div class="line">		--初始化count</div><div class="line">		count1 := 0;</div><div class="line">		count2 := 0;</div><div class="line">		count3 := 0;</div><div class="line">		--获取每个部门员工总工资</div><div class="line">		select sum(sal) into salTotal from emp where deptno=pdep;</div><div class="line">		--打开工资游标，循环判断工资，累计叠加人数</div><div class="line">		open cemp(pdep);</div><div class="line"></div><div class="line">		--进入内循环</div><div class="line">		loop</div><div class="line">		fetch cemp into psal;</div><div class="line">		exit when cemp%notfound;</div><div class="line">			if psal &lt; 3000 then</div><div class="line">				count1 := count1+1;</div><div class="line">			elsif psal &gt;= 3000 and psal &lt; 6000 then</div><div class="line">				count2 := count2+1;</div><div class="line">			else</div><div class="line">				count3 := count3+1;</div><div class="line">			end if;</div><div class="line">		end loop;</div><div class="line">		close cemp;</div><div class="line">		--把结果插入到msg表中</div><div class="line">		insert into msg values(pdep,count1,count2,count3,nvl(salTotal,0));</div><div class="line">	end loop;</div><div class="line">	close cdept;</div><div class="line">	dbms_output.put_line(&apos;完成&apos;);</div><div class="line">end;</div></pre></td></tr></table></figure>
-</code></pre><ol>
+</li>
 <li><p>存储过程和存储函数</p>
 <ul>
 <li><p>存储过程<br>  指存储在数据库中供所有用户程序调用的子程序叫存储过程。</p>
@@ -993,7 +980,7 @@ END IF;
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年06月10日 21:53</p>
+        <p>最后更新： 2018年06月10日 22:11</p>
         <p>原始链接： <a class="post-url" href="/2018/06/02/Oracle详解/" title="Oracle详解">http://www.lousenjay.info/2018/06/02/Oracle详解/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
