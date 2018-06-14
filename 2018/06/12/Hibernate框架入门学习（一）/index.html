@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="Hibernate是一个开放源代码的对象关系映射框架，它对JDBC进行了非常轻量级的对象封装，它将POJO与数据库表建立映射关系，是一个全自动的orm框架，hibernate可以自动生成SQL语句，自动执行，使得Java程序员可以随心所欲的使用对象编程思维来操纵数据库。Hibernate可以应用在任何使用JDBC的场合，既可以在Java的客户端程序使用，也可以在Servlet/JSP的Web应用中">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-14T09:48:30.659Z">
+<meta property="og:updated_time" content="2018-06-14T10:09:56.096Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hibernate框架入门学习（一）">
 <meta name="twitter:description" content="Hibernate是一个开放源代码的对象关系映射框架，它对JDBC进行了非常轻量级的对象封装，它将POJO与数据库表建立映射关系，是一个全自动的orm框架，hibernate可以自动生成SQL语句，自动执行，使得Java程序员可以随心所欲的使用对象编程思维来操纵数据库。Hibernate可以应用在任何使用JDBC的场合，既可以在Java的客户端程序使用，也可以在Servlet/JSP的Web应用中">
@@ -164,17 +164,14 @@
 </ol>
 <h3 id="Hibernate的简单配置"><a href="#Hibernate的简单配置" class="headerlink" title="Hibernate的简单配置"></a>Hibernate的简单配置</h3><p><strong>准备阶段</strong></p>
 <ol>
-<li><p>官网下载对应版本的压缩包</p>
-</li>
-<li><p>配置Hibernate运行环境</p>
-<ul>
-<li>对应数据库驱动包</li>
+<li>官网下载对应版本的压缩包</li>
+<li>配置Hibernate运行环境<ul>
+<li>测试的时候对应数据库驱动包</li>
 <li>日志包log4j</li>
 <li>hibernate必须包（required文件中的所有包）</li>
 </ul>
 </li>
-<li><p>创建好数据库表结构和对应的JavaBean（全部使用包装类，不使用基本数据类型）</p>
-</li>
+<li>创建好数据库表结构和对应的JavaBean（全部使用包装类，不使用基本数据类型）</li>
 </ol>
 <p><strong>Hibernate映射的配置文件</strong></p>
 <ol>
@@ -188,7 +185,7 @@
 </li>
 <li><p>链接本地约束（没有网络的情况下）</p>
 <ul>
-<li>复制<a href="http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" target="_blank" rel="external">http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd</a> </li>
+<li>复制<code>http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd</code></li>
 <li>window</li>
 <li>preferences</li>
 <li>搜索xml</li>
@@ -312,7 +309,8 @@
 </ul>
 </li>
 </ol>
-<p><strong>编写Hibernate入门代码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">package com.lousen.test;</div><div class="line"></div><div class="line">import org.hibernate.Session;</div><div class="line">import org.hibernate.SessionFactory;</div><div class="line">import org.hibernate.Transaction;</div><div class="line">import org.hibernate.cfg.Configuration;</div><div class="line">import org.junit.Test;</div><div class="line"></div><div class="line">import com.lousen.domain.Customer;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 编写Hibernate的入门代码</div><div class="line"> * @author LousenJay</div><div class="line"> *</div><div class="line"> */</div><div class="line"></div><div class="line">public class Demo1 &#123;</div><div class="line"></div><div class="line">	/*测试保存（添加）用户*/</div><div class="line">	@Test</div><div class="line">	public void testSave()&#123;</div><div class="line">		//1.加载配置文件</div><div class="line">		Configuration config = new Configuration();</div><div class="line">		//默认加载src目录下的Hibernate.cfg.xml</div><div class="line">		config.configure();</div><div class="line">		</div><div class="line">		//2.创建SessionFactory对象，生成Session对象</div><div class="line">		SessionFactory factory = config.buildSessionFactory();</div><div class="line">		</div><div class="line">		//3.创建Session对象</div><div class="line">		Session session = factory.openSession();</div><div class="line">		</div><div class="line">		//4.开启事务</div><div class="line">		Transaction tr = session.beginTransaction();</div><div class="line">		</div><div class="line">		//5.编写代码</div><div class="line">		Customer c = new Customer();</div><div class="line">		c.setCust_name(&quot;张三&quot;);</div><div class="line">		c.setCust_level(&quot;1&quot;);</div><div class="line">		c.setCust_phone(&quot;123456789&quot;);</div><div class="line">		//保存数据，操作对象就相当于操作数据库的表结构</div><div class="line">		session.save(c);</div><div class="line">		</div><div class="line">		//6.提交事务</div><div class="line">		tr.commit();</div><div class="line">		</div><div class="line">		//7.释放资源</div><div class="line">		session.close();</div><div class="line">		factory.close();</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>编写Hibernate入门代码</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">package com.lousen.test;</div><div class="line"></div><div class="line">import org.hibernate.Session;</div><div class="line">import org.hibernate.SessionFactory;</div><div class="line">import org.hibernate.Transaction;</div><div class="line">import org.hibernate.cfg.Configuration;</div><div class="line">import org.junit.Test;</div><div class="line"></div><div class="line">import com.lousen.domain.Customer;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 编写Hibernate的入门代码</div><div class="line"> * @author LousenJay</div><div class="line"> *</div><div class="line"> */</div><div class="line"></div><div class="line">public class Demo1 &#123;</div><div class="line"></div><div class="line">	/*测试保存（添加）用户*/</div><div class="line">	@Test</div><div class="line">	public void testSave()&#123;</div><div class="line">		//1.加载配置文件</div><div class="line">		Configuration config = new Configuration();</div><div class="line">		//默认加载src目录下的Hibernate.cfg.xml</div><div class="line">		config.configure();</div><div class="line">		</div><div class="line">		//2.创建SessionFactory对象，生成Session对象</div><div class="line">		SessionFactory factory = config.buildSessionFactory();</div><div class="line">		</div><div class="line">		//3.创建Session对象</div><div class="line">		Session session = factory.openSession();</div><div class="line">		</div><div class="line">		//4.开启事务</div><div class="line">		Transaction tr = session.beginTransaction();</div><div class="line">		</div><div class="line">		//5.编写代码</div><div class="line">		Customer c = new Customer();</div><div class="line">		c.setCust_name(&quot;张三&quot;);</div><div class="line">		c.setCust_level(&quot;1&quot;);</div><div class="line">		c.setCust_phone(&quot;123456789&quot;);</div><div class="line">		//保存数据，操作对象就相当于操作数据库的表结构</div><div class="line">		session.save(c);</div><div class="line">		</div><div class="line">		//6.提交事务</div><div class="line">		tr.commit();</div><div class="line">		</div><div class="line">		//7.释放资源</div><div class="line">		session.close();</div><div class="line">		factory.close();</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="Hibernate常用的接口和类"><a href="#Hibernate常用的接口和类" class="headerlink" title="Hibernate常用的接口和类"></a>Hibernate常用的接口和类</h3><p><strong>Configuration类</strong></p>
 <ul>
 <li>测试的时候加载Hibernate的配置文件，可以获取SessionFactory对象</li>
@@ -399,7 +397,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年06月14日 17:48</p>
+        <p>最后更新： 2018年06月14日 18:09</p>
         <p>原始链接： <a class="post-url" href="/2018/06/12/Hibernate框架入门学习（一）/" title="Hibernate框架入门学习（一）">http://www.lousenjay.info/2018/06/12/Hibernate框架入门学习（一）/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
