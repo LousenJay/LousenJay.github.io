@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hibernate框架入门学习（二） | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="持久化类和主键持久化类  持久化类的概念 相当于一个Java类（咱们编写的JavaBean），这个Java类与表建立了映射关系就可以成为持久化类。持久化类 = JavaBean + 映射（xxx.hbm.xml）。   持久化类编写规范 提供一个无参public访问控制符的构造器：底层需要进行反射。 提供一个标识属性，映射数据表主键字段：唯一标识OID。数据库中通过主键。Java对象通过地址确定对">
+<meta name="keywords" content="Hibernate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hibernate框架入门学习（二）">
+<meta property="og:url" content="http://www.lousenjay.info/2018/06/14/Hibernate框架入门学习（二）/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="持久化类和主键持久化类  持久化类的概念 相当于一个Java类（咱们编写的JavaBean），这个Java类与表建立了映射关系就可以成为持久化类。持久化类 = JavaBean + 映射（xxx.hbm.xml）。   持久化类编写规范 提供一个无参public访问控制符的构造器：底层需要进行反射。 提供一个标识属性，映射数据表主键字段：唯一标识OID。数据库中通过主键。Java对象通过地址确定对">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-03T03:04:19.973Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hibernate框架入门学习（二）">
+<meta name="twitter:description" content="持久化类和主键持久化类  持久化类的概念 相当于一个Java类（咱们编写的JavaBean），这个Java类与表建立了映射关系就可以成为持久化类。持久化类 = JavaBean + 映射（xxx.hbm.xml）。   持久化类编写规范 提供一个无参public访问控制符的构造器：底层需要进行反射。 提供一个标识属性，映射数据表主键字段：唯一标识OID。数据库中通过主键。Java对象通过地址确定对">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="http://www.lousenjay.info/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Hibernate框架入门学习（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Hibernate框架入门学习（二）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/SSH/">SSH</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-06-14
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="持久化类和主键"><a href="#持久化类和主键" class="headerlink" title="持久化类和主键"></a>持久化类和主键</h3><p><strong>持久化类</strong></p>
+<ol>
+<li>持久化类的概念<ul>
+<li>相当于一个Java类（咱们编写的JavaBean），这个Java类与表建立了映射关系就可以成为持久化类。持久化类 = JavaBean + 映射（xxx.hbm.xml）。</li>
+</ul>
+</li>
+<li>持久化类编写规范<ul>
+<li>提供一个无参public访问控制符的构造器：底层需要进行反射。</li>
+<li>提供一个标识属性，映射数据表主键字段：唯一标识OID。数据库中通过主键。Java对象通过地址确定对象。持久化类通过唯一标识OID确定记录。</li>
+<li>所有属性提供public访问控制符的set或者get方法。</li>
+<li>标识属性应尽量使用基本数据类型的包装类型。</li>
+<li>基本上与JavaBean的编写规范一致</li>
+</ul>
+</li>
+</ol>
+<p><strong>主键</strong></p>
+<ol>
+<li>自然主键<ul>
+<li>对象本身的一个属性。例如创建一个人员表,每个人都有一个身份证号(唯一的)。使用身份证号作为表的主键。即自然主键。（开发中不会使用这种方式）</li>
+</ul>
+</li>
+<li>代理主键<ul>
+<li>不是对象本身的一个属性。例如创建一个人员表,为每个人员单独创建一个字段。用这个字段作为主键，这个字段没有任何实际含义只用来当主键。即代理主键。（实际开发中使用）</li>
+</ul>
+</li>
+<li>主键生成策略<ul>
+<li>increment：适用于short,int,long类型作为主键，先查询主键的已有最大值，再最大值+1。不能在集群环境下或者有并发访问的情况下使用。</li>
+<li>identity：适用于short,int,long类型作为主键，采用的是数据库底层的自动增长机制，所选的数据库必须支持自动增长机制才可以，例如MySQL支持自动增长机制，Oracle则不支持。</li>
+<li>sequence:适用于short,int,long作为主键。底层使用的是序列的增长方式。所选的数据库必须支持序列增长才可以，例如Oracle支持序列增长，MySQL则不支持。</li>
+<li>uuid：适用于char,varchar类型的作为主键。使用随机的字符串作为主键。（实际开发中经常使用）</li>
+<li>native：适用于short,int,long类型作为主键，采用本地策略。根据底层的数据库不同,自动选择适用于该种数据库的生成策略。（实际开发中经常使用）</li>
+<li>assigned:取消Hibernate自动管理主键，自己手动设置主键。    </li>
+</ul>
+</li>
+</ol>
+<h3 id="持久化对象"><a href="#持久化对象" class="headerlink" title="持久化对象"></a>持久化对象</h3><p><strong>持久化对象的三个状态</strong></p>
+<ol>
+<li>瞬时态：Transient  Object<ul>
+<li>没有持久化标识OID, 没有被纳入到Session对象的管理。</li>
+</ul>
+</li>
+<li>持久态:Persistent Object<ul>
+<li>有持久化标识OID,已经被纳入到Session对象的管理。</li>
+</ul>
+</li>
+<li>脱管态:Detached Object<ul>
+<li>有持久化标识OID,没有被纳入到Session对象的管理。</li>
+</ul>
+</li>
+<li>案例<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">@Test</div><div class="line">public void test3()&#123;		</div><div class="line">	Session session = HibernateUtils.getSession();</div><div class="line">	Transaction tr = session.beginTransaction();</div><div class="line">	</div><div class="line">	//持久化Student对象</div><div class="line">	//进入瞬时态，没有持久化标识OID, 没有被纳入到Session对象的管理。</div><div class="line">	Student s = new Student();</div><div class="line">	s.setS_name(&quot;小明&quot;);</div><div class="line">	//使用session保存持久化对象s，把s对象也保存到session的缓存中。</div><div class="line">	//进入持久态，有持久化标识OID, 被纳入到Session对象的管理。</div><div class="line">	Serializable id = session.save(s);</div><div class="line">	tr.commit();</div><div class="line">	//进入脱管态，有持久化标识OID,没有被纳入到Session对象的管理。</div><div class="line">	session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>Hibernate持久化对象的状态的转换</strong></p>
+<ol>
+<li>瞬时态<ul>
+<li>获取瞬时态对象：<code>User user = new User()</code></li>
+<li>瞬时态——&gt;持久态：<code>save()/saveOrUpdate()</code></li>
+<li>瞬时态——&gt;脱管态：<code>user.setId(1)</code></li>
+</ul>
+</li>
+<li>持久态<ul>
+<li>获取持久态对象：<code>get()/load()</code></li>
+<li>持久态——&gt;瞬时态：<code>delete()</code>(进入特殊的状态删除态:Hibernate中不建议使用)</li>
+<li>持久态——&gt;脱管态：<code>session.[close()/evict()/clear()]</code></li>
+</ul>
+</li>
+<li>脱管态<ul>
+<li>获取脱管态对象：<code>User user = new User();user.setId(1);</code>(不建议直接获取脱管态对象)</li>
+<li>脱管态——&gt;持久态：<code>update()/saveOrUpdate()/lock()</code></li>
+<li>脱管态——&gt;瞬时态：<code>user.setId(null)</code></li>
+</ul>
+</li>
+<li>注意：持久态对象具有自动更新数据库的能力！！！！！！！！</li>
+</ol>
+<h3 id="Session的一级缓存"><a href="#Session的一级缓存" class="headerlink" title="Session的一级缓存"></a>Session的一级缓存</h3><p><strong>Session的一级缓存机制（重点）</strong></p>
+<ol>
+<li>缓存的概念<br> -其实就是一块内存空间，将数据源（数据库或者文件）中的数据存放到缓存中。再次获取的时候 ，直接从缓存中获取，可以提升程序的性能！</li>
+<li>Hibernate的缓存机制<ul>
+<li>一级缓存：自带的不可卸载的。一级缓存的生命周期与session一致。一级缓存称为session级别的缓存。</li>
+<li>二级缓存：默认没有开启，需要手动配置才可以使用的。二级缓存可以在多个session中共享数据，二级缓存称为是sessionFactory级别的缓存。</li>
+</ul>
+</li>
+<li>Session对象的缓存（一级缓存）概述<ul>
+<li>Session接口中，有一系列的java的集合，这些java集合构成了Session级别的缓存(一级缓存).将对象存入到一级缓存中，session没有结束生命周期,那么对象在session中存放着。</li>
+<li>内存中包含Session实例——&gt;Session的缓存(一些集合)——&gt; 集合中包含的是缓存对象！</li>
+</ul>
+</li>
+<li>证明一级缓存的存在<ul>
+<li>在同一个Session对象内连续进行两次查询，只有第一次有sql语句，后面的没有sql语句，这是因为第一次从数据库获取数据已经把对象缓存到session中了，后面的只要从session缓存中直接获取数据即可。</li>
+</ul>
+</li>
+<li>Hibernate框架是如何做到数据发生变化时进行同步操作的呢？<ul>
+<li>使用get方法查询一个对象，然后设置该对象的一个属性，发现数据库的数据也改变了</li>
+<li>利用快照机制来完成</li>
+</ul>
+</li>
+</ol>
+<p><strong>快照机制</strong></p>
+<ul>
+<li>利用快照机制来保存自动更新数据库的能力<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 测试快照机制</div><div class="line"> */</div><div class="line">@Test</div><div class="line">public void test4()&#123;		</div><div class="line">	Session session = HibernateUtils.getSession();</div><div class="line">	Transaction tr = session.beginTransaction();</div><div class="line">	//获取持久化对象</div><div class="line">	//先查询到对象，把查询结果保存到Student对象中，也缓存到session的缓存区域中和session的快照区域</div><div class="line">	Student s = session.get(Student.class,&quot;402881e763fe56140163fe5618a40000&quot;);</div><div class="line">	//重新设置名称</div><div class="line">	s.setS_name(&quot;小张&quot;); //修改session缓存区域中的数据</div><div class="line">	/*提交之前：自己比对一下缓存区域和快照区域的数据是否一致，如果是一致的，没问题</div><div class="line">	 * 如果不一致，修改数据库中的对应值，同时把快照区域的值更新。</div><div class="line">	 * */</div><div class="line">	tr.commit();</div><div class="line">	//session销毁了缓存，所有内容都没了</div><div class="line">	session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>控制Session的一级缓存</strong></p>
+<ol>
+<li>Session.clear():清空缓存</li>
+<li>Session.evict(Object entity):清空指定对象的缓存</li>
+<li>Session.flush():刷新缓存</li>
+</ol>
+<h3 id="Hibernate中的事务与并发"><a href="#Hibernate中的事务与并发" class="headerlink" title="Hibernate中的事务与并发"></a>Hibernate中的事务与并发</h3><p><strong>事务</strong></p>
+<ol>
+<li>事务的概念<ul>
+<li>事务就是逻辑上的一组操作，组成事务的各个执行单元，操作要么全都成功，要么全都失败。例如银行转账。</li>
+</ul>
+</li>
+<li>事务的特性<ul>
+<li>原子性    ：事务不可分割。</li>
+<li>一致性    ：事务执行的前后数据的完整性保持一致。</li>
+<li>隔离性    ：一个事务执行的过程中,不应该受到其他事务的干扰。</li>
+<li>持久性    ：事务一旦提交,数据就永久保持到数据库中。</li>
+</ul>
+</li>
+<li>如果不考虑隔离性会引发的问题<ul>
+<li>脏读：一个事务读到了另一个事务未提交的数据.</li>
+<li>不可重复读： 一个事务读到另一个事务已提交的update数据,导致多次查询结果不一致。</li>
+<li>虚读：一个事务读到了另一个事务已经提交的insert数据,导致多次查询结果不一致。</li>
+</ul>
+</li>
+<li>通过设置数据库隔离级别来解决上述问题<ul>
+<li>未提交读:以上的读的问题都有可能发生。</li>
+<li>已提交读:避免脏读,但是不可重复读，虚读都有可能发生。</li>
+<li>可重复读:避免脏读，不可重复读.但是虚读是有可能发生。</li>
+<li>串行化:以上读的情况都可以避免。</li>
+</ul>
+</li>
+<li>在Hibernate框架中设置隔离级别<ul>
+<li>通过在hibernate.cfg.xml的配置文件中，通过<code>hibernate.connection.isolation</code>标签来配置</li>
+<li>1：Read uncommitted isolation</li>
+<li>2：Read committed isolation</li>
+<li>4：Repeatable read isolation</li>
+<li>8：Serializable isolation</li>
+</ul>
+</li>
+</ol>
+<p><strong>丢失更新</strong></p>
+<ol>
+<li>丢失更新的概念<ul>
+<li>不考虑隔离性，也会产生写入数据的问题，这一类的问题叫丢失更新的问题。</li>
+<li>两个事务同时对某一条记录做修改，就会引发丢失更新的问题。<ul>
+<li>A事务和B事务同时获取到一条数据，同时再做修改</li>
+<li>如果A事务修改完成后，提交了事务</li>
+<li>B事务修改完成后，不管是提交还是回滚，如果不做处理，都会对数据产生影响，B事务会覆盖掉A事务的修改操作，使A事务的操作丢失。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>解决方案<ul>
+<li>悲观锁（不推荐）<ul>
+<li>采用的是数据库提供的一种锁机制，如果采用做了这种机制，在SQL语句的后面添加<code>for update</code>子句<ul>
+<li>当A事务在操作该条记录时，会把该条记录锁起来，其他事务是不能操作这条记录的。</li>
+<li>只有当A事务提交后，锁释放了，其他事务才能操作该条记录        </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>乐观锁<ul>
+<li>采用版本号的机制来解决的。会给表结构添加一个字段version=0，默认值是0<ul>
+<li>当A事务在操作完该条记录，提交事务时，会先检查版本号，如果发生版本号的值相同时，才可以提交事务。同时会更新版本号version=1.</li>
+<li>当B事务操作完该条记录时，提交事务时，会先检查版本号，如果发现版本不同时，程序会出现错误。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>使用Hibernate框架解决丢失更新的问题<ul>
+<li>悲观锁（不推荐）<ul>
+<li>使用<code>session.get(Customer.class, 1,LockMode.UPGRADE)</code> 方法        </li>
+</ul>
+</li>
+<li>乐观锁<ul>
+<li>1.在对应的JavaBean中添加一个属性，名称可以是任意的。例如：<code>private Integer version;</code>生成对应的get和set方法。</li>
+<li>2.在映射的配置文件中，提供<code>&lt;version name=&quot;version&quot;/&gt;</code>标签即可。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>绑定本地的Session</strong></p>
+<ul>
+<li>在Hibernate框架中提供了ThreadLocal的方式来传递Session对象，使用Session对象来开启事务<ol>
+<li>修改hibernate.cfg.xml配置文件<ul>
+<li><code>&lt;property name=&quot;hibernate.current_session_context_class&quot;&gt;thread&lt;/property&gt;</code></li>
+</ul>
+</li>
+<li>修改HibernateUtil的工具类，使用SessionFactory的getCurrentSession()方法，获取当前的Session对象。并且该Session对象不用手动关闭，线程结束了，会自动关闭。</li>
+<li>注意：getCurrentSession()方法必须配置后才可以使用。</li>
+<li>流程：在业务层从ThreadLocal获取Session对象，然后开启事务，在捕获异常中回滚事务，不需要在finally块中手动关闭session了。在数据层直接从ThreadLocal获取Session对象，然后把相应对象保存到Session对象中即可。</li>
+</ol>
+</li>
+</ul>
+<h3 id="Hibernate框架的查询方式"><a href="#Hibernate框架的查询方式" class="headerlink" title="Hibernate框架的查询方式"></a>Hibernate框架的查询方式</h3><p><strong>Query查询接口</strong></p>
+<ol>
+<li><p>查询所有数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 测试Query的查询接口，查询所有数据</div><div class="line"> * 持久化类相当于表</div><div class="line"> */</div><div class="line">@Test</div><div class="line">public void run1()&#123;</div><div class="line">	Session session = HibernateUtils.getSession();</div><div class="line">	Transaction tr = session.beginTransaction();</div><div class="line">	//查询方式HQL：相当于select * from user</div><div class="line">	Query query = session.createQuery(&quot;from User&quot;);</div><div class="line">	//查询</div><div class="line">	List&lt;User&gt; list = query.list();</div><div class="line">	//打印查询结果</div><div class="line">	for (User user : list) &#123;</div><div class="line">		System.out.println(user);</div><div class="line">	&#125;</div><div class="line">	tr.commit();</div><div class="line">	session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>通过<code>？</code>条件查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 测试Query的查询接口，条件查询方式一</div><div class="line"> * 持久化类相当于表</div><div class="line"> */</div><div class="line">@Test</div><div class="line">public void run2()&#123;</div><div class="line">	Session session = HibernateUtils.getSession();</div><div class="line">	Transaction tr = session.beginTransaction();</div><div class="line">	//查询方式HQL：相当于select * from user where u_id = 1; </div><div class="line">	Query query = session.createQuery(&quot;from User where id = ?&quot;);</div><div class="line">	//设置?参数的值,?的下标从0开始</div><div class="line">	query.setInteger(0, 1);</div><div class="line">	//查询</div><div class="line">	List&lt;User&gt; list = query.list();</div><div class="line">	//打印查询结果</div><div class="line">	for (User user : list) &#123;</div><div class="line">		System.out.println(user);</div><div class="line">	&#125;</div><div class="line">	tr.commit();</div><div class="line">	session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>通过<code>:字符串</code>条件查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 测试Query的查询接口，条件查询方式二</div><div class="line"> * 持久化类相当于表</div><div class="line"> */</div><div class="line">@Test</div><div class="line">public void run3()&#123;</div><div class="line">	Session session = HibernateUtils.getSession();</div><div class="line">	Transaction tr = session.beginTransaction();</div><div class="line">	//查询方式HQL：相当于select * from user where u_name=&quot;张三&quot;;</div><div class="line">	Query query = session.createQuery(&quot;from User where name like :a&quot;);</div><div class="line">	//设置a参数的值</div><div class="line">	query.setString(&quot;a&quot;, &quot;%三&quot;);</div><div class="line">	//查询</div><div class="line">	List&lt;User&gt; list = query.list();</div><div class="line">	//打印查询结果</div><div class="line">	for (User user : list) &#123;</div><div class="line">		System.out.println(user);</div><div class="line">	&#125;</div><div class="line">	tr.commit();</div><div class="line">	session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>Criteria查询接口（适合条件查询）</strong></p>
+<ol>
+<li><p>查询所有记录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 测试Criteria查询接口（适合条件查询）</div><div class="line"> */</div><div class="line">@Test</div><div class="line">public void run1()&#123;</div><div class="line">	Session session = HibernateUtils.getSession();</div><div class="line">	Transaction tr = session.beginTransaction();</div><div class="line">	//先获取到Criteria接口</div><div class="line">	Criteria criteria = session.createCriteria(User.class);</div><div class="line">	//没有添加条件，查询所有数据select * from t_user</div><div class="line">	List&lt;User&gt; list = criteria.list();</div><div class="line">	for (User user : list) &#123;</div><div class="line">		System.out.println(user);</div><div class="line">	&#125;</div><div class="line">	tr.commit();</div><div class="line">	session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>多条件查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 测试Criteria查询接口（适合条件查询）</div><div class="line"> */</div><div class="line">@Test</div><div class="line">public void run2()&#123;</div><div class="line">	Session session = HibernateUtils.getSession();</div><div class="line">	Transaction tr = session.beginTransaction();</div><div class="line">	//先获取到Criteria接口</div><div class="line">	Criteria criteria = session.createCriteria(User.class);</div><div class="line">	//select * from t_user where u_age &gt; 18 and like &apos;%测试%&apos;;</div><div class="line">	//criteria是Hibernate框架提供的条件查询对象，想传入条件需要使用工具类Restrictions</div><div class="line">	//Restrictions提供静态方法拼接查询条件</div><div class="line">	criteria.add(Restrictions.gt(&quot;age&quot;,18));</div><div class="line">	//继续添加条件</div><div class="line">	criteria.add(Restrictions.like(&quot;name&quot;,&quot;%测试%&quot; ));</div><div class="line">	List&lt;User&gt; list = criteria.list();</div><div class="line">	for (User user : list) &#123;</div><div class="line">		System.out.println(user);</div><div class="line">	&#125;</div><div class="line">	tr.commit();</div><div class="line">	session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年07月03日 11:04</p>
+        <p>原始链接： <a class="post-url" href="/2018/06/14/Hibernate框架入门学习（二）/" title="Hibernate框架入门学习（二）">http://www.lousenjay.info/2018/06/14/Hibernate框架入门学习（二）/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/06/14/Hibernate框架入门学习（二）/&title=《Hibernate框架入门学习（二）》 — 若闲小阁&pic=https://xiaoduola.xyz/api.php" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/06/14/Hibernate框架入门学习（二）/&title=《Hibernate框架入门学习（二）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/06/14/Hibernate框架入门学习（二）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hibernate框架入门学习（二）》 — 若闲小阁&url=http://www.lousenjay.info/2018/06/14/Hibernate框架入门学习（二）/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/06/14/Hibernate框架入门学习（二）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/06/14/Hibernate框架入门学习（二）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Hibernate/" class="color5">Hibernate</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#持久化类和主键"><span class="post-toc-text">持久化类和主键</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#持久化对象"><span class="post-toc-text">持久化对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Session的一级缓存"><span class="post-toc-text">Session的一级缓存</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Hibernate中的事务与并发"><span class="post-toc-text">Hibernate中的事务与并发</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Hibernate框架的查询方式"><span class="post-toc-text">Hibernate框架的查询方式</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/07/03/Hibernate框架入门学习（三）/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Hibernate框架入门学习（三）
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/06/12/Hibernate框架入门学习（一）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Hibernate框架入门学习（一）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="Hibernate框架入门学习（二）" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/计算机/">计算机</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16.67px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 13.33px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 13.33px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16.67px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 13.33px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 13.33px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="http://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
+	<script src="http://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("http://www.lousenjay.info/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hibernate框架入门学习（三） | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="一对多映射（重点）编写JavaBean 1的一方  保存n的一方对象的Set集合 hibernate框架默认的集合是set集合，集合必须要手动初始化 案例:12345678910111213141516171819public class Customer &amp;#123;	private Long cust_id; //客户编号(主键)	private String cust_name;  //客户">
+<meta name="keywords" content="Hibernate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hibernate框架入门学习（三）">
+<meta property="og:url" content="http://www.lousenjay.info/2018/07/03/Hibernate框架入门学习（三）/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="一对多映射（重点）编写JavaBean 1的一方  保存n的一方对象的Set集合 hibernate框架默认的集合是set集合，集合必须要手动初始化 案例:12345678910111213141516171819public class Customer &amp;#123;	private Long cust_id; //客户编号(主键)	private String cust_name;  //客户">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-03T03:04:15.477Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hibernate框架入门学习（三）">
+<meta name="twitter:description" content="一对多映射（重点）编写JavaBean 1的一方  保存n的一方对象的Set集合 hibernate框架默认的集合是set集合，集合必须要手动初始化 案例:12345678910111213141516171819public class Customer &amp;#123;	private Long cust_id; //客户编号(主键)	private String cust_name;  //客户">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="http://www.lousenjay.info/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Hibernate框架入门学习（三）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Hibernate框架入门学习（三）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/SSH/">SSH</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-07-03
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="一对多映射（重点）"><a href="#一对多映射（重点）" class="headerlink" title="一对多映射（重点）"></a>一对多映射（重点）</h3><h4 id="编写JavaBean"><a href="#编写JavaBean" class="headerlink" title="编写JavaBean"></a>编写JavaBean</h4><ol>
+<li><p>1的一方</p>
+<ul>
+<li>保存n的一方对象的Set集合</li>
+<li>hibernate框架默认的集合是set集合，集合必须要手动初始化</li>
+<li>案例:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public class Customer &#123;</div><div class="line"></div><div class="line">	private Long cust_id; //客户编号(主键)</div><div class="line">	private String cust_name;  //客户名称(公司名称)</div><div class="line">	private Long cust_user_id;  //负责人id</div><div class="line">	private Long cust_create_id; //创建人id</div><div class="line">	private String cust_source;  //客户信息来源</div><div class="line">	private String cust_industry;  //客户所属行业</div><div class="line">	private String cust_level; //客户级别</div><div class="line">	private String cust_linkman; //联系人</div><div class="line">	private String cust_phone; //固定电话</div><div class="line">	private String cust_mobile; //移动电话</div><div class="line">	</div><div class="line">	//1的一方</div><div class="line">	//hibernate框架默认的集合是set集合，集合必须要手动初始化</div><div class="line">	private Set&lt;LinkMan&gt; LinkMans = new HashSet&lt;LinkMan&gt;();</div><div class="line"></div><div class="line">	set&amp;get...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>n的一方</p>
+<ul>
+<li>保存1的一方的对象</li>
+<li>这个对象千万不要自己new，配置文件提供该类的全路径，hibernate框架会自己new</li>
+<li>案例:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public class LinkMan &#123;</div><div class="line"></div><div class="line">	private long lkm_id;</div><div class="line">	private String lkm_name;</div><div class="line">	private String lkm_gender;</div><div class="line">	private String lkm_phone;</div><div class="line">	private String lkm_mobile;</div><div class="line">	private String lkm_email;</div><div class="line">	private String lkm_qq;</div><div class="line">	private String lkm_position;</div><div class="line">	private String lkm_memo;</div><div class="line">	</div><div class="line">	//n的一方</div><div class="line">	//编写一个对象，千万不要自己new，配置文件提供类的全路径，hibernate框架会自己new</div><div class="line">	private Customer customer;</div><div class="line"></div><div class="line">	set&amp;get...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="编写一对多的配置文件"><a href="#编写一对多的配置文件" class="headerlink" title="编写一对多的配置文件"></a>编写一对多的配置文件</h4><ol>
+<li><p>1的一方</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </div><div class="line">    &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</div><div class="line">    &quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</div><div class="line">&lt;hibernate-mapping&gt;</div><div class="line">	&lt;!-- 配置类和表结构的映射 --&gt;</div><div class="line">	&lt;class name=&quot;com.lousen.domain.Customer&quot; table=&quot;cst_customer&quot;&gt;</div><div class="line">		&lt;!-- 配置id,name:JavaBean,column:表结构的字段 --&gt;</div><div class="line">		&lt;id name=&quot;cust_id&quot; column=&quot;cust_id&quot;&gt;</div><div class="line">			&lt;!-- 主键生成策略 --&gt;</div><div class="line">			&lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;</div><div class="line">		&lt;/id&gt;</div><div class="line">		</div><div class="line">		</div><div class="line">		&lt;!-- 配置其他属性 --&gt;</div><div class="line">		&lt;property name=&quot;cust_name&quot; column=&quot;cust_name&quot;/&gt;</div><div class="line">		&lt;property name=&quot;cust_user_id&quot; column=&quot;cust_user_id&quot;/&gt;</div><div class="line">		&lt;property name=&quot;cust_create_id&quot; column=&quot;cust_create_id&quot;/&gt;</div><div class="line">		&lt;property name=&quot;cust_source&quot; column=&quot;cust_source&quot;/&gt;</div><div class="line">		&lt;property name=&quot;cust_industry&quot; column=&quot;cust_industry&quot;/&gt;</div><div class="line">		&lt;property name=&quot;cust_level&quot; column=&quot;cust_level&quot;/&gt;</div><div class="line">		&lt;property name=&quot;cust_linkman&quot; column=&quot;cust_linkman&quot;/&gt;</div><div class="line">		&lt;property name=&quot;cust_phone&quot; column=&quot;cust_phone&quot;/&gt;</div><div class="line">		&lt;property name=&quot;cust_mobile&quot; column=&quot;cust_mobile&quot;/&gt;</div><div class="line">		</div><div class="line">		&lt;!-- 配置一的一方,name:表示集合属性的名称，cascade：级联 --&gt;</div><div class="line">		&lt;set name=&quot;LinkMans&quot; inverse=&quot;true&quot;&gt;</div><div class="line">			&lt;!-- column:外键字段 --&gt;</div><div class="line">			&lt;!-- class：集合属性的全路径 --&gt;</div><div class="line">			&lt;key column=&quot;lkm_cust_id&quot;&gt;&lt;/key&gt;</div><div class="line">			&lt;one-to-many class=&quot;com.lousen.domain.LinkMan&quot;/&gt;</div><div class="line">		&lt;/set&gt;</div><div class="line">		</div><div class="line">	&lt;/class&gt;</div><div class="line">&lt;/hibernate-mapping&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>n的一方</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </div><div class="line">    &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</div><div class="line">    &quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</div><div class="line">&lt;hibernate-mapping&gt;</div><div class="line">	&lt;!-- 配置类和表结构的映射 --&gt;</div><div class="line">	&lt;class name=&quot;com.lousen.domain.LinkMan&quot; table=&quot;cst_linkman&quot;&gt;</div><div class="line">		&lt;!-- 配置id,name:JavaBean,column:表结构的字段 --&gt;</div><div class="line">		&lt;id name=&quot;lkm_id&quot; column=&quot;lkm_id&quot;&gt;</div><div class="line">			&lt;!-- 主键生成策略 --&gt;</div><div class="line">			&lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;</div><div class="line">		&lt;/id&gt;</div><div class="line">		</div><div class="line">		</div><div class="line">		&lt;!-- 配置其他属性 --&gt;</div><div class="line">		&lt;property name=&quot;lkm_name&quot; column=&quot;lkm_name&quot;/&gt;</div><div class="line">		&lt;property name=&quot;lkm_gender&quot; column=&quot;lkm_gender&quot;/&gt;</div><div class="line">		&lt;property name=&quot;lkm_phone&quot; column=&quot;lkm_phone&quot;/&gt;</div><div class="line">		&lt;property name=&quot;lkm_mobile&quot; column=&quot;lkm_mobile&quot;/&gt;</div><div class="line">		&lt;property name=&quot;lkm_email&quot; column=&quot;lkm_email&quot;/&gt;</div><div class="line">		&lt;property name=&quot;lkm_qq&quot; column=&quot;lkm_qq&quot;/&gt;</div><div class="line">		&lt;property name=&quot;lkm_position&quot; column=&quot;lkm_position&quot;/&gt;</div><div class="line">		&lt;property name=&quot;lkm_memo&quot; column=&quot;lkm_memo&quot;/&gt;</div><div class="line">		</div><div class="line">		&lt;!--</div><div class="line">		 先配置多的一方</div><div class="line">		 name: 当前JavaBean中的属性</div><div class="line">		 class：该属性的全路径</div><div class="line">		 column：外键字段</div><div class="line">		 cascade: 级联</div><div class="line">		  --&gt;</div><div class="line">		&lt;many-to-one name=&quot;customer&quot; class=&quot;com.lousen.domain.Customer&quot; column=&quot;lkm_cust_id&quot; cascade=&quot;save-update&quot;&gt;&lt;/many-to-one&gt;</div><div class="line">		</div><div class="line">	&lt;/class&gt;</div><div class="line">&lt;/hibernate-mapping&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="双向关联数据"><a href="#双向关联数据" class="headerlink" title="双向关联数据"></a>双向关联数据</h4><ol>
+<li>简介<br> 顾客关联联系人，联系人同时也要关联顾客，两者的对象都需要保存。</li>
+<li>双向关联数据保存 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 双向关联保存数据（最麻烦的）</div><div class="line"> */</div><div class="line">@Test</div><div class="line">public void run1()&#123;</div><div class="line">	</div><div class="line">	Session session = HibernateUtils.getSession();</div><div class="line">	Transaction tr = session.beginTransaction();</div><div class="line">	</div><div class="line">	//创建一个顾客</div><div class="line">	Customer c1 = new Customer();</div><div class="line">	c1.setCust_name(&quot;张三&quot;);</div><div class="line">	</div><div class="line">	//创建两个联系人</div><div class="line">	LinkMan l1 = new LinkMan();</div><div class="line">	l1.setLkm_name(&quot;老大&quot;);</div><div class="line">	LinkMan l2 = new LinkMan();</div><div class="line">	l2.setLkm_name(&quot;老二&quot;);</div><div class="line">	</div><div class="line">	//演示双向关联</div><div class="line">	c1.getLinkMans().add(l1);</div><div class="line">	c1.getLinkMans().add(l2);		</div><div class="line">	l1.setCustomer(c1);</div><div class="line">	l2.setCustomer(c1);</div><div class="line"></div><div class="line">	//保存数据</div><div class="line">	session.save(c1);</div><div class="line">	session.save(l1);</div><div class="line">	session.save(l2);</div><div class="line">	</div><div class="line">	tr.commit();</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="级联保存"><a href="#级联保存" class="headerlink" title="级联保存"></a>级联保存</h4><ol>
+<li>简介<br> 保存一方的同时可以把关联的对象也保存到数据库中，具有方向性，可以修改顾客的配置文件使顾客级联联系人，也可以修改联系人的配置文件使联系人级联顾客。</li>
+<li>配置文件<br> 在配置文件添加属性<code>cascade=&quot;save-update&quot;</code>即可</li>
+<li>级联保存案例 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 级联保存（单向关联）</div><div class="line"> * 顾客级联联系人</div><div class="line"> */</div><div class="line">@Test</div><div class="line">public void run2()&#123;</div><div class="line">	</div><div class="line">	Session session = HibernateUtils.getSession();</div><div class="line">	Transaction tr = session.beginTransaction();</div><div class="line">	</div><div class="line">	//创建一个顾客</div><div class="line">	Customer c1 = new Customer();</div><div class="line">	c1.setCust_name(&quot;张三&quot;);</div><div class="line">	</div><div class="line">	//创建两个联系人</div><div class="line">	LinkMan l1 = new LinkMan();</div><div class="line">	l1.setLkm_name(&quot;老大&quot;);</div><div class="line"></div><div class="line">	LinkMan l2 = new LinkMan();</div><div class="line">	l2.setLkm_name(&quot;老二&quot;);</div><div class="line"></div><div class="line">	//演示级联</div><div class="line">	c1.getLinkMans().add(l1);</div><div class="line">	c1.getLinkMans().add(l2);	</div><div class="line"></div><div class="line">	//保存数据</div><div class="line">	session.save(c1);</div><div class="line">	</div><div class="line">	tr.commit();	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="级联删除（谨慎使用，很少使用）"><a href="#级联删除（谨慎使用，很少使用）" class="headerlink" title="级联删除（谨慎使用，很少使用）"></a>级联删除（谨慎使用，很少使用）</h4><ol>
+<li>简介<ul>
+<li>普通的直接删除<br>  删除顾客以后，该顾客对应的联系人的外键那一列的值变为null</li>
+<li>级联删除<br>  删除顾客以后，该顾客对应的联系人的所有数据被删除</li>
+</ul>
+</li>
+<li>配置文件<br> 在配置文件添加属性<code>cascade=&quot;delete&quot;</code>即可</li>
+<li>级联删除案例 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 级联删除</div><div class="line"> * 同样具有方向性，也可两边都级联（很危险，相关数据全删）</div><div class="line"> * 在联系人和顾客两边都加上级联删除</div><div class="line"> * 删除联系人时联系人级联删除顾客，删除顾客时顾客又级联删除联系人</div><div class="line"> */</div><div class="line">@Test</div><div class="line">public void run4()&#123;</div><div class="line">	</div><div class="line">	Session session = HibernateUtils.getSession();</div><div class="line">	Transaction tr = session.beginTransaction();</div><div class="line">	</div><div class="line">	//删除主键为3的联系人</div><div class="line">	LinkMan linkman = session.get(LinkMan.class,3L);</div><div class="line">	session.delete(linkman);</div><div class="line">	</div><div class="line">	tr.commit();	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="孤儿删除"><a href="#孤儿删除" class="headerlink" title="孤儿删除"></a>孤儿删除</h4><ol>
+<li>简介<ul>
+<li>只存在于一对多</li>
+<li>在一对多的关系中,可以将一的一方认为是父方。将多的一方认为是子方。孤儿删除:在解除了父子关系的时候。将子方整条记录直接删除。</li>
+</ul>
+</li>
+<li>配置文件<br> 在配置文件<code>&lt;set&gt;</code>标签上添加属性<code>cascade=&quot;delete-orphan&quot;</code>即可<br>3.孤儿删除案例 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 孤儿删除（在解除关系的基础上修改了配置文件，cascade=&quot;delete-orphan&quot;）</div><div class="line"> * 删除整条记录</div><div class="line"> */</div><div class="line">@Test</div><div class="line">public void run6()&#123;</div><div class="line">	</div><div class="line">	Session session = HibernateUtils.getSession();</div><div class="line">	Transaction tr = session.beginTransaction();</div><div class="line"></div><div class="line">	LinkMan linkman = session.get(LinkMan.class,9L);</div><div class="line">	Customer customer = session.get(Customer.class,9L);</div><div class="line">	//解除关系</div><div class="line">	customer.getLinkMans().remove(linkman);</div><div class="line">	</div><div class="line">	tr.commit();	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="放弃外键的维护"><a href="#放弃外键的维护" class="headerlink" title="放弃外键的维护"></a>放弃外键的维护</h4><ol>
+<li>简介<ul>
+<li>双方都维护外键的时候，会产生多余的SQL语句</li>
+<li>产生的原因：session的一级缓存中的快照机制，会让双方都更新数据库，产生了多余的SQL语句。</li>
+<li>如果不想产生多余的SQL语句，那么需要一方来放弃外键的维护</li>
+</ul>
+</li>
+<li>配置文件<br> 在<code>&lt;set&gt;</code>标签上配置一个<code>inverse=&quot;true&quot;</code>。默认值是false。</li>
+</ol>
+<h4 id="cascade和inverse"><a href="#cascade和inverse" class="headerlink" title="cascade和inverse"></a>cascade和inverse</h4><ol>
+<li>cascade用来级联操作（保存、修改和删除）</li>
+<li>inverse用来维护外键的</li>
+<li>两者一般不能同时存在同一个配置文件<ul>
+<li>inverse在一对多中必须放在1的一方，在多对多时放在少的一方</li>
+<li>cascade放在inverse的另一方</li>
+<li>如果同时存在同一个配置文件，将无法对该方的外键进行保存等操作，因为这一方已经放弃了对外键的维护。</li>
+</ul>
+</li>
+</ol>
+<h3 id="多对多映射（重点）"><a href="#多对多映射（重点）" class="headerlink" title="多对多映射（重点）"></a>多对多映射（重点）</h3><h4 id="编写JavaBean-1"><a href="#编写JavaBean-1" class="headerlink" title="编写JavaBean"></a>编写JavaBean</h4><p>同一对多中多的一方<br>案例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public class User &#123;</div><div class="line"></div><div class="line">	private Long uid;</div><div class="line">	private String username;</div><div class="line">	private String password;</div><div class="line">	</div><div class="line">	private Set&lt;Role&gt; roles = new HashSet&lt;Role&gt;();</div><div class="line"></div><div class="line">	set&amp;get...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public class Role &#123;</div><div class="line"></div><div class="line">	private Long rid;</div><div class="line">	private String rname;</div><div class="line">	</div><div class="line">	private Set&lt;User&gt; users = new HashSet&lt;User&gt;();</div><div class="line"></div><div class="line">	set&amp;get...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="编写多对多的配置文件"><a href="#编写多对多的配置文件" class="headerlink" title="编写多对多的配置文件"></a>编写多对多的配置文件</h4><ol>
+<li><p>多-用户</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </div><div class="line">    &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</div><div class="line">    &quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</div><div class="line">&lt;hibernate-mapping&gt;</div><div class="line">	&lt;!-- 配置类和表结构的映射 --&gt;</div><div class="line">	&lt;class name=&quot;com.lousen.domain.User&quot; table=&quot;sys_user&quot;&gt;</div><div class="line">		&lt;!-- 配置id,name:JavaBean,column:表结构的字段 --&gt;</div><div class="line">		&lt;id name=&quot;uid&quot; column=&quot;uid&quot;&gt;</div><div class="line">			&lt;!-- 主键生成策略 --&gt;</div><div class="line">			&lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;</div><div class="line">		&lt;/id&gt;</div><div class="line">		</div><div class="line">		</div><div class="line">		&lt;!-- 配置其他属性 --&gt;</div><div class="line">		&lt;property name=&quot;username&quot; column=&quot;username&quot;/&gt;</div><div class="line">		&lt;property name=&quot;password&quot; column=&quot;password&quot;/&gt;</div><div class="line">		</div><div class="line">		&lt;!--  </div><div class="line">		配置多对多</div><div class="line">		name：集合的名称</div><div class="line">		table：中间表的名称</div><div class="line">		--&gt;</div><div class="line">		&lt;set name=&quot;roles&quot; table=&quot;sys_user_role&quot; cascade=&quot;save-update&quot;&gt;</div><div class="line">			&lt;!-- 当前对象在中间表外键的名称 --&gt;</div><div class="line">			&lt;key column=&quot;uid&quot; /&gt;</div><div class="line">			&lt;!-- </div><div class="line">			class：集合中所存对象的全路径</div><div class="line">			column：集合中所存对象在中间表的外键名称</div><div class="line">			 --&gt;</div><div class="line">			&lt;many-to-many class=&quot;com.lousen.domain.Role&quot; column=&quot;rid&quot;&gt;&lt;/many-to-many&gt;</div><div class="line">		&lt;/set&gt;</div><div class="line">		</div><div class="line">	&lt;/class&gt;</div><div class="line">&lt;/hibernate-mapping&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>多-角色</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </div><div class="line">    &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</div><div class="line">    &quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</div><div class="line">&lt;hibernate-mapping&gt;</div><div class="line">	&lt;!-- 配置类和表结构的映射 --&gt;</div><div class="line">	&lt;class name=&quot;com.lousen.domain.Role&quot; table=&quot;sys_role&quot;&gt;</div><div class="line">		&lt;!-- 配置id,name:JavaBean,column:表结构的字段 --&gt;</div><div class="line">		&lt;id name=&quot;rid&quot; column=&quot;rid&quot;&gt;</div><div class="line">			&lt;!-- 主键生成策略 --&gt;</div><div class="line">			&lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;</div><div class="line">		&lt;/id&gt;</div><div class="line">		</div><div class="line">		</div><div class="line">		&lt;!-- 配置其他属性 --&gt;</div><div class="line">		&lt;property name=&quot;rname&quot; column=&quot;rname&quot;/&gt;</div><div class="line">		</div><div class="line">		&lt;!--  </div><div class="line">			配置多对多</div><div class="line">			name：集合的名称</div><div class="line">			table：中间表的名称</div><div class="line">		--&gt;</div><div class="line">		&lt;set name=&quot;users&quot; table=&quot;sys_user_role&quot; inverse=&quot;true&quot;&gt;</div><div class="line">			&lt;!-- 当前对象在中间表外键的名称 --&gt;</div><div class="line">			&lt;key column=&quot;rid&quot; /&gt;</div><div class="line">			&lt;!-- </div><div class="line">				class：集合中所存对象的全路径</div><div class="line">				column：集合中所存对象在中间表的外键名称</div><div class="line">			 --&gt;</div><div class="line">			&lt;many-to-many class=&quot;com.lousen.domain.User&quot; column=&quot;uid&quot;&gt;&lt;/many-to-many&gt;</div><div class="line">		&lt;/set&gt;</div><div class="line">		</div><div class="line">	&lt;/class&gt;</div><div class="line">&lt;/hibernate-mapping&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>中间表<br> 在多对多中，只要正确配置了文件，Hibernate框架会自动生成中间表</p>
+</li>
+</ol>
+<h4 id="双向关联"><a href="#双向关联" class="headerlink" title="双向关联"></a>双向关联</h4><p>多对多进行双向关联的时候:必须有一方放弃外键维护权，否则会报错！！！</p>
+<h4 id="级联操作"><a href="#级联操作" class="headerlink" title="级联操作"></a>级联操作</h4><ol>
+<li>简介<br> 同一对多</li>
+<li>案例 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 多对多</div><div class="line"> * role放弃外键维护</div><div class="line"> * 保存user时级联保存role</div><div class="line"> */</div><div class="line">@Test</div><div class="line">public void run1()&#123;</div><div class="line">	Session session = HibernateUtils.getSession();</div><div class="line">	Transaction tr = session.beginTransaction();</div><div class="line">	//创建用户</div><div class="line">	User u1 = new User();</div><div class="line">	u1.setUsername(&quot;张三&quot;);</div><div class="line">	User u2 = new User();</div><div class="line">	u2.setUsername(&quot;李四&quot;);</div><div class="line">	//创建角色</div><div class="line">	Role r1 = new Role();</div><div class="line">	r1.setRname(&quot;上校&quot;);		</div><div class="line">	Role r2 = new Role();</div><div class="line">	r2.setRname(&quot;下士&quot;);</div><div class="line">	//级联保存</div><div class="line">	u1.getRoles().add(r1);</div><div class="line">	u1.getRoles().add(r2);</div><div class="line">	u2.getRoles().add(r1);</div><div class="line">	</div><div class="line">	session.save(u1);</div><div class="line">	session.save(u2);</div><div class="line">	</div><div class="line">	tr.commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="维护中间表"><a href="#维护中间表" class="headerlink" title="维护中间表"></a>维护中间表</h4><ol>
+<li>简介<ul>
+<li>在多对多中，只要正确配置了文件，Hibernate框架会自动生成中间表</li>
+<li>通过操作对应集合来操作对应的外键</li>
+</ul>
+</li>
+<li>案例： <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 维护中间表</div><div class="line"> * 通过操作集合</div><div class="line"> */</div><div class="line">@Test</div><div class="line">public void run2()&#123;</div><div class="line">	Session session = HibernateUtils.getSession();</div><div class="line">	Transaction tr = session.beginTransaction();</div><div class="line">	</div><div class="line">	//查询李四用户</div><div class="line">	User u = session.get(User.class, 2L);</div><div class="line">	//查询角色</div><div class="line">	Role r = session.get(Role.class, 2L);</div><div class="line">	//从中间表移除该条数据</div><div class="line">	u.getRoles().remove(r);</div><div class="line">	</div><div class="line">	tr.commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年07月03日 11:04</p>
+        <p>原始链接： <a class="post-url" href="/2018/07/03/Hibernate框架入门学习（三）/" title="Hibernate框架入门学习（三）">http://www.lousenjay.info/2018/07/03/Hibernate框架入门学习（三）/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/07/03/Hibernate框架入门学习（三）/&title=《Hibernate框架入门学习（三）》 — 若闲小阁&pic=https://xiaoduola.xyz/api.php" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/07/03/Hibernate框架入门学习（三）/&title=《Hibernate框架入门学习（三）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/07/03/Hibernate框架入门学习（三）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hibernate框架入门学习（三）》 — 若闲小阁&url=http://www.lousenjay.info/2018/07/03/Hibernate框架入门学习（三）/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/07/03/Hibernate框架入门学习（三）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/07/03/Hibernate框架入门学习（三）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Hibernate/" class="color5">Hibernate</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一对多映射（重点）"><span class="post-toc-text">一对多映射（重点）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#编写JavaBean"><span class="post-toc-text">编写JavaBean</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#编写一对多的配置文件"><span class="post-toc-text">编写一对多的配置文件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#双向关联数据"><span class="post-toc-text">双向关联数据</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#级联保存"><span class="post-toc-text">级联保存</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#级联删除（谨慎使用，很少使用）"><span class="post-toc-text">级联删除（谨慎使用，很少使用）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#孤儿删除"><span class="post-toc-text">孤儿删除</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#放弃外键的维护"><span class="post-toc-text">放弃外键的维护</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#cascade和inverse"><span class="post-toc-text">cascade和inverse</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多对多映射（重点）"><span class="post-toc-text">多对多映射（重点）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#编写JavaBean-1"><span class="post-toc-text">编写JavaBean</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#编写多对多的配置文件"><span class="post-toc-text">编写多对多的配置文件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#双向关联"><span class="post-toc-text">双向关联</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#级联操作"><span class="post-toc-text">级联操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#维护中间表"><span class="post-toc-text">维护中间表</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/14/Hibernate框架入门学习（二）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Hibernate框架入门学习（二）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="Hibernate框架入门学习（三）" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/计算机/">计算机</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16.67px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 13.33px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 13.33px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16.67px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 13.33px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 13.33px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="http://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
+	<script src="http://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("http://www.lousenjay.info/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>
