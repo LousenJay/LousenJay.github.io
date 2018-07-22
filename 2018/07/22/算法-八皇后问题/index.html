@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>JSON学习笔记 | 若闲小阁</title>
+  <title>算法-八皇后问题 | 若闲小阁</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="JSON(java script object notation)即JavaScript对象表示法，是一种存储数据方式。本质上就是js的”自定义对象”。  创建json对象json对象由名称:值组成var test = {“name”:”张三”,”age”:18,”sex”:”男”};注：名称必须用””包含起来，值可以是任意js数据类型  访问json对象通过.访问json对象var test =">
-<meta name="keywords" content="JSON">
+  <meta name="description" content="问题简述：八皇后问题是一个以国际象棋为背景的问题：如何能够在8×8的国际象棋棋盘上放置八个皇后，使得任何一个皇后都无法直接吃掉其他的皇后？为了达到此目的，任两个皇后都不能处于同一条横行、纵行或斜线上。八皇后问题可以推广为更一般的n皇后摆放问题：这时棋盘的大小变为n1×n1，而皇后个数也变成n2。而且仅当n2=1或n1≥4时问题有解。 解决方案一：递归思路分析：定义num来控制皇后的个数，初始设置为">
+<meta name="keywords" content="基础算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JSON学习笔记">
-<meta property="og:url" content="http://www.lousenjay.info/2018/02/12/JSON学习笔记/index.html">
+<meta property="og:title" content="算法-八皇后问题">
+<meta property="og:url" content="http://www.lousenjay.info/2018/07/22/算法-八皇后问题/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="JSON(java script object notation)即JavaScript对象表示法，是一种存储数据方式。本质上就是js的”自定义对象”。  创建json对象json对象由名称:值组成var test = {“name”:”张三”,”age”:18,”sex”:”男”};注：名称必须用””包含起来，值可以是任意js数据类型  访问json对象通过.访问json对象var test =">
+<meta property="og:description" content="问题简述：八皇后问题是一个以国际象棋为背景的问题：如何能够在8×8的国际象棋棋盘上放置八个皇后，使得任何一个皇后都无法直接吃掉其他的皇后？为了达到此目的，任两个皇后都不能处于同一条横行、纵行或斜线上。八皇后问题可以推广为更一般的n皇后摆放问题：这时棋盘的大小变为n1×n1，而皇后个数也变成n2。而且仅当n2=1或n1≥4时问题有解。 解决方案一：递归思路分析：定义num来控制皇后的个数，初始设置为">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-10T09:18:51.450Z">
+<meta property="og:updated_time" content="2018-07-22T03:29:32.563Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JSON学习笔记">
-<meta name="twitter:description" content="JSON(java script object notation)即JavaScript对象表示法，是一种存储数据方式。本质上就是js的”自定义对象”。  创建json对象json对象由名称:值组成var test = {“name”:”张三”,”age”:18,”sex”:”男”};注：名称必须用””包含起来，值可以是任意js数据类型  访问json对象通过.访问json对象var test =">
+<meta name="twitter:title" content="算法-八皇后问题">
+<meta name="twitter:description" content="问题简述：八皇后问题是一个以国际象棋为背景的问题：如何能够在8×8的国际象棋棋盘上放置八个皇后，使得任何一个皇后都无法直接吃掉其他的皇后？为了达到此目的，任两个皇后都不能处于同一条横行、纵行或斜线上。八皇后问题可以推广为更一般的n皇后摆放问题：这时棋盘的大小变为n1×n1，而皇后个数也变成n2。而且仅当n2=1或n1≥4时问题有解。 解决方案一：递归思路分析：定义num来控制皇后的个数，初始设置为">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -119,14 +119,14 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-JSON学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-算法-八皇后问题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      JSON学习笔记
+      算法-八皇后问题
     </h1>
     <div class="post-title-bar">
       <ul>
@@ -134,12 +134,12 @@
               <li>
                   <i class="fa fa-book"></i>
                   
-                      <a href="/categories/前端/">前端</a>
+                      <a href="/categories/算法/">算法</a>
                   
               </li>
           
         <li>
-          <i class="fa fa-calendar"></i>  2018-02-12
+          <i class="fa fa-calendar"></i>  2018-07-22
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -155,28 +155,14 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>JSON(java script object notation)即JavaScript对象表示法，是一种存储数据方式。本质上就是js的”自定义对象”。</p>
-<ol>
-<li><p>创建json对象<br>json对象由名称:值组成<br>var test = {“name”:”张三”,”age”:18,”sex”:”男”};<br>注：名称必须用””包含起来，值可以是任意js数据类型</p>
-</li>
-<li><p>访问json对象<br>通过.访问json对象<br>var test = {“name”:”张三”,”age”:18,”sex”:”男”};<br>test.name; //返回张三</p>
-</li>
-<li><p>创建json数组<br>通过[]创建json数组<br>var test = [<br> {“name”:”张三”,”age”:18},<br> {“name”:”李四”,”age”:16},<br> {“name”:”王五”,”age”:22}<br>]</p>
-</li>
-<li><p>访问json数组<br>test[0].name; //返回张三</p>
-</li>
-<li><p>JSON对象和JavaScript对象<br>JSON实质上就是JavaScript的自定义对象，故无需转化</p>
-</li>
-<li><p>字符串转化为JSON<br>通过字符串拼接得到的是一个json结构的字符串，并不是json对象，需要通过eval转换得到。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a = &quot;&#123;\&quot;name\&quot;:\&quot;张三\&quot;,&quot;;</div><div class="line">var b = &quot;\&quot;age\&quot;:25&quot;;</div><div class="line">var c = a+b;</div><div class="line">var test = eval(&quot;(&quot;+c+&quot;)&quot;); //得到json对象</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>或者使用jquery的$.parseJSON转换函数<br>$.parseJSON(字符串)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var a = &quot;&#123;\&quot;name\&quot;:\&quot;张三\&quot;,\&quot;age\&quot;:20&#125;&quot;;</div><div class="line">$.parseJSON(a);</div></pre></td></tr></table></figure></p>
+            <p>问题简述：八皇后问题是一个以国际象棋为背景的问题：如何能够在8×8的国际象棋棋盘上放置八个皇后，使得任何一个皇后都无法直接吃掉其他的皇后？为了达到此目的，任两个皇后都不能处于同一条横行、纵行或斜线上。八皇后问题可以推广为更一般的n皇后摆放问题：这时棋盘的大小变为n1×n1，而皇后个数也变成n2。而且仅当n2=1或n1≥4时问题有解。</p>
+<p>解决方案一：递归<br>思路分析：<br>定义num来控制皇后的个数，初始设置为8<br>定义count来计数，计算问题的解决方案总数<br>定义数组array[num]来存储每一组方案的结果<br>定义查找方法find(int n)，参数n代表当前放的是第几个皇后，n从0开始<br>在find中调用输出方法print()，每查找到一组结果就打印输出<br>在find中调用判断方法judge(int n)，判断第n个皇后的当前列和对角线上是否有其它皇后<br>如果没有，在find中递归查找下一个皇后的位置，查找结束就开始循环查找下一组<br>最后在main方法中调用find方法即可</p>
+<p>代码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 八皇后——&gt;n皇后</div><div class="line"> * 描述：在8X8棋盘放8个皇后，任何一个皇后都无法直接吃掉其他的皇后，问一共有多少种方法</div><div class="line"> * 时间：2018-7-21 16:47:11</div><div class="line"> * @author LousenJay</div><div class="line"> *</div><div class="line"> */</div><div class="line"></div><div class="line">public class Queen &#123;</div><div class="line">	private int num = 8;	//设置皇后的个数</div><div class="line">	public static int count = 0; //计数</div><div class="line">	private int[] array = new int[num]; //保存结果，第一个皇后在array[0]，第二个在array[1]</div><div class="line">	</div><div class="line">	/**</div><div class="line">	 * 打印结果</div><div class="line">	 */</div><div class="line">	private void print(int n)&#123;</div><div class="line">		//打印一组结果</div><div class="line">		System.out.println(&quot;第&quot;+n+&quot;组：&quot;);</div><div class="line">		for (int i = 0; i &lt; num; i++) &#123;</div><div class="line">			System.out.print(array[i]+1+&quot; &quot;);</div><div class="line">		&#125;	</div><div class="line">		System.out.println();//换行</div><div class="line">		System.out.println(&quot;棋盘展示：&quot;);</div><div class="line">		for (int i = 0; i &lt; num; i++) &#123; //打印行</div><div class="line">			for (int j = 0; j &lt; num; j++) &#123; //打印列</div><div class="line">				if(j == array[i])&#123;</div><div class="line">					System.out.print(&quot;♛&quot;);</div><div class="line">				&#125;else&#123;</div><div class="line">					System.out.print(&quot;☒&quot;);</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			System.out.println();</div><div class="line">		&#125;</div><div class="line">		System.out.println();</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	/**</div><div class="line">	 * 判断第n行的皇后在当前列和对角线上是否有皇后</div><div class="line">	 * 如果有则返回false，循环下一个列继续匹配</div><div class="line">	 * 如果该列符合则返回true，开始下一行查找</div><div class="line">	 * @param n</div><div class="line">	 * @return</div><div class="line">	 */</div><div class="line">	private boolean judge(int n)&#123;</div><div class="line">		for (int i = 0; i &lt; n; i++) &#123;</div><div class="line">			//判断第n行的皇后在当前列和对角线上是否有皇后</div><div class="line">			if(array[i] == array[n] || Math.abs(n - i) == Math.abs(array[n] - array[i]))&#123;</div><div class="line">				return false;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		return true;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	/**</div><div class="line">	 * n代表当前放的是第几个皇后</div><div class="line">	 * array[n]代表第n个皇后的列的位置</div><div class="line">	 * @param n</div><div class="line">	 */</div><div class="line">	private void find(int n)&#123;</div><div class="line">		/*如果皇后全部放完了，则计数并打印该种方法*/</div><div class="line">		if(n == num)&#123;</div><div class="line">			count++;//计数</div><div class="line">			print(count);//输出</div><div class="line">			return;</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		/*开始第一组查找，先从第一行的8个列开始查找，符合条件开始依次查找第二行，</div><div class="line">		 * 八行全部符合条件，查找结束，计数+1并打印结果</div><div class="line">		 * 不符合就开始查找第二组</div><div class="line">		 * 最后所有结果全部查找完毕，跳出递归循环*/</div><div class="line">		for (int i = 0; i &lt; num; i++) &#123;</div><div class="line">			array[n] = i; //遍历每一列放置的八种可能,列</div><div class="line">			if(judge(n))&#123; //行</div><div class="line">				find(n+1); //递归查找第二列</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Queen q = new Queen();</div><div class="line">		q.find(0); //从第一行开始查找</div><div class="line">		System.out.println(&quot;总计：&quot;+q.count+&quot;种方法&quot;);</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年04月10日 17:18</p>
-        <p>原始链接： <a class="post-url" href="/2018/02/12/JSON学习笔记/" title="JSON学习笔记">http://www.lousenjay.info/2018/02/12/JSON学习笔记/</a></p>
+        <p>最后更新： 2018年07月22日 11:29</p>
+        <p>原始链接： <a class="post-url" href="/2018/07/22/算法-八皇后问题/" title="算法-八皇后问题">http://www.lousenjay.info/2018/07/22/算法-八皇后问题/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
                 <img src="/images/logo.png" alt="Lousen Jay">
@@ -198,7 +184,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/02/12/JSON学习笔记/&title=《JSON学习笔记》 — 若闲小阁&pic=http://wx4.sinaimg.cn/mw690/a10c01f6gy1fq7ohvvg2gj20ci069dh8.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/07/22/算法-八皇后问题/&title=《算法-八皇后问题》 — 若闲小阁&pic=http://wx1.sinaimg.cn/mw690/a10c01f6gy1fq7ohwo2lij20ci069my9.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -208,22 +194,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/02/12/JSON学习笔记/&title=《JSON学习笔记》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/07/22/算法-八皇后问题/&title=《算法-八皇后问题》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/02/12/JSON学习笔记/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/07/22/算法-八皇后问题/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JSON学习笔记》 — 若闲小阁&url=http://www.lousenjay.info/2018/02/12/JSON学习笔记/&via=http://www.lousenjay.info" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《算法-八皇后问题》 — 若闲小阁&url=http://www.lousenjay.info/2018/07/22/算法-八皇后问题/&via=http://www.lousenjay.info" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/02/12/JSON学习笔记/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/07/22/算法-八皇后问题/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -233,7 +219,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/02/12/JSON学习笔记/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/07/22/算法-八皇后问题/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -245,7 +231,7 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/JSON/" class="color5">JSON</a>
+    <a href="/tags/基础算法/" class="color5">基础算法</a>
       
   </li>
 
@@ -259,19 +245,9 @@
 
 <nav id="article-nav">
   
-    <a href="/2018/02/12/AJAX学习笔记/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          AJAX学习笔记
-        
-      </span>
-    </a>
   
-  
-    <a href="/2018/02/12/JQuery学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">JQuery学习笔记</span>
+    <a href="/2018/07/16/Linux学习笔记（Ubuntu）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Linux学习笔记（Ubuntu）</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
@@ -280,7 +256,7 @@
 
 
     
-        <div id="SOHUCS" sid="JSON学习笔记" ></div>
+        <div id="SOHUCS" sid="算法-八皇后问题" ></div>
 <script type="text/javascript">
     (function(){
         var appid = 'cyti47zsk';

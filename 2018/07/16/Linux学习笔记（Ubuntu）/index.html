@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Linux学习笔记（Ubuntu） | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="Ubuntu版本大部分操作与CentOS版本一致，Linux只是在Unix发展的过程中为解决开源问题而产生的一种类Unix系统，两者之间没有没有代码逻辑上的关系，只不过Linux模仿Unix的系统结构、功能，独立开发出来的一种兼容Unix的系统 环境：VMware+Ubuntu64 常见问题第一次设置Ubuntu的root账号的密码解决方案： 1. 手动设置密码：`sudo passwd root">
+<meta name="keywords" content="Linux,Ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习笔记（Ubuntu）">
+<meta property="og:url" content="http://www.lousenjay.info/2018/07/16/Linux学习笔记（Ubuntu）/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="Ubuntu版本大部分操作与CentOS版本一致，Linux只是在Unix发展的过程中为解决开源问题而产生的一种类Unix系统，两者之间没有没有代码逻辑上的关系，只不过Linux模仿Unix的系统结构、功能，独立开发出来的一种兼容Unix的系统 环境：VMware+Ubuntu64 常见问题第一次设置Ubuntu的root账号的密码解决方案： 1. 手动设置密码：`sudo passwd root">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-22T03:29:01.076Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux学习笔记（Ubuntu）">
+<meta name="twitter:description" content="Ubuntu版本大部分操作与CentOS版本一致，Linux只是在Unix发展的过程中为解决开源问题而产生的一种类Unix系统，两者之间没有没有代码逻辑上的关系，只不过Linux模仿Unix的系统结构、功能，独立开发出来的一种兼容Unix的系统 环境：VMware+Ubuntu64 常见问题第一次设置Ubuntu的root账号的密码解决方案： 1. 手动设置密码：`sudo passwd root">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="http://www.lousenjay.info/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Linux学习笔记（Ubuntu）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Linux学习笔记（Ubuntu）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/OS/">OS</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-07-16
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>Ubuntu版本大部分操作与CentOS版本一致，Linux只是在Unix发展的过程中为解决开源问题而产生的一种类Unix系统，两者之间没有没有代码逻辑上的关系，只不过Linux模仿Unix的系统结构、功能，独立开发出来的一种兼容Unix的系统</p>
+<p>环境：VMware+Ubuntu64</p>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p>第一次设置Ubuntu的root账号的密码<br>解决方案：</p>
+<pre><code>1. 手动设置密码：`sudo passwd root`
+2. 输入当前用户密码
+3. 输入root的密码
+4. 再次确认输入root的密码
+</code></pre><h3 id="常见的操作系统"><a href="#常见的操作系统" class="headerlink" title="常见的操作系统"></a>常见的操作系统</h3><p>Windows：常用于个人计算机<br>Unix：常用于服务器端（服务器端大部分都是基于Unix的操作系统）<br>Linux：基于Unix，有很多发行版本，常见的有CentOS，Ubuntu，小红帽等</p>
+<h4 id="操作系统的组成"><a href="#操作系统的组成" class="headerlink" title="操作系统的组成"></a>操作系统的组成</h4><ol>
+<li>kernel（OS的核心组成部分）<ul>
+<li>管理硬件</li>
+<li>管理设备，内存，进程</li>
+<li>控制系统程序和系统硬件</li>
+<li>管理交换空间，守护进程(精灵)，文件系统</li>
+</ul>
+</li>
+<li>shell（是用户和kernel之间的接口，起到翻译或者解释的功能）<ul>
+<li>bourne shell(sh)</li>
+<li>korn shell(ksh)</li>
+<li>c shell(csh)</li>
+<li>bourne-again shell(bash)(现在大多使用这个shell)</li>
+</ul>
+</li>
+<li>file system（文件系统-将硬件和软件都映射成文件）<ul>
+<li>opt：存放第三方软件</li>
+<li>etc：初始化文件（配置文件）</li>
+<li>dev: 设备文件</li>
+<li>usr：用户共享资源</li>
+<li>kernel(boot)：内核程序</li>
+<li>var：针对管理员使用的东西，日志等</li>
+<li>home：用户文件的根目录<br>文件路径：<ul>
+<li>相对路径：从当前位置开始 </li>
+<li>绝对路径：任何时候都是从’/‘开始</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><p>whoaim：查看当前用户<br>sudo：执行的命令临时拥有超级用户的权限<br>修改普通用户的密码：passwd<br>    修改普通用户密码的要求，对超级用户没有作用<br>        1)密码的长度6到8个字符<br>        2)密码至少包含2个字符和一个数字或者一个特殊字符<br>        3)密码不能和用户名相同<br>        4)新密码和旧密码至少有3个字符不同<br>超级用户的名字就是root</p>
+<pre><code>- 普通用户切换到超级用户：su
+- 输入超级用户的密码
+- 超级用户切换到普通用户：exit
+- 普通用户的标识：$    
+- 超级用户的标识：# 
+</code></pre><h3 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h3><p>d：目录<br>-：普通文件<br>b：块设备文件<br>c：字符设备文件<br>l：链接文件<br>p：管道文件<br>s：socket文件</p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>注：大小写敏感，命令用空格分隔<br>clear:清屏</p>
+<h4 id="切换目录（掌握）"><a href="#切换目录（掌握）" class="headerlink" title="切换目录（掌握）"></a>切换目录（掌握）</h4><p>cd app：切换到app目录<br>cd ..：切换到上一层目录<br>cd /：切换到系统根目录<br>cd ~：切换到用户主目录<br>cd -：切换到上一个所在目录</p>
+<h4 id="目录操作（掌握）"><a href="#目录操作（掌握）" class="headerlink" title="目录操作（掌握）"></a>目录操作（掌握）</h4><p>mkdir（make directory） 创建子目录命令<br>    mkdir a：在当前目录下创建a目录<br>     mkdir -p a/b/c：在当前目录级联创建a/b/c目录</p>
+<p>rmdir（remove directory）删除“空”的子目录<br>     rmdir a：删除a目录</p>
+<h4 id="文件列表（掌握）"><a href="#文件列表（掌握）" class="headerlink" title="文件列表（掌握）"></a>文件列表（掌握）</h4><p>touch：创建一个空白的新文件或修改最后一次访问时间<br>ls（list） 显示当前目录下的内容<br>ls：显示能看见的文件（和目录）的名称<br>    ls -a：显示所有的文件名称，文件前面有“.”代表隐藏文件<br>    ls -l：显示文件的详细信息（简写方式：ll）<br>    ls -t：按时间顺序排列显示<br>    ls -R：递归显示该目录及子目录所有文件<br>    ll -h：友好的显示<br>    ls -F：显示文件类型</p>
+<pre><code>- 目录文件/
+- 可执行文件*
+- 文本文件（none）
+</code></pre><h4 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h4><p>文件的权限由9个字母组成，三个三个一组<br>第一组代表的是当前用户的权限<br>第二组代表的是组的权限<br>第三组代表的是其他用户的权限</p>
+<p>r:读 4<br>w:写 2<br>x:执行 1</p>
+<p>chmod （变更文件或目录的权限）<br>chmod 755 a.txt<br>chmod u=rwx,g=rx,o=rx a.txt<br>chmod u-w+x,go-w a.txt<br>chmod 000 a.txt （超级管理员依旧可以对它进行操作）<br>★chmod 777 a.txt</p>
+<p>chown （变更文件或目录改文件所属用户和组）<br>chown 用户:组 文件<br>chown user1:public a.txt ：变更当前的目录或文件的所属用户和组<br>chown -R u1:public dir ：变更目录中的所有的子目录及文件的所属用户和组</p>
+<h4 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h4><p>cp（copy） 复制一个文件<br>cp a.txt b.txt：将a.txt复制并重命名为b.txt<br>cp a.txt a/c.txt：将a.txt复制到a目录并重命名为c.txt<br>cp a.txt b.txt c：将a.txt和b.txt复制到c中<br>cp -i a.txt b：覆盖操作时会有提示<br>cp -r dir1 dir2：复制目录，将dir1目录及其子目录全复制到dir2中</p>
+<p>mv（move） 移动一个文件（重命名）<br>mv a.txt b.txt：相当于重命名<br>mv a.txt a/b：将a.txt移动到a目录下的b目录<br>mv -i a.txt a/b：覆盖操作时会有提示</p>
+<p>rm（remove）删除一个文件<br>rm a.txt 删除a.txt<br>rm -r a 递归删除目录<br>rm -ri a 带询问的递归删除<br>rm -r ./<em> 直接删除当前目录（慎用！！）<br>rm -r /</em> 直接删除根目录（GG！！！！！）</p>
+<h4 id="浏览文件（掌握）"><a href="#浏览文件（掌握）" class="headerlink" title="浏览文件（掌握）"></a>浏览文件（掌握）</h4><p>cat 在当前屏幕显示文件的全部内容（不推荐）<br>    cat 文件</p>
+<p>more 一般用于显示的内容会超过一个屏幕的文件（不推荐）<br>     more 文件（空格显示下一页，回车显示下一行，q退出）</p>
+<p>less 和more类似，但更易于控制翻页<br>     less 文件（PgUp上一页，PgDn下一页）</p>
+<p>tail 显示文件后几行的内容<br>     tail -10 文件：查看该文件后十行内容<br>     tail -f 文件：动态查看（常用于动态查看日志）<br>     ctrl+c：结束动态查看</p>
+<h4 id="grep查找"><a href="#grep查找" class="headerlink" title="grep查找"></a>grep查找</h4><p>grep（查找符合条件的字符串—-常用）<br>grep hello 1.txt：在1.txt文件中查找hello<br>grep hello 1.txt –color：在1.txt文件中查找hello并高亮显示<br>grep hello 1.txt –color -A5：在1.txt文件中查找hello并高亮显示，只显示hello的后5行<br>grep hello 1.txt –color -B5：在1.txt文件中查找hello并高亮显示，只显示hello的前5行</p>
+<h4 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h4><p>tar（打包或解压一个文件或目录—-常用）<br>常用的组合参数：<br>-cvf：打包一个文件或目录<br>-zcvf：打包并压缩一个文件或目录（压缩的格式为.gzip）<br>-xvf：解压或打开一个tar文件</p>
+<p>命令格式：<br>tar 参数 文件名 要打包的文件或目录</p>
+<p>示例：<br>将当前目录下的所有文件打包成1.tar<br>tar -cvf 1.tar ./<em><br>将当前目录下的所有文件解压并压缩为2.tar.gz<br>tar -zcvf 2.tar.gz ./</em><br>将1.tar解压到当前目录<br>tar -xvf 1.tar<br>将1.tar解压到b目录<br>tar -xvf 1.tar -C b </p>
+<h4 id="查看进程"><a href="#查看进程" class="headerlink" title="查看进程"></a>查看进程</h4><p>ps （正在运行的某个进程的状态）<br>ps –ef  查看所有进程<br>ps –ef | grep ssh 查找某一进程 kill 杀掉某一进程</p>
+<p>kill 2868  杀掉2868编号的进程<br>kill -9 2868  强制杀死进程</p>
+<h4 id="查看帮助（掌握）"><a href="#查看帮助（掌握）" class="headerlink" title="查看帮助（掌握）"></a>查看帮助（掌握）</h4><p>man 命令    ：查看“命令”的帮助<br>man rm：查看rm的命令帮助<br>空格：翻页<br>q：退出帮助</p>
+<h4 id="远程登录"><a href="#远程登录" class="headerlink" title="远程登录"></a>远程登录</h4><p>telnet ip地址<br>输入账号<br>输入密码<br>exit or logout 退出登录</p>
+<p>ifconfig （显示或设置网络设备）<br>ifconfig  显示网络设备</p>
+<p>ping （持续探测网络是否通畅，ctrl+c终止）<br>ping 192.168.0.1 </p>
+<p>netstat （查看网络端口）<br>netstat -an | grep 3306 查询3306端口占用情况</p>
+<h3 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h3><p>*： 个数不定，字符不定<br>？： 任意单个字符<br>；： 同时执行多条命令<br>[]：个数确定一个，内容指定一个范围</p>
+<h3 id="系统管理命令-掌握"><a href="#系统管理命令-掌握" class="headerlink" title="系统管理命令(掌握)"></a>系统管理命令(掌握)</h3><h4 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h4><p>date  显示当前系统时间<br>cal 显示当前日历<br>cal 7 2028 显示2028年7月的日历</p>
+<h3 id="重定向输出（了解）"><a href="#重定向输出（了解）" class="headerlink" title="重定向输出（了解）"></a>重定向输出（了解）</h3><p><code>&gt;</code>：重定向输出，覆盖原有内容<br>cat a.txt &gt; b.txt ： 将a.txt的内容重定向输出到b.txt，覆盖原有内容</p>
+<p><code>&gt;&gt;</code>：重定向输出，追加内容<br>cat c.txt &gt;&gt; b.txt : 将c.txt的内容追加到b.txt后面</p>
+<h3 id="管道（掌握）"><a href="#管道（掌握）" class="headerlink" title="|管道（掌握）"></a>|管道（掌握）</h3><p>将一个命令的输出用作另一个命令的输入<br>示例：<br>在ifconfig的输出里寻找192.168字符串<br>    ifconfig | grep 192.168<br>查找和java相关的进程<br>    ps -ef | grep java<br>查找和3306相关的信息<br>    ps -ef | grep 3306</p>
+<h3 id="Vi和Vim编辑器（重要）"><a href="#Vi和Vim编辑器（重要）" class="headerlink" title="Vi和Vim编辑器（重要）"></a>Vi和Vim编辑器（重要）</h3><p>既可以查看文件也可以编辑文件，两者区别不大，vi代码不变色，vim代码会变色。</p>
+<p>三种模式：命令行、输入、底行模式。<br>切换到命令行模式：按Esc键；<br>切换到插入模式：按 i 、o、a键；<br>    i:在当前的光标所在位置前面插入<br>    o:在当前光标所在的行的下一行插入<br>    a:在光标所在位置后面插入<br>切换到底行模式：按 :（冒号）或/(斜杠)或？(问号)</p>
+<p>一般流程：<br>打开文件：vim file<br>显示行号：esc:set nu<br>修改文件：输入i进入插入模式<br>保存：w<br>另存为：w newfile<br>不保存退出：esc:q!<br>保存并退出：esc:wq</p>
+<p>快捷键（在命令模式时使用）：<br>yw：复制一个单词<br>yy：复制当前行<br>p：粘贴到当前行<br>：1,2co3：复制1-2行到3行后面<br>：4,5m6：移动4-5行到6行后面<br>x：删除一个字符<br>dd：快速删除当前行<br>5dd：删除5行<br>:5,10d：删除5-10行<br>dw：删除一个单词<br>3dw：删除3个单词<br>d+←/→：删除左边一个或右边一个<br>r：替换一个字符<br>cw：替换一个单词<br>cc：替换一行<br>C：替换从光标至行尾<br>u：撤销上一次操作<br>J：把当前行和下一行连接起来<br>:21：光标停在指定行21行<br>21G：光标停在指定行21行<br>/串：从当前行往下查找<br>?串：从当前行往上查找<br>n：查找下一个<br>:r file2：在光标所在位置插入另一个文件<br>:1,$s/旧串/新串/g：替换全文</p>
+<h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><p>variable=value<br>PS1=”<code>hostname</code>: $PWD $“<br>path：命令的默认搜索路径<br>想知道所执行的命令到底在哪个目录下？<br>which vi 搜索vi所在的路径（在path下搜索，搜索到就停止）<br>whereis vi 搜索vi所在的路径（在path下搜索，搜索到继续搜索，直到找到所有的vi）</p>
+<h4 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h4><ol>
+<li>用于当前终端<br>在当前终端中输入：export PATH=$PATH:&lt;你的要加入的路径&gt;<br>不过上面的方法只适用于当前终端，一旦当前终端关闭或在另一个终端中，则无效。<br>export NDK_ROOT=/home/jiang/soft/android-ndk-r8e只能在当前终端使用。<ol>
+<li>用于当前用户<br>在用户主目录下有一个.bashrc隐藏文件，可以在此文件中加入PATH的设置如下<br>vi ~/.bashrc<br>加入：<br>export PATH=&lt;你的要加入的路径&gt;:$PATH<br>如果要加入多个路径，只要：<br>export PATH=&lt;你要加入的路径1&gt;:&lt;你要加入的路径2&gt;: …… :$PATH<br>当中每个路径要以冒号分隔，这样每次登录都会生效</li>
+<li>用于所有的用户<br>sudo vi /etc/profile<br>加入：<br>export PATH=&lt;你要加入的路径&gt;:$PATH<br>就可以了。<br>终端输入：echo $PATH 可以查看环境变量<br>注：修改环境变量后，除了第一种方法立即生效外，第二第三种方法要立即生效，可以source ~/.bashrc或者注销再次登录后就可以了！<br>注：第二第三种方法使用前最好备份</li>
+</ol>
+</li>
+</ol>
+<h3 id="初始化文件"><a href="#初始化文件" class="headerlink" title="初始化文件"></a>初始化文件</h3><p>包含命令和变量的设置，当shell启动时就执行<br>对初始化文件在操作系统中分为两级：<br>1、系统级（一旦修改，对所有的用户都起作用）<br>    /etc<br>2、用户级（只对当前的用户有效）<br>    /home/user/(用户的家目录)</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年07月22日 11:29</p>
+        <p>原始链接： <a class="post-url" href="/2018/07/16/Linux学习笔记（Ubuntu）/" title="Linux学习笔记（Ubuntu）">http://www.lousenjay.info/2018/07/16/Linux学习笔记（Ubuntu）/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/07/16/Linux学习笔记（Ubuntu）/&title=《Linux学习笔记（Ubuntu）》 — 若闲小阁&pic=http://wx4.sinaimg.cn/mw690/a10c01f6gy1fq7ohvvg2gj20ci069dh8.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/07/16/Linux学习笔记（Ubuntu）/&title=《Linux学习笔记（Ubuntu）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/07/16/Linux学习笔记（Ubuntu）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux学习笔记（Ubuntu）》 — 若闲小阁&url=http://www.lousenjay.info/2018/07/16/Linux学习笔记（Ubuntu）/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/07/16/Linux学习笔记（Ubuntu）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/07/16/Linux学习笔记（Ubuntu）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Linux/" class="color1">Linux</a>
+      
+    <a href="/tags/Ubuntu/" class="color2">Ubuntu</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常见问题"><span class="post-toc-text">常见问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常见的操作系统"><span class="post-toc-text">常见的操作系统</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#操作系统的组成"><span class="post-toc-text">操作系统的组成</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#用户"><span class="post-toc-text">用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文件类型"><span class="post-toc-text">文件类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常用命令"><span class="post-toc-text">常用命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#切换目录（掌握）"><span class="post-toc-text">切换目录（掌握）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#目录操作（掌握）"><span class="post-toc-text">目录操作（掌握）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#文件列表（掌握）"><span class="post-toc-text">文件列表（掌握）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#文件权限"><span class="post-toc-text">文件权限</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#文件操作"><span class="post-toc-text">文件操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#浏览文件（掌握）"><span class="post-toc-text">浏览文件（掌握）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#grep查找"><span class="post-toc-text">grep查找</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#打包"><span class="post-toc-text">打包</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查看进程"><span class="post-toc-text">查看进程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查看帮助（掌握）"><span class="post-toc-text">查看帮助（掌握）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#远程登录"><span class="post-toc-text">远程登录</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#元字符"><span class="post-toc-text">元字符</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#系统管理命令-掌握"><span class="post-toc-text">系统管理命令(掌握)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#日期"><span class="post-toc-text">日期</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#重定向输出（了解）"><span class="post-toc-text">重定向输出（了解）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#管道（掌握）"><span class="post-toc-text">|管道（掌握）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Vi和Vim编辑器（重要）"><span class="post-toc-text">Vi和Vim编辑器（重要）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#环境变量"><span class="post-toc-text">环境变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#设置环境变量"><span class="post-toc-text">设置环境变量</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#初始化文件"><span class="post-toc-text">初始化文件</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/07/22/算法-八皇后问题/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          算法-八皇后问题
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/07/03/Hibernate框架入门学习（三）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Hibernate框架入门学习（三）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="Linux学习笔记（Ubuntu）" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12.5px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12.5px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 17.5px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 12.5px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12.5px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12.5px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12.5px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 17.5px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 12.5px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12.5px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="http://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
+	<script src="http://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("http://www.lousenjay.info/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>

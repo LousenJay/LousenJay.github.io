@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Linux学习笔记 | 若闲小阁</title>
+  <title>Linux学习笔记（CentOS） | 若闲小阁</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
@@ -11,15 +11,15 @@
   <meta name="description" content="Linux最初是由芬兰赫尔辛基大学学生Linus Torvalds由于自己不满意教学中使用的MINIX操作系统， 所以在1990年底由于个人爱好设计出了LINUX系统核心。后来发布于芬兰最大的ftp服务器上，用户可以免费下载，所以它的周边的程序越来越多，Linux本身也逐渐发展壮大起来，之后Linux在不到三年的时间里成为了一个功能完善，稳定可靠的操作系统，以下记录了学习Linux过程中的笔记.">
 <meta name="keywords" content="Linux,CentOS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux学习笔记">
-<meta property="og:url" content="http://www.lousenjay.info/2018/05/19/Linux学习笔记/index.html">
+<meta property="og:title" content="Linux学习笔记（CentOS）">
+<meta property="og:url" content="http://www.lousenjay.info/2018/05/19/Linux学习笔记（CentOS）/index.html">
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="Linux最初是由芬兰赫尔辛基大学学生Linus Torvalds由于自己不满意教学中使用的MINIX操作系统， 所以在1990年底由于个人爱好设计出了LINUX系统核心。后来发布于芬兰最大的ftp服务器上，用户可以免费下载，所以它的周边的程序越来越多，Linux本身也逐渐发展壮大起来，之后Linux在不到三年的时间里成为了一个功能完善，稳定可靠的操作系统，以下记录了学习Linux过程中的笔记.">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://wx3.sinaimg.cn/mw690/a10c01f6gy1frgf8sboy5j20ga0a43yq.jpg">
-<meta property="og:updated_time" content="2018-05-22T13:26:00.415Z">
+<meta property="og:updated_time" content="2018-07-18T07:49:01.769Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux学习笔记">
+<meta name="twitter:title" content="Linux学习笔记（CentOS）">
 <meta name="twitter:description" content="Linux最初是由芬兰赫尔辛基大学学生Linus Torvalds由于自己不满意教学中使用的MINIX操作系统， 所以在1990年底由于个人爱好设计出了LINUX系统核心。后来发布于芬兰最大的ftp服务器上，用户可以免费下载，所以它的周边的程序越来越多，Linux本身也逐渐发展壮大起来，之后Linux在不到三年的时间里成为了一个功能完善，稳定可靠的操作系统，以下记录了学习Linux过程中的笔记.">
 <meta name="twitter:image" content="http://wx3.sinaimg.cn/mw690/a10c01f6gy1frgf8sboy5j20ga0a43yq.jpg">
   
@@ -121,14 +121,14 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-Linux学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-Linux学习笔记（CentOS）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      Linux学习笔记
+      Linux学习笔记（CentOS）
     </h1>
     <div class="post-title-bar">
       <ul>
@@ -173,7 +173,7 @@
 <p>less 和more类似，但更易于控制翻页<br>     less 文件（PgUp上一页，PgDn下一页）</p>
 <p>tail 显示文件后几行的内容<br>     tail -10 文件：查看该文件后十行内容<br>     tail -f 文件：动态查看（常用于动态查看日志）<br>     ctrl+c：结束动态查看</p>
 <h4 id="文件操作（掌握）"><a href="#文件操作（掌握）" class="headerlink" title="文件操作（掌握）"></a>文件操作（掌握）</h4><p>touch  创建一个空白的文件<br>     touch 文件名</p>
-<p>cp（copy） 复制一个文件<br>     cp a.txt b.txt：将a.txt复制并重命名为b.txt<br>     cp a.txt a/c.txt：将a.txt复制到a目录并重命名为c.txt</p>
+<p>cp（copy） 复制一个文件<br>     cp a.txt b.txt：将a.txt复制并重命名为b.txt<br>     cp a.txt a/c.txt：将a.txt复制到a目录并重命名为c.txt<br>     cp -r dir1 dir2：将dir1目录及其子目录全复制到dir2中</p>
 <p>mv（move） 移动一个文件<br>     mv a.txt b.txt：相当于重命名<br>     mv a.txt a/b：将a.txt移动到a目录下的b目录</p>
 <p>rm（remove）删除一个文件<br>     rm a.txt 带询问的删除a.txt<br>    rm -f a.txt 不带询问，直接删除a.txt<br>     rm -r a 带询问的递归删除<br>     rm -rf a 不带询问的递归删除（慎用！）<br>     rm -rf ./<em> 直接删除当前目录（慎用！！）<br>     rm -rf /</em> 直接删除根目录（GG！！！！！）</p>
 <p>tar（打包或解压一个文件或目录—-常用）<br> 常用的组合参数：<br> -cvf：打包一个文件或目录<br> -zcvf：打包并压缩一个文件或目录（压缩的格式为.gzip）<br> -xvf：解压或打开一个tar文件</p>
@@ -221,8 +221,8 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年05月22日 21:26</p>
-        <p>原始链接： <a class="post-url" href="/2018/05/19/Linux学习笔记/" title="Linux学习笔记">http://www.lousenjay.info/2018/05/19/Linux学习笔记/</a></p>
+        <p>最后更新： 2018年07月18日 15:49</p>
+        <p>原始链接： <a class="post-url" href="/2018/05/19/Linux学习笔记（CentOS）/" title="Linux学习笔记（CentOS）">http://www.lousenjay.info/2018/05/19/Linux学习笔记（CentOS）/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
                 <img src="/images/logo.png" alt="Lousen Jay">
@@ -244,7 +244,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/05/19/Linux学习笔记/&title=《Linux学习笔记》 — 若闲小阁&pic=http://wx3.sinaimg.cn/mw690/a10c01f6gy1fq7ohyk21tj20ci069q4u.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/05/19/Linux学习笔记（CentOS）/&title=《Linux学习笔记（CentOS）》 — 若闲小阁&pic=http://wx3.sinaimg.cn/mw690/a10c01f6gy1fq7ohyk21tj20ci069q4u.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -254,22 +254,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/05/19/Linux学习笔记/&title=《Linux学习笔记》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/05/19/Linux学习笔记（CentOS）/&title=《Linux学习笔记（CentOS）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/05/19/Linux学习笔记/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/05/19/Linux学习笔记（CentOS）/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux学习笔记》 — 若闲小阁&url=http://www.lousenjay.info/2018/05/19/Linux学习笔记/&via=http://www.lousenjay.info" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux学习笔记（CentOS）》 — 若闲小阁&url=http://www.lousenjay.info/2018/05/19/Linux学习笔记（CentOS）/&via=http://www.lousenjay.info" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/05/19/Linux学习笔记/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/05/19/Linux学习笔记（CentOS）/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -279,7 +279,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/05/19/Linux学习笔记/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/05/19/Linux学习笔记（CentOS）/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -334,7 +334,7 @@
 
 
     
-        <div id="SOHUCS" sid="Linux学习笔记" ></div>
+        <div id="SOHUCS" sid="Linux学习笔记（CentOS）" ></div>
 <script type="text/javascript">
     (function(){
         var appid = 'cyti47zsk';
@@ -396,10 +396,10 @@
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/计算机/">计算机</a>
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16.67px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 13.33px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 13.33px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12.5px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12.5px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 17.5px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 12.5px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12.5px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -438,7 +438,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16.67px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 13.33px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 13.33px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12.5px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12.5px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 17.5px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 12.5px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12.5px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
         </div>
     </div>
 </div>
