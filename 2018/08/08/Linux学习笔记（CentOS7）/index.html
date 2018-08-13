@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Linux学习笔记（CentOS7） | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="在学习搭建hadoop集群的过程中，我发现在Linux方面还有许多命令我并没有掌握，特此补充相关的知识点以及CentOS7的新特性。 主机名 查看当前主机名hostname 修改主机名（重启后失效）hostname XXX 修改主机名（永久修改）vi /ect/sysconfig/network添加：NETWORKING=yesHOSTNAME=XXX  IP地址 查看当前IP地址ifconfig">
+<meta name="keywords" content="Linux,CentOS 7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习笔记（CentOS7）">
+<meta property="og:url" content="http://www.lousenjay.info/2018/08/08/Linux学习笔记（CentOS7）/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="在学习搭建hadoop集群的过程中，我发现在Linux方面还有许多命令我并没有掌握，特此补充相关的知识点以及CentOS7的新特性。 主机名 查看当前主机名hostname 修改主机名（重启后失效）hostname XXX 修改主机名（永久修改）vi /ect/sysconfig/network添加：NETWORKING=yesHOSTNAME=XXX  IP地址 查看当前IP地址ifconfig">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-13T06:57:29.480Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux学习笔记（CentOS7）">
+<meta name="twitter:description" content="在学习搭建hadoop集群的过程中，我发现在Linux方面还有许多命令我并没有掌握，特此补充相关的知识点以及CentOS7的新特性。 主机名 查看当前主机名hostname 修改主机名（重启后失效）hostname XXX 修改主机名（永久修改）vi /ect/sysconfig/network添加：NETWORKING=yesHOSTNAME=XXX  IP地址 查看当前IP地址ifconfig">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="http://www.lousenjay.info/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Linux学习笔记（CentOS7）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Linux学习笔记（CentOS7）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/OS/">OS</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-08-08
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>在学习搭建hadoop集群的过程中，我发现在Linux方面还有许多命令我并没有掌握，特此补充相关的知识点以及CentOS7的新特性。</p>
+<h3 id="主机名"><a href="#主机名" class="headerlink" title="主机名"></a>主机名</h3><ol>
+<li>查看当前主机名<br>hostname</li>
+<li>修改主机名（重启后失效）<br>hostname XXX</li>
+<li>修改主机名（永久修改）<br>vi /ect/sysconfig/network<br>添加：<br>NETWORKING=yes<br>HOSTNAME=XXX</li>
+</ol>
+<h3 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h3><ol>
+<li>查看当前IP地址<br>ifconfig</li>
+<li>修改IP地址（重启后失效）<br>ifconfig esh33 192.168.113.150</li>
+<li>修改IP地址（永久修改）<br>vi /etc/sysconfig/network-scripts/ifcfg-esh33<br>添加或修改：<br>DEVICE=eth0<br>TYPE=Ethernet<br>ONBOOT=yes     #是否开机启用<br>BOOTPROTO=static   #ip地址设置为静态<br>IPADDR=192.168.113.150<br>GATEWAY=192.168.113.2<br>NETMASK=255.255.255.0<br>可删除UUID=”01d193e8-cac6-4656-8e7e-ac176b9d7c3d”<br>重启服务<br>service network restart</li>
+<li>修改IP地址和主机名的映射关系<br>vi /etc/hosts<br>添加：<br>192.168.113.150 hadoop1</li>
+</ol>
+<h3 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h3><p>YUM（全称为 Yellow dog Updater, Modified）是一个在Fedora和RedHat以及CentOS中的Shell前端软件包管理器。基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。</p>
+<ol>
+<li>常用指令<ul>
+<li>安装xxx软件：yum instll -y xxx</li>
+<li>列出所有可用的package和package组：yum list</li>
+<li>列出一个包所有依赖的包:yum deplist xxx</li>
+<li>删除xxx软件：yum remove xxx</li>
+<li>显示所有仓库:yum repolist all</li>
+<li>显示可用仓库:yum repolist enabled</li>
+<li>按关键字查找包：yum list | grep xxx</li>
+<li>清楚本地缓存：yum clean all</li>
+</ul>
+</li>
+<li>配置网络版yum仓库<ul>
+<li>在主机上配置自动挂载<ul>
+<li>创建挂载目录：mkdir /mnt/cdrom</li>
+<li>vi /etc/fstab</li>
+<li>添加：/dev/cdrom  /mnt/cdrom  iso9660  defaults 0 0</li>
+</ul>
+</li>
+<li>启动httpd服务：systemctl start httpd.service</li>
+<li>进入http服务器：cd /var/www/html</li>
+<li>创建一个链接：ln -s /mnt/cdrom ./centos7</li>
+<li>进入yum仓库：cd /etc/yum.repos.d</li>
+<li>随便复制一份文件：cp CentOS-Media.repo CentOS-hadoop1.repo</li>
+<li>重命名备份其他文件：rename .repo .repo.bak *</li>
+<li>修改该配置文件：vi CentOS-hadoop1.repo<ul>
+<li>name=CentOS-hadoop1</li>
+<li>baseurl=<a href="http://hadoop1/centos7" target="_blank" rel="external">http://hadoop1/centos7</a></li>
+<li>gpgcheck=0</li>
+<li>enabled=1</li>
+</ul>
+</li>
+<li>查看是否生效：yum repolist</li>
+<li>最后去各个客户端配置这个http地址到CentOS-Media.repo配置文件中</li>
+<li>重命名备份其他仓库</li>
+</ul>
+</li>
+</ol>
+<h3 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h3><p>挂载外部存储设备到文件系统中</p>
+<h4 id="mount"><a href="#mount" class="headerlink" title="mount"></a>mount</h4><ol>
+<li>创建一个目录用来挂载<br>mkdir   /mnt/cdrom </li>
+<li>将设备/dev/cdrom挂载到挂载点/mnt/cdrom中<br>mount -t iso9660 -o ro /dev/cdrom /mnt/cdrom/</li>
+</ol>
+<h4 id="umount"><a href="#umount" class="headerlink" title="umount"></a>umount</h4><ol>
+<li>移除挂载<br>umount /mnt/cdrom</li>
+</ol>
+<h3 id="统计文件或文件夹大小"><a href="#统计文件或文件夹大小" class="headerlink" title="统计文件或文件夹大小"></a>统计文件或文件夹大小</h3><ol>
+<li>统计文件大小<br>du -sh  /mnt/cdrom/Packages</li>
+<li>查看磁盘的空间<br>df -h</li>
+</ol>
+<h3 id="ssh和scp"><a href="#ssh和scp" class="headerlink" title="ssh和scp"></a>ssh和scp</h3><h4 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h4><ol>
+<li>用户名密码登录<br>ssh root@192.168.113.151<br>输入密码</li>
+<li>免密登录<br>ssh root@192.168.113.151</li>
+<li>配置免密登录（A登录B）<ul>
+<li>在A上生成密钥对：ssh-keygen</li>
+<li>回车确认</li>
+<li>将A自己的公钥拷贝并追加到B的授权列表文件authorized_keys中：ssh-copy-id B</li>
+</ul>
+</li>
+</ol>
+<h4 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h4><ol>
+<li>从本机发送文件到指定主机<br>scp xxx root@192.168.113.151:/XXX</li>
+</ol>
+<h3 id="后台服务"><a href="#后台服务" class="headerlink" title="后台服务"></a>后台服务</h3><h4 id="后台服务管理"><a href="#后台服务管理" class="headerlink" title="后台服务管理"></a>后台服务管理</h4><ol>
+<li>查看指定服务状态<br>service network status</li>
+<li>停止指定服务<br>service network stop </li>
+<li>启动指定服务<br>service network start</li>
+<li>重启指定服务<br>service network restart</li>
+<li>查看系统中所有的后台服务<br>service –status-all</li>
+</ol>
+<h4 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h4><ol>
+<li>关闭防火墙<br>systemctl stop firewalld.service</li>
+<li>禁止开机启动防火墙<br>systemctl disable firewalld.service</li>
+<li>开启/重启防火墙<br>systemctl start firewalld.service<br>firewall-cmd –reload</li>
+<li>开放指定端口<br>firewall-cmd –zone=public –add-port=80/tcp –permanent</li>
+<li>查看防火墙状态<br>firewall-cmd –state</li>
+<li>其他常用操作<br>firewall-cmd –get-zones  列出支持的zone<br>firewall-cmd –get-services   列出支持的服务，在列表中的服务是放行的<br>firewall-cmd –query-service ftp  查看ftp服务是否支持，返回yes或者no<br>firewall-cmd –add-service=ftp  临时开放ftp服务<br>firewall-cmd –add-service=ftp –permanent   永久开放ftp服务<br>firewall-cmd –remove-service=ftp –permanent  永久移除ftp服务</li>
+</ol>
+<h4 id="后台服务的自启配置"><a href="#后台服务的自启配置" class="headerlink" title="后台服务的自启配置"></a>后台服务的自启配置</h4><ol>
+<li>查看所有服务自启配置<br>chkconfig</li>
+<li>关掉指定服务的自启动<br>chkconfig iptables off</li>
+<li>开启指定服务的自动启动<br>chkconfig iptables on</li>
+</ol>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><ol>
+<li>执行Shell脚本<ul>
+<li>在当前bash：. ./xxx.sh</li>
+<li>sh xxx.sh</li>
+</ul>
+</li>
+</ol>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><ol>
+<li>修改静态地址后发现无法ping外网<br>需要设置网关<br>vi /etc/sysconfig/network-scripts/ifcfg-ens33<br>添加网关<br>GATEWAY=192.168.113.2<br>设置为默认网关<br>route add default gw 192.168.113.2<br>添加到配置文件<br>vi /etc/resolv.conf<br>添加<br>nameserver 192.168.113.2</li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年08月13日 14:57</p>
+        <p>原始链接： <a class="post-url" href="/2018/08/08/Linux学习笔记（CentOS7）/" title="Linux学习笔记（CentOS7）">http://www.lousenjay.info/2018/08/08/Linux学习笔记（CentOS7）/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/08/08/Linux学习笔记（CentOS7）/&title=《Linux学习笔记（CentOS7）》 — 若闲小阁&pic=http://wx3.sinaimg.cn/mw690/a10c01f6gy1fq7ohyk21tj20ci069q4u.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/08/08/Linux学习笔记（CentOS7）/&title=《Linux学习笔记（CentOS7）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/08/08/Linux学习笔记（CentOS7）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux学习笔记（CentOS7）》 — 若闲小阁&url=http://www.lousenjay.info/2018/08/08/Linux学习笔记（CentOS7）/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/08/08/Linux学习笔记（CentOS7）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/08/08/Linux学习笔记（CentOS7）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Linux/" class="color1">Linux</a>
+      
+    <a href="/tags/CentOS7/" class="color4">CentOS 7</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#主机名"><span class="post-toc-text">主机名</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IP地址"><span class="post-toc-text">IP地址</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#yum"><span class="post-toc-text">yum</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#挂载"><span class="post-toc-text">挂载</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#mount"><span class="post-toc-text">mount</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#umount"><span class="post-toc-text">umount</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#统计文件或文件夹大小"><span class="post-toc-text">统计文件或文件夹大小</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ssh和scp"><span class="post-toc-text">ssh和scp</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ssh"><span class="post-toc-text">ssh</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#scp"><span class="post-toc-text">scp</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#后台服务"><span class="post-toc-text">后台服务</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#后台服务管理"><span class="post-toc-text">后台服务管理</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#防火墙"><span class="post-toc-text">防火墙</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#后台服务的自启配置"><span class="post-toc-text">后台服务的自启配置</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#常用命令"><span class="post-toc-text">常用命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常见问题"><span class="post-toc-text">常见问题</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/08/09/Shell编程(CentOS7)/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Shell编程（CentOS7）
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/08/07/Linux常用软件安装与配置（CentOS7）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Linux常用软件安装与配置（CentOS7）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="Linux学习笔记（CentOS7）" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 15px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 17.5px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12.5px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12.5px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 12.5px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12.5px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 15px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 17.5px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12.5px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12.5px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 12.5px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12.5px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="http://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
+	<script src="http://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("http://www.lousenjay.info/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>
