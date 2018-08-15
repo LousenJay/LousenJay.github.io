@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="简介Maven项目对象模型，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。主要功能：相同的项目结构和统一维护jar包。 安装 下载官方下载地址：http://maven.apache.org/download.cgi  配置环境变量右键我的电脑-属性-高级系统设置-环境变量-系统变量-Path添加maven路径：D:\学习\Soft\Maven\apache-maven-3">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-15T14:52:51.268Z">
+<meta property="og:updated_time" content="2018-08-15T15:57:24.560Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven入门学习">
 <meta name="twitter:description" content="简介Maven项目对象模型，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。主要功能：相同的项目结构和统一维护jar包。 安装 下载官方下载地址：http://maven.apache.org/download.cgi  配置环境变量右键我的电脑-属性-高级系统设置-环境变量-系统变量-Path添加maven路径：D:\学习\Soft\Maven\apache-maven-3">
@@ -197,13 +197,8 @@
 <li>注：默认包结构为Group Id+Artifact ID如com.lousen.testMaven</li>
 </ul>
 </li>
-<li>目录结构<br>-testMAven<br>  -src/main/java<pre><code>-com.lousen.testMaven
-    App.java
-</code></pre>  -src/test/java<pre><code>-com.lousen.testMaven
-    AppTest.java
-</code></pre>  -src<pre><code>main
-test
-</code></pre>  target<br>  pom.xml</li>
+<li>目录结构<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">-testMAven</div><div class="line">	-src/main/java</div><div class="line">		-com.lousen.testMaven</div><div class="line">			App.java</div><div class="line">	-src/test/java</div><div class="line">		-com.lousen.testMaven</div><div class="line">			AppTest.java</div><div class="line">	-src</div><div class="line">		main</div><div class="line">		test</div><div class="line">	target</div><div class="line">	pom.xml</div></pre></td></tr></table></figure>
+</li>
 </ul>
 <h4 id="添加包"><a href="#添加包" class="headerlink" title="添加包"></a>添加包</h4><p>示例：添加连接mysql的jar包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public class App</div><div class="line">&#123;</div><div class="line">    public static void main( String[] args ) throws ClassNotFoundException</div><div class="line">    &#123;</div><div class="line">        Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</div><div class="line">        System.out.println(&quot;初始化驱动成功&quot;);</div><div class="line">        System.out.println( &quot;Hello World!&quot; );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <ol>
@@ -276,7 +271,7 @@ test
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年08月15日 22:52</p>
+        <p>最后更新： 2018年08月15日 23:57</p>
         <p>原始链接： <a class="post-url" href="/2018/08/14/Maven入门学习/" title="Maven入门学习">http://www.lousenjay.info/2018/08/14/Maven入门学习/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
@@ -299,7 +294,7 @@ test
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/08/14/Maven入门学习/&title=《Maven入门学习》 — 若闲小阁&pic=http://wx3.sinaimg.cn/mw690/a10c01f6gy1fq7ohyk21tj20ci069q4u.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/08/14/Maven入门学习/&title=《Maven入门学习》 — 若闲小阁&pic=http://wx3.sinaimg.cn/mw690/a10c01f6gy1fq7oi0eww0j20ci069abq.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
