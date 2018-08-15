@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Maven入门学习 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="简介Maven项目对象模型，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。主要功能：相同的项目结构和统一维护jar包。 安装 下载官方下载地址：http://maven.apache.org/download.cgi  配置环境变量右键我的电脑-属性-高级系统设置-环境变量-系统变量-Path添加maven路径：D:\学习\Soft\Maven\apache-maven-3">
+<meta name="keywords" content="Maven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maven入门学习">
+<meta property="og:url" content="http://www.lousenjay.info/2018/08/14/Maven入门学习/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="简介Maven项目对象模型，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。主要功能：相同的项目结构和统一维护jar包。 安装 下载官方下载地址：http://maven.apache.org/download.cgi  配置环境变量右键我的电脑-属性-高级系统设置-环境变量-系统变量-Path添加maven路径：D:\学习\Soft\Maven\apache-maven-3">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-15T14:52:51.268Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Maven入门学习">
+<meta name="twitter:description" content="简介Maven项目对象模型，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。主要功能：相同的项目结构和统一维护jar包。 安装 下载官方下载地址：http://maven.apache.org/download.cgi  配置环境变量右键我的电脑-属性-高级系统设置-环境变量-系统变量-Path添加maven路径：D:\学习\Soft\Maven\apache-maven-3">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="http://www.lousenjay.info/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Maven入门学习" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Maven入门学习
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/IDE/">IDE</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-08-14
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Maven项目对象模型，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。主要功能：相同的项目结构和统一维护jar包。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ol>
+<li>下载<br>官方下载地址：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="external">http://maven.apache.org/download.cgi</a> </li>
+<li>配置环境变量<br>右键我的电脑-属性-高级系统设置-环境变量-系统变量-Path<br>添加maven路径：<br>D:\学习\Soft\Maven\apache-maven-3.5.0\bin</li>
+<li>验证<br>在cmd中输入mvn -v显示相关信息</li>
+</ol>
+<h3 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h3><ol>
+<li>简介<br>仓库就是用于存放项目需要的jar包的。Maven采用一个仓库，多个项目的方式，让多个项目共享一个仓库里的相同jar包。 </li>
+<li><p>修改默认下载路径<br>打开 apache-maven-3.5.0\conf\settings.xml<br>在160-165行的mirrors标签内添加阿里云的镜像地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;mirror&gt;</div><div class="line">	&lt;id&gt;alimaven&lt;/id&gt;</div><div class="line">	&lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</div><div class="line">	&lt;name&gt;aliyun maven&lt;/name&gt;</div><div class="line">	&lt;url&gt;http://maven.aliyun.com/nexus/content/repositories/central/&lt;/url&gt;</div><div class="line">&lt;/mirror&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改默认仓库地址<br>打开 apache-maven-3.5.0\conf\settings.xml<br>在55行localRepository标签内添加默认仓库地址<br><code>&lt;localRepository&gt;D:/学习/Soft/Maven/repository&lt;/localRepository&gt;</code></p>
+</li>
+</ol>
+<h3 id="创建Maven项目（cmd）"><a href="#创建Maven项目（cmd）" class="headerlink" title="创建Maven项目（cmd）"></a>创建Maven项目（cmd）</h3><ol>
+<li>创建并进入Test文件夹<br>cd D:\学习\学习笔记\Maven\Test</li>
+<li>在Test文件夹下创建Maven项目 <ul>
+<li>执行命令<br>  <code>mvn archetype:generate -DgroupId=com.lousen -DartifactId=testMaven -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false</code></li>
+<li>archetype:generate 表示创建个项目</li>
+<li>-DgroupId 项目包名: com.lousen </li>
+<li>-DartifactId 项目名称: testMaven </li>
+<li>-DarchetypeArtifactId 项目类型: maven-archetype-quickstart</li>
+<li>-DinteractiveMode:false 表示前面参数都给了，就不用一个一个地输入了</li>
+<li>运行成功会看到绿色的BUILD SUCCESS </li>
+</ul>
+</li>
+<li>可返回Test文件夹查看创建的Maven项目结构</li>
+<li>运行package命令<br>cd testMaven<br>mvn package<br>注：运行这个命令之前要先把当前路径切换到testMaven中<br>最后会看到一个绿色的BUILD SUCCESS<br>package做了很多事情，编译，测试，打包，最后生成了一个Test\target\testMaven-1.0-SNAPSHOT.jar包，里面放了APP这个类</li>
+<li>执行testMaven-1.0-SNAPSHOT.jar<br>java -cp target/testMaven-1.0-SNAPSHOT.jar com.lousen.testMaven.App<br>最后输出Hello World！</li>
+</ol>
+<h3 id="创建Maven项目（Eclipse）"><a href="#创建Maven项目（Eclipse）" class="headerlink" title="创建Maven项目（Eclipse）"></a>创建Maven项目（Eclipse）</h3><h4 id="配置Eclipse"><a href="#配置Eclipse" class="headerlink" title="配置Eclipse"></a>配置Eclipse</h4><ol>
+<li>配置Maven路径<br>Window-&gt;Preferences-&gt;Maven-&gt;Installations<br>Add<br>Installation home-&gt;D:\学习\Soft\Maven\apache-maven-3.5.0</li>
+<li>配置仓库路径<br>Window-&gt;Preferences-&gt;Maven-&gt;User Settings<br>Global Settings-&gt;D:\学习\Soft\Maven\apache-maven-3.5.0\conf\settings.xml<br>User Settings-&gt;D:\学习\Soft\Maven\apache-maven-3.5.0\conf\settings.xml<br>点击一下Reindex,确保local Repository-&gt;D:\学习\Soft\Maven\repository</li>
+</ol>
+<h4 id="新建Maven项目（java）"><a href="#新建Maven项目（java）" class="headerlink" title="新建Maven项目（java）"></a>新建Maven项目（java）</h4><ul>
+<li>File-&gt;New-&gt;Other-&gt;Maven-&gt;Maven Project-&gt;Next </li>
+<li>Use default Workspace location(默认选项)-&gt;Next</li>
+<li>maven-archetype-quickstart(Java项目)-&gt;Next</li>
+<li>Group Id-&gt;地址(如com.lousen),Artifact ID-&gt;项目名称 -&gt;Finish<ul>
+<li>注：默认包结构为Group Id+Artifact ID如com.lousen.testMaven</li>
+</ul>
+</li>
+<li>目录结构<br>-testMAven<br>  -src/main/java<pre><code>-com.lousen.testMaven
+    App.java
+</code></pre>  -src/test/java<pre><code>-com.lousen.testMaven
+    AppTest.java
+</code></pre>  -src<pre><code>main
+test
+</code></pre>  target<br>  pom.xml</li>
+</ul>
+<h4 id="添加包"><a href="#添加包" class="headerlink" title="添加包"></a>添加包</h4><p>示例：添加连接mysql的jar包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public class App</div><div class="line">&#123;</div><div class="line">    public static void main( String[] args ) throws ClassNotFoundException</div><div class="line">    &#123;</div><div class="line">        Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</div><div class="line">        System.out.println(&quot;初始化驱动成功&quot;);</div><div class="line">        System.out.println( &quot;Hello World!&quot; );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ol>
+<li>配置pom.xml文件<br>pom.xml-&gt;Dependencies-&gt;Add-&gt;Enter GroupId, artifactId or sha1 prefix or pattern(*)-&gt;输入mysql搜索-&gt;mysql-connector-java-&gt;OK<br>注：Scope要选择compile，表示编译期间要用到。<br>注：如果输入了mysql下面没有自动显示搜索结果，点击Refresh indexes刷新即可</li>
+<li>运行测试App.java<br>输出初始化驱动成功</li>
+</ol>
+<h4 id="新建Maven项目（javaWeb）"><a href="#新建Maven项目（javaWeb）" class="headerlink" title="新建Maven项目（javaWeb）"></a>新建Maven项目（javaWeb）</h4><ul>
+<li>File-&gt;New-&gt;Other-&gt;Maven-&gt;Maven Project-&gt;Next </li>
+<li>Use default Workspace location(默认选项)-&gt;Next</li>
+<li>maven-archetype-webapp (JavaWeb项目)-&gt;Next</li>
+<li>Group Id-&gt;地址(如com.lousen),Artifact ID-&gt;项目名称 -&gt;Finish<ul>
+<li>注：默认包结构为Group Id+Artifact ID如com.lousen.testMaven</li>
+</ul>
+</li>
+<li>生成的项目有两个问题<ol>
+<li>没有创建java源代码目录<ul>
+<li>右键项目-&gt;Build Path-&gt;Configure Bulid Path…</li>
+<li>Libraries-&gt;JRE System Library-&gt;Edit-&gt;WorkSpace default JRE-&gt;finish</li>
+</ul>
+</li>
+<li>添加servlet的jar包<br> pom.xml-&gt;Dependencies-&gt;Add-&gt;javax.servlet-api</li>
+</ol>
+</li>
+<li>右键项目-&gt;Run As-&gt;启动tomcat运行项目</li>
+</ul>
+<h3 id="创建Maven项目（Intellij-IDEA）"><a href="#创建Maven项目（Intellij-IDEA）" class="headerlink" title="创建Maven项目（Intellij IDEA）"></a>创建Maven项目（Intellij IDEA）</h3><h4 id="配置Intellij-IDEA"><a href="#配置Intellij-IDEA" class="headerlink" title="配置Intellij IDEA"></a>配置Intellij IDEA</h4><ul>
+<li>File-&gt;Other Settings-&gt;Default Settings-&gt;Build, Execute, Deployment-&gt;Build Tools-&gt;Maven</li>
+<li>修改Maven home directory-&gt;D:\学习\Soft\Maven\apache-maven-3.5.0</li>
+<li>修改User settings file-&gt;D:\学习\Soft\Maven\apache-maven-3.5.0\con<br>f\settings.xml</li>
+<li>Local repository会被自动识别为D:\学习\Soft\Maven\repository</li>
+</ul>
+<h4 id="新建Maven项目（java）-1"><a href="#新建Maven项目（java）-1" class="headerlink" title="新建Maven项目（java）"></a>新建Maven项目（java）</h4><ul>
+<li>File-&gt;New-&gt;Project-&gt;Maven-&gt;勾选Create from archetype-&gt;选择org.apache.maven.archetypes:maven-archetype-quickstart-&gt;Next</li>
+<li>GroupId-&gt;com.lousen,ArtifactId-&gt;testMaven-&gt;Next</li>
+<li>Next</li>
+<li>Finish</li>
+<li>此时，Maven项目创建了，IDEA还会做一些初始化的工作，那么需要点击右下角的 Import Changes </li>
+<li>Maven Import之后，就会得到一个经典的Maven项目</li>
+</ul>
+<h4 id="添加包-1"><a href="#添加包-1" class="headerlink" title="添加包"></a>添加包</h4><p>示例：添加连接mysql的jar包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public class App</div><div class="line">&#123;</div><div class="line">    public static void main( String[] args ) throws ClassNotFoundException</div><div class="line">    &#123;</div><div class="line">        Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</div><div class="line">        System.out.println(&quot;初始化驱动成功&quot;);</div><div class="line">        System.out.println( &quot;Hello World!&quot; );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ol>
+<li><p>修改pom.xml文件<br>在dependencies标签内添加代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;mysql&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;5.1.20&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改了pom.xml之后，IDEA上会弹出Maven projects need to be imported，点击Import Changes </p>
+</li>
+<li>运行测试App.java<br>输出初始化驱动成功</li>
+</ol>
+<h4 id="新建Maven项目（javaWeb）-1"><a href="#新建Maven项目（javaWeb）-1" class="headerlink" title="新建Maven项目（javaWeb）"></a>新建Maven项目（javaWeb）</h4><ul>
+<li>File-&gt;New-&gt;Project-&gt;Maven-&gt;勾选Create from archetype-&gt;选择org.apache.maven.archetypes:maven-archetype-webapp-&gt;Next</li>
+<li>GroupId-&gt;com.lousen,ArtifactId-&gt;testMaven-&gt;Next</li>
+<li>Next</li>
+<li>Finish</li>
+<li>此时，Maven项目创建了，IDEA还会做一些初始化的工作，那么需要点击右下角的 Import Changes </li>
+<li>新建java源代码目录 <ul>
+<li>右键main目录-&gt; New-&gt;Directory-&gt;输入java</li>
+<li>右键java-&gt;Mark Directory as-&gt; Sources Root</li>
+</ul>
+</li>
+<li>右键java-&gt;New-&gt;Servlet-&gt;HelloServlet</li>
+<li>修改web.xml文件，配置映射</li>
+<li><p>修改pom.xml文件，添加servlet的jar包<br>在dependencies标签内添加代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;javax.servlet&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;3.1.0&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置TomCat</p>
+</li>
+<li>启动TomCat<br>注：在新建Servlet步骤里，右键java源代码目录，无法看到Servlet选型，是因为.iml文件有问题。在IDEA中打开.iml文件替换以下代码，重新打开项目即可看到Servlet选型。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule=&quot;true&quot; type=&quot;JAVA_MODULE&quot; version=&quot;4&quot;&gt;</div><div class="line">  &lt;component name=&quot;FacetManager&quot;&gt;</div><div class="line">    &lt;facet type=&quot;web&quot; name=&quot;Web&quot;&gt;</div><div class="line">      &lt;configuration&gt;</div><div class="line">        &lt;descriptors&gt;</div><div class="line">          &lt;deploymentDescriptor name=&quot;web.xml&quot; url=&quot;file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml&quot; /&gt;</div><div class="line">        &lt;/descriptors&gt;</div><div class="line">        &lt;webroots&gt;</div><div class="line">          &lt;root url=&quot;file://$MODULE_DIR$/src/main/webapp&quot; relative=&quot;/&quot; /&gt;</div><div class="line">        &lt;/webroots&gt;</div><div class="line">        &lt;sourceRoots&gt;</div><div class="line">          &lt;root url=&quot;file://$MODULE_DIR$/src/main/resources&quot; /&gt;</div><div class="line">          &lt;root url=&quot;file://$MODULE_DIR$/src/main/java&quot; /&gt;</div><div class="line">        &lt;/sourceRoots&gt;</div><div class="line">      &lt;/configuration&gt;</div><div class="line">    &lt;/facet&gt;</div><div class="line">  &lt;/component&gt;</div><div class="line">  &lt;component name=&quot;NewModuleRootManager&quot; LANGUAGE_LEVEL=&quot;JDK_1_5&quot;&gt;</div><div class="line">    &lt;output url=&quot;file://$MODULE_DIR$/target/classes&quot; /&gt;</div><div class="line">    &lt;output-test url=&quot;file://$MODULE_DIR$/target/test-classes&quot; /&gt;</div><div class="line">    &lt;content url=&quot;file://$MODULE_DIR$&quot;&gt;</div><div class="line">      &lt;sourceFolder url=&quot;file://$MODULE_DIR$/src/main/resources&quot; type=&quot;java-resource&quot; /&gt;</div><div class="line">      &lt;sourceFolder url=&quot;file://$MODULE_DIR$/src/main/java&quot; isTestSource=&quot;false&quot; /&gt;</div><div class="line">      &lt;excludeFolder url=&quot;file://$MODULE_DIR$/target&quot; /&gt;</div><div class="line">    &lt;/content&gt;</div><div class="line">    &lt;orderEntry type=&quot;inheritedJdk&quot; /&gt;</div><div class="line">    &lt;orderEntry type=&quot;sourceFolder&quot; forTests=&quot;false&quot; /&gt;</div><div class="line">    &lt;orderEntry type=&quot;library&quot; scope=&quot;TEST&quot; name=&quot;Maven: junit:junit:3.8.1&quot; level=&quot;project&quot; /&gt;</div><div class="line">  &lt;/component&gt;</div><div class="line">&lt;/module&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年08月15日 22:52</p>
+        <p>原始链接： <a class="post-url" href="/2018/08/14/Maven入门学习/" title="Maven入门学习">http://www.lousenjay.info/2018/08/14/Maven入门学习/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/08/14/Maven入门学习/&title=《Maven入门学习》 — 若闲小阁&pic=http://wx3.sinaimg.cn/mw690/a10c01f6gy1fq7ohyk21tj20ci069q4u.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/08/14/Maven入门学习/&title=《Maven入门学习》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/08/14/Maven入门学习/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Maven入门学习》 — 若闲小阁&url=http://www.lousenjay.info/2018/08/14/Maven入门学习/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/08/14/Maven入门学习/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/08/14/Maven入门学习/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Maven/" class="color1">Maven</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装"><span class="post-toc-text">安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#仓库"><span class="post-toc-text">仓库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建Maven项目（cmd）"><span class="post-toc-text">创建Maven项目（cmd）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建Maven项目（Eclipse）"><span class="post-toc-text">创建Maven项目（Eclipse）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#配置Eclipse"><span class="post-toc-text">配置Eclipse</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#新建Maven项目（java）"><span class="post-toc-text">新建Maven项目（java）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#添加包"><span class="post-toc-text">添加包</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#新建Maven项目（javaWeb）"><span class="post-toc-text">新建Maven项目（javaWeb）</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建Maven项目（Intellij-IDEA）"><span class="post-toc-text">创建Maven项目（Intellij IDEA）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#配置Intellij-IDEA"><span class="post-toc-text">配置Intellij IDEA</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#新建Maven项目（java）-1"><span class="post-toc-text">新建Maven项目（java）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#添加包-1"><span class="post-toc-text">添加包</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#新建Maven项目（javaWeb）-1"><span class="post-toc-text">新建Maven项目（javaWeb）</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/08/15/设计模式-代理模式/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          设计模式-代理模式
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/08/09/Shell编程(CentOS7)/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Shell编程（CentOS7）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="Maven入门学习" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="http://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
+	<script src="http://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("http://www.lousenjay.info/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>
