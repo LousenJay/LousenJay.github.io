@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>多线程详解 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="在后续的学习中，发现多线程的水还是相当深的，之前只掌握了线程最基本的操作。因此，最近抽出时间将线程相关的知识好好复习一遍并补充一些线程常用的知识点。 基础知识 进程不同的应用程序运行的过程中都需要在内存中分配自己独立的运行空间，彼此之间不会相互的影响。我们把每个独立应用程序在内存的独立空间称为当前应用程序运行的一个进程。进程：它是内存中的一段独立的空间，可以负责当前应用程序的运行。当前这个进程负责">
+<meta name="keywords" content="Java,多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程详解">
+<meta property="og:url" content="http://www.lousenjay.info/2018/08/19/多线程详解/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="在后续的学习中，发现多线程的水还是相当深的，之前只掌握了线程最基本的操作。因此，最近抽出时间将线程相关的知识好好复习一遍并补充一些线程常用的知识点。 基础知识 进程不同的应用程序运行的过程中都需要在内存中分配自己独立的运行空间，彼此之间不会相互的影响。我们把每个独立应用程序在内存的独立空间称为当前应用程序运行的一个进程。进程：它是内存中的一段独立的空间，可以负责当前应用程序的运行。当前这个进程负责">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-21T12:15:57.968Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多线程详解">
+<meta name="twitter:description" content="在后续的学习中，发现多线程的水还是相当深的，之前只掌握了线程最基本的操作。因此，最近抽出时间将线程相关的知识好好复习一遍并补充一些线程常用的知识点。 基础知识 进程不同的应用程序运行的过程中都需要在内存中分配自己独立的运行空间，彼此之间不会相互的影响。我们把每个独立应用程序在内存的独立空间称为当前应用程序运行的一个进程。进程：它是内存中的一段独立的空间，可以负责当前应用程序的运行。当前这个进程负责">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="http://www.lousenjay.info/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-多线程详解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      多线程详解
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Java/">Java</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-08-19
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>在后续的学习中，发现多线程的水还是相当深的，之前只掌握了线程最基本的操作。因此，最近抽出时间将线程相关的知识好好复习一遍并补充一些线程常用的知识点。</p>
+<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><ol>
+<li>进程<br>不同的应用程序运行的过程中都需要在内存中分配自己独立的运行空间，彼此之间不会相互的影响。我们把每个独立应用程序在内存的独立空间称为当前应用程序运行的一个进程。<br>进程：它是内存中的一段独立的空间，可以负责当前应用程序的运行。当前这个进程负责调度当前程序中的所有运行细节。</li>
+<li>线程<br>在一个进程中，每个独立的功能都需要独立的去运行，这时又需要把当前这个进程划分成多个运行区域，每个独立的小区域（小单元）称为一个线程。<br>线程：它是位于进程中，负责当前进程中的某个具备独立运行资格的空间。</li>
+<li>进程和线程的关联<br>进程是负责整个程序的运行，而线程是程序中具体的某个独立功能的运行。一个进程中至少应该有一个线程。</li>
+<li>多线程<ul>
+<li>现在的操作系统基本都是多用户，多任务的操作系统。每个任务就是一个进程。而在这个进程中就会有线程。</li>
+<li>真正可以完成程序运行和功能的实现靠的是进程中的线程。</li>
+<li>多线程：在一个进程中，我们同时开启多个线程，让多个线程同时去完成某些任务（功能）。实质上是在线程之间进行高速切换。</li>
+<li>多线程的目的：提高程序的运行效率。</li>
+</ul>
+</li>
+</ol>
+<h3 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h3><ol>
+<li>继承Thread的方式    </li>
+<li>声明实现Runnable接口的方式</li>
+<li>t.run()和t.start()的区别<br>t.run()只是主线程单纯的方法调用，t.start()表示开启了一个新的线程。</li>
+<li>代码实例<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">public class ThreadTest1 &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        //1.继承Thread的方式</div><div class="line">        Thread t1 = new MyThread();</div><div class="line">        Thread t2 = new MyThread();</div><div class="line">        t1.start();</div><div class="line">        t2.start();</div><div class="line"></div><div class="line">        //2.实现 Runnable 接口的方式</div><div class="line">//        Runnable r1 = new MyThread2();</div><div class="line">//        Runnable r2 = new MyThread2();</div><div class="line">//        Thread t3 = new Thread(r1);</div><div class="line">//        Thread t4 = new Thread(r2);</div><div class="line">//        t3.start();</div><div class="line">//        t4.start();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">class MyThread extends Thread&#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        for (int i = 0; i &lt; 10; i++) &#123;</div><div class="line">            System.out.println(Thread.currentThread().getName()+&quot;:&quot;+i); //获得当前线程对象的名字</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class MyThread2 implements  Runnable&#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        for (int i = 0; i &lt; 10; i++) &#123;</div><div class="line">            System.out.println(Thread.currentThread().getName()+&quot;:&quot;+i); //获得当前线程对象的名字</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="Java同步关键词"><a href="#Java同步关键词" class="headerlink" title="Java同步关键词"></a>Java同步关键词</h3><h4 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h4><ol>
+<li>格式<br>在重写的run方法内<br>synchronized(需要一个任意的对象（锁）){<br> 代码块中放操作共享数据的代码<br>}</li>
+<li>具体功能<br>synchronized是java中的一个关键字，也就是说是Java语言内置的特性。如果一个代码块被synchronized修饰了，当一个线程获取了对应的锁，并执行该代码块时，其他线程便只能一直等待，等待获取锁的线程释放锁，而这里获取锁的线程释放锁只会有两种情况：<ul>
+<li>获取锁的线程执行完了该代码块，然后线程释放对锁的占有。</li>
+<li>线程执行发生异常，此时JVM会让线程自动释放锁。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>如果这个获取锁的线程由于要等待IO或者其他原因（比如调用sleep方法）被阻塞了，但是又没有释放锁，其他线程便只能一直无期限地等待下去。</li>
+<li>当有多个线程读写文件时，读操作和写操作会发生冲突现象，写操作和写操作会发生冲突现象，但是读操作和读操作不会发生冲突现象，采用synchronized关键字来实现同步就会导致一个问题：如果多个线程都只是进行读操作，当一个线程在进行读操作时，其他线程只能等待无法进行读操作。</li>
+</ul>
+</li>
+<li>代码实例<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">public class Test1 &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line"></div><div class="line">        MyThread1 t1 = new MyThread1();</div><div class="line">        MyThread2 t2 = new MyThread2();</div><div class="line">        t1.start();</div><div class="line">        t2.start();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class MyThread1 extends Thread&#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        //设置同步锁</div><div class="line">        synchronized (&quot;999&quot;)&#123;</div><div class="line">            System.out.println(getName()+&quot;：启动&quot;);</div><div class="line">            try &#123;</div><div class="line">            	//线程执行发生异常，此时JVM会让线程自动释放锁</div><div class="line">                //int i =1/0; </div><div class="line">                Thread.sleep(5000);</div><div class="line">                System.out.println(getName()+&quot;：5秒后醒了&quot;);</div><div class="line">                System.out.println(getName()+&quot;：结束&quot;);</div><div class="line">            &#125; catch (InterruptedException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class MyThread2 extends Thread&#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        //设置同步锁</div><div class="line">        synchronized (&quot;999&quot;)&#123;</div><div class="line">            System.out.println(getName()+&quot;：启动&quot;);</div><div class="line">            try &#123;</div><div class="line">                Thread.sleep(5000);</div><div class="line">                System.out.println(getName()+&quot;：5秒后醒了&quot;);</div><div class="line">                System.out.println(getName()+&quot;：结束&quot;);</div><div class="line">            &#125; catch (InterruptedException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>有同步锁的运行结果：<br>Thread-0：启动<br>Thread-0：5秒后醒了<br>Thread-0：结束<br>Thread-1：启动<br>Thread-1：5秒后醒了<br>Thread-1：结束<br>无同步锁运行的结果：<br>Thread-0：启动<br>Thread-1：启动<br>Thread-0：5秒后醒了<br>Thread-0：结束<br>Thread-1：5秒后醒了<br>Thread-1：结束</p>
+<h4 id="lock"><a href="#lock" class="headerlink" title="lock"></a>lock</h4><ol>
+<li>lock和synchronized的区别<ul>
+<li>Lock不是Java语言内置的，synchronized是Java语言的关键字，因此是内置特性。Lock是一个类，通过这个类可以实现同步访问。</li>
+<li>Lock和synchronized有一点非常大的不同，采用synchronized不需要用户去手动释放锁，当synchronized方法或者synchronized代码块执行完之后，系统会自动让线程释放对锁的占用；而Lock则必须要用户去手动释放锁，如果没有主动释放锁，就有可能导致出现死锁现象。</li>
+</ul>
+</li>
+<li><p>Lock接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public interface Lock &#123;</div><div class="line">    void lock();</div><div class="line">    void lockInterruptibly() throws InterruptedException;</div><div class="line">    boolean tryLock();</div><div class="line">    boolean tryLock(long time, TimeUnit unit) throws InterruptedException;</div><div class="line">    void unlock();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>ReentrantLock类<br>直接使用lock接口的话，我们需要实现很多方法，不太方便ReentrantLock是唯一实现了Lock接口的类，并且ReentrantLock提供了更多的方法，ReentrantLock，意思是“可重入锁”。</p>
+</li>
+<li>lock()<br>lock()方法是平常使用得最多的一个方法，就是用来获取锁。如果锁已被其他线程获取，则进行等待。因此一般来说，使用Lock必须在try{}catch{}块中进行，并且将释放锁的操作放在finally块中进行，以保证锁一定被被释放，防止死锁的发生。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">public class LockTest &#123;</div><div class="line">    static Lock lock1 = new ReentrantLock(); //创建锁</div><div class="line">    static Lock lock2 = new ReentrantLock(); //创建锁</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        MyThread3 t1 = new MyThread3();</div><div class="line">        MyThread4 t2 = new MyThread4();</div><div class="line">        t1.start();</div><div class="line">        t2.start();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class MyThread3 extends Thread&#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        LockTest.lock1.lock(); //上锁</div><div class="line">        try &#123;</div><div class="line">            System.out.println(getName()+&quot;:得到锁&quot;);</div><div class="line">            System.out.println(getName()+&quot;:开始休眠3秒&quot;);</div><div class="line">            Thread.sleep(3000);</div><div class="line">            System.out.println(getName()+&quot;:结束休眠&quot;);</div><div class="line">        &#125; catch (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;finally &#123;</div><div class="line">            LockTest.lock1.unlock(); //释放锁</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class MyThread4 extends Thread&#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        LockTest.lock1.lock(); //上锁</div><div class="line">        try &#123;</div><div class="line">            System.out.println(getName()+&quot;:得到锁&quot;);</div><div class="line">            System.out.println(getName()+&quot;:开始休眠3秒&quot;);</div><div class="line">            Thread.sleep(3000);</div><div class="line">            System.out.println(getName()+&quot;:结束休眠&quot;);</div><div class="line">        &#125; catch (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;finally &#123;</div><div class="line">            LockTest.lock1.unlock(); //释放锁</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>同一把锁的运行结果：<br>Thread-0:得到锁<br>Thread-0:开始休眠3秒<br>Thread-0:结束休眠<br>Thread-1:得到锁<br>Thread-1:开始休眠3秒<br>Thread-1:结束休眠<br>不是同一把锁的运行结果（相当于没加锁）：<br>Thread-1:得到锁<br>Thread-1:开始休眠3秒<br>Thread-0:得到锁<br>Thread-0:开始休眠3秒<br>Thread-1:结束休眠<br>Thread-0:结束休眠<br>没有释放锁的结果：<br>Thread-0:得到锁<br>Thread-0:开始休眠3秒<br>Thread-0:结束休眠<br>（无限期等待）…</p>
+<ol>
+<li>tryLock（）<br>tryLock()方法是有返回值的，它表示用来尝试获取锁，如果获取成功，则返回true，如果获取失败（即锁已被其他线程获取），则返回false，也就说这个方法无论如何都会立即返回。在拿不到锁时不会一直在那等待。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">public class TryLockTest &#123;</div><div class="line">    static Lock lock = new ReentrantLock(); //创建锁</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        MyThread5 t1 = new MyThread5();</div><div class="line">        MyThread6 t2 = new MyThread6();</div><div class="line">        t1.start();</div><div class="line">        t2.start();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class MyThread5 extends Thread&#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        boolean tryLock = TryLockTest.lock.tryLock();</div><div class="line">        System.out.println(getName()+&quot; &quot;+tryLock);</div><div class="line">        if(tryLock)&#123;</div><div class="line">            try &#123;</div><div class="line">                System.out.println(getName()+&quot;:得到锁&quot;);</div><div class="line">//                System.out.println(getName()+&quot;:开始休眠3秒&quot;);</div><div class="line">//                Thread.sleep(3000);</div><div class="line">//                System.out.println(getName()+&quot;:结束休眠&quot;);</div><div class="line">            &#125; catch (Exception e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;finally &#123;</div><div class="line">                System.out.println(getName()+&quot;：释放锁&quot;);</div><div class="line">                TryLockTest.lock.unlock();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class MyThread6 extends Thread&#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        boolean tryLock = TryLockTest.lock.tryLock();</div><div class="line">        System.out.println(getName()+&quot; &quot;+tryLock);</div><div class="line">        if(tryLock)&#123;</div><div class="line">            try &#123;</div><div class="line">                System.out.println(getName()+&quot;:得到锁&quot;);</div><div class="line">//                System.out.println(getName()+&quot;:开始休眠3秒&quot;);</div><div class="line">//                Thread.sleep(3000);</div><div class="line">//                System.out.println(getName()+&quot;:结束休眠&quot;);</div><div class="line">            &#125; catch (Exception e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;finally &#123;</div><div class="line">                System.out.println(getName()+&quot;：释放锁&quot;);</div><div class="line">                TryLockTest.lock.unlock();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>直接运行结果：<br>Thread-1 true<br>Thread-1:得到锁<br>Thread-1：释放锁<br>Thread-0 true<br>Thread-0:得到锁<br>Thread-0：释放锁<br>先得到所锁的占用锁一段时间的运行结果：<br>Thread-0 true<br>Thread-0:得到锁<br>Thread-0:开始休眠3秒<br>Thread-1 false<br>Thread-0:结束休眠<br>Thread-0：释放锁</p>
+<ol>
+<li>tryLock(long time, TimeUnit unit)<br>方法和tryLock()方法是类似的，只不过区别在于这个方法在拿不到锁时会等待一定的时间，在时间期限之内如果还拿不到锁，就返回false。如果如果一开始拿到锁或者在等待期间内拿到了锁，则返回true。</li>
+<li>lockInterruptibly()<ul>
+<li>当通过这个方法去获取锁时，如果线程正在等待获取锁，则这个线程能够响应中断，即中断线程的等待状态。也就是说，当两个线程同时通过lock.lockInterruptibly()想获取某个锁时，假若此时线程A获取到了锁，而线程B只有等待，那么对线程B调用threadB.interrupt()方法能够中断线程B的等待过程。<br>注意，当一个线程获取了锁之后，是不会被interrupt()方法中断的。</li>
+<li>因此当通过lockInterruptibly()方法获取某个锁时，如果不能获取到，只有进行等待的情况下，是可以响应中断的。</li>
+<li>而用synchronized修饰的话，当一个线程处于等待某个锁的状态，是无法被中断的，只有一直等待下去。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">public class MyInterruptibly &#123;</div><div class="line">    static Lock lock = new ReentrantLock();</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        MyThread7 t1 = new MyThread7();</div><div class="line">        MyThread7 t2 = new MyThread7();</div><div class="line">        t1.start();</div><div class="line">        t2.start();</div><div class="line">        try &#123;</div><div class="line">            Thread.sleep(2000); //主线程休眠2秒,此时锁还被第一个运行的线程占用</div><div class="line">        &#125; catch (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        t2.interrupt();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">class MyThread7 extends Thread&#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        try &#123;</div><div class="line">            MyInterruptibly.lock.lockInterruptibly(); //上锁</div><div class="line">            System.out.println(getName()+&quot;:得到锁&quot;);</div><div class="line">            System.out.println(getName()+&quot;:开始休眠3秒&quot;);</div><div class="line">            Thread.sleep(3000);</div><div class="line">            System.out.println(getName()+&quot;:结束休眠&quot;);</div><div class="line">        &#125; catch (InterruptedException e) &#123;</div><div class="line">            System.out.println(getName()+&quot;:被打断&quot;);</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;finally &#123;</div><div class="line">            MyInterruptibly.lock.unlock(); //释放锁</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：<br>Thread-0:得到锁<br>Thread-0:开始休眠3秒<br>Thread-1:被打断<br>java.lang.InterruptedException<br>    at java.util.concurrent.locks…<br>Exception in thread “Thread-1” java.lang.IllegalMonitorStateException<br>    at java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:151)…<br>Thread-0:结束休眠</p>
+<ol>
+<li><p>ReadWriteLock接口<br>一个用来获取读锁，一个用来获取写锁。也就是说将文件的读写操作分开，分成2个锁来分配给线程，从而使得多个线程可以同时进行读操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public interface ReadWriteLock &#123;</div><div class="line"></div><div class="line">    Lock readLock(); //读锁</div><div class="line"></div><div class="line">    Lock writeLock(); //写锁</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>ReentrantReadWriteLock<br>ReentrantReadWriteLock实现了ReadWriteLock接口。最主要的有两个方法：readLock()和writeLock()用来获取读锁和写锁。<br>使用读写锁，可以实现读写分离锁定，读操作并发进行，写操作锁定单个线程。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">public class MyReadWriteLock &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        MyThread8 t1 = new MyThread8();</div><div class="line">        MyThread8 t2 = new MyThread8();</div><div class="line">        t1.start();</div><div class="line">        t2.start();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class MyThread8 extends Thread&#123;</div><div class="line">    private ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        //读操作</div><div class="line">        rwl.readLock().lock();</div><div class="line">        try &#123;</div><div class="line">            long start = System.currentTimeMillis();</div><div class="line">            while(System.currentTimeMillis()-start&lt;=1)&#123;</div><div class="line">                System.out.println(getName()+&quot;:正在进行读操作&quot;);</div><div class="line">            &#125;</div><div class="line">            System.out.println( getName()+&quot;:读操作完毕&quot;);</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;finally &#123;</div><div class="line">            rwl.readLock().unlock();</div><div class="line">        &#125;</div><div class="line">        //写操作</div><div class="line">        rwl.writeLock().lock();</div><div class="line">        try &#123;</div><div class="line">            long start = System.currentTimeMillis();</div><div class="line">            while(System.currentTimeMillis()-start&lt;=1)&#123;</div><div class="line">                System.out.println(getName()+&quot;:正在进行写操作&quot;);</div><div class="line">            &#125;</div><div class="line">            System.out.println( getName()+&quot;:写操作完毕&quot;);</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;finally &#123;</div><div class="line">            rwl.writeLock().unlock();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年08月21日 20:15</p>
+        <p>原始链接： <a class="post-url" href="/2018/08/19/多线程详解/" title="多线程详解">http://www.lousenjay.info/2018/08/19/多线程详解/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/08/19/多线程详解/&title=《多线程详解》 — 若闲小阁&pic=http://lousenjay.info/images/cover/c_1" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/08/19/多线程详解/&title=《多线程详解》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/08/19/多线程详解/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《多线程详解》 — 若闲小阁&url=http://www.lousenjay.info/2018/08/19/多线程详解/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/08/19/多线程详解/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/08/19/多线程详解/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Java/" class="color5">Java</a>
+      
+    <a href="/tags/多线程/" class="color4">多线程</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基础知识"><span class="post-toc-text">基础知识</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建线程"><span class="post-toc-text">创建线程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Java同步关键词"><span class="post-toc-text">Java同步关键词</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#synchronized"><span class="post-toc-text">synchronized</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#lock"><span class="post-toc-text">lock</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/08/20/hadoop3.0集群客户端配置/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          hadoop集群3.0客户端配置
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/08/15/设计模式-代理模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">设计模式-代理模式</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="多线程详解" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 15px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 17.5px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12.5px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12.5px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12.5px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 17.5px;">hadoop</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12.5px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12.5px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 15px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 17.5px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12.5px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12.5px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12.5px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 17.5px;">hadoop</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12.5px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12.5px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="http://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
+	<script src="http://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("http://www.lousenjay.info/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>
