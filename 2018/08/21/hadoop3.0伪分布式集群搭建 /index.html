@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="搭建环境：CentOS7+hadoop3.0.3+jdk8 前提准备 安装配置jdk 配置静态ip地址 修改主机名 配置主机名和ip地址映射 关闭防火墙，设置开机不自启动注：以上操作在笔者之前的Linux相关笔记中均有介绍  正式搭建集群 添加用户hadoop useradd hadoop passwd hadoop 创建目录 mkdir -p /home/hadoop/apps/dfs/data">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-21T12:23:53.526Z">
+<meta property="og:updated_time" content="2018-08-21T13:08:08.069Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hadoop3.0伪分布式集群搭建">
 <meta name="twitter:description" content="搭建环境：CentOS7+hadoop3.0.3+jdk8 前提准备 安装配置jdk 配置静态ip地址 修改主机名 配置主机名和ip地址映射 关闭防火墙，设置开机不自启动注：以上操作在笔者之前的Linux相关笔记中均有介绍  正式搭建集群 添加用户hadoop useradd hadoop passwd hadoop 创建目录 mkdir -p /home/hadoop/apps/dfs/data">
@@ -190,14 +190,14 @@
 <li>启动所有服务(不推荐)<br>start-all.sh<br>相当于start-dfs.sh+start-yarn.sh</li>
 <li>停止所有服务<br>stop-all.sh</li>
 <li>在浏览器查看<br>hadoop5:50070<br>hadoop5:8088</li>
-<li>查看该集群根目录<br>hdfs dfs -ls /</li>
+<li>查看该集群的根目录<br>hdfs dfs -ls /</li>
 <li>创建自己的家目录<br>hdfs dfs -mkdir /user/xujie</li>
 <li>测试实例<br>cd /home/hadoop/apps/hadoop-3.0.3/share/hadoop/mapreduce/<br>调用jar包计算pi的值，计算100次<br>hadoop jar hadoop-mapreduce-examples-3.0.3.jar pi 3 100</li>
 </ol>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年08月21日 20:23</p>
+        <p>最后更新： 2018年08月21日 21:08</p>
         <p>原始链接： <a class="post-url" href="/2018/08/21/hadoop3.0伪分布式集群搭建 /" title="hadoop3.0伪分布式集群搭建">http://www.lousenjay.info/2018/08/21/hadoop3.0伪分布式集群搭建 /</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
