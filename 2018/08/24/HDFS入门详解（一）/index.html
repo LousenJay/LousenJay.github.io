@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>HDFS入门详解（一） | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="HDFS简介HDFS(HadoopDistributedFileSystem)即hadoop分布式文件存储系统。  原理将大文件、大批量文件，分布式存储在大量服务器上，以便采取分而治之的方式对海量数据进行分析。 重要概念 文件切块：HDFS中的文件在物理上是分块存储的，block的大小可以通过配置参数自己设置。 副本：datanode是HDFS集群的从节点，每个block可以在多个datanode">
+<meta name="keywords" content="hadoop,hdfs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDFS入门详解（一）">
+<meta property="og:url" content="http://www.lousenjay.info/2018/08/24/HDFS入门详解（一）/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="HDFS简介HDFS(HadoopDistributedFileSystem)即hadoop分布式文件存储系统。  原理将大文件、大批量文件，分布式存储在大量服务器上，以便采取分而治之的方式对海量数据进行分析。 重要概念 文件切块：HDFS中的文件在物理上是分块存储的，block的大小可以通过配置参数自己设置。 副本：datanode是HDFS集群的从节点，每个block可以在多个datanode">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://lousenjay.info/images/show/namenode元数据目录.png">
+<meta property="og:updated_time" content="2018-08-27T03:05:01.719Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HDFS入门详解（一）">
+<meta name="twitter:description" content="HDFS简介HDFS(HadoopDistributedFileSystem)即hadoop分布式文件存储系统。  原理将大文件、大批量文件，分布式存储在大量服务器上，以便采取分而治之的方式对海量数据进行分析。 重要概念 文件切块：HDFS中的文件在物理上是分块存储的，block的大小可以通过配置参数自己设置。 副本：datanode是HDFS集群的从节点，每个block可以在多个datanode">
+<meta name="twitter:image" content="http://lousenjay.info/images/show/namenode元数据目录.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="http://www.lousenjay.info/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-HDFS入门详解（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      HDFS入门详解（一）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/大数据/">大数据</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-08-24
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="HDFS简介"><a href="#HDFS简介" class="headerlink" title="HDFS简介"></a>HDFS简介</h3><p>HDFS(HadoopDistributedFileSystem)即hadoop分布式文件存储系统。</p>
+<ol>
+<li>原理<br>将大文件、大批量文件，分布式存储在大量服务器上，以便采取分而治之的方式对海量数据进行分析。</li>
+<li>重要概念<ul>
+<li>文件切块：HDFS中的文件在物理上是分块存储的，block的大小可以通过配置参数自己设置。</li>
+<li>副本：datanode是HDFS集群的从节点，每个block可以在多个datanode上存储多个副本，相当于有多个备份，副本数量也可以通过设置参数修改。</li>
+<li>元数据：namenode是HDFS的主节点，负责维护元数据(整个HDFS文件系统的目录结构和文件分块信息)</li>
+</ul>
+</li>
+<li>应用场景<br>为各类分布式运算框架提供数据存储服务，如mapreduce和spark等。</li>
+</ol>
+<h3 id="HDFS的shell操作"><a href="#HDFS的shell操作" class="headerlink" title="HDFS的shell操作"></a>HDFS的shell操作</h3><ol>
+<li>查看集群状态<br>hdfs dfsadmin -report</li>
+<li>查看目录结构<br>hdfs dfs -ls /<br>hdfs dfs -ls -R /</li>
+<li>创建目录<br>hdfs dfs -mkdir /test<br>hdfs dfs -mkdir -p /test</li>
+<li>上传文件<br>hdfs dfs -put ./xxx.txt /test</li>
+<li>下载文件<br>hdfs dfs -get ./xxx.txt /test</li>
+<li>移动文件（本地到集群）<br>hdfs dfs -moveFromLocal a.txt /test</li>
+<li>移动文件（集群到集群）<br>hdfs dfs -mv /test/a/big.txt /test/</li>
+<li>复制文件（本地到集群）<br>hdfs dfs -copyFromLocal ./big.txt /test/a</li>
+<li>复制文件（集群到本地）<br>hdfs dfs -copyToLocal /test/a/big.txt /home/</li>
+<li>复制文件（集群到集群）<br>hdfs dfs -cp /test/big.txt /test/b/</li>
+<li>删除文件<br>hdfs dfs -rm /test/xxx.txt</li>
+<li>查看文件内容<br>hdfs dfs -cat</li>
+<li>查看文件的末尾<br>hdfs dfs -tail</li>
+<li>追加本地文件b.txt的内容到集群的a.txt文件末尾<br>hdfs dfs -appendToFile ./b.txt /test/a.txt </li>
+<li>修改文件权限<br>hdfs dfs -chmod 777 /test/xxx.txt</li>
+<li>修改属主<br>hdfs dfs -chown yarn /test/xxx.txt</li>
+<li>修改属组<br>hdfs dfs -chgrp yarn /test/xxx.txt</li>
+<li>统计文件系统可用空间信息<br>hdfs dfs -df /</li>
+<li>统计文件夹的大小<br>hdfs dfs -du /</li>
+<li>统计指定目录下的文件节点数量<br>hdfs dfs -count /test/</li>
+<li>设置hdfs中文件的副本数量<br>hdfs dfs -setrep 3 /test/big.txt<br>注：这里设置的副本数只是记录在namenode的元数据中，是否真的会有这么多副本，还得看datanode的数量，如果datanode的数量够，立马复制到指定副本数量，不够的话，复制到datanode的数量上限，如果后面再添加datanode，会自动复制，直到达到指定副本数量。</li>
+</ol>
+<h3 id="HDFS的工作机制"><a href="#HDFS的工作机制" class="headerlink" title="HDFS的工作机制"></a>HDFS的工作机制</h3><ol>
+<li>概述<ul>
+<li>HDFS集群分为两大角色：NameNode、DataNode </li>
+<li>NameNode负责管理整个文件系统的元数据</li>
+<li>DataNode负责管理用户的文件数据块</li>
+<li>文件会按照固定的大小（blocksize）切成若干块后分布式存储在若干台datanode上</li>
+<li>每一个文件块可以有多个副本，并存放在不同的datanode上</li>
+<li>Datanode会定期向Namenode汇报自身所保存的文件block信息，而namenode则会负责保持文件的副本数量</li>
+<li>HDFS的内部工作机制对客户端保持透明，客户端请求访问HDFS都是通过向namenode申请来进行</li>
+</ul>
+</li>
+<li>HDFS写数据流程<ul>
+<li>client向namenode通信请求上传文件，namenode检查目标文件是否已经存在，父目录是否存在，然后返回是否可以上传。</li>
+<li>client请求第一个block应该传输到哪些datanode服务器上。</li>
+<li>namenode返回可用的datanode，首先第一台就近原则挑选一台，第二台优先选另一个机架上的，第三台及以后就在本机架上再随机挑选。</li>
+<li>client请求datanode中的一台A上传数据（本质上是一个RPC调用，建立pipeline），A收到请求会继续调用B，然后B调用C，以此类推，将整个pipeline建立完成，逐级返回客户端。</li>
+<li>client开始往A上传第一个block（先从磁盘读取数据放到一个本地内存缓存），以packet为单位，A收到一个packet就会传给B，B传给C，以此类推，A每传一个packet会放入一个应答队列等待应答。</li>
+<li>当一个block传输完成之后，client再次请求namenode上传第二个block到那些datanode服务器上，循环以上步骤，直到文件的所有block上传完成。</li>
+</ul>
+</li>
+<li>HDFS读数据流程<ul>
+<li>client向namenode通信查询元数据，namenode找到所有文件块所在的datanode并返回给client。</li>
+<li>client挑选一台datanode（就近原则，随机挑选）服务器，请求建立sock流。</li>
+<li>datanode开始传输数据（从磁盘读取数据放入流，以packet为单位来做校验）</li>
+<li>客户端以packet为单位接收，逐个获取文件的block，并在客户端本地进行数据追加合并从而获得整个文件。</li>
+</ul>
+</li>
+</ol>
+<h3 id="namenode的工作机制"><a href="#namenode的工作机制" class="headerlink" title="namenode的工作机制"></a>namenode的工作机制</h3><ul>
+<li>负责响应client请求</li>
+<li>元数据的管理（增删改查）</li>
+</ul>
+<h4 id="元数据管理"><a href="#元数据管理" class="headerlink" title="元数据管理"></a>元数据管理</h4><ol>
+<li>元数据存储机制<ul>
+<li>内存中有一份完整的元数据（内存meta data）</li>
+<li>磁盘有一个“准完整”的元数据镜像（fsimage）文件，在namenode的工作目录</li>
+<li>用于衔接内存metadata和持久化元数据镜像fsimage之间的操作日志（edits文件——记录了所有对元数据有效的增删改查等操作过程）<br>注：当客户端对hdfs中的文件进行新增或者修改操作，操作记录首先被记入edits日志文件中，当客户端操作成功后，相应的元数据会更新到内存metadata中</li>
+</ul>
+</li>
+<li>元数据的checkpoint<ul>
+<li>SecondaryNameNode通知NameNode准备执行checkpoint（定期通知）</li>
+<li>NameNode立刻切换日志文件edits</li>
+<li>SecondaryNameNode从NameNode下载日志文件edits和fsimage文件</li>
+<li>SecondaryNameNode在自己的内存中合并日志文件edits和fsimage文件</li>
+<li>SecondaryNameNode将合并后得到的fsimage.checkpoint文件序列化上传给NameNode</li>
+<li>NameNode获取到fsimage.checkpoint文件并重命名为fsimage覆盖原文件。<br>注：NameNode和SecondaryNamenode的工作目录存储结构完全相同，所以，当NameNode故障退出需要重新恢复时，可以从SecondaryNamenode的工作目录中将fsimage拷贝到NameNode的工作目录，只能恢复大部分NameNode的元数据。因此，为了避免以上情况的发生，可以将NameNode的工作目录配在多块磁盘上，可以修改hdfs-sit.xml文件的dfs.name.dir属性，设置值为多个路径，路径之间用”,”隔开。</li>
+</ul>
+</li>
+<li>元数据目录说明<br>在第一次部署好Hadoop集群的时候，我们需要在NameNode（NN）节点上格式化磁盘：hdfs namenode -format<br>格式化完成之后，将会生成namenode的目录结构，如图所示。namenode的目录地址是在hdfs-site.xml文件中配置dfs.name.dir属性，默认值为file://${hadoop.tmp.dir}/dfs/name<br><img src="http://lousenjay.info/images/show/namenode元数据目录.png" alt="namenode元数据目录"></li>
+</ol>
+<ul>
+<li><p>VERSION文件<br>  version文件是Java属性文件大致内容如下：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#Fri Aug 24 15:11:29 CST 2018</div><div class="line">namespaceID=253249611</div><div class="line">clusterID=CID-28bcbdbd-0718-4dc2-94a4-f4d2c505bef2</div><div class="line">cTime=1534863934165</div><div class="line">storageType=NAME_NODE</div><div class="line">blockpoolID=BP-395927104-192.168.113.150-1534863934165</div><div class="line">layoutVersion=-64</div></pre></td></tr></table></figure>
+<p>  -namespaceID是文件系统的唯一标识符，在文件系统首次格式化之后生成的。<br>  -storageType说明这个文件存储的是什么进程的数据结构信息（如果是DataNode，storageType=DATA_NODE）<br>  -cTime表示NameNode存储时间的创建时间，以后对NameNode升级之后，cTime将会记录更新时间戳<br>  -layoutVersion表示HDFS永久性数据结构的版本信息， 只要数据结构变更，版本号也要递减，此时的HDFS也需要升级，否则磁盘仍旧是使用旧版本的数据结构，这会导致新版本的NameNode无法使用<br>  -clusterID是系统生成或手动指定的集群ID，这个clusterID不能与环境中其他集群有冲突。如果没有提供clusterID，则会自动生成一个唯一的ClusterID<br>  -blockpoolID：是针对每一个Namespace所对应的blockpool的ID，这个ID包括了其对应的NameNode节点的ip地址。</p>
+</li>
+<li>fsimage文件（元数据镜像文件）</li>
+<li>seen_txid文件<br>记录了edits滚动的序号，每次重启namenode时，namenode就知道要将哪些edits进行加载edits</li>
+<li>edits文件<br>记录了所有对元数据有效的增删改查等操作过程</li>
+</ul>
+<h3 id="DataNode的工作机制"><a href="#DataNode的工作机制" class="headerlink" title="DataNode的工作机制"></a>DataNode的工作机制</h3><ol>
+<li>DataNode工作职责<ul>
+<li>存储管理用户的文件块数据</li>
+<li>定期向namenode汇报自身所持有的block信息（通过心跳信息上报，当集群中发生某些block副本失效时，集群要恢复block初始副本数量）</li>
+</ul>
+</li>
+<li>Datanode掉线判断时限参数<ul>
+<li>datanode进程死亡或者网络故障造成datanode无法与namenode通信，namenode不会立即把该节点判定为死亡，要经过一段时间，这段时间暂称作超时时长。</li>
+<li>HDFS默认的超时时长为10分钟+30秒。如果定义超时时间为timeout，则超时时长的计算公式为：timeout  = 2 <em> heartbeat.recheck.interval + 10 </em> dfs.heartbeat.interval。</li>
+</ul>
+</li>
+<li>如何在datanode中找到文件的切块<br> 参考路径：/home/hadoop/apps/dfs/data/current/BP-395927104-192.168.113.150-1534863934165/current/finalized/subdir0/subdir0/</li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年08月27日 11:05</p>
+        <p>原始链接： <a class="post-url" href="/2018/08/24/HDFS入门详解（一）/" title="HDFS入门详解（一）">http://www.lousenjay.info/2018/08/24/HDFS入门详解（一）/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/08/24/HDFS入门详解（一）/&title=《HDFS入门详解（一）》 — 若闲小阁&pic=https://lousenjay.info/images/cover/c_4.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/08/24/HDFS入门详解（一）/&title=《HDFS入门详解（一）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/08/24/HDFS入门详解（一）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《HDFS入门详解（一）》 — 若闲小阁&url=http://www.lousenjay.info/2018/08/24/HDFS入门详解（一）/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/08/24/HDFS入门详解（一）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/08/24/HDFS入门详解（一）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/hadoop/" class="color2">hadoop</a>
+      
+    <a href="/tags/hdfs/" class="color5">hdfs</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HDFS简介"><span class="post-toc-text">HDFS简介</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HDFS的shell操作"><span class="post-toc-text">HDFS的shell操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HDFS的工作机制"><span class="post-toc-text">HDFS的工作机制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#namenode的工作机制"><span class="post-toc-text">namenode的工作机制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#元数据管理"><span class="post-toc-text">元数据管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DataNode的工作机制"><span class="post-toc-text">DataNode的工作机制</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/08/26/HDFS入门详解（二）/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          HDFS入门详解（二）
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/08/21/hadoop3.0伪分布式集群搭建 /" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">hadoop3.0伪分布式集群搭建</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="HDFS入门详解（一）" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 18px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 18px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="http://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
+	<script src="http://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("http://www.lousenjay.info/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>

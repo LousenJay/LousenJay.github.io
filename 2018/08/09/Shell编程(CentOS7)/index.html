@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="简介 Shell是用户与内核进行交互操作的一种接口，目前最流行的Shell称为bash Shell Shell也是一门编程语言&amp;lt;解释型的编程语言&amp;gt;，即shell脚本 一个系统可以存在多个shell，可以通过cat /etc/shells命令查看系统中安装的shell，不同的shell可能支持的命令语法是不相同的  变量 输出变量的值 echo $JAVA_HOME   定义变量 变量＝">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-15T15:57:27.328Z">
+<meta property="og:updated_time" content="2018-08-22T03:35:23.649Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell编程（CentOS7）">
 <meta name="twitter:description" content="简介 Shell是用户与内核进行交互操作的一种接口，目前最流行的Shell称为bash Shell Shell也是一门编程语言&amp;lt;解释型的编程语言&amp;gt;，即shell脚本 一个系统可以存在多个shell，可以通过cat /etc/shells命令查看系统中安装的shell，不同的shell可能支持的命令语法是不相同的  变量 输出变量的值 echo $JAVA_HOME   定义变量 变量＝">
@@ -186,7 +186,7 @@
 </ul>
 </li>
 <li>将命令的返回值赋给变量<ul>
-<li>A=<code>ls -la</code> 反引号，运行里面的命令，并把结果返回给变量A</li>
+<li>A=`ls -la` 反引号，运行里面的命令，并把结果返回给变量A</li>
 <li>A=$(ls -la) 等价于反引号</li>
 </ul>
 </li>
@@ -197,7 +197,7 @@
 <li>$n 表示n位置的输入参数（n代表数字，n&gt;=1）</li>
 <li>$# 表示参数的个数，常用于循环</li>
 <li>$*和$@ 都表示参数列表 </li>
-<li>注：加上双引号，”$*” 会将所有的参数作为一个整体，以”$1 $2 … $n”的形式输出所有参数；”$@” 会将各个参数分开，以”$1” “$2” … “$n” 的形式输出所有参数</li>
+<li>注：加上双引号，<code>&quot;$*&quot;</code> 会将所有的参数作为一个整体，以<code>&quot;$1 $2 … $n&quot;</code>的形式输出所有参数；<code>&quot;$@&quot;</code> 会将各个参数分开，以<code>&quot;$1&quot; &quot;$2&quot; … &quot;$n&quot;</code>的形式输出所有参数</li>
 </ul>
 </li>
 <li>变量的范围<ul>
@@ -214,8 +214,8 @@
 </ul>
 </li>
 <li>实例演示（2+3）x4<ul>
-<li>expr <code>expr 2 + 3</code> * 4</li>
-<li>A=$(expr <code>expr 2 + 3</code> * 4)</li>
+<li>expr `expr 2 + 3` \* 4</li>
+<li>A=$(expr `expr 2 + 3` \* 4)</li>
 </ul>
 </li>
 </ol>
@@ -324,7 +324,7 @@
 <li>保持和互换：h和X</li>
 </ul>
 <ol>
-<li>脚本<br>Sed脚本是一个sed的命令清单，启动Sed时以-f选项引导脚本文件名。Sed对于脚本中输入的命令非常挑剔，在命令的末尾不能有任何空白或文本，如果在一行中有多个命令，要用分号分隔。以#开头的行为注释行，且不能跨行。<br>*</li>
+<li>脚本<br>Sed脚本是一个sed的命令清单，启动Sed时以-f选项引导脚本文件名。Sed对于脚本中输入的命令非常挑剔，在命令的末尾不能有任何空白或文本，如果在一行中有多个命令，要用分号分隔。以#开头的行为注释行，且不能跨行。</li>
 </ol>
 <h4 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h4><ol>
 <li>简介<br>awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。</li>
@@ -333,7 +333,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年08月15日 23:57</p>
+        <p>最后更新： 2018年08月22日 11:35</p>
         <p>原始链接： <a class="post-url" href="/2018/08/09/Shell编程(CentOS7)/" title="Shell编程（CentOS7）">http://www.lousenjay.info/2018/08/09/Shell编程(CentOS7)/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
@@ -511,7 +511,7 @@
             <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 15px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 17.5px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12.5px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12.5px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12.5px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 17.5px;">hadoop</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12.5px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12.5px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 18px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -550,7 +550,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 15px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 17.5px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12.5px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12.5px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12.5px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 17.5px;">hadoop</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12.5px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12.5px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 18px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
         </div>
     </div>
 </div>

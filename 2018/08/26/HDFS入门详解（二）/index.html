@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>HDFS入门详解（二） | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="HDFS的java-API操作简介hdfs在生产应用中主要是客户端的开发，其核心步骤是从hdfs提供的api中构造一个hdfs的访问客户端对象，然后通过该客户端对象操作（增删改查）hdfs上的文件。 导入依赖包（maven）利用maven导入hadoop开发相关的依赖包，pom.xml123456789101112131415161718192021222324252627282930313233">
+<meta name="keywords" content="hadoop,hdfs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDFS入门详解（二）">
+<meta property="og:url" content="http://www.lousenjay.info/2018/08/26/HDFS入门详解（二）/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="HDFS的java-API操作简介hdfs在生产应用中主要是客户端的开发，其核心步骤是从hdfs提供的api中构造一个hdfs的访问客户端对象，然后通过该客户端对象操作（增删改查）hdfs上的文件。 导入依赖包（maven）利用maven导入hadoop开发相关的依赖包，pom.xml123456789101112131415161718192021222324252627282930313233">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-27T06:42:40.837Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HDFS入门详解（二）">
+<meta name="twitter:description" content="HDFS的java-API操作简介hdfs在生产应用中主要是客户端的开发，其核心步骤是从hdfs提供的api中构造一个hdfs的访问客户端对象，然后通过该客户端对象操作（增删改查）hdfs上的文件。 导入依赖包（maven）利用maven导入hadoop开发相关的依赖包，pom.xml123456789101112131415161718192021222324252627282930313233">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="http://www.lousenjay.info/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-HDFS入门详解（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      HDFS入门详解（二）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/大数据/">大数据</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-08-26
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="HDFS的java-API操作"><a href="#HDFS的java-API操作" class="headerlink" title="HDFS的java-API操作"></a>HDFS的java-API操作</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>hdfs在生产应用中主要是客户端的开发，其核心步骤是从hdfs提供的api中构造一个hdfs的访问客户端对象，然后通过该客户端对象操作（增删改查）hdfs上的文件。</p>
+<h4 id="导入依赖包（maven）"><a href="#导入依赖包（maven）" class="headerlink" title="导入依赖包（maven）"></a>导入依赖包（maven）</h4><p>利用maven导入hadoop开发相关的依赖包，pom.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;</div><div class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</div><div class="line">         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</div><div class="line">    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</div><div class="line"></div><div class="line">    &lt;groupId&gt;hadoop&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;hadoop&lt;/artifactId&gt;</div><div class="line">    &lt;packaging&gt;pom&lt;/packaging&gt;</div><div class="line">    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</div><div class="line">    &lt;modules&gt;</div><div class="line">        &lt;module&gt;hdfs&lt;/module&gt;</div><div class="line">    &lt;/modules&gt;</div><div class="line"></div><div class="line">    &lt;properties&gt;</div><div class="line">        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</div><div class="line">        &lt;hadoop.version&gt;3.0.3&lt;/hadoop.version&gt;</div><div class="line">    &lt;/properties&gt;</div><div class="line"></div><div class="line">    &lt;dependencies&gt;</div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;hadoop-common&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;$&#123;hadoop.version&#125;&lt;/version&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line"></div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;hadoop-client&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;$&#123;hadoop.version&#125;&lt;/version&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line"></div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;commons-io&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;commons-io&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;2.4&lt;/version&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;junit&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;junit&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;4.11&lt;/version&gt;</div><div class="line">            &lt;scope&gt;test&lt;/scope&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line">        &lt;!-- --&gt;</div><div class="line">    &lt;/dependencies&gt;</div><div class="line"></div><div class="line">    &lt;build&gt;</div><div class="line">        &lt;defaultGoal&gt;compile&lt;/defaultGoal&gt;</div><div class="line">        &lt;plugins&gt;</div><div class="line">            &lt;plugin&gt;</div><div class="line">                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</div><div class="line">                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</div><div class="line">                &lt;version&gt;3.1&lt;/version&gt;</div><div class="line">                &lt;configuration&gt;</div><div class="line">                    &lt;source&gt;1.8&lt;/source&gt;</div><div class="line">                    &lt;target&gt;1.8&lt;/target&gt;</div><div class="line">                &lt;/configuration&gt;</div><div class="line">            &lt;/plugin&gt;</div><div class="line">        &lt;/plugins&gt;</div><div class="line">    &lt;/build&gt;</div></pre></td></tr></table></figure></p>
+<p>注：如需手动引入jar包，hdfs的jar包—-hadoop的安装目录的share下</p>
+<h4 id="获取API中的客户端对象"><a href="#获取API中的客户端对象" class="headerlink" title="获取API中的客户端对象"></a>获取API中的客户端对象</h4><p>获取到的fs对象就是DistributedFileSysytem的实例，通过fs可以直接操作fs</p>
+<ol>
+<li><p>获取客户端对象fs（默认配置）<br> 在java中操作hdfs，首先要获得一个客户端实例</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Configuration conf = getConf();</div><div class="line">FileSystem fs = FileSystem.get(conf);</div></pre></td></tr></table></figure>
+</li>
+<li><p>获取客户端对象fs（set）</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Configuration conf = getConf();</div><div class="line">conf.set(&quot;fs.defaultFS&quot;, &quot;hdfs://hadoop1:9000&quot;); // 指定配置</div><div class="line">conf.set(&quot;dfs.replication&quot;, &quot;3&quot;); // 副本数量</div><div class="line">FileSystem fs = FileSystem.get(conf);</div></pre></td></tr></table></figure>
+</li>
+<li><p>获取客户端对象fs（URI）</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Configuration conf = getConf();</div><div class="line">// 集群地址，配置信息</div><div class="line">fs = FileSystem.get(URI.create(&quot;hdfs://172.16.0.4:9000&quot;), conf);</div></pre></td></tr></table></figure>
+</li>
+<li><p>get方法是如何判断具体实例化了哪种客户端呢？<br> 首先从conf中的参数fs.defaultFS的配置值判断，如果我们的代码中没有指定fs.defaultFS，并且工程classpath下也没有给定相应的配置，conf中的默认值就来自于hadoop的jar包中的core-default.xml，默认值为： file:///，则获取的将不是一个DistributedFileSystem的实例，而是一个本地文件系统的客户端对象。因此，推荐使用默认值打包到安装有hadoop客户端的Linux上运行。</p>
+</li>
+</ol>
+<h4 id="常见java-API操作"><a href="#常见java-API操作" class="headerlink" title="常见java-API操作"></a>常见java-API操作</h4><ol>
+<li><p>上传文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">// hadoop jar</div><div class="line">// extends Configuration获得配置对象</div><div class="line">// implements Tool控制命名参数</div><div class="line">public class Put extends Configured implements Tool&#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        ToolRunner.run(new Put(),args); //把参数拆分封装到Configuration</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int run(String[] strings) throws Exception &#123;</div><div class="line">        Configuration conf = getConf();</div><div class="line">        FileSystem fs1 = FileSystem.get(conf);</div><div class="line">        Path fin = new Path(conf.get(&quot;inpath&quot;)); // 本地端</div><div class="line">        Path fout = new Path(conf.get(&quot;outpath&quot;)); // 服务端</div><div class="line">        fs1.copyFromLocalFile(fin,fout);</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>下载文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public class Get extends Configured implements Tool&#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        ToolRunner.run(new Get(),args); //把参数拆分封装到Configuration</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int run(String[] strings) throws Exception &#123;</div><div class="line">        Configuration conf = getConf();</div><div class="line">        FileSystem fs1 = FileSystem.get(conf);</div><div class="line">        Path fin = new Path(conf.get(&quot;inpath&quot;)); // 服务端</div><div class="line">        Path fout = new Path(conf.get(&quot;outpath&quot;)); // 本地端</div><div class="line">        fs1.copyToLocalFile(fin,fout);</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>目录操作（增、删、改）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">public class DirTest extends Configured implements Tool&#123;</div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        ToolRunner.run(new DirTest(),args); //把参数拆分封装到Configuration</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int run(String[] strings) throws Exception &#123;</div><div class="line">        Configuration conf = getConf();</div><div class="line">        FileSystem fs1 = FileSystem.get(conf);</div><div class="line">        Path fin = new Path(conf.get(&quot;inpath&quot;)); </div><div class="line">        Path fout = new Path(conf.get(&quot;outpath&quot;)); </div><div class="line">        fs1.mkdirs(fin); // 创建目录</div><div class="line">      //  fs1.delete(fout, true) // 删除文件夹 ，如果是非空文件夹，参数2必须给值true</div><div class="line">      //  fs1.rename(fin,fout); // 重命名文件或文件夹</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>递归查看目录信息(只显示文件)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">public class Ls extends Configured implements Tool &#123;</div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        ToolRunner.run(new Ls(),args); //把参数拆分封装到Configuration</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int run(String[] strings) throws Exception &#123;</div><div class="line">        Configuration conf = getConf();</div><div class="line">        FileSystem fs = FileSystem.get(conf);</div><div class="line">        RemoteIterator&lt;LocatedFileStatus&gt; listFiles = fs.listFiles(new Path(conf.get(&quot;path&quot;)),true);</div><div class="line">        while(listFiles.hasNext())&#123;</div><div class="line">            LocatedFileStatus fileStatus = listFiles.next();</div><div class="line">            System.out.println(&quot;blocksize：&quot;+fileStatus.getBlockSize()); //块大小</div><div class="line">            System.out.println(&quot;owner：&quot;+fileStatus.getOwner()); //主用户</div><div class="line">            System.out.println(&quot;replication：&quot;+fileStatus.getReplication()); //副本数量</div><div class="line">            System.out.println(&quot;permission：&quot;+fileStatus.getPermission()); //权限</div><div class="line">            System.out.println(&quot;name：&quot;+fileStatus.getPath().getName()); //文件名称</div><div class="line">            BlockLocation[] blockLocations = fileStatus.getBlockLocations();</div><div class="line">            for (BlockLocation b : blockLocations) &#123;</div><div class="line">                System.out.println(&quot;块的名字:&quot;+b.getNames());</div><div class="line">                System.out.println(&quot;块的偏移量:&quot;+b.getOffset());</div><div class="line">                System.out.println(&quot;块的长度&quot;+b.getLength());</div><div class="line">                //块所在的datanode节点</div><div class="line">                String[] datanodes = b.getHosts();</div><div class="line">                for (String dn : datanodes)&#123;</div><div class="line">                    System.out.println(&quot;datanode:&quot;+ dn);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            System.out.println(&quot;=================&quot;);</div><div class="line">        &#125;</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>递归查看目录信息(显示文件和文件夹)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">public class List extends Configured implements Tool &#123;</div><div class="line">    FileSystem fs;</div><div class="line">    @Override</div><div class="line">    public int run(String[] strings) throws Exception &#123;</div><div class="line">        Configuration conf = getConf();</div><div class="line">        fs = FileSystem.get(conf);</div><div class="line">        FileStatus[] sts = fs.listStatus(new Path(conf.get(&quot;path&quot;)));</div><div class="line">        Stream.of(sts).forEach(this::showDetail);</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line">    //对于FileStatus进行判断</div><div class="line">    //如果是文件，打印相关元信息</div><div class="line">    //如果代表是目录，递归调用showDetail</div><div class="line">    public void showDetail(FileStatus st) &#123;</div><div class="line">        if(st.isFile() &amp;&amp; st.getLen() &gt; 0)&#123;</div><div class="line">            show(st);</div><div class="line">        &#125;else if(st.isDirectory())&#123;</div><div class="line">            try &#123;</div><div class="line">                Stream.of(fs.listStatus(st.getPath())).forEach(this::showDetail);</div><div class="line">            &#125; catch (IOException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    public void show(FileStatus st)&#123;</div><div class="line">        System.out.println(&quot;--------&quot;);</div><div class="line">        System.out.println(st.getPath());</div><div class="line">        System.out.println(st.getPermission());</div><div class="line">        System.out.println(st.getAccessTime());</div><div class="line">        System.out.println(st.getOwner());</div><div class="line">    &#125;</div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        ToolRunner.run(new List(),args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="常见java-API操作-流"><a href="#常见java-API操作-流" class="headerlink" title="常见java-API操作(流)"></a>常见java-API操作(流)</h4><ol>
+<li><p>上传文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public class Put extends Configured implements Tool&#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        ToolRunner.run(new Put(),args); //把参数拆分封装到Configuration</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int run(String[] strings) throws Exception &#123;</div><div class="line">        Configuration conf = getConf();</div><div class="line">        FileSystem fs1 = FileSystem.get(conf);</div><div class="line">        Path fin = new Path(conf.get(&quot;inpath&quot;)); // 本地端</div><div class="line">        Path fout = new Path(conf.get(&quot;outpath&quot;)); // 服务端</div><div class="line">        FSDataInputStream in = fs1.open(fin);</div><div class="line">        FSDataOutputStream out = fs1.create(fout);</div><div class="line">        IOUtils.copyBytes(in,out,128,true);</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>下载文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public class Get extends Configured implements Tool&#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        ToolRunner.run(new Get(),args); //把参数拆分封装到Configuration</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int run(String[] strings) throws Exception &#123;</div><div class="line">        Configuration conf = getConf();</div><div class="line">        FileSystem fs1 = FileSystem.get(conf);</div><div class="line">        Path fin = new Path(conf.get(&quot;inpath&quot;)); // 服务端</div><div class="line">        Path fout = new Path(conf.get(&quot;outpath&quot;)); // 本地端</div><div class="line">        FSDataInputStream in = fs1.open(fin); //输入</div><div class="line">        FSDataOutputStream out = fs2.create(fout); //输出到本地</div><div class="line">        IOUtils.copyBytes(in,out,128,true);</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看文件内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public class Cat extends Configured implements Tool&#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        ToolRunner.run(new Cat(),args); //把参数拆分封装到Configuration</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int run(String[] strings) throws Exception &#123;</div><div class="line">        Configuration conf = getConf();</div><div class="line">        FileSystem fs1 = FileSystem.get(conf);</div><div class="line">        Path fin = new Path(conf.get(&quot;inpath&quot;)); </div><div class="line">        FSDataInputStream in = fs1.open(fin); // 输入</div><div class="line">        IOUtils.copyBytes(in,System.out,128,true); // 输出到控制台</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年08月27日 14:42</p>
+        <p>原始链接： <a class="post-url" href="/2018/08/26/HDFS入门详解（二）/" title="HDFS入门详解（二）">http://www.lousenjay.info/2018/08/26/HDFS入门详解（二）/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/08/26/HDFS入门详解（二）/&title=《HDFS入门详解（二）》 — 若闲小阁&pic=https://lousenjay.info/images/cover/c_5.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/08/26/HDFS入门详解（二）/&title=《HDFS入门详解（二）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/08/26/HDFS入门详解（二）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《HDFS入门详解（二）》 — 若闲小阁&url=http://www.lousenjay.info/2018/08/26/HDFS入门详解（二）/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/08/26/HDFS入门详解（二）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/08/26/HDFS入门详解（二）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/hadoop/" class="color2">hadoop</a>
+      
+    <a href="/tags/hdfs/" class="color5">hdfs</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HDFS的java-API操作"><span class="post-toc-text">HDFS的java-API操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#导入依赖包（maven）"><span class="post-toc-text">导入依赖包（maven）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#获取API中的客户端对象"><span class="post-toc-text">获取API中的客户端对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#常见java-API操作"><span class="post-toc-text">常见java-API操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#常见java-API操作-流"><span class="post-toc-text">常见java-API操作(流)</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/08/24/HDFS入门详解（一）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">HDFS入门详解（一）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="HDFS入门详解（二）" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 18px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 18px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="http://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
+	<script src="http://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("http://www.lousenjay.info/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>
