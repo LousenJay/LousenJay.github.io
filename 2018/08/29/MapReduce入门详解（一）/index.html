@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>MapReduce入门详解（一） | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="简介Mapreduce是一个分布式运算程序的编程框架，是用户开发“基于hadoop的数据分析应用”的核心框架；Mapreduce核心功能是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，并发运行在一个hadoop集群上。 MapReduce框架的结构一个完整的mapreduce程序在分布式运行时有三类实例进程：  MapReduceApplicationMaster：负责整个">
+<meta name="keywords" content="hadoop,mapreduce">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MapReduce入门详解（一）">
+<meta property="og:url" content="http://www.lousenjay.info/2018/08/29/MapReduce入门详解（一）/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="简介Mapreduce是一个分布式运算程序的编程框架，是用户开发“基于hadoop的数据分析应用”的核心框架；Mapreduce核心功能是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，并发运行在一个hadoop集群上。 MapReduce框架的结构一个完整的mapreduce程序在分布式运行时有三类实例进程：  MapReduceApplicationMaster：负责整个">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-30T01:17:53.596Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MapReduce入门详解（一）">
+<meta name="twitter:description" content="简介Mapreduce是一个分布式运算程序的编程框架，是用户开发“基于hadoop的数据分析应用”的核心框架；Mapreduce核心功能是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，并发运行在一个hadoop集群上。 MapReduce框架的结构一个完整的mapreduce程序在分布式运行时有三类实例进程：  MapReduceApplicationMaster：负责整个">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="http://www.lousenjay.info/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-MapReduce入门详解（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      MapReduce入门详解（一）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/大数据/">大数据</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-08-29
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Mapreduce是一个分布式运算程序的编程框架，是用户开发“基于hadoop的数据分析应用”的核心框架；Mapreduce核心功能是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，并发运行在一个hadoop集群上。</p>
+<h4 id="MapReduce框架的结构"><a href="#MapReduce框架的结构" class="headerlink" title="MapReduce框架的结构"></a>MapReduce框架的结构</h4><p>一个完整的mapreduce程序在分布式运行时有三类实例进程：</p>
+<ol>
+<li>MapReduceApplicationMaster：负责整个程序的过程调度及状态协调</li>
+<li>MapTask：负责map阶段的整个数据处理流程</li>
+<li>ReduceTask：负责reduce阶段的整个数据处理流程</li>
+</ol>
+<h4 id="MapReduce的运行流程"><a href="#MapReduce的运行流程" class="headerlink" title="MapReduce的运行流程"></a>MapReduce的运行流程</h4><ol>
+<li>一个mr程序启动的时候，最先启动的是MRAppMaster，MRAppMaster启动后根据本次job的描述信息，计算出需要的MapTask实例数量，然后向集群申请机器启动相应数量的MapTask进程。</li>
+<li>Maptask进程启动之后，根据给定的数据切片范围进行数据处理，主体流程为：<ul>
+<li>利用客户指定的inputformat来获取RecordReader读取数据，形成输入KV对</li>
+<li>将输入KV对传递给客户定义的map()方法，做逻辑运算，并将map()方法输出的KV对收集到缓存中</li>
+<li>将缓存中的KV对按照K分区排序后不断溢写到磁盘文件</li>
+</ul>
+</li>
+<li>MRAppMaster监控到所有MapTask进程任务完成之后，会根据客户指定的参数启动相应数量的ReduceTask进程，并告知ReduceTask进程要处理的数据范围（数据分区）</li>
+<li>ReduceTask进程启动之后，根据MRAppMaster告知的待处理数据所在位置，从若干台MapTask运行所在机器上获取到若干个MapTask输出结果文件，并在本地进行重新归并排序，然后按照相同key的KV为一个组，调用客户定义的reduce()方法进行逻辑运算，并收集运算输出的结果KV，然后调用客户指定的outputformat将结果数据输出到外部存储。</li>
+</ol>
+<h3 id="深入解析MapReduce原理"><a href="#深入解析MapReduce原理" class="headerlink" title="深入解析MapReduce原理"></a>深入解析MapReduce原理</h3><h4 id="MapTask并行度决定机制"><a href="#MapTask并行度决定机制" class="headerlink" title="MapTask并行度决定机制"></a>MapTask并行度决定机制</h4><ul>
+<li>MapTask的并行度决定map阶段的任务处理并发度，进而影响到整个job的处理速度</li>
+<li>一个job的map阶段并行度由客户端在提交job时决定,而客户端对map阶段并行度的规划的基本逻辑为：将待处理数据执行逻辑切片（即按照一个特定切片大小，将待处理数据划分成逻辑上的多个split），然后每一个split分配一个MapTask并行实例处理。</li>
+<li>这段逻辑及形成的切片规划描述文件，由FileInputFormat实现类的getSplits()方法完成。</li>
+</ul>
+<h4 id="FileInputFormat切片机制"><a href="#FileInputFormat切片机制" class="headerlink" title="FileInputFormat切片机制"></a>FileInputFormat切片机制</h4><ol>
+<li><p>FileInputFormat默认的切片机制</p>
+<ul>
+<li>简单地按照文件的内容长度进行切片</li>
+<li>切片大小默认等于block大小</li>
+<li>切片时不考虑数据集整体，而是逐个针对每一个文件单独切片</li>
+<li>实例  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">假如有两个待处理的数据文件：</div><div class="line">a.txt  300MB</div><div class="line">b.txt  10MB</div><div class="line">经过FileInputFormat的切片机制运算后:</div><div class="line">a.txt.split1  0~128MB</div><div class="line">a.txt.split2  128~256MB</div><div class="line">a.txt.split3  256~300MB</div><div class="line">b.txt.split1  0~10MB</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>FileInputFormat切片机制的具体流程</p>
+<ol>
+<li>获取到数据存储目录</li>
+<li>开始遍历该目录下的每一个文件</li>
+<li>遍历文件的过程<ul>
+<li>获取文件的大小</li>
+<li>计算切片的大小</li>
+<li>开始切片，形成第1个切片，第2个。。。</li>
+<li>将形成的切片信息记录到切片规划文件中</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="ReduceTask并行度决定机制"><a href="#ReduceTask并行度决定机制" class="headerlink" title="ReduceTask并行度决定机制"></a>ReduceTask并行度决定机制</h4><ul>
+<li>ReduceTask的并行度同样影响整个job的执行并发度和执行效率，与maptask的并发数由切片数决定不同，ReduceTask数量的决定是可以直接手动设置：job.setNumReduceTasks(4); //默认值是1，手动设置为4</li>
+<li>ReduceTask的数量并不是任意设置，还要考虑业务逻辑需求，有些情况下，需要计算全局汇总结果，就只能有1个ReduceTask</li>
+<li>尽量不要运行太多的ReduceTask。对大多数job来说，最好ReduceTask的个数最多和集群中的reduce持平，或者更小。小集群要特别注意这点。</li>
+</ul>
+<h4 id="MapReduce的shuffle机制"><a href="#MapReduce的shuffle机制" class="headerlink" title="MapReduce的shuffle机制"></a>MapReduce的shuffle机制</h4><ol>
+<li>简介<ul>
+<li>mapreduce中，map阶段处理的数据如何传递给reduce阶段，是mapreduce框架中最关键的一个流程，这个流程就叫shuffle</li>
+<li>shuffle: 洗牌、发牌——(核心机制：数据分区，排序，缓存)</li>
+<li>具体来说：就是将maptask输出的处理结果数据，分发给reducetask，并在分发的过程中，对数据按key进行了分区和排序。</li>
+</ul>
+</li>
+<li>shuffle的主要流程<br> shuffle是MR处理流程中的一个过程，它的每一个处理步骤是分散在各个MapTask和ReduceTask节点上完成的，整体来看，分为3个操作:<pre><code>* partitionr分区
+* sort根据key排序
+* combiner进行局部value的合并
+</code></pre></li>
+<li>shuffle的详细流程<ol>
+<li>MapTask收集map()方法输出的kv对，放到内存缓冲区中</li>
+<li>从内存缓冲区不断溢出本地磁盘文件，可能会溢出多个文件</li>
+<li>多个溢出文件会被合并成大的溢出文件</li>
+<li>在溢出过程中，及合并的过程中，都要调用partitioner进行分组和针对key进行排序</li>
+<li>ReduceTask根据自己的分区号，去各个MapTask机器上取相应的结果分区数据</li>
+<li>ReduceTask会取到同一个分区的来自不同MapTask的结果文件，ReduceTask会将这些文件再进行合并（归并排序）</li>
+<li>合并成大文件后，shuffle的过程也就结束了，后面进入ReduceTask的逻辑运算过程（从文件中取出一个一个的键值对group，调用用户自定义的reduce()方法）</li>
+</ol>
+</li>
+</ol>
+<h4 id="MapReduce的序列化机制"><a href="#MapReduce的序列化机制" class="headerlink" title="MapReduce的序列化机制"></a>MapReduce的序列化机制</h4><p>如果需要将自定义的bean放在key中传输，则还需要实现comparable接口，因为mapreduce框架中的shuffle过程一定会对key进行排序,此时，自定义的bean实现的接口应该是WritableComparable<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line">public class FlowBean implements WritableComparable&lt;FlowBean&gt;&#123;</div><div class="line"></div><div class="line">    private long upFlow; // 上行流量</div><div class="line">    private long dFlow; // 下行流量</div><div class="line">    private long sumFlow; // 总流量</div><div class="line"></div><div class="line">    //反序列化时，需要反射调用空参构造函数，所以要显示定义一个</div><div class="line">    public FlowBean()&#123;&#125;</div><div class="line"></div><div class="line">    public FlowBean(long upFlow, long dFlow) &#123;</div><div class="line">        this.upFlow = upFlow;</div><div class="line">        this.dFlow = dFlow;</div><div class="line">        this.sumFlow = upFlow + dFlow;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public long getUpFlow() &#123;</div><div class="line">        return upFlow;</div><div class="line">    &#125;</div><div class="line">    public void setUpFlow(long upFlow) &#123;</div><div class="line">        this.upFlow = upFlow;</div><div class="line">    &#125;</div><div class="line">    public long getdFlow() &#123;</div><div class="line">        return dFlow;</div><div class="line">    &#125;</div><div class="line">    public void setdFlow(long dFlow) &#123;</div><div class="line">        this.dFlow = dFlow;</div><div class="line">    &#125;</div><div class="line">    public long getSumFlow() &#123;</div><div class="line">        return sumFlow;</div><div class="line">    &#125;</div><div class="line">    public void setSumFlow(long sumFlow) &#123;</div><div class="line">        this.sumFlow = sumFlow;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 序列化方法</div><div class="line">     */</div><div class="line">    @Override</div><div class="line">    public void write(DataOutput out) throws IOException &#123;</div><div class="line">        out.writeLong(upFlow);</div><div class="line">        out.writeLong(dFlow);</div><div class="line">        out.writeLong(sumFlow);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 反序列化方法</div><div class="line">     * 注意：反序列化的顺序跟序列化的顺序完全一致</div><div class="line">     */</div><div class="line">    @Override</div><div class="line">    public void readFields(DataInput in) throws IOException &#123;</div><div class="line">        upFlow = in.readLong();</div><div class="line">        dFlow = in.readLong();</div><div class="line">        sumFlow = in.readLong();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String toString() &#123;</div><div class="line"></div><div class="line">        return upFlow + &quot;\t&quot; + dFlow + &quot;\t&quot; + sumFlow;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int compareTo(FlowBean o) &#123;</div><div class="line">        //实现按照sumflow的大小倒序排序</div><div class="line">        return sumFlow&gt;o.getSumFlow()?-1:1;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="MapReduce与Yarn"><a href="#MapReduce与Yarn" class="headerlink" title="MapReduce与Yarn"></a>MapReduce与Yarn</h3><ol>
+<li>Yarn简介<br>Yarn是一个资源调度平台，负责为运算程序提供服务器运算资源，相当于一个分布式的操作系统平台，而mapreduce等运算程序则相当于运行于操作系统之上的应用程序。</li>
+<li>Yarn的重要概念<ul>
+<li>yarn并不清楚用户提交的程序的运行机制</li>
+<li>yarn只提供运算资源的调度（用户程序向yarn申请资源，yarn就负责分配资源）</li>
+<li>yarn中的主管角色叫ResourceManager</li>
+<li>yarn中具体提供运算资源的角色叫NodeManager</li>
+<li>yarn其实就与运行的用户程序完全解耦，yarn上可以运行 各种类型的分布式运算程序（mapreduce只是其中的一种），比如mapreduce、storm程序，spark程序，tez ……</li>
+<li>spark、storm等运算框架都可以整合在yarn上运行，只要他们各自的框 架中有符合yarn规范的资源请求机制即可</li>
+<li>yarn就成为一个通用的资源调度平台，从此，企业中以前存在的各种运算集群都可以整合在一个物理集群上，提高资源利用率，方便数据共享</li>
+</ul>
+</li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年08月30日 09:17</p>
+        <p>原始链接： <a class="post-url" href="/2018/08/29/MapReduce入门详解（一）/" title="MapReduce入门详解（一）">http://www.lousenjay.info/2018/08/29/MapReduce入门详解（一）/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/08/29/MapReduce入门详解（一）/&title=《MapReduce入门详解（一）》 — 若闲小阁&pic=http://lousenjay.info/images/cover/c_7.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/08/29/MapReduce入门详解（一）/&title=《MapReduce入门详解（一）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/08/29/MapReduce入门详解（一）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MapReduce入门详解（一）》 — 若闲小阁&url=http://www.lousenjay.info/2018/08/29/MapReduce入门详解（一）/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/08/29/MapReduce入门详解（一）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/08/29/MapReduce入门详解（一）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/hadoop/" class="color2">hadoop</a>
+      
+    <a href="/tags/mapreduce/" class="color5">mapreduce</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MapReduce框架的结构"><span class="post-toc-text">MapReduce框架的结构</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MapReduce的运行流程"><span class="post-toc-text">MapReduce的运行流程</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#深入解析MapReduce原理"><span class="post-toc-text">深入解析MapReduce原理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MapTask并行度决定机制"><span class="post-toc-text">MapTask并行度决定机制</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#FileInputFormat切片机制"><span class="post-toc-text">FileInputFormat切片机制</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ReduceTask并行度决定机制"><span class="post-toc-text">ReduceTask并行度决定机制</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MapReduce的shuffle机制"><span class="post-toc-text">MapReduce的shuffle机制</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MapReduce的序列化机制"><span class="post-toc-text">MapReduce的序列化机制</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MapReduce与Yarn"><span class="post-toc-text">MapReduce与Yarn</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/08/26/HDFS入门详解（二）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">HDFS入门详解（二）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="MapReduce入门详解（一）" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 18px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 18px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="http://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
+	<script src="http://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("http://www.lousenjay.info/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>
