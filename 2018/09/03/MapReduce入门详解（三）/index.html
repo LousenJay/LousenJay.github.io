@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>MapReduce入门详解（三） | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="join操作左外连接(map)-JoinMapSideMR问题描述：将两个文件中每行的内容拼接到一个文件中思路分析：准备好两个map，firstMapper和joinMapper，firstMapper负责获取文件内容，joinMapper负责拼接文件内容。利用Job开启两个firstMapper任务，获取到两个文件的内容，然后再开启一个joinMapper任务负责拼接获取到的两个文件。注：不常用">
+<meta name="keywords" content="hadoop,mapreduce">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MapReduce入门详解（三）">
+<meta property="og:url" content="http://www.lousenjay.info/2018/09/03/MapReduce入门详解（三）/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="join操作左外连接(map)-JoinMapSideMR问题描述：将两个文件中每行的内容拼接到一个文件中思路分析：准备好两个map，firstMapper和joinMapper，firstMapper负责获取文件内容，joinMapper负责拼接文件内容。利用Job开启两个firstMapper任务，获取到两个文件的内容，然后再开启一个joinMapper任务负责拼接获取到的两个文件。注：不常用">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-04T15:52:29.873Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MapReduce入门详解（三）">
+<meta name="twitter:description" content="join操作左外连接(map)-JoinMapSideMR问题描述：将两个文件中每行的内容拼接到一个文件中思路分析：准备好两个map，firstMapper和joinMapper，firstMapper负责获取文件内容，joinMapper负责拼接文件内容。利用Job开启两个firstMapper任务，获取到两个文件的内容，然后再开启一个joinMapper任务负责拼接获取到的两个文件。注：不常用">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="http://www.lousenjay.info/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-MapReduce入门详解（三）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      MapReduce入门详解（三）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/大数据/">大数据</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-09-03
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="join操作"><a href="#join操作" class="headerlink" title="join操作"></a>join操作</h3><h4 id="左外连接-map-JoinMapSideMR"><a href="#左外连接-map-JoinMapSideMR" class="headerlink" title="左外连接(map)-JoinMapSideMR"></a>左外连接(map)-JoinMapSideMR</h4><p>问题描述：<br>将两个文件中每行的内容拼接到一个文件中<br>思路分析：<br>准备好两个map，firstMapper和joinMapper，firstMapper负责获取文件内容，joinMapper负责拼接文件内容。利用Job开启两个firstMapper任务，获取到两个文件的内容，然后再开启一个joinMapper任务负责拼接获取到的两个文件。<br>注：不常用map端的连接操作，推荐reduce端的连接操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line">public class JoinMapSideMR extends Configured implements Tool &#123;</div><div class="line"></div><div class="line">    public static class FirstStepMapper extends Mapper&lt;LongWritable, Text, Text, NullWritable&gt;&#123;</div><div class="line">        @Override</div><div class="line">        protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException &#123;</div><div class="line">            if(!value.toString().equals(&quot;&quot;)) &#123;</div><div class="line">                context.write(value, NullWritable.get());</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    //读取连接好的数据的mapper</div><div class="line">    public static class JoinMapper extends Mapper&lt;Text, TupleWritable, Text, Text&gt;&#123;</div><div class="line">        @Override</div><div class="line">        protected void map(Text key, TupleWritable value, Context context) throws IOException, InterruptedException &#123;</div><div class="line">            String v = StreamSupport.stream(value.spliterator(), false).map(s -&gt; ((Text) s).toString())</div><div class="line">                    .collect(Collectors.joining(&quot;|&quot;));</div><div class="line">            context.write(key,new Text(v));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int run(String[] strings) throws Exception &#123;</div><div class="line">        Configuration conf = getConf();</div><div class="line">        Path inpath1 = new Path(conf.get(&quot;inpath1&quot;));</div><div class="line">        Path inpath2 = new Path(conf.get(&quot;inpath2&quot;));</div><div class="line">        Path mr1 = new Path(conf.get(&quot;mr1&quot;));</div><div class="line">        Path mr2 = new Path(conf.get(&quot;mr2&quot;));</div><div class="line">        Path outpath = new Path(conf.get(&quot;outpath&quot;));</div><div class="line">        //------------------------</div><div class="line">        Job job1 = Job.getInstance(conf,&quot;first_step1_xj&quot;);</div><div class="line">        job1.setJarByClass(this.getClass());</div><div class="line">        job1.setMapperClass(FirstStepMapper.class);</div><div class="line">        job1.setMapOutputKeyClass(Text.class);</div><div class="line">        job1.setMapOutputValueClass(NullWritable.class);</div><div class="line">        job1.setReducerClass(Reducer.class);</div><div class="line">        job1.setOutputKeyClass(Text.class);</div><div class="line">        job1.setOutputValueClass(NullWritable.class);</div><div class="line">        TextInputFormat.addInputPath(job1,inpath1);</div><div class="line">        TextOutputFormat.setOutputPath(job1,mr1);</div><div class="line">        FileOutputFormat.setOutputCompressorClass(job1,new GzipCodec().getClass());</div><div class="line">        //------------------------</div><div class="line">        Job job2 = Job.getInstance(conf,&quot;first_step2_xj&quot;);</div><div class="line">        job2.setJarByClass(this.getClass());</div><div class="line">        job2.setMapperClass(FirstStepMapper.class);</div><div class="line">        job2.setMapOutputKeyClass(Text.class);</div><div class="line">        job2.setMapOutputValueClass(NullWritable.class);</div><div class="line">        job2.setReducerClass(Reducer.class);</div><div class="line">        job2.setOutputKeyClass(Text.class);</div><div class="line">        job2.setOutputValueClass(NullWritable.class);</div><div class="line">        TextInputFormat.addInputPath(job2,inpath2);</div><div class="line">        TextOutputFormat.setOutputPath(job2,mr2);</div><div class="line">        FileOutputFormat.setOutputCompressorClass(job2,new GzipCodec().getClass());</div><div class="line">        //------------------------</div><div class="line">        Job job3 = Job.getInstance(conf,&quot;map_join_xj&quot;);</div><div class="line">        job3.setJarByClass(this.getClass());</div><div class="line">        job3.setMapperClass(JoinMapper.class);</div><div class="line">        job3.setMapOutputKeyClass(Text.class);</div><div class="line">        job3.setMapOutputValueClass(Text.class);</div><div class="line">        job3.setNumReduceTasks(0);</div><div class="line">        job3.getConfiguration().set(&quot;mapreduce.input.keyvaluelinerecordreader.key.value.separator&quot;, &quot;,&quot;);</div><div class="line">        String expr = CompositeInputFormat.compose(&quot;inner&quot;, KeyValueTextInputFormat.class, mr1, mr2);</div><div class="line">        job3.getConfiguration().set(&quot;mapreduce.join.expr&quot;,expr);</div><div class="line">        job3.setInputFormatClass(CompositeInputFormat.class);</div><div class="line">        TextOutputFormat.setOutputPath(job3,outpath);</div><div class="line">        List&lt;Job&gt; list = new ArrayList();</div><div class="line">        list.add(job1);</div><div class="line">        list.add(job2);</div><div class="line">        list.add(job3);</div><div class="line">        for (Job job : list) &#123;</div><div class="line">            boolean succ = job.waitForCompletion(true);</div><div class="line">            if(!succ)&#123;</div><div class="line">                System.out.println(job.getJobName()+&quot;:&quot;+ job.getJobState().getValue());</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void main(String[] args)throws Exception &#123;</div><div class="line">        ToolRunner.run(new JoinMapSideMR(),args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="左外连接-reduce-JoinReduceSideMR"><a href="#左外连接-reduce-JoinReduceSideMR" class="headerlink" title="左外连接(reduce)-JoinReduceSideMR"></a>左外连接(reduce)-JoinReduceSideMR</h4><p>问题描述：<br>将两个文件中每行的内容拼接到一个文件中<br>思路分析：<br>准备好两个map，fistMapper和SecondMapper，两个map的key的输出类型都为复合类型，包含id和tag，另外准备两个类自定义分组和分区规则，只根据id来分组和分区。因此，这两个map的输出结果就会进入到同一个reduce中，最后在reduce中完成拼接操作。</p>
+<p>复合类型-ArtistIDTag<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">public class ArtistIDTag implements WritableComparable&lt;ArtistIDTag&gt; &#123;</div><div class="line"></div><div class="line">    private Text ArtistID = new Text(); // id</div><div class="line">    private IntWritable Tag = new IntWritable(); // 标记</div><div class="line"></div><div class="line">    public ArtistIDTag() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public ArtistIDTag(Text artistID, IntWritable tag) &#123;</div><div class="line">        this.ArtistID = new Text(artistID.toString());</div><div class="line">        this.Tag = new IntWritable(tag.get());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public Text getArtistID() &#123;</div><div class="line">        return ArtistID;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setArtistID(Text artistID) &#123;</div><div class="line">        this.ArtistID = new Text(artistID.toString());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public IntWritable getTag() &#123;</div><div class="line">        return Tag;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setTag(IntWritable tag) &#123;</div><div class="line">        this.Tag = new IntWritable(tag.get());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int compareTo(ArtistIDTag o) &#123;</div><div class="line">        return this.ArtistID.compareTo(o.ArtistID)==0 ? this.Tag.compareTo(o.Tag) : this.ArtistID.compareTo(o.ArtistID);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void write(DataOutput dataOutput) throws IOException &#123;</div><div class="line">        ArtistID.write(dataOutput);</div><div class="line">        Tag.write(dataOutput);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void readFields(DataInput dataInput) throws IOException &#123;</div><div class="line">        ArtistID.readFields(dataInput);</div><div class="line">        Tag.readFields(dataInput);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>自定义分区规则-ArtistPartitioner<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class ArtistPartitioner extends Partitioner&lt;ArtistIDTag, Text&gt; &#123;</div><div class="line">    @Override</div><div class="line">    public int getPartition(ArtistIDTag artistIDTag, Text text, int i) &#123;</div><div class="line">        return Math.abs(artistIDTag.getArtistID().hashCode()*127)%i;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>自定义分组规则-ArtistGroupComparator<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public class ArtistGroupComparator extends WritableComparator&#123;</div><div class="line">    public ArtistGroupComparator() &#123;</div><div class="line">        super(ArtistIDTag.class,true);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int compare(WritableComparable a, WritableComparable b) &#123;</div><div class="line">        ArtistIDTag at1 = (ArtistIDTag) a;</div><div class="line">        ArtistIDTag at2 = (ArtistIDTag) b;</div><div class="line">        return at1.getArtistID().compareTo(at2.getArtistID());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>连接-JoinReduceSideMR<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">public class JoinReduceSideMR extends Configured implements Tool &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        ToolRunner.run(new JoinReduceSideMR(),args);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static class FirstMapper extends Mapper&lt;LongWritable,Text,ArtistIDTag,Text&gt;&#123;</div><div class="line">        @Override</div><div class="line">        protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException &#123;</div><div class="line">            Stream.of(value.toString()).filter(s -&gt; s.length()&gt;0).forEach(ExceptionConsumer.of(s -&gt; &#123;</div><div class="line">                        String id = s.substring(0,s.indexOf(&quot;,&quot;));</div><div class="line">                        String info = s.substring(s.indexOf(&quot;,&quot;)+1,s.length());</div><div class="line">                        context.write(new ArtistIDTag(new Text(id),new IntWritable(0)),new Text(info));</div><div class="line">                    &#125;));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static class SecondMapper extends Mapper&lt;LongWritable,Text,ArtistIDTag,Text&gt;&#123;</div><div class="line">        @Override</div><div class="line">        protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException &#123;</div><div class="line">            Stream.of(value.toString()).filter(s -&gt; s.length()&gt;0).forEach(ExceptionConsumer.of(s -&gt; &#123;</div><div class="line">                        String id = s.substring(0,s.indexOf(&quot;,&quot;));</div><div class="line">                        String info = s.substring(s.indexOf(&quot;,&quot;)+1,s.length());</div><div class="line">                        context.write(new ArtistIDTag(new Text(id),new IntWritable(1)),new Text(info));</div><div class="line">                    &#125;));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static class JoinReducer extends Reducer&lt;ArtistIDTag,Text,Text,Text&gt;&#123;</div><div class="line">        @Override</div><div class="line">        protected void reduce(ArtistIDTag key, Iterable&lt;Text&gt; values, Context context) throws IOException, InterruptedException &#123;</div><div class="line">            Iterator&lt;Text&gt; ite = values.iterator();</div><div class="line">            String name = ite.next().toString();</div><div class="line">            while (ite.hasNext())&#123;</div><div class="line">                Text count = ite.next();</div><div class="line">                String info = name.toString() + &quot;|&quot; + count.toString();</div><div class="line">                context.write(key.getArtistID(),new Text(info));</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int run(String[] strings) throws Exception &#123;</div><div class="line">        Configuration conf = getConf();</div><div class="line">        Job job = Job.getInstance(conf, &quot;join_reduce_xj&quot;);</div><div class="line">        job.setJarByClass(this.getClass());</div><div class="line"></div><div class="line">        // 多任务输入</div><div class="line">        MultipleInputs.addInputPath(job,new Path(conf.get(&quot;inpath1&quot;)),TextInputFormat.class,FirstMapper.class);</div><div class="line">        MultipleInputs.addInputPath(job,new Path(conf.get(&quot;inpath2&quot;)),TextInputFormat.class,SecondMapper.class);</div><div class="line"></div><div class="line">        job.setMapOutputKeyClass(ArtistIDTag.class);</div><div class="line">        job.setMapOutputValueClass(Text.class);</div><div class="line"></div><div class="line">        job.setReducerClass(JoinReducer.class);</div><div class="line">        job.setOutputKeyClass(Text.class);</div><div class="line">        job.setOutputValueClass(Text.class);</div><div class="line"></div><div class="line">        job.setOutputFormatClass(TextOutputFormat.class);</div><div class="line"></div><div class="line">        TextOutputFormat.setOutputPath(job,new Path(conf.get(&quot;outpath&quot;)));</div><div class="line"></div><div class="line">        // 设置分区规则</div><div class="line">        job.setPartitionerClass(ArtistPartitioner.class);</div><div class="line">        // 设置分组规则</div><div class="line">        job.setGroupingComparatorClass(ArtistGroupComparator.class);</div><div class="line"></div><div class="line">        return job.waitForCompletion(true)? 0 : 1;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="DB交互操作"><a href="#DB交互操作" class="headerlink" title="DB交互操作"></a>DB交互操作</h3><h4 id="读取-DBtoHdfsMR"><a href="#读取-DBtoHdfsMR" class="headerlink" title="读取-DBtoHdfsMR"></a>读取-DBtoHdfsMR</h4><p>问题描述：<br>从mysql数据库中读取数据，并输出到hdfs<br>思路分析：</p>
+<ol>
+<li>准备好一个实现了DBWritable接口的复合类型，在该类型中定义的属性分别对应数据库中的列名。</li>
+<li>将该复合类型作为map阶段输入的value的类型即可。</li>
+<li>让集群加载jdbc驱动类。</li>
+<li>设置配置信息，连接到数据库。</li>
+<li>将输入类型设置为DBInputFormat。<br>复合类型-YearStationTempDB<br>注：输入操作要实现WritableComparable接口，这里是读操作可以删除。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div></pre></td><td class="code"><pre><div class="line">public class YearStationTempDB implements DBWritable,WritableComparable&lt;YearStationTempDB&gt; &#123;</div><div class="line"></div><div class="line">    private int year; // 年份</div><div class="line">    private String station; // 气象站编号</div><div class="line">    private int temperature; // 气温</div><div class="line"></div><div class="line">    public YearStationTempDB() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public YearStationTempDB(int year, String station, int temperature) &#123;</div><div class="line">        this.year = year;</div><div class="line">        this.station = station;</div><div class="line">        this.temperature = temperature;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void write(PreparedStatement prep) throws SQLException &#123;</div><div class="line">        prep.setInt(1,year);</div><div class="line">        prep.setString(2,station);</div><div class="line">        prep.setInt(3,temperature);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void readFields(ResultSet rs) throws SQLException &#123;</div><div class="line">        this.year = rs.getInt(&quot;year&quot;);</div><div class="line">        this.station = rs.getString(&quot;station&quot;);</div><div class="line">        this.temperature = rs.getInt(&quot;temperature&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public int getYear() &#123;</div><div class="line">        return year;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setYear(int year) &#123;</div><div class="line">        this.year = year;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String getStation() &#123;</div><div class="line">        return station;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setStation(String station) &#123;</div><div class="line">        this.station = station;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public int getTemperature() &#123;</div><div class="line">        return temperature;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setTemperature(int temperature) &#123;</div><div class="line">        this.temperature = temperature;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String toString() &#123;</div><div class="line">        return year + &quot;,&quot; + station +&quot;,&quot; + temperature;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void write(DataOutput dataOutput) throws IOException &#123;</div><div class="line">        dataOutput.writeInt(year);</div><div class="line">        dataOutput.writeUTF(station);</div><div class="line">        dataOutput.writeInt(temperature);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void readFields(DataInput dataInput) throws IOException &#123;</div><div class="line">        year = dataInput.readInt();</div><div class="line">        station = dataInput.readUTF();</div><div class="line">        temperature = dataInput.readInt();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int compareTo(YearStationTempDB o) &#123;</div><div class="line">        return this.year - o.year == 0 ? this.station.compareTo(o.station) : this.year - o.year;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>读取-DBtoHdfsMR<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">public class DBtoHdfsMR extends Configured implements Tool &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        ToolRunner.run(new DBtoHdfsMR(),args);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static class DBMapper extends Mapper&lt;LongWritable,YearStationTempDB,LongWritable,Text&gt;&#123;</div><div class="line">        @Override</div><div class="line">        protected void map(LongWritable key, YearStationTempDB value, Context context) throws IOException, InterruptedException &#123;</div><div class="line">            context.write(key,new Text(value.toString()));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int run(String[] strings) throws Exception &#123;</div><div class="line">        Configuration conf = getConf();</div><div class="line">        Job job = Job.getInstance(conf,&quot;bdtohdfs_xj&quot;);</div><div class="line">        job.setJarByClass(this.getClass());</div><div class="line"></div><div class="line">        job.setMapperClass(DBMapper.class);</div><div class="line">        job.setMapOutputKeyClass(LongWritable.class);</div><div class="line">        job.setMapOutputValueClass(Text.class);</div><div class="line"></div><div class="line">        // 如何让集群加载jdbc驱动类</div><div class="line">        // 1 将jar放入share/hadoop/yarn/下会自动上传jar到集群</div><div class="line">        // 2 把jar放入集群中lib目录下，重启集群</div><div class="line">        // 3 job.addFileToClassPath(),需要把jar包上传到hdfs</div><div class="line">        //job.addFileToClassPath(new Path(&quot;hdfs://172.16.0.4:9000/data/mysql-connector-java-5.1.38.jar&quot;));</div><div class="line"></div><div class="line">        // 连接数据库</div><div class="line">        DBConfiguration.configureDB(job.getConfiguration(),&quot;com.mysql.jdbc.Driver&quot;,</div><div class="line">                &quot;jdbc:mysql://172.16.0.100:3306/hadoop&quot;,&quot;hadoop&quot;,&quot;hadoop&quot;);</div><div class="line"></div><div class="line"></div><div class="line">        job.setInputFormatClass(DBInputFormat.class); // 设置为DB输入类型</div><div class="line">        job.setOutputFormatClass(TextOutputFormat.class);</div><div class="line"></div><div class="line">        // year = 2000是条件，表示输入year=2000的数据</div><div class="line">        DBInputFormat.setInput(job,YearStationTempDB.class,&quot;station_tbl&quot;,&quot;year = 2000&quot;,&quot;&quot;,&quot;year&quot;,&quot;station&quot;,&quot;temperature&quot;);</div><div class="line">        TextOutputFormat.setOutputPath(job,new Path(conf.get(&quot;outpath&quot;)));</div><div class="line">        job.setNumReduceTasks(1);</div><div class="line">        return job.waitForCompletion(true)? 0 : 1;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="输入-HdfstoDBMR"><a href="#输入-HdfstoDBMR" class="headerlink" title="输入-HdfstoDBMR"></a>输入-HdfstoDBMR</h4><p>问题描述：<br>从hdfs读取数据，并输出到mysql数据库<br>思路分析：</p>
+<ol>
+<li>准备好一个实现了WritableComparable接口的复合类型，在该类型中定义的属性分别对应数据库中的列名，并重写compareTo()方法。</li>
+<li>将该复合类型作为reduce阶段输出的key的类型即可。</li>
+<li>让集群加载jdbc驱动类。</li>
+<li>设置配置信息，连接到数据库。</li>
+<li>将输出类型设置为DBOutputFormat。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line">public class HdfstoDBMR extends Configured implements Tool &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        ToolRunner.run(new HdfstoDBMR(),args);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static class HTDMapper extends Mapper&lt;LongWritable,Text,YearStation,IntWritable&gt; &#123;</div><div class="line">        @Override</div><div class="line">        protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException &#123;</div><div class="line">            NcdcRecordParser parser = new NcdcRecordParser();</div><div class="line">            parser.parse(()-&gt;value.toString()).ifPresent(ExceptionConsumer.of(</div><div class="line">                    p-&gt;&#123;</div><div class="line">                        int year = p.getYear();</div><div class="line">                        String stationId = p.getStationId();</div><div class="line">                        int temp = p.getAirTemperature();</div><div class="line">                        YearStation ys = new YearStation(year+&quot;&quot;,stationId);</div><div class="line">                        context.write(ys,new IntWritable(temp));</div><div class="line">                    &#125;</div><div class="line">            ));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static class HTDReducer extends Reducer&lt;YearStation,IntWritable,YearStationTempDB,NullWritable&gt;&#123;</div><div class="line">        @Override</div><div class="line">        protected void reduce(YearStation key, Iterable&lt;IntWritable&gt; values, Context context) throws IOException, InterruptedException &#123;</div><div class="line">            Stream&lt;IntWritable&gt; stream = StreamSupport.stream(values.spliterator(), false);</div><div class="line">            Integer max = stream.map(s -&gt; s.get()).reduce(0, (x, y) -&gt; Math.max(x, y));</div><div class="line">            int y = Integer.parseInt(key.getYear().toString());</div><div class="line">            YearStationTempDB yst = new YearStationTempDB(y,key.getStationid().toString(),max);</div><div class="line">            context.write(yst,NullWritable.get());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int run(String[] strings) throws Exception &#123;</div><div class="line">        Configuration conf = getConf();</div><div class="line">        Job job = Job.getInstance(conf,&quot;hdfstodb_xj&quot;);</div><div class="line">        job.setJarByClass(this.getClass());</div><div class="line"></div><div class="line">        job.setMapperClass(HTDMapper.class);</div><div class="line">        job.setMapOutputKeyClass(YearStation.class);</div><div class="line">        job.setMapOutputValueClass(IntWritable.class);</div><div class="line"></div><div class="line">        job.setReducerClass(HTDReducer.class);</div><div class="line">        job.setOutputKeyClass(YearStationTempDB.class);</div><div class="line">        job.setOutputValueClass(NullWritable.class);</div><div class="line"></div><div class="line">        // 如何让集群加载jdbc驱动类</div><div class="line">        // 1 将jar放入share/hadoop/yarn/下会自动上传jar到集群</div><div class="line">        // 2 把jar放入集群中lib目录下，重启集群</div><div class="line">        // 3 job.addFileToClassPath(),需要把jar包上传到hdfs</div><div class="line">        //job.addFileToClassPath(new Path(&quot;hdfs://172.16.0.4:9000/data/mysql-connector-java-5.1.38.jar&quot;));</div><div class="line"></div><div class="line">        // 连接数据库</div><div class="line">        DBConfiguration.configureDB(job.getConfiguration(),&quot;com.mysql.jdbc.Driver&quot;,</div><div class="line">                &quot;jdbc:mysql://172.16.0.100:3306/hadoop&quot;,&quot;hadoop&quot;,&quot;hadoop&quot;);</div><div class="line"></div><div class="line">        job.setInputFormatClass(TextInputFormat.class);</div><div class="line">        job.setOutputFormatClass(DBOutputFormat.class);</div><div class="line"></div><div class="line">        TextInputFormat.addInputPath(job,new Path(conf.get(&quot;inpath&quot;)));</div><div class="line">        DBOutputFormat.setOutput(job,&quot;max_tmp_xj&quot;,&quot;year&quot;,&quot;station&quot;,&quot;temperature&quot;);</div><div class="line">        return job.waitForCompletion(true)? 0 : 1;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="输入类型-InputFormat"><a href="#输入类型-InputFormat" class="headerlink" title="输入类型-InputFormat"></a>输入类型-InputFormat</h3><h4 id="常见输入类型"><a href="#常见输入类型" class="headerlink" title="常见输入类型"></a>常见输入类型</h4><ol>
+<li><p>TextInputFormat：按行获取字符串数据</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">job.setInputFormatClass(TextInputFormat.class);</div><div class="line">   TextInputFormat.addInputPath(job,new Path(conf.get(&quot;inpath&quot;)));</div></pre></td></tr></table></figure>
+</li>
+<li><p>CombineTextInputFormat：将多个输入文件压缩成一个文件，避免开启多个map</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">job.setInputFormatClass(CombineTextInputFormat.class);</div><div class="line">CombineFileInputFormat.addInputPath(job,new Path(conf.get(&quot;inpath&quot;)));</div></pre></td></tr></table></figure>
+</li>
+<li><p>KeyValueTextInputFormat：按key-value形式获取数据</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">conf.set(&quot;mapreduce.input.keyvaluelinerecordreader.key.value.separator&quot;, &quot;,&quot;); // 设置key-value的分割符，只识别第一个分隔符</div><div class="line">job1.setInputFormatClass(KeyValueTextInputFormat.class);</div><div class="line">KeyValueTextInputFormat.addInputPath(job1, new Path(conf.get(&quot;input&quot;)));</div></pre></td></tr></table></figure>
+</li>
+<li><p>DBInputFormat：从数据库中获取数据</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">job.setInputFormatClass(DBInputFormat.class); // 设置为DB输入类型</div><div class="line">// year = 2000是条件，表示输入year=2000的数据</div><div class="line">DBInputFormat.setInput(job,YearStationTempDB.class,&quot;station_tbl&quot;,&quot;year = 2000&quot;,&quot;&quot;,&quot;year&quot;,&quot;station&quot;,&quot;temperature&quot;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="自定义输入类型"><a href="#自定义输入类型" class="headerlink" title="自定义输入类型"></a>自定义输入类型</h4><p>思路分析：</p>
+<ol>
+<li>创建一个解析类继承RecordReader</li>
+<li>在解析类中完成获取数据的逻辑</li>
+<li>创建一个自定义输入类型的类继承FileInputFormat</li>
+<li>在自定义输入类型的类中重写方法createRecordReader()</li>
+<li>在该方法中创建解析类的对象并调用initialize()方法进行初始化，最后返回该对象。</li>
+<li>完成，可在其它类中调用该自定义输入类型</li>
+</ol>
+<p>解析类-YearStationRecordReader<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">public class YearStationRecordReader extends RecordReader&lt;YearStation, IntWritable&gt; &#123;</div><div class="line">    private LineRecordReader reader = new LineRecordReader();</div><div class="line">    private NcdcRecordParser parser = new NcdcRecordParser();</div><div class="line">    private YearStation ys = new YearStation();</div><div class="line">    private IntWritable tmp = new IntWritable();</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void initialize(InputSplit inputSplit, TaskAttemptContext taskAttemptContext) throws IOException &#123;</div><div class="line">        reader.initialize(inputSplit,taskAttemptContext);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean nextKeyValue() throws IOException &#123;</div><div class="line">        do &#123;</div><div class="line">            // 判断是否有下一个值</div><div class="line">            if (!reader.nextKeyValue()) &#123;</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line">            // 获取并解析当前值</div><div class="line">            Text line = reader.getCurrentValue();</div><div class="line">            parser.parse(line.toString());</div><div class="line">        &#125;while (!parser.isValidTemperature()); // 如果气温返回值为false则继续循环下一个</div><div class="line">        int year = parser.getYear();</div><div class="line">        int tmp = parser.getAirTemperature();</div><div class="line">        String station = parser.getStationId();</div><div class="line">        ys.setYear(new Text(year+&quot;&quot;));</div><div class="line">        ys.setStationid(new Text(station));</div><div class="line">        this.tmp.set(tmp);</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public YearStation getCurrentKey() throws IOException, InterruptedException &#123;</div><div class="line">        return this.ys;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public IntWritable getCurrentValue() throws IOException, InterruptedException &#123;</div><div class="line">        return this.tmp;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public float getProgress() throws IOException, InterruptedException &#123;</div><div class="line">        return reader.getProgress();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void close() throws IOException &#123;</div><div class="line">        reader.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>自定义输入类型类-YearStationInputFormat<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// 利用FileInputFormat数据分片功能，实现自定义输入类型</div><div class="line">public class YearStationInputFormat extends FileInputFormat&lt;YearStation, IntWritable&gt; &#123;</div><div class="line">    @Override</div><div class="line">    public RecordReader createRecordReader(InputSplit inputSplit, TaskAttemptContext taskAttemptContext)</div><div class="line">            throws IOException &#123;</div><div class="line">        YearStationRecordReader reader = new YearStationRecordReader();</div><div class="line">        reader.initialize(inputSplit,taskAttemptContext);</div><div class="line">        return reader;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>复合类型-YearStation<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">public class YearStation implements WritableComparable&lt;YearStation&gt; &#123;</div><div class="line">    private Text year = new Text(); // 年份</div><div class="line">    private Text stationid = new Text(); //气象站id</div><div class="line"></div><div class="line">    public YearStation() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public YearStation(Text year, Text stationid) &#123;</div><div class="line">        this.year = new Text(year.toString());</div><div class="line">        this.stationid = new Text(stationid.toString());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public YearStation(String year, String stationid) &#123;</div><div class="line">        this.year = new Text(year);</div><div class="line">        this.stationid = new Text(stationid);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int compareTo(YearStation o) &#123;</div><div class="line">        return this.year.compareTo(o.year)==0 ? this.stationid.compareTo(o.stationid) : this.year.compareTo(o.year);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void write(DataOutput dataOutput) throws IOException &#123;</div><div class="line">        year.write(dataOutput);</div><div class="line">        stationid.write(dataOutput);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void readFields(DataInput dataInput) throws IOException &#123;</div><div class="line">        year.readFields(dataInput);</div><div class="line">        stationid.readFields(dataInput);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public Text getYear() &#123;</div><div class="line">        return year;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setYear(Text year) &#123;</div><div class="line">        this.year = new Text(year.toString());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public Text getStationid() &#123;</div><div class="line">        return stationid;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setStationid(Text stationid) &#123;</div><div class="line">        this.stationid = new Text(stationid.toString());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String toString() &#123;</div><div class="line">        return year.toString()+&quot;\t&quot;+stationid.toString();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>测试自定义类型-MaxTmpByYearStationMR<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">public class MaxTmpByYearStationMR extends Configured implements Tool &#123;</div><div class="line">    public static class MTBYSMapper extends Mapper&lt;YearStation, IntWritable, YearStation,IntWritable&gt; &#123;</div><div class="line">        @Override</div><div class="line">        protected void map(YearStation key, IntWritable value, Context context) throws IOException, InterruptedException &#123;</div><div class="line">            context.write(key,value);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    public static class MTBYSReducer extends Reducer&lt;YearStation, IntWritable, Text, IntWritable&gt; &#123;</div><div class="line">        @Override</div><div class="line">        protected void reduce(YearStation key, Iterable&lt;IntWritable&gt; values, Context context) throws IOException, InterruptedException &#123;</div><div class="line">            Optional&lt;Integer&gt; max = StreamSupport.stream(values.spliterator(), false)</div><div class="line">                    .map(e -&gt; e.get()).reduce((x, y) -&gt; Math.max(x, y));</div><div class="line">            context.write(new Text(key.toString()), new IntWritable(max.get()));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int run(String[] strings) throws Exception &#123;</div><div class="line">        Configuration conf = getConf();</div><div class="line">        Job job = Job.getInstance(conf, &quot;MaxTmpByYS_xj&quot;);</div><div class="line">        job.setJarByClass(this.getClass());</div><div class="line"></div><div class="line">        job.setMapperClass(MTBYSMapper.class);</div><div class="line">        job.setMapOutputKeyClass(YearStation.class);</div><div class="line">        job.setMapOutputValueClass(IntWritable.class);</div><div class="line"></div><div class="line">        job.setReducerClass(MTBYSReducer.class);</div><div class="line">        job.setOutputKeyClass(Text.class);</div><div class="line">        job.setOutputValueClass(IntWritable.class);</div><div class="line"></div><div class="line">        job.setInputFormatClass(YearStationInputFormat.class);</div><div class="line">        job.setOutputFormatClass(TextOutputFormat.class);</div><div class="line"></div><div class="line">        YearStationInputFormat.addInputPath(job,new Path(conf.get(&quot;inpath&quot;)));</div><div class="line">        TextOutputFormat.setOutputPath(job,new Path(conf.get(&quot;outpath&quot;)));</div><div class="line">        return job.waitForCompletion(true)? 0 : 1;</div><div class="line">    &#125;</div><div class="line">    public static void main(String[] args) throws Exception&#123;</div><div class="line">        ToolRunner.run(new MaxTmpByYearStationMR(),args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="JobControl"><a href="#JobControl" class="headerlink" title="JobControl"></a>JobControl</h3><p>简述：<br>如果MapReduce中需要用到多个job，而且多个job之间需要设置一些依赖关系，比如Job3需要依赖于Job2，Job2依赖于Job1，这就要用到JobControl。</p>
+<p>代码实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line">Job getSDJob = Job.getInstance(conf, &quot;get_sd_job_xj&quot;);</div><div class="line">getSDJob.setJarByClass(GetSimilarityDegree.class);</div><div class="line">// 3 为任务装配mapper类</div><div class="line">getSDJob.setMapperClass(GetSimilarityDegree.GSDMapper.class);</div><div class="line">getSDJob.setMapOutputKeyClass(Text.class);</div><div class="line">getSDJob.setMapOutputValueClass(DoubleWritable.class);</div><div class="line">// 5 配置数据输入路径</div><div class="line">TextInputFormat.addInputPath(getSDJob, new Path(&quot;src/train_bin&quot;));</div><div class="line">// 6 配置结果输出路径</div><div class="line">TextOutputFormat.setOutputPath(getSDJob, new Path(&quot;src/name_sd&quot;));</div><div class="line"></div><div class="line">Job sortBySDJob = Job.getInstance(conf, &quot;sortBySDJob&quot;);</div><div class="line">sortBySDJob.setJarByClass(SortedByDegree.class);</div><div class="line">// 3 为任务装配mapper类</div><div class="line">sortBySDJob.setMapperClass(SortedByDegree.SBDMapper.class);</div><div class="line">sortBySDJob.setMapOutputKeyClass(TagDegree.class);</div><div class="line">sortBySDJob.setMapOutputValueClass(NullWritable.class);</div><div class="line">// 4 为任务装配reducer类</div><div class="line">sortBySDJob.setReducerClass(SortedByDegree.SBDReducer.class);</div><div class="line">sortBySDJob.setOutputKeyClass(Text.class);</div><div class="line">sortBySDJob.setOutputValueClass(DoubleWritable.class);</div><div class="line">// 5 配置数据输入路径</div><div class="line">TextInputFormat.addInputPath(sortBySDJob, new Path(&quot;src/name_sd&quot;));</div><div class="line">// 6 配置结果输出路径</div><div class="line">TextOutputFormat.setOutputPath(sortBySDJob, new Path(&quot;src/name_sd_sorted&quot;));</div><div class="line"></div><div class="line">Job getFKJob = Job.getInstance(conf, &quot;getFKJob&quot;);</div><div class="line">getFKJob.setJarByClass(GetFirstK.class);</div><div class="line">// 3 为任务装配mapper类</div><div class="line">getFKJob.setMapperClass(GetFirstK.GFKMapper.class);</div><div class="line">getFKJob.setMapOutputKeyClass(TagDegree.class);</div><div class="line">getFKJob.setMapOutputValueClass(IntWritable.class);</div><div class="line">// 4 为任务装配reducer类</div><div class="line">getFKJob.setReducerClass(GetFirstK.GFKReducer.class);</div><div class="line">getFKJob.setOutputKeyClass(Text.class);</div><div class="line">getFKJob.setOutputValueClass(Text.class);</div><div class="line">// 5 配置数据输入路径</div><div class="line">TextInputFormat.addInputPath(getFKJob, new Path(&quot;src/name_sd_sorted&quot;));</div><div class="line">// 6 配置结果输出路径</div><div class="line">TextOutputFormat.setOutputPath(getFKJob, new Path(&quot;src/gfk_res&quot;));</div><div class="line">getFKJob.setGroupingComparatorClass(GFKGroupComparator.class);</div><div class="line"></div><div class="line">Job getLRJob = Job.getInstance(conf, &quot;getLRJob&quot;);</div><div class="line">getLRJob.setJarByClass(GetLastResult.class);</div><div class="line">// 3 为任务装配mapper类</div><div class="line">getLRJob.setMapperClass(GetLastResult.GLRMapper.class);</div><div class="line">getLRJob.setMapOutputKeyClass(Text.class);</div><div class="line">getLRJob.setMapOutputValueClass(TagAvgNum.class);</div><div class="line">// 4 为任务装配reducer类</div><div class="line">getLRJob.setReducerClass(GetLastResult.GLRReducer.class);</div><div class="line">getLRJob.setOutputKeyClass(Text.class);</div><div class="line">getLRJob.setOutputValueClass(NullWritable.class);</div><div class="line">// 5 配置数据输入路径</div><div class="line">TextInputFormat.addInputPath(getLRJob, new Path(&quot;src/gfk_res&quot;));</div><div class="line">// 6 配置结果输出路径</div><div class="line">TextOutputFormat.setOutputPath(getLRJob, new Path(&quot;src/last_res&quot;));</div><div class="line"></div><div class="line">ControlledJob getSD = new ControlledJob(getSDJob.getConfiguration());</div><div class="line">ControlledJob sortBySD = new ControlledJob(sortBySDJob.getConfiguration());</div><div class="line">ControlledJob getFK = new ControlledJob(getFKJob.getConfiguration());</div><div class="line">ControlledJob getLR = new ControlledJob(getLRJob.getConfiguration());</div><div class="line">// 添加依赖</div><div class="line">getLR.addDependingJob(getFK);</div><div class="line">getFK.addDependingJob(sortBySD);</div><div class="line">sortBySD.addDependingJob(getSD);</div><div class="line"></div><div class="line">JobControl con = new JobControl(&quot;test&quot;);</div><div class="line">con.addJob(getSD);</div><div class="line">con.addJob(sortBySD);</div><div class="line">con.addJob(getFK);</div><div class="line">con.addJob(getLR);</div><div class="line"></div><div class="line">Thread t = new Thread(con);</div><div class="line">t.start();</div><div class="line"></div><div class="line">while (true) &#123;</div><div class="line">    if (con.allFinished()) &#123;</div><div class="line">        System.out.println(&quot;图片识别完毕，请查看结果&quot;);</div><div class="line">        System.exit(0);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年09月04日 23:52</p>
+        <p>原始链接： <a class="post-url" href="/2018/09/03/MapReduce入门详解（三）/" title="MapReduce入门详解（三）">http://www.lousenjay.info/2018/09/03/MapReduce入门详解（三）/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/09/03/MapReduce入门详解（三）/&title=《MapReduce入门详解（三）》 — 若闲小阁&pic=http://lousenjay.info/images/cover/c_9.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/09/03/MapReduce入门详解（三）/&title=《MapReduce入门详解（三）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/09/03/MapReduce入门详解（三）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MapReduce入门详解（三）》 — 若闲小阁&url=http://www.lousenjay.info/2018/09/03/MapReduce入门详解（三）/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/09/03/MapReduce入门详解（三）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/09/03/MapReduce入门详解（三）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/hadoop/" class="color2">hadoop</a>
+      
+    <a href="/tags/mapreduce/" class="color5">mapreduce</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#join操作"><span class="post-toc-text">join操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#左外连接-map-JoinMapSideMR"><span class="post-toc-text">左外连接(map)-JoinMapSideMR</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#左外连接-reduce-JoinReduceSideMR"><span class="post-toc-text">左外连接(reduce)-JoinReduceSideMR</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DB交互操作"><span class="post-toc-text">DB交互操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#读取-DBtoHdfsMR"><span class="post-toc-text">读取-DBtoHdfsMR</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#输入-HdfstoDBMR"><span class="post-toc-text">输入-HdfstoDBMR</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#输入类型-InputFormat"><span class="post-toc-text">输入类型-InputFormat</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#常见输入类型"><span class="post-toc-text">常见输入类型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#自定义输入类型"><span class="post-toc-text">自定义输入类型</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#JobControl"><span class="post-toc-text">JobControl</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/08/31/MapReduce入门详解（二）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">MapReduce入门详解（二）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="MapReduce入门详解（三）" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="http://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
+	<script src="http://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("http://www.lousenjay.info/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>
