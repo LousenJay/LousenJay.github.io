@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hive入门详解（一） | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="简介Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供类SQL查询功能 安装Hive 将hive安装到hadoop的同级目录下tar -zxvf apache-hive-2.3.3-bin.tar.gz -C /home/hadoop/apps/ 配置环境变量vi  ~/.bash_profile增加export HIVE_HOME=export PAT">
+<meta name="keywords" content="hadoop,hive">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hive入门详解（一）">
+<meta property="og:url" content="http://www.lousenjay.info/2018/09/10/Hive入门详解/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="简介Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供类SQL查询功能 安装Hive 将hive安装到hadoop的同级目录下tar -zxvf apache-hive-2.3.3-bin.tar.gz -C /home/hadoop/apps/ 配置环境变量vi  ~/.bash_profile增加export HIVE_HOME=export PAT">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-12T06:55:51.565Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hive入门详解（一）">
+<meta name="twitter:description" content="简介Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供类SQL查询功能 安装Hive 将hive安装到hadoop的同级目录下tar -zxvf apache-hive-2.3.3-bin.tar.gz -C /home/hadoop/apps/ 配置环境变量vi  ~/.bash_profile增加export HIVE_HOME=export PAT">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="http://www.lousenjay.info/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Hive入门详解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Hive入门详解（一）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/大数据/">大数据</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-09-10
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供类SQL查询功能</p>
+<h3 id="安装Hive"><a href="#安装Hive" class="headerlink" title="安装Hive"></a>安装Hive</h3><ol>
+<li>将hive安装到hadoop的同级目录下<br>tar -zxvf apache-hive-2.3.3-bin.tar.gz -C /home/hadoop/apps/</li>
+<li>配置环境变量<br>vi  ~/.bash_profile<br>增加<br>export HIVE_HOME=<br>export PATH=$JAVA_HOME/bin:$PATH:$HADOOP_HOME/bin<br>:$HIVE_HOME/bin<br>刷新配置文件<br>source ~/.bash_profile </li>
+<li><p>修改配置文件hive-site.xml<br>vi /home/hadoop/apps/hive/conf/hive-site.xml<br>添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line">&lt;property&gt;</div><div class="line">        &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;</div><div class="line">        &lt;value&gt;jdbc:mysql://hadoop1:3306/hive?createDatabaseIfNotExist=true&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">        &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;</div><div class="line">        &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">        &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;</div><div class="line">        &lt;value&gt;hive&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">        &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt; </div><div class="line">         &lt;value&gt;Lousen??1234&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>导入连接mysql的jar包<br>cp mysql-connector-java-5.1.38.jar /home/hadoop/apps/hive/lib/</p>
+</li>
+<li>进入mysql创建对应用户<br>mysql -uroot -p<br>create user ‘hive’@’hadoop1’ identified by ‘Lousen??1234’<br>grant all privileges on <em>.</em> to ‘hive’@’hadoop1’ identified by ‘Lousen??1234’ with grant option;<br>flush privileges;</li>
+<li>重启mysql服务<br>sudo systemctl restart mysqld</li>
+<li>初始化元数据<br>schematool -dbType mysql -initSchema</li>
+</ol>
+<h3 id="hive实践"><a href="#hive实践" class="headerlink" title="hive实践"></a>hive实践</h3><h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><ol>
+<li>内部表<br>创建产品表<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">create table t_product(id int,name string,price double,category string)</div><div class="line">row format delimited</div><div class="line">fields terminated by &apos;,&apos;</div><div class="line">stored as textfile;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>导入数据(从本地)<br><code>load data local inpath &#39;/home/hadoop/product_data&#39; into table t_product;</code><br>导入数据(从hdfs)<br><code>load data inpath &#39;/data/hive/test/product_data&#39; into table t_product;</code><br>查看表数据<br><code>select * from t_product;</code><br>删除表<br><code>drop table t_product;</code></p>
+<ol>
+<li><p>外部表<br>创建手机表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">create external table t_phone(id int,name string,price double)</div><div class="line">row format delimited</div><div class="line">fields terminated by &apos;,&apos;</div><div class="line">stored as textfile</div><div class="line">location &apos;/hive/test/&apos;; </div><div class="line">注：在hdfs的指定位置上创建表</div><div class="line"></div><div class="line">导入数据</div><div class="line">load data local inpath &apos;/home/hadoop/phone_data&apos; into table t_phone;</div></pre></td></tr></table></figure>
+</li>
+<li><p>子查询创建表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">create table t_product_back</div><div class="line">as</div><div class="line">select * from t_product;</div></pre></td></tr></table></figure>
+</li>
+<li><p>分区表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">创建表(分区表)</div><div class="line">根据月份分区</div><div class="line">create table t_order(id int,name string,cost double)</div><div class="line">partitioned by (month string)</div><div class="line">row format delimited </div><div class="line">fields terminated by &apos;,&apos;;</div><div class="line"></div><div class="line">导入数据到分区6</div><div class="line">load data local inpath &apos;/home/hadoop/phone_data&apos; into table t_order</div><div class="line">partition(month=&apos;6&apos;);</div><div class="line"></div><div class="line">查看所有订单的分区</div><div class="line">show partitions t_order;</div></pre></td></tr></table></figure>
+</li>
+<li><p>桶表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">创建表(桶表)</div><div class="line">create table t_product_bucket(id int,name string ,price string,category string)</div><div class="line">clustered by(id) into 3 buckets</div><div class="line">row format delimited </div><div class="line">fields terminated by &apos;,&apos;;</div><div class="line"></div><div class="line">桶表汇中的数据，只能从其他表中用子查询进行插入</div><div class="line">set hive.enforce.bucketing=true;</div><div class="line">insert into table t_product_bucket select * from t_product;</div><div class="line"></div><div class="line">查询2上的数据</div><div class="line">select * from t_product_bucket tablesample(bucket 2 out of 3 on id);</div></pre></td></tr></table></figure>
+</li>
+<li><p>数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">创建表(数组)</div><div class="line">create table tab_array (a array&lt;int&gt;,b array&lt;string&gt;)</div><div class="line">row format delimited</div><div class="line">fields terminated by &apos;\t&apos;</div><div class="line">collection items terminated by &apos;,&apos;;</div><div class="line"></div><div class="line">数据样式</div><div class="line">1,2,3   hello,world,briup</div><div class="line"></div><div class="line">导入数据</div><div class="line">load data local inpath &apos;/home/hadoop/array_data&apos; into table tab_array;</div><div class="line"></div><div class="line">查询数据</div><div class="line">select a[2],b[1] from tab_array;</div></pre></td></tr></table></figure>
+</li>
+<li><p>map</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">创建表(map)</div><div class="line">create table tab_map (name string,info map&lt;string,string&gt;)</div><div class="line">row format delimited</div><div class="line">fields terminated by &apos;\t&apos;</div><div class="line">collection items terminated by &apos;,&apos;</div><div class="line">map keys terminated by &apos;:&apos;;</div><div class="line"></div><div class="line">数据样式</div><div class="line">zhangsan    name:zhangsan,age:18,gender:male</div><div class="line"></div><div class="line">导入数据</div><div class="line">load data local inpath &apos;/home/hadoop/map_data&apos; into table tab_map;</div><div class="line"></div><div class="line">查询数据</div><div class="line">select  info[&apos;name&apos;],info[&apos;gender&apos;] from tab_map;</div></pre></td></tr></table></figure>
+</li>
+<li><p>struct</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">创建表(struct)</div><div class="line">create table tab_struct(name string,info struct&lt;age:int,tel:string,salary:double&gt;)</div><div class="line">row format delimited</div><div class="line">fields terminated by &apos;\t&apos;</div><div class="line">collection items terminated by &apos;,&apos;;</div><div class="line"> </div><div class="line">数据样式</div><div class="line">zhangsan    18,18945883365,22.3</div><div class="line"></div><div class="line">导入数据</div><div class="line">load data local inpath &apos;/home/hadoop/struct_data&apos; into table tab_struct;</div><div class="line"></div><div class="line">查询数据</div><div class="line">select info.age,info.tel from tab_struct;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="数据查询"><a href="#数据查询" class="headerlink" title="数据查询"></a>数据查询</h4><ol>
+<li><p>准备范例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">范例表big_data</div><div class="line">create table big_data(id int,point double)</div><div class="line">row format delimited</div><div class="line">fields terminated by &apos;,&apos;</div><div class="line">stored as textfile;</div><div class="line"></div><div class="line">范例数据</div><div class="line">big_data</div><div class="line">1,80.0</div><div class="line">4,50.0</div><div class="line">3,60.0</div><div class="line">8,40.0</div><div class="line">6,85.0</div><div class="line">2,100.0</div><div class="line">5,80.0</div><div class="line">7,60.0</div><div class="line"></div><div class="line">导入数据</div><div class="line">load data local inpath &apos;/home/hadoop/big_data&apos; into table big_data;</div><div class="line"></div><div class="line">查看数据</div><div class="line">select * from big_data;</div></pre></td></tr></table></figure>
+</li>
+<li><p>排序<br>order by id asc 全局排序<br>ex:<br>set mapred.reduce.tasks=2;<br>select * from big_data order by id;<br>注：为了看到效果才设置两个reduce task</p>
+</li>
+</ol>
+<p>sort by  id  desc 局部排序<br>ex:<br>set mapred.reduce.tasks=2;<br>select * from big_data sort by id;</p>
+<ol>
+<li><p>分区<br>分区<br>distribute by   按照指定的字段或表达式对数据进行划分，输出到对应的Reduce或者文件中<br>ex:<br>set mapred.reduce.tasks=2;<br>insert overwrite local directory ‘/home/hadoop/data’<br>select id from big_data<br>distribute BY id;<br>注：overwrite使用千万注意，不要把家目录给覆盖了</p>
+</li>
+<li><p>分区+排序<br>cluster by<br>除了兼具distribute by的功能，还兼具sort by的排序功能<br>ex:<br>set mapred.reduce.tasks=2;<br>insert overwrite local directory ‘/home/hadoop/data’<br>select id from big_data<br>cluster by id;</p>
+</li>
+<li><p>去重<br>group by 和 distinct<br>group by<br>select point from big_data group by point;<br>distinct<br>select distinct point from big_data;<br>注：如果数据较多，distinct效率会更低一些，一般推荐使用group by。</p>
+</li>
+<li><p>虚拟列<br>INPUT<strong>FILE</strong>NAME：数据对应的HDFS文件名；<br>BLOCK<strong>OFFSET</strong>INSIDE<strong>FILE：该行记录在文件中的偏移量；<br>ex:<br>select id,INPUT</strong>FILE<strong>NAME, BLOCK</strong>OFFSET<strong>INSIDE</strong>FILE from big_data;</p>
+</li>
+<li><p>Join<br>Join<br>Hive中的Join可分为Common Join（Reduce阶段完成join）和Map Join（Map阶段完成join）。如果不指定MapJoin或者不符合MapJoin的条件（hive.auto.convert.join=true 对于小表启用mapjoin,hive.mapjoin.smalltable.filesize=25M 设置小表的阈值），那么Hive解析器会将Join操作转换成Common Join,即：在Reduce阶段完成join.<br>Hive中除了支持和传统数据库中一样的内关联、左关联、右关联、全关联，还支持LEFT SEMI JOIN和CROSS JOIN，但这两种JOIN类型也可以用前面的代替。</p>
+<ul>
+<li><p>准备范例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">范例数据</div><div class="line">user_name_data</div><div class="line">1   zhangsan</div><div class="line">2   lisi</div><div class="line">3   wangwu</div><div class="line"></div><div class="line">范例表user_name</div><div class="line">create table user_name(id int,name string)</div><div class="line">row format delimited</div><div class="line">fields terminated by &apos;\t&apos;</div><div class="line">stored as textfile;</div><div class="line"></div><div class="line">导入数据</div><div class="line">load data local inpath &apos;/home/hadoop/user_name_data&apos; into table user_name;</div><div class="line"></div><div class="line">查看数据</div><div class="line">select * from user_name;</div><div class="line"></div><div class="line">范例数据</div><div class="line">user_age_data</div><div class="line">1   30</div><div class="line">2   29</div><div class="line">4   21</div><div class="line"></div><div class="line">范例表user_age</div><div class="line">create table user_age(id int,age int)</div><div class="line">row format delimited</div><div class="line">fields terminated by &apos;\t&apos;</div><div class="line">stored as textfile;</div><div class="line"></div><div class="line">导入数据</div><div class="line">load data local inpath &apos;/home/hadoop/user_age_data&apos; into table user_age;</div><div class="line"></div><div class="line">查看数据</div><div class="line">select * from user_age;</div></pre></td></tr></table></figure>
+</li>
+<li><p>内连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">SELECT a.id,</div><div class="line">a.name,</div><div class="line">b.age</div><div class="line">FROM user_name a</div><div class="line">inner join user_age b</div><div class="line">ON (a.id = b.id);</div></pre></td></tr></table></figure>
+</li>
+<li><p>左外连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">SELECT a.id,</div><div class="line">a.name,</div><div class="line">b.age</div><div class="line">FROM user_name a</div><div class="line">left join user_age b</div><div class="line">ON (a.id = b.id);</div></pre></td></tr></table></figure>
+</li>
+<li><p>右外连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">SELECT a.id,</div><div class="line">a.name,</div><div class="line">b.age</div><div class="line">FROM user_name a</div><div class="line">RIGHT OUTER JOIN user_age b</div><div class="line">ON (a.id = b.id);</div></pre></td></tr></table></figure>
+</li>
+<li><p>全外连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">SELECT a.id,</div><div class="line">a.name,</div><div class="line">b.age</div><div class="line">FROM user_name a</div><div class="line">FULL OUTER JOIN user_age b</div><div class="line">ON (a.id = b.id);</div></pre></td></tr></table></figure>
+</li>
+<li><p>半连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">LEFT SEMI JOIN</div><div class="line">以LEFT SEMI JOIN关键字前面的表为主表，</div><div class="line">返回主表的KEY也在副表中的记录</div><div class="line">SELECT a.id,</div><div class="line">a.name</div><div class="line">FROM user_name a</div><div class="line">LEFT SEMI JOIN user_age b</div><div class="line">ON (a.id = b.id);</div><div class="line">--等价于：</div><div class="line">SELECT a.id,</div><div class="line">a.name</div><div class="line">FROM user_name a</div><div class="line">WHERE a.id IN (SELECT id FROM user_age);</div></pre></td></tr></table></figure>
+</li>
+<li><p>笛卡尔积关联（CROSS JOIN）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">SELECT a.id,</div><div class="line">a.name,</div><div class="line">b.age</div><div class="line">FROM user_name a</div><div class="line">CROSS JOIN user_age b;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="内置函数UDF和内置运算符"><a href="#内置函数UDF和内置运算符" class="headerlink" title="内置函数UDF和内置运算符"></a>内置函数UDF和内置运算符</h4><ul>
+<li>取随机数rand()<br>select rand() from t_product;</li>
+<li>求a的阶乘<br>factorial(INT a)<br>select factorial(10) from t_product;</li>
+<li>求最大值<br>greatest(T v1, T v2, …)<br>select greatest(10,123,53,34,1,23,502,120) from t_product;</li>
+<li>求最小值<br>least(T v1, T v2, …)<br>select least(10,123,53,34,1,23,502,120) from t_product;</li>
+<li>数学常量e<br>select e() from t_product;</li>
+<li>数学常量pi<br>select pi() from t_product;</li>
+<li>返回当前时间<br>select current_date from t_product;</li>
+<li>如果列中有null值，则返回默认值<br>nvl(T value, T default_value)<br>select id,nvl(name, ‘无名氏’) from t_product;</li>
+<li>对于值的不同判断，取不同的值<br>CASE a WHEN b THEN c [WHEN d THEN e]* [ELSE f] END<br>如果a=b就返回c,a=d就返回e，否则返回f<br>如CASE 4 WHEN 5  THEN 5 WHEN 4 THEN 4 ELSE 3 END 将返回4<br>select CASE id WHEN 1 THEN ‘正品’ ELSE ‘山寨’ END,name from t_product;</li>
+<li>判断某个文件中是否包含某个字符串<br>in_file(string str, string filename)<br>select in_file(‘start’,’/home/briup/test’) from t_product;</li>
+<li>通过某个符号切割字符串<br>split(string str, string pat)<br>select split(‘hello,world,briup’, ‘,’) from t_product;</li>
+<li>截取字符串<br>substr(string|binary A, int start, int len)<br>select substr(‘ceo-larry’, 0, 3) from t_product;</li>
+<li>在某字符串中查找某个子串第一次出现的位置,位置从1开始<br>instr(string str, string substr)<br>select instr(‘ceo-larry’, ‘la’) from t_product;</li>
+<li>将第一个字符串中的,符合第二个字符串的部分,替换成第三个字符串<br>translate(string|char|varchar input, string|char|varchar from, string|char|varchar to)<br>select translate(‘hello briup’, ‘briup’, ‘imut’) from t_product;</li>
+<li>比较两个字符串，不同的字符个数<br>levenshtein(string A, string B)<br>select levenshtein(‘hello’, ‘worldd’) from t_product;</li>
+<li>把array中的字符用某个符号拼接起来<br>concat_ws(string SEP, array<string>)<br>select concat_ws(‘#’, split(‘hello,world,briup’, ‘,’)) from t_product;</string></li>
+</ul>
+<h4 id="自定义函数UDF"><a href="#自定义函数UDF" class="headerlink" title="自定义函数UDF"></a>自定义函数UDF</h4><ol>
+<li>写一个java类extends UDF，定义某个逻辑</li>
+<li>打成jar包上传到hive所在的节点</li>
+<li>在hive中创建一个函数，和jar中的自定义类建立关联<ul>
+<li>导入包<br>add jar /home/hadoop/udf.jar</li>
+<li>建立关联<br>create temporary function getArea as ‘com.briup.udf.MyUDF’;</li>
+<li>查看自定义函数<br>show functions;</li>
+<li>使用自定义函数<br>select id,name,tel,getArea(tel) from t_student_udf;</li>
+</ul>
+</li>
+</ol>
+<h4 id="JDBC连接hive"><a href="#JDBC连接hive" class="headerlink" title="JDBC连接hive"></a>JDBC连接hive</h4><ol>
+<li><p>修改配置文件hdfs-site.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;  </div><div class="line">&lt;name&gt;dfs.webhdfs.enabled&lt;/name&gt;  </div><div class="line">&lt;value&gt;true&lt;/value&gt;  </div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改配置文件core-site.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;hadoop.proxyuser.hadoop.hosts&lt;/name&gt;</div><div class="line">&lt;value&gt;*&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;hadoop.proxyuser.hadoop.groups&lt;/name&gt;</div><div class="line">&lt;value&gt;*&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>注：以上两个属性的第三位指的是hive所在机器的用户名</p>
+<ol>
+<li>开启hive服务保持持续运行<br>hive –service hiveserver2 &amp;</li>
+<li>编写代码测试连接<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public class JDBCTest &#123;</div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        Class.forName(&quot;org.apache.hive.jdbc.HiveDriver&quot;);</div><div class="line">        Connection conn = DriverManager.getConnection(&quot;jdbc:hive2://hadoop1:10000/db1803&quot;,&quot;hadoop&quot;,&quot;hadoop&quot;);</div><div class="line">        System.out.println(conn);</div><div class="line">        Statement stat = conn.createStatement();</div><div class="line">        String hql = &quot;create table t_student_jdbc(id int,name string,tel string)&quot; +</div><div class="line">                &quot; row format delimited&quot; +</div><div class="line">                &quot; fields terminated by &apos;,&apos;&quot; +</div><div class="line">                &quot; stored as textfile&quot;;</div><div class="line">        stat.execute(hql);</div><div class="line">        stat.close();</div><div class="line">        conn.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年09月12日 14:55</p>
+        <p>原始链接： <a class="post-url" href="/2018/09/10/Hive入门详解/" title="Hive入门详解（一）">http://www.lousenjay.info/2018/09/10/Hive入门详解/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/09/10/Hive入门详解/&title=《Hive入门详解（一）》 — 若闲小阁&pic=http://lousenjay.info/images/cover/c_10.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/09/10/Hive入门详解/&title=《Hive入门详解（一）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/09/10/Hive入门详解/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hive入门详解（一）》 — 若闲小阁&url=http://www.lousenjay.info/2018/09/10/Hive入门详解/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/09/10/Hive入门详解/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/09/10/Hive入门详解/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/hadoop/" class="color2">hadoop</a>
+      
+    <a href="/tags/hive/" class="color5">hive</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装Hive"><span class="post-toc-text">安装Hive</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#hive实践"><span class="post-toc-text">hive实践</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建表"><span class="post-toc-text">创建表</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#数据查询"><span class="post-toc-text">数据查询</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#内置函数UDF和内置运算符"><span class="post-toc-text">内置函数UDF和内置运算符</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#自定义函数UDF"><span class="post-toc-text">自定义函数UDF</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#JDBC连接hive"><span class="post-toc-text">JDBC连接hive</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/09/11/HBase入门详解（一）/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          HBase入门详解（一）
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/09/03/MapReduce入门详解（三）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">MapReduce入门详解（三）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="Hive入门详解" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "http://www.lousenjay.info",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 10px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 10px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="http://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
+	<script src="http://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("http://www.lousenjay.info/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>
