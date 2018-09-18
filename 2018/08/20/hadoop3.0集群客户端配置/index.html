@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>hadoop集群3.0客户端配置 | 若闲小阁</title>
+  <title>hadoop集群单机模式搭建 | 若闲小阁</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
@@ -11,14 +11,14 @@
   <meta name="description" content="配置客户端连接服务器上的hadoop集群，毕竟自己的机子性能有限，进行一些大规模的计算还是需要到服务器上进行，以下记录了配置客户端的全过程。 搭建环境：CentOS7+hadoop3.0.3+jdk8 前置需求 配置静态ip地址 修改主机名 配置主机名和ip地址映射 关闭防火墙，设置开机不自启动 安装并配置好jdk注：以上操作在笔者之前的Linux相关笔记中均有介绍  正式搭建 创建相关目录 mk">
 <meta name="keywords" content="hadoop">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hadoop集群3.0客户端配置">
+<meta property="og:title" content="hadoop集群单机模式搭建">
 <meta property="og:url" content="http://www.lousenjay.info/2018/08/20/hadoop3.0集群客户端配置/index.html">
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="配置客户端连接服务器上的hadoop集群，毕竟自己的机子性能有限，进行一些大规模的计算还是需要到服务器上进行，以下记录了配置客户端的全过程。 搭建环境：CentOS7+hadoop3.0.3+jdk8 前置需求 配置静态ip地址 修改主机名 配置主机名和ip地址映射 关闭防火墙，设置开机不自启动 安装并配置好jdk注：以上操作在笔者之前的Linux相关笔记中均有介绍  正式搭建 创建相关目录 mk">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-21T13:07:57.721Z">
+<meta property="og:updated_time" content="2018-09-18T13:45:52.336Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hadoop集群3.0客户端配置">
+<meta name="twitter:title" content="hadoop集群单机模式搭建">
 <meta name="twitter:description" content="配置客户端连接服务器上的hadoop集群，毕竟自己的机子性能有限，进行一些大规模的计算还是需要到服务器上进行，以下记录了配置客户端的全过程。 搭建环境：CentOS7+hadoop3.0.3+jdk8 前置需求 配置静态ip地址 修改主机名 配置主机名和ip地址映射 关闭防火墙，设置开机不自启动 安装并配置好jdk注：以上操作在笔者之前的Linux相关笔记中均有介绍  正式搭建 创建相关目录 mk">
   
   
@@ -126,7 +126,7 @@
         
   
     <h1 class="post-title" itemprop="name">
-      hadoop集群3.0客户端配置
+      hadoop集群单机模式搭建
     </h1>
     <div class="post-title-bar">
       <ul>
@@ -187,8 +187,8 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年08月21日 21:07</p>
-        <p>原始链接： <a class="post-url" href="/2018/08/20/hadoop3.0集群客户端配置/" title="hadoop集群3.0客户端配置">http://www.lousenjay.info/2018/08/20/hadoop3.0集群客户端配置/</a></p>
+        <p>最后更新： 2018年09月18日 21:45</p>
+        <p>原始链接： <a class="post-url" href="/2018/08/20/hadoop3.0集群客户端配置/" title="hadoop集群单机模式搭建">http://www.lousenjay.info/2018/08/20/hadoop3.0集群客户端配置/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
                 <img src="/images/logo.png" alt="Lousen Jay">
@@ -210,7 +210,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/08/20/hadoop3.0集群客户端配置/&title=《hadoop集群3.0客户端配置》 — 若闲小阁&pic=http://lousenjay.info/images/cover/c_2.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/08/20/hadoop3.0集群客户端配置/&title=《hadoop集群单机模式搭建》 — 若闲小阁&pic=http://lousenjay.info/images/cover/c_2.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -220,7 +220,7 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/08/20/hadoop3.0集群客户端配置/&title=《hadoop集群3.0客户端配置》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/08/20/hadoop3.0集群客户端配置/&title=《hadoop集群单机模式搭建》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
@@ -230,7 +230,7 @@
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《hadoop集群3.0客户端配置》 — 若闲小阁&url=http://www.lousenjay.info/2018/08/20/hadoop3.0集群客户端配置/&via=http://www.lousenjay.info" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《hadoop集群单机模式搭建》 — 若闲小阁&url=http://www.lousenjay.info/2018/08/20/hadoop3.0集群客户端配置/&via=http://www.lousenjay.info" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
@@ -277,12 +277,12 @@
 
 <nav id="article-nav">
   
-    <a href="/2018/08/21/hadoop3.0全分布式集群搭建/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/08/20/hadoop3.0单机模式搭建/" id="article-nav-newer" class="article-nav-link-wrap">
 
       <span class="article-nav-title">
         <i class="fa fa-hand-o-left" aria-hidden="true"></i>
         
-          hadoop3.0全分布式集群搭建
+          hadoop集群单机模式搭建
         
       </span>
     </a>
@@ -363,7 +363,7 @@
             <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 10px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 16px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -402,7 +402,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 10px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 16px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
         </div>
     </div>
 </div>
