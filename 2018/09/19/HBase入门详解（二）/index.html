@@ -3,21 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: hbase | 若闲小阁</title>
+  <title>HBase入门详解（二） | 若闲小阁</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="LousenJay&apos;s Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="若闲小阁">
-<meta property="og:url" content="http://www.lousenjay.info/tags/hbase/index.html">
+  <meta name="description" content="HBase开发相关类 HBaseConfiguration包：org.apache.hadoop.hbase.HBaseConfiguration作用：通过此类可以对HBase进行配置用法实例： 123456static Configuration conf = null;static &amp;#123;  conf = HBaseConfiguration.create();  conf.set(&amp;q">
+<meta name="keywords" content="hadoop,hbase">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HBase入门详解（二）">
+<meta property="og:url" content="http://www.lousenjay.info/2018/09/19/HBase入门详解（二）/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="LousenJay&apos;s Blog">
+<meta property="og:description" content="HBase开发相关类 HBaseConfiguration包：org.apache.hadoop.hbase.HBaseConfiguration作用：通过此类可以对HBase进行配置用法实例： 123456static Configuration conf = null;static &amp;#123;  conf = HBaseConfiguration.create();  conf.set(&amp;q">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-19T13:11:17.098Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="若闲小阁">
-<meta name="twitter:description" content="LousenJay&apos;s Blog">
+<meta name="twitter:title" content="HBase入门详解（二）">
+<meta name="twitter:description" content="HBase开发相关类 HBaseConfiguration包：org.apache.hadoop.hbase.HBaseConfiguration作用：通过此类可以对HBase进行配置用法实例： 123456static Configuration conf = null;static &amp;#123;  conf = HBaseConfiguration.create();  conf.set(&amp;q">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -117,35 +119,117 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap">
-  
-  
+        <section id="main" class="body-wrap"><article id="post-HBase入门详解（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/09/19/HBase入门详解（二）/" class="archive-article-date">
-  <time datetime="2018-09-19T12:23:01.000Z" itemprop="datePublished">09-19</time>
-</a>
-      
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/09/19/HBase入门详解（二）/"  >HBase入门详解（二）</a>
+    <h1 class="post-title" itemprop="name">
+      HBase入门详解（二）
     </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/大数据/">大数据</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-09-19
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
   
 
-    </header>
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
       
-        <div class="archive-post-footer">
+            
+            <h3 id="HBase开发"><a href="#HBase开发" class="headerlink" title="HBase开发"></a>HBase开发</h3><h4 id="相关类"><a href="#相关类" class="headerlink" title="相关类"></a>相关类</h4><ol>
+<li><p>HBaseConfiguration<br>包：org.apache.hadoop.hbase.HBaseConfiguration<br>作用：通过此类可以对HBase进行配置<br>用法实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">static Configuration conf = null;</div><div class="line">static &#123;</div><div class="line">  conf = HBaseConfiguration.create();</div><div class="line">  conf.set(&quot;hbase.zookeeper.quorum&quot;,&quot;hadoop5:2181&quot;);</div><div class="line">  conf.set(&quot;hbase.master.dns.interface&quot;,&quot;hadoop5&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年09月19日 21:11</p>
+        <p>原始链接： <a class="post-url" href="/2018/09/19/HBase入门详解（二）/" title="HBase入门详解（二）">http://www.lousenjay.info/2018/09/19/HBase入门详解（二）/</a></p>
+        <footer>
+            <a href="http://www.lousenjay.info">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/09/19/HBase入门详解（二）/&title=《HBase入门详解（二）》 — 若闲小阁&pic=http://lousenjay.info/images/cover/c_14.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/09/19/HBase入门详解（二）/&title=《HBase入门详解（二）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/09/19/HBase入门详解（二）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《HBase入门详解（二）》 — 若闲小阁&url=http://www.lousenjay.info/2018/09/19/HBase入门详解（二）/&via=http://www.lousenjay.info" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/09/19/HBase入门详解（二）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/09/19/HBase入门详解（二）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
             
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
@@ -156,50 +240,42 @@
       
   </li>
 
-        </div>
-      
+        </ul>
+        
+    </footer>
   </div>
 </article>
 
-  
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HBase开发"><span class="post-toc-text">HBase开发</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#相关类"><span class="post-toc-text">相关类</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
     
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/09/18/HBase入门详解（一）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">HBase入门详解（一）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/09/18/HBase入门详解（一）/" class="archive-article-date">
-  <time datetime="2018-09-18T11:15:47.000Z" itemprop="datePublished">09-18</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/09/18/HBase入门详解（一）/"  >HBase入门详解（一）</a>
-    </h1>
-  
-
-    </header>
-      
-        <div class="archive-post-footer">
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/hadoop/" class="color2">hadoop</a>
-      
-    <a href="/tags/hbase/" class="color1">hbase</a>
-      
-  </li>
-
-        </div>
-      
-  </div>
-</article>
-
-  
-  
-    </div></section>
-  
-
+        <div id="SOHUCS" sid="HBase入门详解（二）" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
 </section>
         
       </div>

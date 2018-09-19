@@ -8,18 +8,20 @@
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="简介安装hbase(单机) 添加用户hbase useradd hbase passwd hbase 配置sudo免密 在root用户下 vi /etc/sudoers 在 root    ALL=(ALL)       ALL 下面添加 hbase  ALL=(ALL)       ALL 注：修改完退出root用户，登录hbase用户 创建目录 mkdir /home/hbase/apps/">
+  <meta name="description" content="简介什么是HBaseHBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。 HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。 HBASE是Google Bigtable的开源实现，但是也有很多不同之处。比如：Google Bigtable利">
 <meta name="keywords" content="hadoop,hbase">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HBase入门详解（一）">
 <meta property="og:url" content="http://www.lousenjay.info/2018/09/18/HBase入门详解（一）/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="简介安装hbase(单机) 添加用户hbase useradd hbase passwd hbase 配置sudo免密 在root用户下 vi /etc/sudoers 在 root    ALL=(ALL)       ALL 下面添加 hbase  ALL=(ALL)       ALL 注：修改完退出root用户，登录hbase用户 创建目录 mkdir /home/hbase/apps/">
+<meta property="og:description" content="简介什么是HBaseHBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。 HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。 HBASE是Google Bigtable的开源实现，但是也有很多不同之处。比如：Google Bigtable利">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-18T14:01:01.803Z">
+<meta property="og:image" content="http://lousenjay.info/images/show/HBase模型.png">
+<meta property="og:updated_time" content="2018-09-19T12:12:28.443Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HBase入门详解（一）">
-<meta name="twitter:description" content="简介安装hbase(单机) 添加用户hbase useradd hbase passwd hbase 配置sudo免密 在root用户下 vi /etc/sudoers 在 root    ALL=(ALL)       ALL 下面添加 hbase  ALL=(ALL)       ALL 注：修改完退出root用户，登录hbase用户 创建目录 mkdir /home/hbase/apps/">
+<meta name="twitter:description" content="简介什么是HBaseHBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。 HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。 HBASE是Google Bigtable的开源实现，但是也有很多不同之处。比如：Google Bigtable利">
+<meta name="twitter:image" content="http://lousenjay.info/images/show/HBase模型.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -155,25 +157,143 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><h3 id="安装hbase-单机"><a href="#安装hbase-单机" class="headerlink" title="安装hbase(单机)"></a>安装hbase(单机)</h3><ol>
-<li>添加用户hbase<br> useradd hbase<br> passwd hbase</li>
-<li>配置sudo免密<br> 在root用户下<br> vi /etc/sudoers<br> 在<br> root    ALL=(ALL)       ALL<br> 下面添加<br> hbase  ALL=(ALL)       ALL<br> 注：修改完退出root用户，登录hbase用户</li>
-<li>创建目录<br> mkdir /home/hbase/apps/</li>
-<li>上传并解压安装包hbase-2.0.1-bin.tar.gz<br> tar -zxvf hbase-2.0.1-bin.tar.gz -C /home/hbase/apps/</li>
-<li>配置环境变量<br> vi ~/.bash_profile<br> 添加<br> export JAVA_HOME=/usr/local/jdk<br> export HBASE_HOME=/home/hbase/apps/hbase-2.0.1<br> export PATH=$PATH:$JAVA_HOME/bin:$HBASE_HOME/bin<br> 更新配置<br> source ~/.bash_profile</li>
-<li>修改配置文件hbase-env.sh<br> vi /home/hbase/apps/hbase-2.0.1/conf/hbase-env.sh<br> 在28行注释的JAVA_HOME下添加<br> export JAVA_HOME=/usr/local/jdk<br> export HBASE_MANAGES_ZK=true<br> export HBASE_LOG_DIR=/home/hbase/logs</li>
-<li><p>修改配置文件hbase-site.xml<br> vi /home/hbase/apps/hbase-2.0.1/conf/hbase-site.xml<br> 在<code>&lt;configuration&gt;</code>标签添加</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;hbase.rootdir&lt;/name&gt;</div><div class="line">  &lt;value&gt;file:///home/hbase/hbase_data&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt;</div><div class="line">  &lt;value&gt;/home/hbase/zookeeper&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;hbase.unsafe.stream.capability.enforce&lt;/name&gt;</div><div class="line">  &lt;value&gt;false&lt;/value&gt;</div><div class="line">  &lt;description&gt;</div><div class="line">    Controls whether HBase will check for stream capabilities (hflush/hsync).</div><div class="line"></div><div class="line">    Disable this if you intend to run on LocalFileSystem, denoted by a rootdir</div><div class="line">    with the &apos;file://&apos; scheme, but be mindful of the NOTE below.</div><div class="line"></div><div class="line">    WARNING: Setting this to false blinds you to potential data loss and</div><div class="line">    inconsistent system state in the event of process and/or node failures. If</div><div class="line">    HBase is complaining of an inability to use hsync or hflush it&apos;s most</div><div class="line">    likely not a false positive.</div><div class="line">  &lt;/description&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><h4 id="什么是HBase"><a href="#什么是HBase" class="headerlink" title="什么是HBase"></a>什么是HBase</h4><p>HBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。</p>
+<p>HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。</p>
+<p>HBASE是Google Bigtable的开源实现，但是也有很多不同之处。比如：Google Bigtable利用GFS作为其文件存储系统，HBASE利用Hadoop HDFS作为其文件存储系统；Google运行MAPREDUCE来处理Bigtable中的海量数据，HBASE同样利用Hadoop MapReduce来处理HBASE中的海量数据；Google Bigtable利用Chubby作为协同服务，HBASE利用Zookeeper作为对应。</p>
+<h4 id="Hbase的优点"><a href="#Hbase的优点" class="headerlink" title="Hbase的优点"></a>Hbase的优点</h4><ul>
+<li>线性扩展，随着数据量增多可以通过节点扩展进行支撑</li>
+<li>数据存储在hdfs上，备份机制健全</li>
+<li>通过zookeeper协调查找数据，访问速度快</li>
+</ul>
+<h4 id="HBase集群中的角色"><a href="#HBase集群中的角色" class="headerlink" title="HBase集群中的角色"></a>HBase集群中的角色</h4><ul>
+<li>一个或多个主节点：HMaster</li>
+<li>多个从节点：HRegionServer</li>
+</ul>
+<h3 id="安装HBase-单机"><a href="#安装HBase-单机" class="headerlink" title="安装HBase(单机)"></a>安装HBase(单机)</h3><ol>
+<li>添加用户hbase<br>useradd hbase<br>passwd hbase</li>
+<li>配置sudo免密<br>在root用户下<br>vi /etc/sudoers<br>在<br>root    ALL=(ALL)       ALL<br>下面添加<br>hbase  ALL=(ALL)       ALL<br>注：修改完退出root用户，登录hbase用户</li>
+<li>创建目录<br>mkdir /home/hbase/apps/</li>
+<li>上传并解压安装包hbase-2.0.1-bin.tar.gz<br>tar -zxvf hbase-2.0.1-bin.tar.gz -C /home/hbase/apps/</li>
+<li>配置环境变量<br>vi ~/.bash_profile<br>添加<br>export JAVA_HOME=/usr/local/jdk<br>export HBASE_HOME=/home/hbase/apps/hbase-2.0.1<br>export PATH=$PATH:$JAVA_HOME/bin:$HBASE_HOME/bin<br>更新配置<br>source ~/.bash_profile</li>
+<li>修改配置文件hbase-env.sh<br>vi /home/hbase/apps/hbase-2.0.1/conf/hbase-env.sh<br>在28行注释的JAVA_HOME下添加<br>export JAVA_HOME=/usr/local/jdk<br>export HBASE_MANAGES_ZK=true<br>export HBASE_LOG_DIR=/home/hbase/logs</li>
+<li><p>修改配置文件hbase-site.xml<br>vi /home/hbase/apps/hbase-2.0.1/conf/hbase-site.xml<br>在<code>&lt;configuration&gt;</code>标签添加</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;hbase.rootdir&lt;/name&gt;</div><div class="line">  &lt;value&gt;file:///home/hbase/hbase_data&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt;</div><div class="line">  &lt;value&gt;/home/hbase/zookeeper&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;hbase.unsafe.stream.capability.enforce&lt;/name&gt;</div><div class="line">  &lt;value&gt;false&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
 </li>
-<li><p>启动hbase<br> start-hbase.sh</p>
+<li><p>启动hbase<br>start-hbase.sh</p>
 </li>
-<li>进入hbase命令行<br> hbase shell</li>
+<li>进入hbase命令行<br>hbase shell</li>
+<li>页面监控<br><a href="http://hadoop5:16010" target="_blank" rel="external">http://hadoop5:16010</a></li>
 </ol>
-<p>待整理。。。。</p>
+<h3 id="HBase数据模型"><a href="#HBase数据模型" class="headerlink" title="HBase数据模型"></a>HBase数据模型</h3><p><img src="http://lousenjay.info/images/show/HBase模型.png" alt="HBase模型"></p>
+<h4 id="Row-Key（行健）"><a href="#Row-Key（行健）" class="headerlink" title="Row Key（行健）"></a>Row Key（行健）</h4><p>Row Key是用来检索记录的主键，访问HBase中table的行只有以下三种方式：</p>
+<ol>
+<li>通过完整的Row Key访问</li>
+<li>通过Row Key的模糊查询（正则）</li>
+<li>全表扫描<br>注：Row Key可以是任意字符串，在HBase内部，Row Key会被存储为byte[]。存储数据时，数据会按照Row Key的字典序排序。</li>
+</ol>
+<h4 id="Columns-Family（列族）"><a href="#Columns-Family（列族）" class="headerlink" title="Columns Family（列族）"></a>Columns Family（列族）</h4><p>HBase表中的每个列，都归属于某个列族。列族是表结构的一部分(而列不是)，必须在使用表之前定义。列名都以列族作为前缀。例如courses:history，courses:math都属于courses这个列族。</p>
+<h4 id="Cell"><a href="#Cell" class="headerlink" title="Cell"></a>Cell</h4><p>由{row key，columns family}确定的唯一单元，cell中的数据是没有类型的，全部是字节码形式存贮。</p>
+<h4 id="Time-Stamp"><a href="#Time-Stamp" class="headerlink" title="Time Stamp"></a>Time Stamp</h4><p>HBase中通过row key和columns family确定的唯一一个存贮单元称为cell。每个 cell都保存着同一份数据的多个版本。版本通过时间戳来索引。时间戳的类型是 64位整型。时间戳可以由HBase(在数据写入时自动)赋值，此时时间戳是精确到毫秒 的当前系统时间。时间戳也可以由客户显式赋值。如果应用程序要避免数据版本冲突，就必须自己生成具有唯一性的时间戳。每个cell中，不同版本的数据按照时间倒序排序，即最新的数据排在最前面。<br>为了避免数据存在过多版本造成的的管理(包括存贮和索引)负担，Hbase提供 了两种数据版本回收方式。一是保存数据的最后n个版本，二是保存最近一段 时间内的版本（比如最近七天）。用户可以针对每个列族进行设置。</p>
+<h3 id="HBase和zookeeper"><a href="#HBase和zookeeper" class="headerlink" title="HBase和zookeeper"></a>HBase和zookeeper</h3><p>HBase依赖zookeeper来管理数据信息</p>
+<ol>
+<li>保存HMaster的地址<ul>
+<li>管理HRegionServer</li>
+<li>增删改查表的节点</li>
+<li>管理HRegionServer中表的分配</li>
+</ul>
+</li>
+<li>保存表ROOT的地址<br>HBase默认的根表，检索表</li>
+<li>管理HRegionServer的列表<ul>
+<li>表的增删改查数据</li>
+<li>和hdfs交互，存取数据</li>
+</ul>
+</li>
+</ol>
+<h3 id="HBase的shell命令"><a href="#HBase的shell命令" class="headerlink" title="HBase的shell命令"></a>HBase的shell命令</h3><ol>
+<li><p>进入HBase的shell<br>hbase shell</p>
+</li>
+<li><p>命名空间</p>
+<ul>
+<li>创建命名空间<br>create_namespace ‘命名空间名’</li>
+<li>展示所有的命名空间<br>list_namespace</li>
+<li>删除命名空间 ‘命名空间名’<br>drop_namespace ‘命名空间名’</li>
+</ul>
+</li>
+<li><p>创建表</p>
+<ul>
+<li>一般表：<br>create ‘表名’,’列族名1’,’列族名2’…</li>
+<li>指定版本号：<br>create ‘表名’, {NAME =&gt; ‘列族名’, VERSIONS =&gt; 最大版本数量},{NAME =&gt; ‘列族名2’,VERSIONS =&gt; 最大版本数量}…</li>
+<li>预定义分区：<br>create ‘表名’,{NAME =&gt; ‘列族名’, VERSIONS =&gt; 最大版本数量},SPLITS =&gt; [‘1000’, ‘2000’, ‘3000’, ‘4000’]</li>
+<li>导入文件中的分区规则：<br>create ‘表名’,’列族名’,{SPLITS_FILE =&gt; ‘文件名’}</li>
+<li>HexStringSplit算法分区：<br>create ‘表名’, ‘列族名’, {NUMREGIONS =&gt; 分区数量, SPLITALGO =&gt; ‘HexStringSplit’}<br>注：适合散列字符不包含中文，适合16进制的row key或者前缀是16进制的row key   </li>
+<li>UniformSplit算法分区：<br>create ‘表名’, ‘列族名’, {NUMREGIONS =&gt; 分区数量, SPLITALGO =&gt; ‘UniformSplit’}<br>注：row key可以包含中文，适合随机字节数组的row key</li>
+</ul>
+</li>
+<li><p>删除表</p>
+<ul>
+<li>第一步：disable ‘表名’</li>
+<li>第二步：drop ‘表名’</li>
+</ul>
+</li>
+<li><p>修改表结构</p>
+<ul>
+<li>增加列族：<br>alter ‘表名’, {NAME =&gt; ‘列族’, IN_MEMORY =&gt; true}, {NAME =&gt; ‘列族’, VERSIONS =&gt; 5}</li>
+<li>删除列族：<br>alter ‘表名’, {METHOD =&gt; ‘delete’,NAME =&gt; ‘列族’} </li>
+</ul>
+</li>
+<li><p>查看表信息</p>
+<ul>
+<li>展示所有表<br>list</li>
+<li>判断表是否存在<br>exists ‘表名’</li>
+<li>描述表<br>desc ‘表名’</li>
+<li>判断是否禁用表<br>is_enabled ‘表名’<br>is_disabled ‘表名’</li>
+<li>查看表中的记录总数<br>count ‘表名’</li>
+</ul>
+</li>
+<li><p>添加、修改、删除表数据</p>
+<ul>
+<li>添加记录<br>put ‘表名’,’行健’,’列名:列’,’值’</li>
+<li>删除指定记录<br>delete ‘表名’,’row key’,’列族:列族’</li>
+<li>删除整行<br>deleteall ‘表名’,’row key’</li>
+<li>清空表<br>truncate ‘表名’</li>
+<li>修改记录<br>HBase中没有修改，只要再put数据进行覆盖，相当于修改</li>
+</ul>
+</li>
+<li><p>获取数据</p>
+<ul>
+<li>获取指定row key存储的数据<br>get ‘表名’,’row key’</li>
+<li>获取某个列族<br>get ‘表名’,’row key’,’列族’</li>
+<li>获取某个列族的某个列<br>get ‘表名’,’row key’,’列族:列名’</li>
+<li>获取某列前5个版本的数据<br>get ‘表名’,’row key’,{COLUMN =&gt; ‘列族:列名’,VERSION =&gt; 5}</li>
+<li>获取某个时间段的数据，不一定是最新的数据<br>get ‘表名’, ‘row key’, {TIMERANGE =&gt; [时间戳1,时间戳2]}</li>
+</ul>
+</li>
+<li><p>扫描数据（相当于查询）</p>
+<ul>
+<li>扫描整张表<br>scan ‘表名’</li>
+<li>查看某个表中某个列的所有数据<br>scan ‘表名’,{COLUMNS =&gt; ‘列族名:列名’}</li>
+<li>使用limit进行行数的限制<br>scan ‘表名’,{COLUMNS=&gt;’列族名:列名’,LIMIT=&gt;行数}</li>
+<li>指定从某一行开始扫描<br>scan ‘表名’,{COLUMNS=&gt;’列族名:列名’,LIMIT=&gt;行数,STARTROW=&gt;’1002’}</li>
+<li>扫描所有数据的前5个版本<br>scan ‘表名’,{VERSIONS=&gt;5}</li>
+<li>超出版本限制也能访问到<br>scan ‘表名’,{VERSIONS=&gt;5,RAW=&gt;true}</li>
+<li>使用行健前缀过滤器<br>scan ‘表名’, {ROWPREFIXFILTER =&gt; ‘100’}<br>注：此处的100为字符串，只返回行健开头是字符串’100’的数据</li>
+<li>使用空值行健过滤器，只返回行健<br>scan ‘表名’,{FILTER=&gt;’KeyOnlyFilter()’}</li>
+<li>使用列名前缀过滤器<br>scan ‘表名’,{FILTER=&gt;”ColumnPrefixFilter(‘na’) “}</li>
+<li>返回行健&gt;=1001的数据<br>scan ‘表名’,{FILTER=&gt;”RowFilter(&gt;=,’binary:1001’)”}</li>
+<li>使用行健!=1001的数据,binary: 帮助数据类型转化<br>scan ‘表名’,{FILTER =&gt;”RowFilter(!=,’binary:1001’)”}  </li>
+<li>使用列名过滤器<br>scan ‘表名’,{FILTER   =&gt;”QualifierFilter(&gt;=,’binary:baseinfo:name’)”}</li>
+<li>使用子串过滤器<br>scan ‘表名’,{FILTER =&gt;”ValueFilter(=,’binary:zhao’)”}</li>
+<li>列名前缀过滤器<br>scan ‘表名’,{FILTER =&gt;”ColumnPrefixFilter(‘name’)”}</li>
+<li>使用多种过滤器进行条件结合<br>scan ‘表名’,{FILTER =&gt;”(  ValueFilter(=,’binary:manager’)) OR (RowFilter (&gt;,’binary:1003’))”}</li>
+<li>使用page过滤器，限制每页展示数量<br>scan ‘表名’,{FILTER =&gt;  org.apache.hadoop.hbase.filter.KeyOnlyFilter.new()}</li>
+<li>使用行健过滤器，进行正则表达式的匹配<br>scan ‘表名’, {FILTER =&gt; RowFilter.new(CompareFilter::Com  pareOp.valueOf(‘EQUAL’),RegexStringComparator.new(‘.<em>ll.</em>‘))}</li>
+</ul>
+</li>
+</ol>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年09月18日 22:01</p>
+        <p>最后更新： 2018年09月19日 20:12</p>
         <p>原始链接： <a class="post-url" href="/2018/09/18/HBase入门详解（一）/" title="HBase入门详解（一）">http://www.lousenjay.info/2018/09/18/HBase入门详解（一）/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
@@ -258,12 +378,22 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装hbase-单机"><span class="post-toc-text">安装hbase(单机)</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#什么是HBase"><span class="post-toc-text">什么是HBase</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Hbase的优点"><span class="post-toc-text">Hbase的优点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#HBase集群中的角色"><span class="post-toc-text">HBase集群中的角色</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装HBase-单机"><span class="post-toc-text">安装HBase(单机)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HBase数据模型"><span class="post-toc-text">HBase数据模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Row-Key（行健）"><span class="post-toc-text">Row Key（行健）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Columns-Family（列族）"><span class="post-toc-text">Columns Family（列族）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Cell"><span class="post-toc-text">Cell</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Time-Stamp"><span class="post-toc-text">Time Stamp</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HBase和zookeeper"><span class="post-toc-text">HBase和zookeeper</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HBase的shell命令"><span class="post-toc-text">HBase的shell命令</span></a></li></ol>
         </nav>
     </aside>
     
 
 <nav id="article-nav">
+  
+    <a href="/2018/09/19/HBase入门详解（二）/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          HBase入门详解（二）
+        
+      </span>
+    </a>
   
   
     <a href="/2018/09/16/Hive入门详解（三）/" id="article-nav-older" class="article-nav-link-wrap">
@@ -341,7 +471,7 @@
             <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 14px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 12px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 14px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -380,7 +510,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 14px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 12px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 14px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
         </div>
     </div>
 </div>
