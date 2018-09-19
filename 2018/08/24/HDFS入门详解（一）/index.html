@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="HDFS简介HDFS(HadoopDistributedFileSystem)即hadoop分布式文件存储系统。  原理将大文件、大批量文件，分布式存储在大量服务器上，以便采取分而治之的方式对海量数据进行分析。 重要概念 文件切块：HDFS中的文件在物理上是分块存储的，block的大小可以通过配置参数自己设置。 副本：datanode是HDFS集群的从节点，每个block可以在多个datanode">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://lousenjay.info/images/show/namenode元数据目录.png">
-<meta property="og:updated_time" content="2018-08-27T06:53:39.939Z">
+<meta property="og:image" content="https://lousenjay.info/images/show/namenode元数据目录.png">
+<meta property="og:updated_time" content="2018-09-19T14:12:43.640Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HDFS入门详解（一）">
 <meta name="twitter:description" content="HDFS简介HDFS(HadoopDistributedFileSystem)即hadoop分布式文件存储系统。  原理将大文件、大批量文件，分布式存储在大量服务器上，以便采取分而治之的方式对海量数据进行分析。 重要概念 文件切块：HDFS中的文件在物理上是分块存储的，block的大小可以通过配置参数自己设置。 副本：datanode是HDFS集群的从节点，每个block可以在多个datanode">
-<meta name="twitter:image" content="http://lousenjay.info/images/show/namenode元数据目录.png">
+<meta name="twitter:image" content="https://lousenjay.info/images/show/namenode元数据目录.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -239,7 +239,7 @@
 <li>NameNode获取到fsimage.checkpoint文件并重命名为fsimage覆盖原文件。<br>注：NameNode和SecondaryNamenode的工作目录存储结构完全相同，所以，当NameNode故障退出需要重新恢复时，可以从SecondaryNamenode的工作目录中将fsimage拷贝到NameNode的工作目录，只能恢复大部分NameNode的元数据。因此，为了避免以上情况的发生，可以将NameNode的工作目录配在多块磁盘上，可以修改hdfs-sit.xml文件的dfs.name.dir属性，设置值为多个路径，路径之间用”,”隔开。</li>
 </ul>
 </li>
-<li>元数据目录说明<br>在第一次部署好Hadoop集群的时候，我们需要在NameNode（NN）节点上格式化磁盘：hdfs namenode -format<br>格式化完成之后，将会生成namenode的目录结构，如图所示。namenode的目录地址是在hdfs-site.xml文件中配置dfs.name.dir属性，默认值为file://${hadoop.tmp.dir}/dfs/name<br><img src="http://lousenjay.info/images/show/namenode元数据目录.png" alt="namenode元数据目录"></li>
+<li>元数据目录说明<br>在第一次部署好Hadoop集群的时候，我们需要在NameNode（NN）节点上格式化磁盘：hdfs namenode -format<br>格式化完成之后，将会生成namenode的目录结构，如图所示。namenode的目录地址是在hdfs-site.xml文件中配置dfs.name.dir属性，默认值为file://${hadoop.tmp.dir}/dfs/name<br><img src="https://lousenjay.info/images/show/namenode元数据目录.png" alt="namenode元数据目录"></li>
 </ol>
 <ul>
 <li><p>VERSION文件<br>  version文件是Java属性文件大致内容如下：</p>
@@ -266,7 +266,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年08月27日 14:53</p>
+        <p>最后更新： 2018年09月19日 22:12</p>
         <p>原始链接： <a class="post-url" href="/2018/08/24/HDFS入门详解（一）/" title="HDFS入门详解（一）">http://www.lousenjay.info/2018/08/24/HDFS入门详解（一）/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
