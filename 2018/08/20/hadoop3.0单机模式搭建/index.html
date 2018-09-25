@@ -12,7 +12,7 @@
 <meta name="keywords" content="hadoop">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hadoop集群单机模式搭建">
-<meta property="og:url" content="http://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/index.html">
+<meta property="og:url" content="https://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/index.html">
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="配置客户端连接服务器上的hadoop集群，毕竟自己的机子性能有限，进行一些大规模的计算还是需要到服务器上进行，以下记录了配置客户端的全过程。 搭建环境：CentOS7+hadoop3.0.3+jdk8 前置需求 配置静态ip地址 修改主机名 配置主机名和ip地址映射 关闭防火墙，设置开机不自启动 安装并配置好jdk注：以上操作在笔者之前的Linux相关笔记中均有介绍  正式搭建 创建相关目录 mk">
 <meta property="og:locale" content="zh-CN">
@@ -188,9 +188,9 @@
             <div class="post-copyright">
     <div class="content">
         <p>最后更新： 2018年09月18日 11:18</p>
-        <p>原始链接： <a class="post-url" href="/2018/08/20/hadoop3.0单机模式搭建/" title="hadoop集群单机模式搭建">http://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/</a></p>
+        <p>原始链接： <a class="post-url" href="/2018/08/20/hadoop3.0单机模式搭建/" title="hadoop集群单机模式搭建">https://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/</a></p>
         <footer>
-            <a href="http://www.lousenjay.info">
+            <a href="https://www.lousenjay.info">
                 <img src="/images/logo.png" alt="Lousen Jay">
                 Lousen Jay
             </a>
@@ -210,7 +210,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/&title=《hadoop集群单机模式搭建》 — 若闲小阁&pic=http://lousenjay.info/images/cover/c_2.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/&title=《hadoop集群单机模式搭建》 — 若闲小阁&pic=http://lousenjay.info/images/cover/c_2.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -220,22 +220,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/&title=《hadoop集群单机模式搭建》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/&title=《hadoop集群单机模式搭建》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《hadoop集群单机模式搭建》 — 若闲小阁&url=http://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/&via=http://www.lousenjay.info" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《hadoop集群单机模式搭建》 — 若闲小阁&url=https://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/&via=https://www.lousenjay.info" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -245,7 +245,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.info/2018/08/20/hadoop3.0单机模式搭建/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -277,19 +277,19 @@
 
 <nav id="article-nav">
   
-    <a href="/2018/08/20/hadoop3.0集群客户端配置/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/08/21/hadoop3.0全分布式集群搭建/" id="article-nav-newer" class="article-nav-link-wrap">
 
       <span class="article-nav-title">
         <i class="fa fa-hand-o-left" aria-hidden="true"></i>
         
-          hadoop集群单机模式搭建
+          hadoop3.0全分布式集群搭建
         
       </span>
     </a>
   
   
-    <a href="/2018/08/19/多线程详解/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">多线程详解</span>
+    <a href="/2018/08/20/hadoop3.0集群客户端配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">hadoop集群单机模式搭建</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
@@ -337,7 +337,7 @@
 	
 <script>
   var mihoConfig = {
-      root: "http://www.lousenjay.info",
+      root: "https://www.lousenjay.info",
       animate: true,
       isHome: false,
       share: true
