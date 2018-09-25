@@ -8,19 +8,20 @@
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="简介什么是HBaseHBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。 HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。 HBASE是Google Bigtable的开源实现，但是也有很多不同之处。比如：Google Bigtable利">
+  <meta name="description" content="环境：centos7+hadoop3.0.3+hbase2.0.1+jdk8 简介什么是HBaseHBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。 HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。 HBASE是Google Bigta">
 <meta name="keywords" content="hadoop,hbase">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HBase入门详解（一）">
 <meta property="og:url" content="http://www.lousenjay.info/2018/09/18/HBase入门详解（一）/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="简介什么是HBaseHBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。 HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。 HBASE是Google Bigtable的开源实现，但是也有很多不同之处。比如：Google Bigtable利">
+<meta property="og:description" content="环境：centos7+hadoop3.0.3+hbase2.0.1+jdk8 简介什么是HBaseHBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。 HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。 HBASE是Google Bigta">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://lousenjay.info/images/show/HBase模型.png">
-<meta property="og:updated_time" content="2018-09-19T14:12:51.862Z">
+<meta property="og:image" content="https://lousenjay.info/images/show/Hbase原理结构图.png">
+<meta property="og:updated_time" content="2018-09-25T02:36:39.267Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HBase入门详解（一）">
-<meta name="twitter:description" content="简介什么是HBaseHBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。 HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。 HBASE是Google Bigtable的开源实现，但是也有很多不同之处。比如：Google Bigtable利">
+<meta name="twitter:description" content="环境：centos7+hadoop3.0.3+hbase2.0.1+jdk8 简介什么是HBaseHBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。 HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。 HBASE是Google Bigta">
 <meta name="twitter:image" content="https://lousenjay.info/images/show/HBase模型.png">
   
   
@@ -157,7 +158,8 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><h4 id="什么是HBase"><a href="#什么是HBase" class="headerlink" title="什么是HBase"></a>什么是HBase</h4><p>HBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。</p>
+            <p>环境：centos7+hadoop3.0.3+hbase2.0.1+jdk8</p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><h4 id="什么是HBase"><a href="#什么是HBase" class="headerlink" title="什么是HBase"></a>什么是HBase</h4><p>HBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。</p>
 <p>HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。</p>
 <p>HBASE是Google Bigtable的开源实现，但是也有很多不同之处。比如：Google Bigtable利用GFS作为其文件存储系统，HBASE利用Hadoop HDFS作为其文件存储系统；Google运行MAPREDUCE来处理Bigtable中的海量数据，HBASE同样利用Hadoop MapReduce来处理HBASE中的海量数据；Google Bigtable利用Chubby作为协同服务，HBASE利用Zookeeper作为对应。</p>
 <h4 id="Hbase的优点"><a href="#Hbase的优点" class="headerlink" title="Hbase的优点"></a>Hbase的优点</h4><ul>
@@ -185,7 +187,7 @@
 <li>页面监控<br><a href="http://hadoop5:16010" target="_blank" rel="external">http://hadoop5:16010</a></li>
 </ol>
 <h3 id="HBase数据模型"><a href="#HBase数据模型" class="headerlink" title="HBase数据模型"></a>HBase数据模型</h3><p><img src="https://lousenjay.info/images/show/HBase模型.png" alt="HBase模型"></p>
-<h4 id="Row-Key（行健）"><a href="#Row-Key（行健）" class="headerlink" title="Row Key（行健）"></a>Row Key（行健）</h4><p>Row Key是用来检索记录的主键，访问HBase中table的行只有以下三种方式：</p>
+<h4 id="Row-Key（行键）"><a href="#Row-Key（行键）" class="headerlink" title="Row Key（行键）"></a>Row Key（行键）</h4><p>Row Key是用来检索记录的主键，访问HBase中table的行只有以下三种方式：</p>
 <ol>
 <li>通过完整的Row Key访问</li>
 <li>通过Row Key的模糊查询（正则）</li>
@@ -194,6 +196,54 @@
 <h4 id="Columns-Family（列族）"><a href="#Columns-Family（列族）" class="headerlink" title="Columns Family（列族）"></a>Columns Family（列族）</h4><p>HBase表中的每个列，都归属于某个列族。列族是表结构的一部分(而列不是)，必须在使用表之前定义。列名都以列族作为前缀。例如courses:history，courses:math都属于courses这个列族。</p>
 <h4 id="Cell"><a href="#Cell" class="headerlink" title="Cell"></a>Cell</h4><p>由{row key，columns family}确定的唯一单元，cell中的数据是没有类型的，全部是字节码形式存贮。</p>
 <h4 id="Time-Stamp"><a href="#Time-Stamp" class="headerlink" title="Time Stamp"></a>Time Stamp</h4><p>HBase中通过row key和columns family确定的唯一一个存贮单元称为cell。每个 cell都保存着同一份数据的多个版本。版本通过时间戳来索引。时间戳的类型是 64位整型。时间戳可以由HBase(在数据写入时自动)赋值，此时时间戳是精确到毫秒 的当前系统时间。时间戳也可以由客户显式赋值。如果应用程序要避免数据版本冲突，就必须自己生成具有唯一性的时间戳。每个cell中，不同版本的数据按照时间倒序排序，即最新的数据排在最前面。<br>为了避免数据存在过多版本造成的的管理(包括存贮和索引)负担，Hbase提供 了两种数据版本回收方式。一是保存数据的最后n个版本，二是保存最近一段 时间内的版本（比如最近七天）。用户可以针对每个列族进行设置。</p>
+<h3 id="HBase原理"><a href="#HBase原理" class="headerlink" title="HBase原理"></a>HBase原理</h3><ol>
+<li>体系图<br><img src="https://lousenjay.info/images/show/Hbase原理结构图.png" alt="HBase原理结构图"></li>
+<li>HBase的读流程<ul>
+<li>通过zookeeper和-ROOT- .META.表定位HRegionServer</li>
+<li>数据从内存和硬盘合并后返回给client</li>
+<li>数据块会缓存</li>
+</ul>
+</li>
+<li>HBase的写流程<ul>
+<li>client向HRegionServer发送写请求</li>
+<li>HRegionServer将数据写到hlog（write ahead log）。为了数据的持久化和恢复</li>
+<li>HRegionServer将数据写到内存（memstore）</li>
+<li>反馈client写成功</li>
+</ul>
+</li>
+<li>数据flush过程<ul>
+<li>当memstore数据达到阈值（默认是64M），将数据刷到硬盘，将内存中的数据删除，同时删除hlog中的历史数据</li>
+<li>将数据存储到hdfs中</li>
+<li>在hlog中做标记点</li>
+</ul>
+</li>
+<li>数据合并操作<ul>
+<li>当数据块达到4块，HMaster将数据块加载到本地，进行合并</li>
+<li>当合并的数据超过256M，进行拆分，将拆分后的region分配给不同的HRegionServer管理</li>
+<li>当HRegionServer宕机后，将HRegionServer上的hlog拆分，然后分配给不同的hregionserver加载，修改.META.  </li>
+<li>注意：hlog会同步到hdfs</li>
+</ul>
+</li>
+<li>HMaster的功能<ul>
+<li>管理用户对Table的增、删、改、查操作</li>
+<li>记录region在哪台HRegionServer上</li>
+<li>在Region Split后，负责新Region的分配 </li>
+<li>新机器加入时，管理HRegionServer的负载均衡，调整Region分布</li>
+<li>在HRegionServer宕机后，负责失效HRegionServer上的Regions迁移</li>
+</ul>
+</li>
+<li>HRegionServer的功能<ul>
+<li>主要负责响应用户IO请求，向HDFS文件系统中读写数据，是HBASE中最核心的模块。</li>
+<li>HRegionServer管理了很多table的分区，也就是region。</li>
+</ul>
+</li>
+<li>client的功能<ul>
+<li>HBase的Client使用HBase的RPC机制与HMaster和RegionServer进行通信</li>
+<li>管理类操作：Client与HMaster进行RPC</li>
+<li>数据读写类操作：Client与HRegionServer进行RPC</li>
+</ul>
+</li>
+</ol>
 <h3 id="HBase和zookeeper"><a href="#HBase和zookeeper" class="headerlink" title="HBase和zookeeper"></a>HBase和zookeeper</h3><p>HBase依赖zookeeper来管理数据信息</p>
 <ol>
 <li>保存HMaster的地址<ul>
@@ -252,7 +302,7 @@
 </li>
 <li><p>添加、修改、删除表数据</p>
 <ul>
-<li>添加记录<br>put ‘表名’,’行健’,’列名:列’,’值’</li>
+<li>添加记录<br>put ‘表名’,’行键’,’列名:列’,’值’</li>
 <li>删除指定记录<br>delete ‘表名’,’row key’,’列族:列族’</li>
 <li>删除整行<br>deleteall ‘表名’,’row key’</li>
 <li>清空表<br>truncate ‘表名’</li>
@@ -276,24 +326,24 @@
 <li>指定从某一行开始扫描<br>scan ‘表名’,{COLUMNS=&gt;’列族名:列名’,LIMIT=&gt;行数,STARTROW=&gt;’1002’}</li>
 <li>扫描所有数据的前5个版本<br>scan ‘表名’,{VERSIONS=&gt;5}</li>
 <li>超出版本限制也能访问到<br>scan ‘表名’,{VERSIONS=&gt;5,RAW=&gt;true}</li>
-<li>使用行健前缀过滤器<br>scan ‘表名’, {ROWPREFIXFILTER =&gt; ‘100’}<br>注：此处的100为字符串，只返回行健开头是字符串’100’的数据</li>
-<li>使用空值行健过滤器，只返回行健<br>scan ‘表名’,{FILTER=&gt;’KeyOnlyFilter()’}</li>
+<li>使用行键前缀过滤器<br>scan ‘表名’, {ROWPREFIXFILTER =&gt; ‘100’}<br>注：此处的100为字符串，只返回行键开头是字符串’100’的数据</li>
+<li>使用空值行键过滤器，只返回行键<br>scan ‘表名’,{FILTER=&gt;’KeyOnlyFilter()’}</li>
 <li>使用列名前缀过滤器<br>scan ‘表名’,{FILTER=&gt;”ColumnPrefixFilter(‘na’) “}</li>
-<li>返回行健&gt;=1001的数据<br>scan ‘表名’,{FILTER=&gt;”RowFilter(&gt;=,’binary:1001’)”}</li>
-<li>使用行健!=1001的数据,binary: 帮助数据类型转化<br>scan ‘表名’,{FILTER =&gt;”RowFilter(!=,’binary:1001’)”}  </li>
+<li>返回行键&gt;=1001的数据<br>scan ‘表名’,{FILTER=&gt;”RowFilter(&gt;=,’binary:1001’)”}</li>
+<li>使用行键!=1001的数据,binary: 帮助数据类型转化<br>scan ‘表名’,{FILTER =&gt;”RowFilter(!=,’binary:1001’)”}  </li>
 <li>使用列名过滤器<br>scan ‘表名’,{FILTER   =&gt;”QualifierFilter(&gt;=,’binary:baseinfo:name’)”}</li>
 <li>使用子串过滤器<br>scan ‘表名’,{FILTER =&gt;”ValueFilter(=,’binary:zhao’)”}</li>
 <li>列名前缀过滤器<br>scan ‘表名’,{FILTER =&gt;”ColumnPrefixFilter(‘name’)”}</li>
 <li>使用多种过滤器进行条件结合<br>scan ‘表名’,{FILTER =&gt;”(  ValueFilter(=,’binary:manager’)) OR (RowFilter (&gt;,’binary:1003’))”}</li>
 <li>使用page过滤器，限制每页展示数量<br>scan ‘表名’,{FILTER =&gt;  org.apache.hadoop.hbase.filter.KeyOnlyFilter.new()}</li>
-<li>使用行健过滤器，进行正则表达式的匹配<br>scan ‘表名’, {FILTER =&gt; RowFilter.new(CompareFilter::Com  pareOp.valueOf(‘EQUAL’),RegexStringComparator.new(‘.<em>ll.</em>‘))}</li>
+<li>使用行键过滤器，进行正则表达式的匹配<br>scan ‘表名’, {FILTER =&gt; RowFilter.new(CompareFilter::Com  pareOp.valueOf(‘EQUAL’),RegexStringComparator.new(‘.<em>ll.</em>‘))}</li>
 </ul>
 </li>
 </ol>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年09月19日 22:12</p>
+        <p>最后更新： 2018年09月25日 10:36</p>
         <p>原始链接： <a class="post-url" href="/2018/09/18/HBase入门详解（一）/" title="HBase入门详解（一）">http://www.lousenjay.info/2018/09/18/HBase入门详解（一）/</a></p>
         <footer>
             <a href="http://www.lousenjay.info">
@@ -378,7 +428,7 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#什么是HBase"><span class="post-toc-text">什么是HBase</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Hbase的优点"><span class="post-toc-text">Hbase的优点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#HBase集群中的角色"><span class="post-toc-text">HBase集群中的角色</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装HBase-单机"><span class="post-toc-text">安装HBase(单机)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HBase数据模型"><span class="post-toc-text">HBase数据模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Row-Key（行健）"><span class="post-toc-text">Row Key（行健）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Columns-Family（列族）"><span class="post-toc-text">Columns Family（列族）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Cell"><span class="post-toc-text">Cell</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Time-Stamp"><span class="post-toc-text">Time Stamp</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HBase和zookeeper"><span class="post-toc-text">HBase和zookeeper</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HBase的shell命令"><span class="post-toc-text">HBase的shell命令</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#什么是HBase"><span class="post-toc-text">什么是HBase</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Hbase的优点"><span class="post-toc-text">Hbase的优点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#HBase集群中的角色"><span class="post-toc-text">HBase集群中的角色</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装HBase-单机"><span class="post-toc-text">安装HBase(单机)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HBase数据模型"><span class="post-toc-text">HBase数据模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Row-Key（行键）"><span class="post-toc-text">Row Key（行键）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Columns-Family（列族）"><span class="post-toc-text">Columns Family（列族）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Cell"><span class="post-toc-text">Cell</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Time-Stamp"><span class="post-toc-text">Time Stamp</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HBase原理"><span class="post-toc-text">HBase原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HBase和zookeeper"><span class="post-toc-text">HBase和zookeeper</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HBase的shell命令"><span class="post-toc-text">HBase的shell命令</span></a></li></ol>
         </nav>
     </aside>
     
