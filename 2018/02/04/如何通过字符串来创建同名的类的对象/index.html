@@ -12,11 +12,11 @@
 <meta name="keywords" content="Java,反射">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何通过字符串来创建同名的类的对象">
-<meta property="og:url" content="https://www.lousenjay.info/2018/02/04/如何通过字符串来创建同名的类的对象/index.html">
+<meta property="og:url" content="https://www.lousenjay.top/2018/02/04/如何通过字符串来创建同名的类的对象/index.html">
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="Java反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象。 综合实例：通过字符串来创建同名的类的对象，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-26T01:35:05.928Z">
+<meta property="og:updated_time" content="2018-10-07T12:45:52.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何通过字符串来创建同名的类的对象">
 <meta name="twitter:description" content="Java反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象。 综合实例：通过字符串来创建同名的类的对象，">
@@ -27,7 +27,7 @@
   <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   
   <!--live2d-->
-  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.info/live2d/assets/waifu.css"/>
+  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.top/live2d/assets/waifu.css"/>
   
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/pace.min.js"></script>
@@ -101,7 +101,7 @@
             <nav class="header-nav">
                 <div class="social">
                     
-                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                        <a title="LousenJay" target="_blank" href="//lousenjay.top">
                             <i class="fa fa-home fa-2x"></i></a>
                     
                         <a title="Github" target="_blank" href="//github.com/LousenJay">
@@ -160,10 +160,10 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年09月26日 09:35</p>
-        <p>原始链接： <a class="post-url" href="/2018/02/04/如何通过字符串来创建同名的类的对象/" title="如何通过字符串来创建同名的类的对象">https://www.lousenjay.info/2018/02/04/如何通过字符串来创建同名的类的对象/</a></p>
+        <p>最后更新： 2018年10月07日 20:45</p>
+        <p>原始链接： <a class="post-url" href="/2018/02/04/如何通过字符串来创建同名的类的对象/" title="如何通过字符串来创建同名的类的对象">https://www.lousenjay.top/2018/02/04/如何通过字符串来创建同名的类的对象/</a></p>
         <footer>
-            <a href="https://www.lousenjay.info">
+            <a href="https://www.lousenjay.top">
                 <img src="/images/logo.png" alt="Lousen Jay">
                 Lousen Jay
             </a>
@@ -183,7 +183,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.info/2018/02/04/如何通过字符串来创建同名的类的对象/&title=《如何通过字符串来创建同名的类的对象》 — 若闲小阁&pic=https://lousenjay.info/images/cover/c_10.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/02/04/如何通过字符串来创建同名的类的对象/&title=《如何通过字符串来创建同名的类的对象》 — 若闲小阁&pic=https://lousenjay.top/images/cover/c_10.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -193,22 +193,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.info/2018/02/04/如何通过字符串来创建同名的类的对象/&title=《如何通过字符串来创建同名的类的对象》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/02/04/如何通过字符串来创建同名的类的对象/&title=《如何通过字符串来创建同名的类的对象》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.info/2018/02/04/如何通过字符串来创建同名的类的对象/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/02/04/如何通过字符串来创建同名的类的对象/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《如何通过字符串来创建同名的类的对象》 — 若闲小阁&url=https://www.lousenjay.info/2018/02/04/如何通过字符串来创建同名的类的对象/&via=https://www.lousenjay.info" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《如何通过字符串来创建同名的类的对象》 — 若闲小阁&url=https://www.lousenjay.top/2018/02/04/如何通过字符串来创建同名的类的对象/&via=https://www.lousenjay.top" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.info/2018/02/04/如何通过字符串来创建同名的类的对象/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/02/04/如何通过字符串来创建同名的类的对象/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -218,7 +218,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.info/2018/02/04/如何通过字符串来创建同名的类的对象/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/02/04/如何通过字符串来创建同名的类的对象/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -306,7 +306,7 @@
 	
 <script>
   var mihoConfig = {
-      root: "https://www.lousenjay.info",
+      root: "https://www.lousenjay.top",
       animate: true,
       isHome: false,
       share: true
@@ -431,10 +431,10 @@
 		</div>
 	</div>
 	<!--live2d-->
-	<script src="https://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
-	<script src="https://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/waifu-tips.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/live2d.js"></script>
 	<script type="text/javascript">
-		initModel("https://www.lousenjay.info/live2d/assets/")
+		initModel("https://www.lousenjay.top/live2d/assets/")
 	</script>
 
   </div>

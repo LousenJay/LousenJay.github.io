@@ -12,11 +12,11 @@
 <meta name="keywords" content="Java,数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库连接池">
-<meta property="og:url" content="https://www.lousenjay.info/2018/01/25/数据库连接池/index.html">
+<meta property="og:url" content="https://www.lousenjay.top/2018/01/25/数据库连接池/index.html">
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="数据库连接池负责分配、管理和释放数据库连接，它允许应用程序重复使用一个现有的数据库连接，而不是再重新建立一个；释放空闲时间超过最大空闲时间的数据库连接来避免因为没有释放数据库连接而引起的数据库连接遗漏。这项技术能明显提高对数据库操作的性能。本文主要整理了C3P0数据源的数据库连接池的搭建。 环境：Windows 7工具：    MyEclipse 2017    mysql-connector-j">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-26T01:34:39.252Z">
+<meta property="og:updated_time" content="2018-10-07T12:45:52.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库连接池">
 <meta name="twitter:description" content="数据库连接池负责分配、管理和释放数据库连接，它允许应用程序重复使用一个现有的数据库连接，而不是再重新建立一个；释放空闲时间超过最大空闲时间的数据库连接来避免因为没有释放数据库连接而引起的数据库连接遗漏。这项技术能明显提高对数据库操作的性能。本文主要整理了C3P0数据源的数据库连接池的搭建。 环境：Windows 7工具：    MyEclipse 2017    mysql-connector-j">
@@ -27,7 +27,7 @@
   <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   
   <!--live2d-->
-  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.info/live2d/assets/waifu.css"/>
+  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.top/live2d/assets/waifu.css"/>
   
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/pace.min.js"></script>
@@ -101,7 +101,7 @@
             <nav class="header-nav">
                 <div class="social">
                     
-                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                        <a title="LousenJay" target="_blank" href="//lousenjay.top">
                             <i class="fa fa-home fa-2x"></i></a>
                     
                         <a title="Github" target="_blank" href="//github.com/LousenJay">
@@ -163,10 +163,10 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年09月26日 09:34</p>
-        <p>原始链接： <a class="post-url" href="/2018/01/25/数据库连接池/" title="数据库连接池">https://www.lousenjay.info/2018/01/25/数据库连接池/</a></p>
+        <p>最后更新： 2018年10月07日 20:45</p>
+        <p>原始链接： <a class="post-url" href="/2018/01/25/数据库连接池/" title="数据库连接池">https://www.lousenjay.top/2018/01/25/数据库连接池/</a></p>
         <footer>
-            <a href="https://www.lousenjay.info">
+            <a href="https://www.lousenjay.top">
                 <img src="/images/logo.png" alt="Lousen Jay">
                 Lousen Jay
             </a>
@@ -186,7 +186,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.info/2018/01/25/数据库连接池/&title=《数据库连接池》 — 若闲小阁&pic=https://lousenjay.info/images/cover/c_5.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/01/25/数据库连接池/&title=《数据库连接池》 — 若闲小阁&pic=https://lousenjay.top/images/cover/c_5.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -196,22 +196,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.info/2018/01/25/数据库连接池/&title=《数据库连接池》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/01/25/数据库连接池/&title=《数据库连接池》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.info/2018/01/25/数据库连接池/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/01/25/数据库连接池/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数据库连接池》 — 若闲小阁&url=https://www.lousenjay.info/2018/01/25/数据库连接池/&via=https://www.lousenjay.info" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数据库连接池》 — 若闲小阁&url=https://www.lousenjay.top/2018/01/25/数据库连接池/&via=https://www.lousenjay.top" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.info/2018/01/25/数据库连接池/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/01/25/数据库连接池/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -221,7 +221,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.info/2018/01/25/数据库连接池/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/01/25/数据库连接池/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -309,7 +309,7 @@
 	
 <script>
   var mihoConfig = {
-      root: "https://www.lousenjay.info",
+      root: "https://www.lousenjay.top",
       animate: true,
       isHome: false,
       share: true
@@ -434,10 +434,10 @@
 		</div>
 	</div>
 	<!--live2d-->
-	<script src="https://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
-	<script src="https://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/waifu-tips.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/live2d.js"></script>
 	<script type="text/javascript">
-		initModel("https://www.lousenjay.info/live2d/assets/")
+		initModel("https://www.lousenjay.top/live2d/assets/")
 	</script>
 
   </div>

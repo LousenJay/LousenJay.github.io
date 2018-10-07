@@ -12,17 +12,17 @@
 <meta name="keywords" content="hadoop,hbase">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HBase入门详解（一）">
-<meta property="og:url" content="https://www.lousenjay.info/2018/09/18/HBase入门详解（一）/index.html">
+<meta property="og:url" content="https://www.lousenjay.top/2018/09/18/HBase入门详解（一）/index.html">
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="环境：centos7+hadoop3.0.3+hbase2.0.1+jdk8 简介什么是HBaseHBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。 HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。 HBASE是Google Bigta">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://lousenjay.info/images/show/HBase模型.png">
-<meta property="og:image" content="https://lousenjay.info/images/show/Hbase原理结构图.png">
-<meta property="og:updated_time" content="2018-09-26T01:54:14.595Z">
+<meta property="og:image" content="https://lousenjay.top/images/show/HBase模型.png">
+<meta property="og:image" content="https://lousenjay.top/images/show/Hbase原理结构图.png">
+<meta property="og:updated_time" content="2018-10-07T12:45:52.298Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HBase入门详解（一）">
 <meta name="twitter:description" content="环境：centos7+hadoop3.0.3+hbase2.0.1+jdk8 简介什么是HBaseHBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。 HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。 HBASE是Google Bigta">
-<meta name="twitter:image" content="https://lousenjay.info/images/show/HBase模型.png">
+<meta name="twitter:image" content="https://lousenjay.top/images/show/HBase模型.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -30,7 +30,7 @@
   <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   
   <!--live2d-->
-  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.info/live2d/assets/waifu.css"/>
+  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.top/live2d/assets/waifu.css"/>
   
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/pace.min.js"></script>
@@ -104,7 +104,7 @@
             <nav class="header-nav">
                 <div class="social">
                     
-                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                        <a title="LousenJay" target="_blank" href="//lousenjay.top">
                             <i class="fa fa-home fa-2x"></i></a>
                     
                         <a title="Github" target="_blank" href="//github.com/LousenJay">
@@ -186,7 +186,7 @@
 <li>进入hbase命令行<br>hbase shell</li>
 <li>页面监控<br><a href="http://hadoop5:16010" target="_blank" rel="external">http://hadoop5:16010</a></li>
 </ol>
-<h3 id="HBase数据模型"><a href="#HBase数据模型" class="headerlink" title="HBase数据模型"></a>HBase数据模型</h3><p><img src="https://lousenjay.info/images/show/HBase模型.png" alt="HBase模型"></p>
+<h3 id="HBase数据模型"><a href="#HBase数据模型" class="headerlink" title="HBase数据模型"></a>HBase数据模型</h3><p><img src="https://lousenjay.top/images/show/HBase模型.png" alt="HBase模型"></p>
 <h4 id="Row-Key（行键）"><a href="#Row-Key（行键）" class="headerlink" title="Row Key（行键）"></a>Row Key（行键）</h4><p>Row Key是用来检索记录的主键，访问HBase中table的行只有以下三种方式：</p>
 <ol>
 <li>通过完整的Row Key访问</li>
@@ -197,7 +197,7 @@
 <h4 id="Cell"><a href="#Cell" class="headerlink" title="Cell"></a>Cell</h4><p>由{row key，columns family}确定的唯一单元，cell中的数据是没有类型的，全部是字节码形式存贮。</p>
 <h4 id="Time-Stamp"><a href="#Time-Stamp" class="headerlink" title="Time Stamp"></a>Time Stamp</h4><p>HBase中通过row key和columns family确定的唯一一个存贮单元称为cell。每个 cell都保存着同一份数据的多个版本。版本通过时间戳来索引。时间戳的类型是 64位整型。时间戳可以由HBase(在数据写入时自动)赋值，此时时间戳是精确到毫秒 的当前系统时间。时间戳也可以由客户显式赋值。如果应用程序要避免数据版本冲突，就必须自己生成具有唯一性的时间戳。每个cell中，不同版本的数据按照时间倒序排序，即最新的数据排在最前面。<br>为了避免数据存在过多版本造成的的管理(包括存贮和索引)负担，Hbase提供 了两种数据版本回收方式。一是保存数据的最后n个版本，二是保存最近一段 时间内的版本（比如最近七天）。用户可以针对每个列族进行设置。</p>
 <h3 id="HBase原理"><a href="#HBase原理" class="headerlink" title="HBase原理"></a>HBase原理</h3><ol>
-<li>体系图<br><img src="https://lousenjay.info/images/show/Hbase原理结构图.png" alt="HBase原理结构图"></li>
+<li>体系图<br><img src="https://lousenjay.top/images/show/Hbase原理结构图.png" alt="HBase原理结构图"></li>
 <li>HBase的读流程<ul>
 <li>通过zookeeper和-ROOT- .META.表定位HRegionServer</li>
 <li>数据从内存和硬盘合并后返回给client</li>
@@ -343,10 +343,10 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年09月26日 09:54</p>
-        <p>原始链接： <a class="post-url" href="/2018/09/18/HBase入门详解（一）/" title="HBase入门详解（一）">https://www.lousenjay.info/2018/09/18/HBase入门详解（一）/</a></p>
+        <p>最后更新： 2018年10月07日 20:45</p>
+        <p>原始链接： <a class="post-url" href="/2018/09/18/HBase入门详解（一）/" title="HBase入门详解（一）">https://www.lousenjay.top/2018/09/18/HBase入门详解（一）/</a></p>
         <footer>
-            <a href="https://www.lousenjay.info">
+            <a href="https://www.lousenjay.top">
                 <img src="/images/logo.png" alt="Lousen Jay">
                 Lousen Jay
             </a>
@@ -366,7 +366,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.info/2018/09/18/HBase入门详解（一）/&title=《HBase入门详解（一）》 — 若闲小阁&pic=https://lousenjay.info/images/cover/c_10.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/09/18/HBase入门详解（一）/&title=《HBase入门详解（一）》 — 若闲小阁&pic=https://lousenjay.top/images/cover/c_10.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -376,22 +376,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.info/2018/09/18/HBase入门详解（一）/&title=《HBase入门详解（一）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/09/18/HBase入门详解（一）/&title=《HBase入门详解（一）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.info/2018/09/18/HBase入门详解（一）/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/09/18/HBase入门详解（一）/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《HBase入门详解（一）》 — 若闲小阁&url=https://www.lousenjay.info/2018/09/18/HBase入门详解（一）/&via=https://www.lousenjay.info" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《HBase入门详解（一）》 — 若闲小阁&url=https://www.lousenjay.top/2018/09/18/HBase入门详解（一）/&via=https://www.lousenjay.top" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.info/2018/09/18/HBase入门详解（一）/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/09/18/HBase入门详解（一）/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -401,7 +401,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.info/2018/09/18/HBase入门详解（一）/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/09/18/HBase入门详解（一）/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -495,7 +495,7 @@
 	
 <script>
   var mihoConfig = {
-      root: "https://www.lousenjay.info",
+      root: "https://www.lousenjay.top",
       animate: true,
       isHome: false,
       share: true
@@ -620,10 +620,10 @@
 		</div>
 	</div>
 	<!--live2d-->
-	<script src="https://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
-	<script src="https://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/waifu-tips.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/live2d.js"></script>
 	<script type="text/javascript">
-		initModel("https://www.lousenjay.info/live2d/assets/")
+		initModel("https://www.lousenjay.top/live2d/assets/")
 	</script>
 
   </div>

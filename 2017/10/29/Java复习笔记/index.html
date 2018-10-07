@@ -12,11 +12,11 @@
 <meta name="keywords" content="Java,基础语法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java复习笔记">
-<meta property="og:url" content="https://www.lousenjay.info/2017/10/29/Java复习笔记/index.html">
+<meta property="og:url" content="https://www.lousenjay.top/2017/10/29/Java复习笔记/index.html">
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="最近从头开始复习JavaSE，发现还是有很多不足之处，于是把复习中做过的比较经典的例题整理到这个笔记中，希望自己能够完全掌握这些经典基础题。 一. 经典基础题1.1 打印等腰三角形在控制台输出用*打印的等腰三角形 123456789101112131415161718192021222324252627package com.lousen.test;import java.util.Scanner">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-26T01:46:03.827Z">
+<meta property="og:updated_time" content="2018-10-07T12:45:52.331Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java复习笔记">
 <meta name="twitter:description" content="最近从头开始复习JavaSE，发现还是有很多不足之处，于是把复习中做过的比较经典的例题整理到这个笔记中，希望自己能够完全掌握这些经典基础题。 一. 经典基础题1.1 打印等腰三角形在控制台输出用*打印的等腰三角形 123456789101112131415161718192021222324252627package com.lousen.test;import java.util.Scanner">
@@ -27,7 +27,7 @@
   <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   
   <!--live2d-->
-  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.info/live2d/assets/waifu.css"/>
+  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.top/live2d/assets/waifu.css"/>
   
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/pace.min.js"></script>
@@ -101,7 +101,7 @@
             <nav class="header-nav">
                 <div class="social">
                     
-                        <a title="LousenJay" target="_blank" href="//lousenjay.info">
+                        <a title="LousenJay" target="_blank" href="//lousenjay.top">
                             <i class="fa fa-home fa-2x"></i></a>
                     
                         <a title="Github" target="_blank" href="//github.com/LousenJay">
@@ -170,10 +170,10 @@
 <h3 id="四-格式化"><a href="#四-格式化" class="headerlink" title="四. 格式化"></a>四. 格式化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">package com.lousen.test_5;</div><div class="line"></div><div class="line">import java.text.DateFormat;</div><div class="line">import java.text.MessageFormat;</div><div class="line">import java.text.NumberFormat;</div><div class="line">import java.time.LocalDateTime;</div><div class="line">import java.time.format.DateTimeFormatter;</div><div class="line">import java.time.format.FormatStyle;</div><div class="line">import java.util.Date;</div><div class="line">import java.util.Locale;</div><div class="line">import java.util.ResourceBundle;</div><div class="line"></div><div class="line">public class myData &#123;</div><div class="line">	</div><div class="line">	    private static int SHORT;</div><div class="line">		private static int LONG;</div><div class="line"></div><div class="line">		public static void main(String[] args)  </div><div class="line">	    &#123;  </div><div class="line">	    	Date dt =new Date();</div><div class="line">	    	double db = 12456789;</div><div class="line">	        // 定义一个Locale变量  </div><div class="line">	        Locale currentLocale = null;  </div><div class="line"></div><div class="line">	            currentLocale = Locale.getDefault(Locale.Category.FORMAT);  </div><div class="line"></div><div class="line">	        // 根据Locale加载语言资源  </div><div class="line">	        ResourceBundle bundle = ResourceBundle  </div><div class="line">	            .getBundle(&quot;com.lousen.test_5//myMess&quot; , currentLocale);  </div><div class="line">	        // 取得已加载的语言资源文件中msg对应消息  </div><div class="line">	        String msg = bundle.getString(&quot;msg&quot;);  </div><div class="line">	        // 使用MessageFormat为带占位符的字符串传入参数  </div><div class="line"> </div><div class="line">	            System.out.println(MessageFormat.format(msg, &quot;lousenjay&quot; , new Date()));     </div><div class="line"></div><div class="line">	        </div><div class="line">	        /*使用NumberFormat格式化数字*/</div><div class="line">	        //格式化货币 </div><div class="line">	        System.out.println(NumberFormat.getCurrencyInstance(currentLocale).format(db));</div><div class="line">	        //格式化整数</div><div class="line">	        System.out.println(NumberFormat.getIntegerInstance(currentLocale).format(db));       </div><div class="line">	        //格式化通用数值</div><div class="line">	        System.out.println(NumberFormat.getNumberInstance(currentLocale).format(db));        </div><div class="line">	        //格式化百分数</div><div class="line">	        System.out.println(NumberFormat.getPercentInstance(currentLocale).format(db));</div><div class="line">	        </div><div class="line">	        </div><div class="line">	        /*使用DateFormat格式化日期</div><div class="line">	         * 可通过FULL、LONG、SHORT、MEDUIM四个DateFormat的静态常量来控制样式*/</div><div class="line">	        //格式化日期</div><div class="line">	        System.out.println(DateFormat.getDateInstance(SHORT, currentLocale).format(dt));</div><div class="line">	        //格式化时间</div><div class="line">	        System.out.println(DateFormat.getTimeInstance(LONG, currentLocale).format(dt));</div><div class="line">	        //格式化日期、时间</div><div class="line">	        System.out.println(DateFormat.getDateTimeInstance(LONG,LONG, currentLocale).format(dt));</div><div class="line">	        </div><div class="line">	        /*使用DateTimeFormatter格式化日期*/</div><div class="line">	        //直接使用常量创建DateTimeFormatter个格式器</div><div class="line">	        DateTimeFormatter formatter1 = DateTimeFormatter.ISO_LOCAL_DATE;</div><div class="line">	        DateTimeFormatter formatter2 = DateTimeFormatter.ISO_LOCAL_TIME;</div><div class="line">	        DateTimeFormatter formatter3 = DateTimeFormatter.ISO_LOCAL_DATE_TIME;</div><div class="line">	        //使用本地化风格来创建DateTimeFormatter格式器</div><div class="line">	        DateTimeFormatter formatter4 = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);</div><div class="line">	        DateTimeFormatter formatter5 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG,FormatStyle.FULL);</div><div class="line">	        //根据模式字符串来创建DateTimeFormatter格式器</div><div class="line">	        DateTimeFormatter formatter6 = DateTimeFormatter.ofPattern(&quot;Gyyyy%%MMM%%dd HH:MM:ss&quot;);</div><div class="line">	        LocalDateTime date = LocalDateTime.now();</div><div class="line">	        System.out.println(formatter1.format(date));</div><div class="line">	    &#125;  </div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年09月26日 09:46</p>
-        <p>原始链接： <a class="post-url" href="/2017/10/29/Java复习笔记/" title="Java复习笔记">https://www.lousenjay.info/2017/10/29/Java复习笔记/</a></p>
+        <p>最后更新： 2018年10月07日 20:45</p>
+        <p>原始链接： <a class="post-url" href="/2017/10/29/Java复习笔记/" title="Java复习笔记">https://www.lousenjay.top/2017/10/29/Java复习笔记/</a></p>
         <footer>
-            <a href="https://www.lousenjay.info">
+            <a href="https://www.lousenjay.top">
                 <img src="/images/logo.png" alt="Lousen Jay">
                 Lousen Jay
             </a>
@@ -193,7 +193,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.info/2017/10/29/Java复习笔记/&title=《Java复习笔记》 — 若闲小阁&pic=https://lousenjay.info/images/cover/c_2.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2017/10/29/Java复习笔记/&title=《Java复习笔记》 — 若闲小阁&pic=https://lousenjay.top/images/cover/c_2.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -203,22 +203,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.info/2017/10/29/Java复习笔记/&title=《Java复习笔记》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2017/10/29/Java复习笔记/&title=《Java复习笔记》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.info/2017/10/29/Java复习笔记/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2017/10/29/Java复习笔记/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java复习笔记》 — 若闲小阁&url=https://www.lousenjay.info/2017/10/29/Java复习笔记/&via=https://www.lousenjay.info" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java复习笔记》 — 若闲小阁&url=https://www.lousenjay.top/2017/10/29/Java复习笔记/&via=https://www.lousenjay.top" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.info/2017/10/29/Java复习笔记/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2017/10/29/Java复习笔记/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -228,7 +228,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.info/2017/10/29/Java复习笔记/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2017/10/29/Java复习笔记/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -322,7 +322,7 @@
 	
 <script>
   var mihoConfig = {
-      root: "https://www.lousenjay.info",
+      root: "https://www.lousenjay.top",
       animate: true,
       isHome: false,
       share: true
@@ -447,10 +447,10 @@
 		</div>
 	</div>
 	<!--live2d-->
-	<script src="https://www.lousenjay.info/live2d/assets/waifu-tips.js"></script>
-	<script src="https://www.lousenjay.info/live2d/assets/live2d.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/waifu-tips.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/live2d.js"></script>
 	<script type="text/javascript">
-		initModel("https://www.lousenjay.info/live2d/assets/")
+		initModel("https://www.lousenjay.top/live2d/assets/")
 	</script>
 
   </div>
