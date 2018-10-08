@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Scala入门详解（三） | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="集合List12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010">
+<meta name="keywords" content="Scala">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala入门详解（三）">
+<meta property="og:url" content="https://www.lousenjay.top/2018/10/07/Scala入门详解（三）/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="集合List12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-08T10:25:29.950Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scala入门详解（三）">
+<meta name="twitter:description" content="集合List12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.top/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Scala入门详解（三）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Scala入门详解（三）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/大数据/">大数据</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-10-07
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><h4 id="List"><a href="#List" class="headerlink" title="List"></a>List</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * List</div><div class="line">  * 列表类似于数组，它们所有元素的类型都相同，但是它们也有所不同：</div><div class="line">  * 列表是不可变的，值一旦被定义了就不能改变，</div><div class="line">  * 其次列表具有递归的结构（也就是链接表结构）而数组不是</div><div class="line">  */</div><div class="line">object TestList &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 不可变List</div><div class="line">    // 声明不可变List</div><div class="line">    // 字符串列表，两种方式</div><div class="line">    val strs = List(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;)</div><div class="line">    val strs2 = &quot;a&quot;::(&quot;b&quot;::(&quot;c&quot;::(&quot;d&quot;::Nil)))</div><div class="line">    // 整型列表，两种方式</div><div class="line">    val nums = List(1,2,3,4)</div><div class="line">    val nums2 = 1::(2::(3::(4::Nil)))</div><div class="line">    // 空列表，两种方式</div><div class="line">    val empty = List()</div><div class="line">    val empty2 = Nil</div><div class="line">    // 二维列表，两种方式</div><div class="line">    val dim = List(</div><div class="line">      List(1,1,1),</div><div class="line">      List(2,2,2),</div><div class="line">      List(3,3,3)</div><div class="line">    )</div><div class="line">    val dim2 = (1::(1::(1::Nil)))::(2::(2::(2::Nil)))::(3::(3::(3::Nil)))::Nil</div><div class="line">    // 遍历</div><div class="line">    for (i &lt;- dim2)&#123;</div><div class="line">      println(i)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 列表基本操作</div><div class="line">    // head 返回列表第一个元素</div><div class="line">    // tail 返回一个列表，包含除了第一元素之外的其他元素</div><div class="line">    // isEmpty 在列表为空时返回true</div><div class="line">    println(strs.head)</div><div class="line">    println(strs.tail)</div><div class="line">    println(empty.isEmpty)</div><div class="line"></div><div class="line">    // 连接列表</div><div class="line">    // 1. 使用 ::: 运算符</div><div class="line">    val str = strs:::strs2</div><div class="line">    // 2. 使用List.:::() 方法</div><div class="line">    val num = nums.:::(nums2)</div><div class="line">    // 3. 使用concat方法</div><div class="line">    val tem = List.concat(strs,strs2)</div><div class="line"></div><div class="line">    // List.fill()</div><div class="line">    // 我们可以使用 List.fill() 方法来创建一个指定重复数量的元素列表</div><div class="line">    val remem = List.fill(3)(&quot;ok&quot;)</div><div class="line"></div><div class="line">    // List.tabulate()</div><div class="line">    // 通过给定的函数来创建列表,第一个参数为元素的数量</div><div class="line">    // 第二个参数为指定的函数，我们通过指定的函数计算结果并返回值插入到列表中，起始值为 0</div><div class="line">    val squares = List.tabulate(6)(n =&gt; n * n)</div><div class="line"></div><div class="line">    // List.reverse</div><div class="line">    // 将列表的顺序反转</div><div class="line">    strs.reverse</div><div class="line"></div><div class="line">    val list = List(1)</div><div class="line">    // 添加元素</div><div class="line">    val list2 = 2 :: list</div><div class="line">    println(list2)</div><div class="line"></div><div class="line">    // List函数操作</div><div class="line">    val data = List(&quot;hello&quot;,&quot;Mike&quot;)</div><div class="line">    // map,把元素中的每个元素转成List</div><div class="line">    println(data.map(_.toList));</div><div class="line">    // flatMap,将list元素分成多个list元素，再重新合成新的List元素</div><div class="line">    println(data.flatMap(_.toList))</div><div class="line">    val lnum = List(1,2,3,4)</div><div class="line">    // sum,求和</div><div class="line">    println(lnum.sum)</div><div class="line">    // filter,过滤</div><div class="line">    println(lnum.filter(_ %2 == 0))</div><div class="line">    // partition，分区即根据条件分成两个list</div><div class="line">    println(lnum.partition(_ %2 == 0))</div><div class="line">    // groupBy,根据条件分组，返回Map集合</div><div class="line">    println(lnum.groupBy(i =&gt; i))</div><div class="line">    // slice,返回(first,end]区间的值</div><div class="line">    println(lnum.slice(1,4))</div><div class="line">    // splitAt,从第n个元素开始切开，分成两部分</div><div class="line">    println(lnum.splitAt(2))</div><div class="line">    // reduce,合并</div><div class="line">    println(lnum.reduce(_+_))</div><div class="line">    // fold,合并，有初始值</div><div class="line">    println(lnum.fold(10)(_+_))</div><div class="line">    // find,返回第一个符合的值（Option类型）</div><div class="line">    println(lnum.find(_ % 3 == 0).get)</div><div class="line">    // takeWhile,返回符合条件的List</div><div class="line">    println(lnum.takeWhile(_ &lt; 3))</div><div class="line">    // dropWhile,删除符合条件的元素，返回剩下元素的List</div><div class="line">    println(lnum.dropWhile(_ &lt; 3))</div><div class="line">    // span,和partition类似，符合条件的返回一个List，不符合条件的返回另一个List</div><div class="line">    println(lnum.span(_ &lt; 4))</div><div class="line">    // sortWith,排序</div><div class="line">    println(lnum.sortWith(_ &lt; _))</div><div class="line">    println(lnum.sortWith(_ &gt; _))</div><div class="line">    // sorted排序</div><div class="line">    println(lnum.sorted)</div><div class="line">    // range</div><div class="line">    println(List.range(2,10,3))</div><div class="line">    // zip,unzip</div><div class="line">    val zipped = &quot;abcd&quot;.toList.zip(&quot;123&quot;)</div><div class="line">    println(zipped)</div><div class="line">    println(zipped.unzip)</div><div class="line">    println(zipped.unzip._1)</div><div class="line"></div><div class="line">    // 变形集合,开启多个线程</div><div class="line">    val morelist:List[Int] = (1 to 100).map(i =&gt; 1).toList</div><div class="line">    println(morelist.par.fold(10)(_+_))</div><div class="line"></div><div class="line">    // view,惰性化计算</div><div class="line">    val seq = Seq(1,2,3)</div><div class="line">    val listS = seq.toList.map(i =&gt; println(&quot;A&quot;)).map(j =&gt; println(&quot;B&quot;))</div><div class="line">    val listS2 = seq.view.toList.map(i =&gt; println(&quot;A&quot;)).map(j =&gt; println(&quot;B&quot;))</div><div class="line">//    println(&quot;***&quot;+listS)</div><div class="line"></div><div class="line">    // ListBuffer</div><div class="line">    // 可变列表</div><div class="line">    val lBuffer = scala.collection.mutable.ListBuffer(1,2,3,4)</div><div class="line">    // 追加元素</div><div class="line">    lBuffer += 5</div><div class="line">    println(lBuffer)</div><div class="line"></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * Set</div><div class="line">  * Scala Set(集合)是没有重复的对象集合，所有的元素都是唯一的。Scala 集合分为可变的和不可变的集合。</div><div class="line">  * 默认情况下，Scala 使用的是不可变集合，如果你想使用可变集合，需要引用 scala.collection.mutable.Set包</div><div class="line">  */</div><div class="line">object TestSet &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 不可变Set</div><div class="line">    // 声明不可变Set</div><div class="line">    val s = Set(1,2,3)</div><div class="line">    // 添加元素，返回新的Set</div><div class="line">    val s1 = s.+(4)</div><div class="line">    println(s1)</div><div class="line">    // 连接集合，两种方式</div><div class="line">    var s2 = s ++ s1</div><div class="line">    var s3 = s.++(s1)</div><div class="line">    println(s3)</div><div class="line">    // 最大值，最小值</div><div class="line">    println(s3.max)</div><div class="line">    println(s3.min)</div><div class="line">    // 交集，两种方式</div><div class="line">    val num1 = Set(1,2,3,4)</div><div class="line">    val num2 = Set(3,6,9)</div><div class="line">    val num3 = num1.&amp;(num2)</div><div class="line">    val num4 = num1.intersect(num2)</div><div class="line">    println(num4)</div><div class="line"></div><div class="line"></div><div class="line">    // 可变Set</div><div class="line">    // 声明可变Set</div><div class="line">    val set = scala.collection.mutable.Set(0,1,2)</div><div class="line">    // 添加元素</div><div class="line">    set.add(3)</div><div class="line">    set += 4</div><div class="line">    // 删除元素</div><div class="line">    set.remove(0)</div><div class="line">    set -= 1</div><div class="line">    println(set)</div><div class="line">    // 清除所有元素</div><div class="line">    set.clear()</div><div class="line">    println(set)</div><div class="line">    println(set.getClass.getName) // mutable</div><div class="line">    // 将可变集合转化为不可变集合</div><div class="line">    val set2 = set.toSet</div><div class="line">    println(set2.getClass.getName) // immutable</div><div class="line"></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * Map</div><div class="line">  * Map有两种类型，可变与不可变，区别在于可变对象可以修改它，而不可变对象不可以。</div><div class="line">  * 默认情况下Scala使用不可变 Map。如果你需要使用可变集合，你需要显式的引入</div><div class="line">  * import scala.collection.mutable.Map类。在Scala中你可以同时使用可变与不可变Map，</div><div class="line">  * 不可变的直接使用Map，可变的使用mutable.Map。</div><div class="line">  */</div><div class="line">object TestMap &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 不可变Map</div><div class="line">    // 声明不可变Map</div><div class="line">    val map1 = Map(1 -&gt; 1,2 -&gt; 2)</div><div class="line">    val map11 = Map((1,1),(2,2),(3,3))</div><div class="line">    // 添加键值对</div><div class="line">    val map2 = map1 + (4-&gt;4)</div><div class="line">    println(map2)</div><div class="line"></div><div class="line">    // 基本操作</div><div class="line">    // 返回Map所有的键(key)</div><div class="line">    println(map2.keys)</div><div class="line">    // 返回Map所有的值(value)</div><div class="line">    println(map2.values)</div><div class="line">    // 在Map为空时返回true</div><div class="line">    println(map2.isEmpty)</div><div class="line"></div><div class="line">    // Map合并,两种方式</div><div class="line">    val map3 = map1 ++ map2</div><div class="line">    val map4 = map1.++(map2)</div><div class="line"></div><div class="line">    // 遍历输出Map的key和value，方式一</div><div class="line">    map3.keys.foreach&#123;</div><div class="line">      i =&gt; println(&quot;key:&quot;+i)</div><div class="line">        println(&quot;value:&quot;+map3(i))</div><div class="line">    &#125;</div><div class="line">    // 遍历输出Map的key和value，方式二</div><div class="line">    for((key,value) &lt;- map3)&#123;</div><div class="line">      println(&quot;key：&quot;+key+&quot; ==&gt; value：&quot; + value);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 查看map中是否有对应的key</div><div class="line">    if (map2.contains(2))</div><div class="line">      println(&quot;存在&quot;)</div><div class="line">    else</div><div class="line">      println(&quot;不存在&quot;)</div><div class="line"></div><div class="line"></div><div class="line">    // 可变Map</div><div class="line">    // 声明可变Map</div><div class="line">    val mapDyn = scala.collection.mutable.Map(1 -&gt; &quot;张三&quot;,2 -&gt; &quot;李四&quot;)</div><div class="line">    // 添加元素</div><div class="line">    mapDyn += (3 -&gt; &quot;王五&quot;)</div><div class="line">    mapDyn(4) = &quot;赵六&quot;</div><div class="line">    // 删除元素</div><div class="line">    mapDyn -= (1)</div><div class="line">    // 遍历k-v</div><div class="line">    for ((k,v) &lt;- mapDyn) println(&quot;k:&quot;+k+&quot; v:&quot;+v)</div><div class="line"></div><div class="line">    // Mapp排序</div><div class="line">    // SortedMap</div><div class="line">    val sortedScore = scala.collection.immutable.SortedMap(&quot;Scala&quot;-&gt;7,&quot;Hadoop&quot;-&gt;10,&quot;Spark&quot;-&gt;12)</div><div class="line">    for ((k,v) &lt;- sortedScore) println(&quot;k:&quot;+k+&quot; v:&quot;+v)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * Queue</div><div class="line">  * 队列</div><div class="line">  */</div><div class="line">object TestQueue &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 不可变队列</div><div class="line">    // 声明不可变队列</div><div class="line">    val queue = scala.collection.immutable.Queue(1,2,3)</div><div class="line">    // 添加元素，返回一个新的队列</div><div class="line">    val queue2 = queue.enqueue(List(1,2,3))</div><div class="line">    println(queue2)</div><div class="line">    // dequeue,将quenue2拆分成两部分：第一个元素，和剩下的一个元素组成Queue两部分</div><div class="line">    // 相当于先进先出，拿走一个元素</div><div class="line">    val (first,others) = queue2.dequeue</div><div class="line">    println(first+&quot;|&quot;+others)</div><div class="line"></div><div class="line"></div><div class="line">    // 可变队列</div><div class="line">    // 声明可变队列</div><div class="line">    val queue3 = scala.collection.mutable.Queue(1,2,3)</div><div class="line">    // 追加元素</div><div class="line">    queue3 += 4</div><div class="line">    // 追加集合</div><div class="line">    queue3 ++= List(5,6)</div><div class="line">    println(queue3)</div><div class="line">    // dequeue,可变的Queue只返回第一个元素，并且把第一个元素从Queue中删除</div><div class="line">    println(queue3.dequeue)</div><div class="line"></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * Stack</div><div class="line">  * 栈</div><div class="line">  */</div><div class="line">object TestStack &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 不可变栈</div><div class="line">    // 声明不可变栈</div><div class="line">    val stack = scala.collection.immutable.Stack(1,2,3)</div><div class="line">    println(stack)</div><div class="line">    // 入栈，往栈顶添加元素，返回新的对象</div><div class="line">    val stack2 = stack.push(4)</div><div class="line">    println(stack2)</div><div class="line"></div><div class="line">    // 可变栈</div><div class="line">    // 声明不可变栈</div><div class="line">    val stack3 = scala.collection.mutable.Stack(1,2,3)</div><div class="line">    // 入栈往栈顶添加元素</div><div class="line">    stack3.push(4)</div><div class="line">    println(stack3)</div><div class="line">    // 返回栈顶元素</div><div class="line">    println(stack3.top)</div><div class="line">    // 出栈，返回并删除栈顶元素</div><div class="line">    stack3.pop()</div><div class="line">    println(stack3)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * TreeSet</div><div class="line">  * TreeMap</div><div class="line">  * 返回的结果都是已经排好序的</div><div class="line">  */</div><div class="line">object TestTree &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 不可变TreeSet</div><div class="line">    val treeSet = scala.collection.immutable.TreeSet(1,4,2,9,5,2,7)</div><div class="line">    // 添加元素，返回新的对象</div><div class="line">    val treeSet3 = treeSet + 50</div><div class="line">    println(treeSet3)</div><div class="line">    // 可变TreeSet</div><div class="line">    val treeSet2 = scala.collection.mutable.TreeSet(1,4,2,9,5,2,7)</div><div class="line">    // 添加元素</div><div class="line">    treeSet2 += 100</div><div class="line">    println(treeSet2)</div><div class="line"></div><div class="line"></div><div class="line">    // 不可变TreeMap</div><div class="line">    val treeMap = scala.collection.immutable.TreeMap(&quot;book&quot; -&gt; &quot;ok&quot;,&quot;others&quot; -&gt; &quot;no&quot;)</div><div class="line">    // 添加元素，返回新的对象</div><div class="line">    val treeMap3 = treeMap + (&quot;food&quot; -&gt; &quot;ok&quot;)</div><div class="line">    println(treeMap3)</div><div class="line">    // 可变TreeMap,不存在的</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * 泛型类、泛型函数</div><div class="line">  * 泛型用于指定方法或类可以接受任意类型参数</div><div class="line">  * 参数在实际使用时才被确定</div><div class="line">  * 泛型可以有效地增强程序的适用性</div><div class="line">  * 使用泛型可以使得类或方法具有更强的通用性</div><div class="line">  */</div><div class="line">object TestGeneric &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 泛型类</div><div class="line">    class GenericClass[F, S, T](val f: F, val s: S, val t: T)</div><div class="line">    // 实例化方式1:类型推导</div><div class="line">    val gc = new GenericClass(&quot;xj&quot;, 22, &apos;C&apos;)</div><div class="line">    // 实例化方式2:类型声明</div><div class="line">    val gc2 = new GenericClass[String, String, Int](&quot;xj&quot;, &quot;lj&quot;, 22)</div><div class="line"></div><div class="line">    // 泛型函数</div><div class="line">    def getData[T](list: List[T]) = list(list.length - 1)</div><div class="line"></div><div class="line">    println(getData(List(&apos;b&apos;, &quot;bj&quot;, 26, 2.0)))</div><div class="line">    // 获得getData的引用，必须指定泛型类型</div><div class="line">    val t = getData[Int] _</div><div class="line">    println(t(List(1, 2, 3, 4, 5)))</div><div class="line"></div><div class="line">    // 类型变量界定</div><div class="line">    // 通过编译，为范型T增加了约束，限定上界为Comparable[T]</div><div class="line">    // 范型类型T也就具有了Comparable[T]中的compareTo(T)方法，类似于java中的继承</div><div class="line">    def typeVariable[T &lt;: Comparable[T]](a: T, b: T) = &#123;</div><div class="line">      if (a.compareTo(b) &gt; 0)</div><div class="line">        1</div><div class="line">      else</div><div class="line">        -1</div><div class="line">    &#125;</div><div class="line">    // 正确运行，String有上界Comparable[T]</div><div class="line">    println(typeVariable(&quot;a&quot;, &quot;b&quot;))</div><div class="line">    // Int类型运行错误，Int没有上界Comparable[T]，但是为何编译不报错？</div><div class="line">    // 如果想成功运行的话，就需要进行一次隐式转换，</div><div class="line">    // 将Int类型转换成支持Comparable[T]的类型，此时应该改用视图界定&lt;%</div><div class="line">    // 视图界定帮我们进行了隐式转换，将Int转换成了支持Comparable[T]的RichInt类型</div><div class="line">    //    println(typeVariable(1,2))</div><div class="line"></div><div class="line">    // 视图界定</div><div class="line">    // &lt;% 泛型视图界定符，表示把传入不是Comparable[T]类型的 隐式传换 为Comparable[T]类型</div><div class="line">    // a之所以能使用方法compareTo，是因为a被隐式传换为Comparable[T]类型</div><div class="line">    def viewBound[T &lt;% Comparable[T]](a: T, b: T) = &#123;</div><div class="line">      if (a.compareTo(b) &gt; 0)</div><div class="line">        a</div><div class="line">      else</div><div class="line">        b</div><div class="line">    &#125;</div><div class="line">    // Int类型被隐式转换成了支持Comparable[T]的RichInt类型</div><div class="line">    println(viewBound(1, 2))</div><div class="line"></div><div class="line"></div><div class="line">    // 上下文界定</div><div class="line">    class PairOrdering[T: Ordering](val first: T, val second: T) &#123;</div><div class="line">      // compareTo方法进行比较，如果大于0返回first</div><div class="line">      def bigger(implicit ordered: Ordering[T]) = &#123;</div><div class="line">        if (ordered.compare(first, second) &gt; 0) first else second</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    // 函数调用</div><div class="line">    var pair = new PairOrdering(&quot;Spark&quot;, &quot;Hadoop&quot;)</div><div class="line">    // 执行结果：Spark</div><div class="line">    println(pair.bigger)</div><div class="line"></div><div class="line"></div><div class="line">    // 多重界定</div><div class="line">    //  一个类型参数有多个类型约束,比如：</div><div class="line">    //  T &gt;: A &lt;: B 表示T所允许的范围是A的父类 或者是B的子类</div><div class="line">    //  T: A: B 表示作用域必须同时满足存在A[T]和B[T]隐式值</div><div class="line">    //  T &lt;% A &lt;% B表示作用域必须同时满足T到A和T到B的隐式转换</div><div class="line">    class Animal&#123;</div><div class="line">      def speak():Unit=&#123;</div><div class="line">        println(&quot;666&quot;)</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    class Person extends Animal&#123;&#125;</div><div class="line">    class Student extends Person&#123;&#125;</div><div class="line">    def showAll[T &gt;: Person &lt;: Person](str:T) =&#123;</div><div class="line">      str.speak()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // Manifest关键字</div><div class="line">    // 数组在声明时必须要求指定具体的类型，在函数泛型是无法知道具体类型，</div><div class="line">    // 通过Manifest关键字使得运行时可以根据这个Manifest参数做更多的事情</div><div class="line">    def arrayMake[T: Manifest](first: T, second: T) = &#123;</div><div class="line">      val r = new Array[T](2);</div><div class="line">      r(0) = first;</div><div class="line">      r(1) = second;</div><div class="line">      // 返回r</div><div class="line">      r;</div><div class="line">    &#125;</div><div class="line">//    val array = arrayMake(&quot;a&quot;,&quot;b&quot;)</div><div class="line">//    for (i &lt;- array) println(i)</div><div class="line">    arrayMake(&quot;a&quot;,&quot;b&quot;).foreach(println)</div><div class="line"></div><div class="line"></div><div class="line">    // ClassTag关键字</div><div class="line">    // ClassTag[T]保存了泛型擦除后的原始类型T,提供给被运行时的</div><div class="line">    def mkArray[T:ClassTag](elems:T*) = Array[T](elems:_*)</div><div class="line">    mkArray(42,13).foreach(println)</div><div class="line">    mkArray(&quot;Japan&quot;,&quot;Brazil&quot;,&quot;Germany&quot;).foreach(println)</div><div class="line"></div><div class="line"></div><div class="line">    // 类型约束</div><div class="line">    // 类型约束提供给你的是另外一个限定类型的方式，总共有三种关系可供使用</div><div class="line">    // T =:= U 表示测试T 是否等于U类型</div><div class="line">    // T &lt;:&lt; U 表示测试T 是否为U的子类型</div><div class="line">    // T &lt;%&lt; U 表示是否存在T到U 的转换</div><div class="line"></div><div class="line"></div><div class="line">    // 协变，逆变</div><div class="line">    // 协变[+T]</div><div class="line">    // 只有满足指定类型或者指定类型子类才可以被兼容,即使是指定类型的父类也不会被兼容,</div><div class="line">    // 通俗地讲，只要是你或者你的子类我都可以编译通过</div><div class="line"></div><div class="line">    // 逆变[-T]</div><div class="line">    // 只有满足指定类型或者指定类型父类才可以被兼容,即使是指定类型的子类也不会被兼容</div><div class="line">    // 通俗地讲，只要是你或者你的父类我都可以编译通过</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年10月08日 18:25</p>
+        <p>原始链接： <a class="post-url" href="/2018/10/07/Scala入门详解（三）/" title="Scala入门详解（三）">https://www.lousenjay.top/2018/10/07/Scala入门详解（三）/</a></p>
+        <footer>
+            <a href="https://www.lousenjay.top">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/10/07/Scala入门详解（三）/&title=《Scala入门详解（三）》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_15.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/10/07/Scala入门详解（三）/&title=《Scala入门详解（三）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/10/07/Scala入门详解（三）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Scala入门详解（三）》 — 若闲小阁&url=https://www.lousenjay.top/2018/10/07/Scala入门详解（三）/&via=https://www.lousenjay.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/10/07/Scala入门详解（三）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/10/07/Scala入门详解（三）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Scala/" class="color1">Scala</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#集合"><span class="post-toc-text">集合</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#List"><span class="post-toc-text">List</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Set"><span class="post-toc-text">Set</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Map"><span class="post-toc-text">Map</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Queue"><span class="post-toc-text">Queue</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Stack"><span class="post-toc-text">Stack</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Tree"><span class="post-toc-text">Tree</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#泛型"><span class="post-toc-text">泛型</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/10/08/Scala入门详解（四）/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Scala入门详解（四）
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/10/04/Scala入门详解（二）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Scala入门详解（二）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="Scala入门详解（三）" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "https://www.lousenjay.top",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 16px;">Scala</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 14px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 16px;">Scala</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 14px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="https://www.lousenjay.top/live2d/assets/waifu-tips.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("https://www.lousenjay.top/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>

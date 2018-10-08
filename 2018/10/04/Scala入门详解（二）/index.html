@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Scala入门详解（二） | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="类类的声明与定义1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950/**  * 类的声明与定义  * Scala是一种纯粹的面向对象编程语言，而又无缝地结合了命令式和函数式的编程风格。  * 在面向对象的语言有两个重要的概念：类(class)和对象(object也被称">
+<meta name="keywords" content="Scala">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala入门详解（二）">
+<meta property="og:url" content="https://www.lousenjay.top/2018/10/04/Scala入门详解（二）/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="类类的声明与定义1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950/**  * 类的声明与定义  * Scala是一种纯粹的面向对象编程语言，而又无缝地结合了命令式和函数式的编程风格。  * 在面向对象的语言有两个重要的概念：类(class)和对象(object也被称">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-08T10:25:29.958Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scala入门详解（二）">
+<meta name="twitter:description" content="类类的声明与定义1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950/**  * 类的声明与定义  * Scala是一种纯粹的面向对象编程语言，而又无缝地结合了命令式和函数式的编程风格。  * 在面向对象的语言有两个重要的概念：类(class)和对象(object也被称">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.top/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Scala入门详解（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Scala入门详解（二）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/大数据/">大数据</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-10-04
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><h4 id="类的声明与定义"><a href="#类的声明与定义" class="headerlink" title="类的声明与定义"></a>类的声明与定义</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * 类的声明与定义</div><div class="line">  * Scala是一种纯粹的面向对象编程语言，而又无缝地结合了命令式和函数式的编程风格。</div><div class="line">  * 在面向对象的语言有两个重要的概念：类(class)和对象(object也被称为实例—instance)，</div><div class="line">  * 其中类是对象的抽象。可以把类理解为模板，对象才是真正的实体。</div><div class="line">  */</div><div class="line">// 1. scala 中每个类都有主构造器，且与类定义交织在一起。其参数直接放置在类名后面</div><div class="line">// 2. 类的代码属于主构造器，每次创建对象时执行一次</div><div class="line">// 3. 主构造器中被val/var声明的参数会被编译成类的字段，同时生成getter/setter。Scala</div><div class="line">// 提供了java风格的getter/setter方法，在定义变量时加上注解BeanProperty(scala.beans包下的)，</div><div class="line">// 经过编译后scala字节码中就有java风格的getter/setter方法</div><div class="line">// 4. 在scala的主构造器中，没有var/val修饰的参数且类中没有使用该参数，该参数不会被编译成属性，</div><div class="line">// 反之如果使用了该参数，则会被编译成属性，相当于被val修饰，但不会为其生成getter方法。</div><div class="line">// 构造器的参数它的作用域是整个类</div><div class="line">// 5. Scala中的类不声明为public，一个Scala源文件中可以有多个类</div><div class="line">class TestClass(@BeanProperty var name:String=&quot;张三&quot;) &#123;</div><div class="line">  @BeanProperty var aa:String = name+&quot;66&quot;</div><div class="line">  @BeanProperty var age:Int = 18</div><div class="line">  // private[this]只能在当前class中使用，不能在其它方法中使用</div><div class="line">  private[this] var bb:Int = 120</div><div class="line"></div><div class="line">  // 辅助构造器</div><div class="line">  def this(name:String,age:Int)&#123;</div><div class="line">    // 每个辅助构造器必须以主构造器或其他的辅助构造器的调用开始</div><div class="line">    this(name)</div><div class="line">    this.age = age</div><div class="line">    println(&quot;执行了辅助构造器&quot;)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  def show(str:String=&quot;hello&quot;):String=&#123;</div><div class="line">    str</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 单例对象</div><div class="line">// 单例对象与某个类共享同一个名称时，他被称作是这个类的伴生对象</div><div class="line">// 必须在同一个源文件里定义类和它的伴生对象</div><div class="line">// 类被称为是这个单例对象的伴生类</div><div class="line">// *类和它的伴生对象可以互相访问其私有成员</div><div class="line">object TestClass&#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    val t = new TestClass(&quot;zs&quot;,18)</div><div class="line">    t.name=&quot;lisi&quot;</div><div class="line">    println(t.name)</div><div class="line">    t.setName(&quot;wangyi&quot;)</div><div class="line">    println(t.getName)</div><div class="line">    t.aa = &quot;999&quot;</div><div class="line">    println(t.aa)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * 类的继承</div><div class="line">  * scala和java一样只可以单继承</div><div class="line">  * final修饰的类不可以被继承</div><div class="line">  */</div><div class="line">// 防止父类成员被重写后，结果可能不正确，有三种方式</div><div class="line">// 1.将父类的val声明为lazy</div><div class="line">// 2.将父类的val声明为final</div><div class="line">// 3.在子类中使用提前定义语法</div><div class="line">class Person(name:String) &#123;</div><div class="line">  final val sex = &quot;男&quot;</div><div class="line">  // 懒加载，实现延迟加载，只能是val类型</div><div class="line">  lazy val age = 20</div><div class="line">  def show = &#123;</div><div class="line">    println(name+&quot; &quot;+sex+&quot; &quot;+age)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 1 重写一个非抽象方法必须使用override修饰符。</div><div class="line">// 2 只有主构造函数才可以往基类的构造函数里写参数。</div><div class="line">// 3 在子类中重写超类的抽象方法时，你不需要使用override关键字</div><div class="line">class Student extends  Person(&quot;lisi&quot;)&#123;</div><div class="line">  override lazy val age: Int = 30</div><div class="line">  override def show: Unit = super.show</div><div class="line">  def study = &#123;</div><div class="line">    println(&quot;学习&quot;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">object TestP&#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    val t1 = new Person(&quot;zs&quot;)</div><div class="line">    val t2 = new Student</div><div class="line">    println(&quot;t1:&quot;+t1.age)</div><div class="line">    println(&quot;t1:&quot;+t1.sex)</div><div class="line">    t1.show</div><div class="line">    println(&quot;t2:&quot;+t2.age)</div><div class="line">    println(&quot;t2:&quot;+t2.sex)</div><div class="line">    t2.show</div><div class="line"></div><div class="line">    // isInstanceOf [T] : 判断对象是否为 T 类型的实例</div><div class="line">    // classOf [T] : 获取类型 T 的 Class 对象</div><div class="line">    // asInstanceOf [T] : 将对象类型强制转换为T类型,只对值类型（AnyVal）有效</div><div class="line">    println(t2.isInstanceOf[Person])</div><div class="line">    println(classOf[Person])</div><div class="line">    println( 20.asInstanceOf[Long].getClass.getName)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * 抽象类</div><div class="line">  * 用 abstract 关键字修饰的类是抽象类，抽象类中可以有抽象的属性和方法</div><div class="line">  * 抽象类语法与普通类一致，就是多了抽象属性和方法。</div><div class="line">  * 抽象属性不用初始化，抽象方法不能有方法体</div><div class="line">  * 一个类中有抽象的属性或方法，这个类必须用关键字 abstract 修饰</div><div class="line">  * 普通类可以继承抽象类，使用关键字extends</div><div class="line">  */</div><div class="line">abstract class TestA(age:Int)&#123;</div><div class="line">  var name:String</div><div class="line">  def tShow(str:String):Unit</div><div class="line">  val sex = &quot;男&quot;</div><div class="line">  def tLook=&#123;</div><div class="line">    println(&quot;666&quot;+age)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class TestB() extends TestA(20)&#123;</div><div class="line">  var name: String = _</div><div class="line">  def tShow(str: String): Unit = &#123;</div><div class="line">    println(&quot;7777&quot;+str)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">object TestAbstract &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    val t1 = new TestB</div><div class="line">    t1.name</div><div class="line">    t1.sex</div><div class="line">    t1.tShow(&quot;lisi&quot;)</div><div class="line">    t1.tLook</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="特质（接口）"><a href="#特质（接口）" class="headerlink" title="特质（接口）"></a>特质（接口）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * 接口</div><div class="line">  * 实现接口关键字extends，和继承一样</div><div class="line">  * Scala Trait(特征) 相当于 Java 的接口，实际上它比接口还功能强大</div><div class="line">  * 与接口不同的是，它还可以定义属性和方法的实现。一般情况下Scala的类只能够继承单一父类，</div><div class="line">  * 但是如果是 Trait(特征) 的话就可以继承多个，从结果来看就是实现了多重继承</div><div class="line">  *</div><div class="line">  * 构造器执行顺序</div><div class="line">  * 调用超类的构造器；</div><div class="line">  * 特征构造器在超类构造器之后、类构造器之前执行；</div><div class="line">  * 特征由左到右被构造；</div><div class="line">  * 每个特征当中，父特征先被构造；</div><div class="line">  * 如果多个特征共有一个父特征，父特征不会被重复构造</div><div class="line">  * 所有特征被构造完毕，子类被构造。</div><div class="line">  */</div><div class="line">trait TestTrait &#123;</div><div class="line">  // 没有定义方法的实现</div><div class="line">  def isEqual(x: Any): Boolean</div><div class="line">  // 定义方法的实现</div><div class="line">  def isNotEqual(x: Any): Boolean = !isEqual(x)</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Point(xc: Int, yc: Int) extends TestTrait &#123;</div><div class="line">  var x: Int = xc</div><div class="line">  var y: Int = yc</div><div class="line">  def isEqual(obj: Any) =</div><div class="line">    obj.isInstanceOf[Point] &amp;&amp;</div><div class="line">      obj.asInstanceOf[Point].x == x</div><div class="line">&#125;</div><div class="line"></div><div class="line">object Test &#123;</div><div class="line">  def main(args: Array[String]) &#123;</div><div class="line">    val p1 = new Point(2, 3)</div><div class="line">    val p2 = new Point(2, 4)</div><div class="line">    val p3 = new Point(3, 3)</div><div class="line"></div><div class="line">    println(p1.isNotEqual(p2))</div><div class="line">    println(p1.isNotEqual(p3))</div><div class="line">    println(p1.isNotEqual(2))</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * 多态</div><div class="line">  * 1、被final修饰的方法和属性不能重写</div><div class="line">  * 2、var修饰的非抽象属性不能重写</div><div class="line">  * 3、抽象的属性或者方法，重写时可以不加 override 关键字，</div><div class="line">  * 非抽象属性或方法必须加 override 关键字</div><div class="line">  * 4、没有参数的方法，可以用val来重写</div><div class="line">  */</div><div class="line">trait TestPolymorphic &#123;</div><div class="line">  // 被final修饰的方法和属性不能重写</div><div class="line">  final val a = &quot;final属性&quot;</div><div class="line">  final def methodT1 = &#123;</div><div class="line">    println(&quot;final修饰的方法&quot;)</div><div class="line">  &#125;</div><div class="line">  // var修饰的非抽象属性不能重写</div><div class="line">  var b = &quot;var属性&quot;</div><div class="line">  val b2 = &quot;val属性&quot;</div><div class="line">  // 抽象的属性或者方法，重写时可以不加 override关键字</div><div class="line">  var c:String</div><div class="line">  val d:String</div><div class="line">  def methodT2</div><div class="line"> //  没有参数的方法，可以用val来重写</div><div class="line">  def methodT3 = &#123;</div><div class="line">    println(&quot;没有参数的方法&quot;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class TestBB extends TestPolymorphic&#123;</div><div class="line">  // var修饰的非抽象属性不能重写</div><div class="line">//  override var b:String = &quot;b&quot;</div><div class="line">  override val b2: String = &quot;b2&quot;</div><div class="line">  var c: String = &quot;c&quot;</div><div class="line">  val d: String = &quot;d&quot;</div><div class="line"></div><div class="line">  def methodT2: Unit = println(&quot;抽象方法&quot;)</div><div class="line"></div><div class="line">  override val methodT3 = println(&quot;没有参数的方法2&quot;)</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">object TestBB&#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    val t = new TestBB()</div><div class="line">    println(t.b)</div><div class="line">    println(t.b2)</div><div class="line">    println(t.c)</div><div class="line">    println(t.d)</div><div class="line">    t.methodT2</div><div class="line">    t.methodT3</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="方法和函数"><a href="#方法和函数" class="headerlink" title="方法和函数"></a>方法和函数</h3><h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><p>Scala中的+ - * / %等操作符的作用与Java一样，位操作符 &amp; | ^ &gt;&gt; &lt;&lt;也一样。只是有一点特别的：这些操作符实际上是方法。例如：<br>a + b是如下方法调用的简写：a.+(b)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">  * 方法的声明与定义</div><div class="line">  * a 方法 b 可以写成 a.方法(b)</div><div class="line">  * 方法的返回值类型可以不写，编译器可以自动推断出来，</div><div class="line">  * 但是对于递归函数，必须指定返回类型</div><div class="line">  */</div><div class="line"></div><div class="line">class TestMethod &#123;</div><div class="line">  // 有参数，有返回值,参数还可以有默认值</div><div class="line">  // 省略return关键字将最后一行表达式的结果作为返回值</div><div class="line">  def methodT1(str:String=&quot;张三&quot;):String=&#123;</div><div class="line">    str</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  // 有参数，无返回值</div><div class="line">  def methodT2(str:String):Unit=&#123;</div><div class="line">    println(str)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  // 无参数，无返回值(完整写法)</div><div class="line">  def methodT3():Unit=&#123;</div><div class="line">    println(&quot;T3&quot;)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  // 无参数，无返回值（省略写法）</div><div class="line">  // 对于无参方法，可以省略括号。但是在调用时，写了括号的方法，通过方</div><div class="line">  // 法名或者方法名()来调用，没有括号的方法，只能通过方法名调用</div><div class="line">  def methodT4=&#123;</div><div class="line">    println(&quot;T4&quot;)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  // 这种形式的方法叫过程，无返回值</div><div class="line">  // 对于没有等号的方法叫过程，返回值类型永远是 Unit</div><div class="line">  def methodT5&#123;</div><div class="line">    println(&quot;T5&quot;)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  // 换名调用参数</div><div class="line">  // 方法调用时，参数不会被求值，这样的函数参数叫换名调用参数。对应的</div><div class="line">  // 调用时，参数表达式被求值，这样的叫换值调用参数</div><div class="line">  def methodT6(t:Int=&gt;Int)&#123;</div><div class="line">    println(t)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">object TestMethod&#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    val t = new TestMethod</div><div class="line">    println(t.methodT1(&quot;网速&quot;))</div><div class="line">    t.methodT2(&quot;李四&quot;)</div><div class="line">    t.methodT3()</div><div class="line">    t.methodT4</div><div class="line">    t.methodT5</div><div class="line">    // 定义函数</div><div class="line">    val f = (x:Int) =&gt; 20</div><div class="line">    t.methodT6(f)</div><div class="line"></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * 函数</div><div class="line">  * 可以像任何其他数据类型一样被传递和操作</div><div class="line">  */</div><div class="line">object TestFunction &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 先定义一个方法，再定义一个函数，将函数传递到方法</div><div class="line">    def method2(f:(Int,Int)=&gt;Int) = f(2,3)</div><div class="line">    val ff = (x:Int,y:Int) =&gt; x+y</div><div class="line">    println(method2(ff) )</div><div class="line"></div><div class="line">    // 指定函数参数名</div><div class="line">    // 参数列表可以不用按顺序传递，直接指定传递</div><div class="line">    def m(x:Int,y:Int) = x+y</div><div class="line">    println(m(y=2,x=3))</div><div class="line"></div><div class="line">    // 函数，可变参数</div><div class="line">    // 不需要指定函数参数的个数，可以向函数传入可变长度参数列表</div><div class="line">    def printStrings( args:String* ) = &#123;</div><div class="line">      var i : Int = 0;</div><div class="line">      for( arg &lt;- args )&#123;</div><div class="line">        println(&quot;Arg value[&quot; + i + &quot;] = &quot; + arg );</div><div class="line">        i = i + 1;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    printStrings(&quot;zhangsan&quot;,&quot;lisi&quot;,&quot;wangwu&quot;)</div><div class="line"></div><div class="line">    // 匿名函数</div><div class="line">    // 使用匿名函数后，我们的代码变得更简洁了</div><div class="line">    var m1 = (x:Int) =&gt; x+1</div><div class="line">    println(m1(1))</div><div class="line">    var m2 = (x:Int,y:Int) =&gt; x*y-(x+y)</div><div class="line">    println(m2(2,2))</div><div class="line">    var m3 = () =&gt; 8</div><div class="line">    println(m3())</div><div class="line"></div><div class="line">    // 偏函数</div><div class="line">    // A代表参数类型，B代表返回类型，常用作输入模式匹配</div><div class="line">    def func1: PartialFunction[String, Int] = &#123;</div><div class="line">      case &quot;one&quot; =&gt; 1</div><div class="line">      case &quot;two&quot; =&gt; 2</div><div class="line">      case _ =&gt; -1</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    def func2(num: String) : Int = num match &#123;</div><div class="line">      case &quot;one&quot; =&gt; 1</div><div class="line">      case &quot;two&quot; =&gt; 2</div><div class="line">      case _ =&gt; -1</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 偏应用函数</div><div class="line">    // 绑定第一个date参数，第二个参数使用下划线(_)替换缺失的参数列表，并把这个新的函数值的索引的赋给变量</div><div class="line">    var log = (date:Date,message:String)=&gt;println(date+&quot;----&quot;+message)</div><div class="line">    var date = new Date</div><div class="line">    var logWithBound = log(date,_:String)</div><div class="line">    logWithBound(&quot;hhhhhh&quot;)</div><div class="line">    logWithBound(&quot;llllll&quot;)</div><div class="line">    logWithBound(&quot;kkkkkk&quot;)</div><div class="line"></div><div class="line">    // 高阶函数</div><div class="line">    // Scala中允许使用高阶函数, 高阶函数可以使用其他函数作为参数，或者使用函数作为输出结果</div><div class="line">    // 函数f和值v作为参数，而函数f又调用了参数v</div><div class="line">    def apply(f: Int =&gt; String, v: Int) = f(v)</div><div class="line">    def iToString[A](x: A) = &quot;[&quot; + x.toString() + 66 + &quot;]&quot;</div><div class="line">    println( apply(iToString, 10) )</div><div class="line"></div><div class="line">    // 函数柯里化</div><div class="line">    // 柯里化(Currying)指的是将原来接受两个参数的函数变成新的接受一个参数的函数的过程。</div><div class="line">    // 新的函数返回一个以原有第二个参数为参数的函数</div><div class="line">    def add1(x:Int,y:Int) = x+y</div><div class="line">    println(add1(1,1))</div><div class="line">    // 柯里化</div><div class="line">    def add2(x:Int)(y:Int) = x+y</div><div class="line">    println(add2(1)(1))</div><div class="line"></div><div class="line">    // 方法和函数的区别</div><div class="line">    // 1. 函数可以作为参数传递到方法中，方法不行</div><div class="line">    val m4 = (x:Int,y:Int) =&gt; x-y</div><div class="line">    def min(f:(Int,Int) =&gt; Int,v:Int) = f(10,v)</div><div class="line">    println(min(m4,5))</div><div class="line">    // 2. 在Scala中无法直接操作方法，如果要操作方法，必须先将其转换成函数</div><div class="line">    // 通常情况下编译器会自动将方法转换成函数，例如在一个应该传入函数参数</div><div class="line">    // 的地方传入了一个方法，编译器会自动将传入的方法转换成函数</div><div class="line">    def m5(x:Int):Int=&#123;</div><div class="line">      x * 10</div><div class="line">    &#125;</div><div class="line">    // 转化</div><div class="line">    (x:Int) =&gt; m5(x)</div><div class="line">    // 3. 函数必须要有参数列表，而方法可以没有参数列表</div><div class="line">    def m6 = 100</div><div class="line">    //      val ff = =&gt; 100</div><div class="line">    // 4. 在需要函数的地方，如果传递一个方法，会自动进行ETA展开（把方法转换为函数）</div><div class="line">    // 5. _将方法转化为函数</div><div class="line">      def m7(x:Int,y:Int) = x + y</div><div class="line">      println(m7(1,1))</div><div class="line">      val f7 = m7 _</div><div class="line">      println(f7(1,1))</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * 数组</div><div class="line">  * 如果想使用（动态）可变数组，需要导入import scala.collection.mutable.ArrayBuffer包</div><div class="line">  */</div><div class="line">object TestArray &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 静态数组</div><div class="line">    // 声明静态数组</div><div class="line">    val arr = new Array[Int](4)</div><div class="line">    arr(0)=6</div><div class="line">    arr(1)=7</div><div class="line">    val arr2 = Array(1,2,3,4)</div><div class="line">    // 遍历数组</div><div class="line">    for (i &lt;- arr2)&#123;</div><div class="line">      println(i)</div><div class="line">    &#125;</div><div class="line">    // 创建长度为6，元素全为4的数组</div><div class="line">    val arr7 = fill(6)(4)</div><div class="line">    // 创建长度为10，类型为Function0[Int]的数组</div><div class="line">    val arr8 = fill(10)(() =&gt; 4)</div><div class="line">    // 创建长度为10的数组</div><div class="line">    val arr9 = ofDim(10)</div><div class="line"></div><div class="line">    // 多维数组</div><div class="line">    val arr3 = ofDim[Int](3,3)</div><div class="line">    // 创建矩阵</div><div class="line">    for (i &lt;- 0 to 2) &#123;</div><div class="line">      for ( j &lt;- 0 to 2) &#123;</div><div class="line">        arr3(i)(j) = j;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    // 打印二维阵列</div><div class="line">    for (i &lt;- 0 to 2) &#123;</div><div class="line">      for ( j &lt;- 0 to 2) &#123;</div><div class="line">        print(&quot; &quot; + arr3(i)(j));</div><div class="line">      &#125;</div><div class="line">      println();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 合并数组，两种方式</div><div class="line">    val arr4 = concat(arr,arr2)</div><div class="line">    val arr44 = arr.++(arr2)</div><div class="line">    // 遍历数组</div><div class="line">    for (i &lt;- arr44)&#123;</div><div class="line">      println(i)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 创建区间数组[i,j)</div><div class="line">    val arr5 = range(10,20)</div><div class="line">    val arr6 = range(10,20,2)</div><div class="line">    for (i &lt;- arr5)&#123;</div><div class="line">      println(i)</div><div class="line">    &#125;</div><div class="line">    for (i &lt;- arr6)&#123;</div><div class="line">      println(i)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 动态数组</div><div class="line">    // ArrayBuffer</div><div class="line">    val array = ArrayBuffer(1,2,3,8)</div><div class="line">    // 末端追加元素</div><div class="line">    array += 9</div><div class="line">    // 末段追加多个元素</div><div class="line">    array += (6,6,6)</div><div class="line">    // 末端追加集合</div><div class="line">    array ++= arr</div><div class="line">    // 在指定位置插入元素</div><div class="line">    array.insert(0,11)</div><div class="line">    // 在指定位置插入多个元素</div><div class="line">    array.insert(5,2,3,5)</div><div class="line">    // 删除位置是2的元素</div><div class="line">    array.remove(6)</div><div class="line">    // 从第2个元素开始移除3个元素</div><div class="line">    array.remove(2,3)</div><div class="line">    // 将动态数组转化为数组</div><div class="line">    val array2 = array.toArray</div><div class="line">    // 将数组转化为动态数组</div><div class="line">    val array3 = array2.toBuffer</div><div class="line">    for (n &lt;- array)&#123;</div><div class="line">      println(n)</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    // 排序</div><div class="line">    val arrayorder = array.sorted</div><div class="line">    for (n &lt;- arrayorder) println(n)</div><div class="line">    // 使用分隔符连接元素</div><div class="line">    println(arrayorder.mkString(&quot;|&quot;))</div><div class="line">    // 前后以[]包围，中间以,分割</div><div class="line">    println(arrayorder.mkString(&quot;[&quot;,&quot;,&quot;,&quot;]&quot;))</div><div class="line"></div><div class="line"></div><div class="line">    // zip</div><div class="line">    // 按照两个数组的序列进行匹配组成新得元素</div><div class="line">    val a1 = Array(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;)</div><div class="line">    val a2 = Array(1,2,3)</div><div class="line">    val a3= a1.zip(a2)</div><div class="line">    for(n &lt;- a3) println(n)</div><div class="line"></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * 元组</div><div class="line">  * 与列表一样，元组也是不可变的，但与列表不同的是元组可以包含不同类型的元素。</div><div class="line">  * 元组的值是通过将单个的值包含在圆括号中构成的</div><div class="line">  */</div><div class="line">object TestTuple &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line"></div><div class="line">    // 声明，两种方式</div><div class="line">    // 元组的实际类型取决于它的元素的类型</div><div class="line">    // 目前Scala支持的元组最大长度为 22。对于更大长度你可以使用集合，或者扩展元组</div><div class="line">    // 元组的下标索引是从1开始的</div><div class="line">    val t1 = (1,&quot;ok&quot;,3.14)</div><div class="line">    val t2 = new Tuple3(2,&quot;hhh&quot;,6.6)</div><div class="line"></div><div class="line">    // 访问元组元素</div><div class="line">    println(t1._1)</div><div class="line">    println(t1._2)</div><div class="line">    println(t1._3)</div><div class="line"></div><div class="line">    // 迭代输出元组的所有元素</div><div class="line">    t1.productIterator.foreach&#123;</div><div class="line">      i =&gt; println(&quot;value:&quot;+i)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 元组转化为字符串</div><div class="line">    println(t1.toString())</div><div class="line"></div><div class="line">    // 元组元素交换位置，仅限于两个元素的元组</div><div class="line">    val t3 = (1,&quot;2&quot;)</div><div class="line">    println(t3.swap)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年10月08日 18:25</p>
+        <p>原始链接： <a class="post-url" href="/2018/10/04/Scala入门详解（二）/" title="Scala入门详解（二）">https://www.lousenjay.top/2018/10/04/Scala入门详解（二）/</a></p>
+        <footer>
+            <a href="https://www.lousenjay.top">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/10/04/Scala入门详解（二）/&title=《Scala入门详解（二）》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_14.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/10/04/Scala入门详解（二）/&title=《Scala入门详解（二）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/10/04/Scala入门详解（二）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Scala入门详解（二）》 — 若闲小阁&url=https://www.lousenjay.top/2018/10/04/Scala入门详解（二）/&via=https://www.lousenjay.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/10/04/Scala入门详解（二）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/10/04/Scala入门详解（二）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Scala/" class="color1">Scala</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类"><span class="post-toc-text">类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#类的声明与定义"><span class="post-toc-text">类的声明与定义</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#类的继承"><span class="post-toc-text">类的继承</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#抽象类"><span class="post-toc-text">抽象类</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#特质（接口）"><span class="post-toc-text">特质（接口）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多态"><span class="post-toc-text">多态</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法和函数"><span class="post-toc-text">方法和函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方法"><span class="post-toc-text">方法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#函数"><span class="post-toc-text">函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数组"><span class="post-toc-text">数组</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#元组"><span class="post-toc-text">元组</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/10/07/Scala入门详解（三）/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Scala入门详解（三）
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/09/30/Scala入门详解（一）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Scala入门详解（一）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="Scala入门详解（二）" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "https://www.lousenjay.top",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 16px;">Scala</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 14px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 16px;">Scala</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 14px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="https://www.lousenjay.top/live2d/assets/waifu-tips.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("https://www.lousenjay.top/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Scala入门详解（四） | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="IO1234567891011121314151617181920212223/**  * IO  * Scala进行文件写操作，直接用的都是java中的I/O类（java.io.File)  */object TestIO &amp;#123;  def main(args: Array[String]): Unit = &amp;#123;    // 写操作//    val writer = new Pr">
+<meta name="keywords" content="Scala">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala入门详解（四）">
+<meta property="og:url" content="https://www.lousenjay.top/2018/10/08/Scala入门详解（四）/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="IO1234567891011121314151617181920212223/**  * IO  * Scala进行文件写操作，直接用的都是java中的I/O类（java.io.File)  */object TestIO &amp;#123;  def main(args: Array[String]): Unit = &amp;#123;    // 写操作//    val writer = new Pr">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-08T10:25:29.963Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scala入门详解（四）">
+<meta name="twitter:description" content="IO1234567891011121314151617181920212223/**  * IO  * Scala进行文件写操作，直接用的都是java中的I/O类（java.io.File)  */object TestIO &amp;#123;  def main(args: Array[String]): Unit = &amp;#123;    // 写操作//    val writer = new Pr">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.top/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//lousenjay.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Scala入门详解（四）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Scala入门详解（四）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/大数据/">大数据</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-10-08
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * IO</div><div class="line">  * Scala进行文件写操作，直接用的都是java中的I/O类（java.io.File)</div><div class="line">  */</div><div class="line">object TestIO &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 写操作</div><div class="line">//    val writer = new PrintWriter(new File(&quot;test.txt&quot; ))</div><div class="line">//    writer.write(&quot; 测试成功&quot;)</div><div class="line">//    writer.close()</div><div class="line"></div><div class="line">    // 从屏幕上读取用户输入</div><div class="line">//    print(&quot;请输入您的姓名：&quot;)</div><div class="line">//    val line = StdIn.readLine()</div><div class="line">//    println(line+&quot;先生，欢迎您~&quot;)</div><div class="line"></div><div class="line">    // 从文件上读取内容</div><div class="line">    Source.fromFile(&quot;test.txt&quot;).foreach&#123;</div><div class="line">      print</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="迭代器-Iterator"><a href="#迭代器-Iterator" class="headerlink" title="迭代器(Iterator)"></a>迭代器(Iterator)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * Iterator（迭代器）</div><div class="line">  * Scala Iterator（迭代器）不是一个集合，它是一种用于访问集合的方法。</div><div class="line">  * 迭代器it的两个基本操作是 next和hasNext。</div><div class="line">  * 调用it.next()会返回迭代器的下一个元素，并且更新迭代器的状态。</div><div class="line">  * 调用it.hasNext()用于检测集合中是否还有元素。</div><div class="line">  * 让迭代器 it 逐个返回所有元素最简单的方法是使用 while 循环</div><div class="line">  */</div><div class="line">object TestIterator &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    val it = Iterator(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;)</div><div class="line">    // 迭代输出</div><div class="line">    while(it.hasNext)</div><div class="line">      println(it.next())</div><div class="line"></div><div class="line">    // 最大值，最小值，只能同时获得其中一个，最大值或最小值</div><div class="line">    val num = Iterator(3,7,4,2,9)</div><div class="line">    println(num.min)</div><div class="line">//    println(num.max)</div><div class="line"></div><div class="line">    // 迭代器的长度，两种方式</div><div class="line">    val it2 = Iterator(1,1,2)</div><div class="line">    println(it2.size)</div><div class="line">//    println(it2.length)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * 模式匹配</div><div class="line">  * match对应Java里的switch，但是写在选择器表达式之后。即： 选择器 match &#123;备选项&#125;。</div><div class="line">  * match 表达式通过以代码编写的先后次序尝试每个模式来完成计算，</div><div class="line">  * 只要发现有一个匹配的case，剩下的case不会继续匹配</div><div class="line">  */</div><div class="line">object TestMatch &#123;</div><div class="line">  def matchTest(x: Any): Any = x match &#123;</div><div class="line">    case 1 =&gt; &quot;one&quot;</div><div class="line">    case &quot;two&quot; =&gt; 2</div><div class="line">    case y: Int =&gt; &quot;scala.Int&quot;</div><div class="line">    // 表示默认的全匹配备选项,类似switch中的default</div><div class="line">    case _ =&gt; &quot;many&quot;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    println(matchTest(1))</div><div class="line">    // 样例类</div><div class="line">    // 一个类被声明为样例类，主构造器的所有参数会被编译成类的属性</div><div class="line">    // Scala 会自动给样例类生成伴生对象，以及实现apply和unapply方法等以及其他方法</div><div class="line">    case class Person(name: String, age: Int)</div><div class="line"></div><div class="line">    val alice = new Person(&quot;Alice&quot;, 25)</div><div class="line">    val bob = new Person(&quot;Bob&quot;, 32)</div><div class="line">    val charlie = new Person(&quot;Charlie&quot;, 32)</div><div class="line"></div><div class="line">    for (person &lt;- List(alice, bob, charlie)) &#123;</div><div class="line">      person match &#123;</div><div class="line">        case Person(&quot;Alice&quot;, 25) =&gt; println(&quot;Hi Alice!&quot;)</div><div class="line">        case Person(&quot;Bob&quot;, 32) =&gt; println(&quot;Hi Bob!&quot;)</div><div class="line">        case Person(name, age) =&gt;</div><div class="line">          println(&quot;Age: &quot; + age + &quot; year, name: &quot; + name + &quot;?&quot;)</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * 闭包</div><div class="line">  */</div><div class="line">object TestMultiplier &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 闭包是一个函数，返回值依赖于声明在函数外部的一个或多个变量</div><div class="line">    var a = 3</div><div class="line">    val multiplier = (i:Int) =&gt; i*a</div><div class="line">    println(multiplier(1))</div><div class="line">    println(multiplier(2))</div><div class="line">    println(multiplier(3))</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="选项-Option"><a href="#选项-Option" class="headerlink" title="选项(Option)"></a>选项(Option)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * Option</div><div class="line">  * Scala Option(选项)类型用来表示一个值是可选的（有值或无值)。</div><div class="line">  * Option[T] 是一个类型为 T 的可选值的容器：如果值存在，Option[T] 就是一个Some[T] ，</div><div class="line">  * 如果不存在，Option[T] 就是对象None</div><div class="line">  */</div><div class="line">object TestOption &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 声明</div><div class="line">    val a:Option[Int] = Some(1)</div><div class="line">    val b:Option[Int] = None</div><div class="line"></div><div class="line">    // 如果有值的话，可以通过get方法获取值</div><div class="line">    println(a.get)</div><div class="line"></div><div class="line">    // getOrElse()方法</div><div class="line">    // 有值就直接获取值，没有值就使用默认值</div><div class="line">    println(a.getOrElse(10))</div><div class="line">    println(b.getOrElse(10))</div><div class="line"></div><div class="line">    // isEmpty()方法</div><div class="line">    // 检测元组中的元素是否为none</div><div class="line">    println(a.isEmpty)</div><div class="line">    println(b.isEmpty)</div><div class="line"></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * 正则表达式</div><div class="line">  */</div><div class="line">object TestRegex &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 使用String类的r()方法构造了一个Regex对象</div><div class="line">    val pattern = &quot;Scala&quot;.r</div><div class="line">    val str = &quot;Scala is Scalable and cool&quot;</div><div class="line">    // 使用 findFirstIn 方法找到首个匹配项</div><div class="line">    println(pattern.findFirstIn(str).get)</div><div class="line">    // 使用 findAllIn 方法查找所有匹配项，使用逗号连接返回结果</div><div class="line">    println(pattern.findAllIn(str).mkString(&quot;|&quot;))</div><div class="line">    // 使用 replaceFirstIn( ) 方法来替换第一个匹配项</div><div class="line">    val pattern2 = &quot;(S|s)cala&quot;.r</div><div class="line">    println(pattern2.replaceFirstIn(str,&quot;Java&quot;))</div><div class="line">    // 使用 replaceAllIn( ) 方法替换所有匹配项</div><div class="line">    println(pattern2.replaceAllIn(str,&quot;Java&quot;))</div><div class="line"></div><div class="line">    // 正则表达式</div><div class="line">    val pattern3 = new Regex(&quot;[a-zA-Z][s]&quot;)</div><div class="line">    println(pattern3.findFirstIn(str).get)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年10月08日 18:25</p>
+        <p>原始链接： <a class="post-url" href="/2018/10/08/Scala入门详解（四）/" title="Scala入门详解（四）">https://www.lousenjay.top/2018/10/08/Scala入门详解（四）/</a></p>
+        <footer>
+            <a href="https://www.lousenjay.top">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/10/08/Scala入门详解（四）/&title=《Scala入门详解（四）》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_16.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/10/08/Scala入门详解（四）/&title=《Scala入门详解（四）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/10/08/Scala入门详解（四）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Scala入门详解（四）》 — 若闲小阁&url=https://www.lousenjay.top/2018/10/08/Scala入门详解（四）/&via=https://www.lousenjay.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/10/08/Scala入门详解（四）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/10/08/Scala入门详解（四）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Scala/" class="color1">Scala</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IO"><span class="post-toc-text">IO</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#迭代器-Iterator"><span class="post-toc-text">迭代器(Iterator)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模式匹配"><span class="post-toc-text">模式匹配</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#闭包"><span class="post-toc-text">闭包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#选项-Option"><span class="post-toc-text">选项(Option)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#正则表达式"><span class="post-toc-text">正则表达式</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/10/07/Scala入门详解（三）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Scala入门详解（三）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="Scala入门详解（四）" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "https://www.lousenjay.top",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 16px;">Scala</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 14px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 16px;">Scala</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 14px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="https://www.lousenjay.top/live2d/assets/waifu-tips.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("https://www.lousenjay.top/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>
