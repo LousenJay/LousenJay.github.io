@@ -12,11 +12,11 @@
 <meta name="keywords" content="Spark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark环境搭建（多种模式）">
-<meta property="og:url" content="https://www.lousenjay.top/2018/10/09/Spark环境搭建（多种模式）/index.html">
+<meta property="og:url" content="https://www.lousenjay.top/2018/10/10/Spark环境搭建（多种模式）/index.html">
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="Spark环境的搭建相比于Hadoop集群的搭建还是比较简单的，而且跟Hadoop集群的搭建流程也很相似，只是没有Hadoop集群那么多的配置文件要修改。本文中，我将详细介绍Spark的本地模式、Standalone模式（伪分布）、Standalone模式（全分布）、Yarn集群模式的搭建。 搭建环境：CentOS7+jdk8+spark2.3.2+hadoop2.7 Local本地模式 上传并解">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-22T06:07:16.449Z">
+<meta property="og:updated_time" content="2018-10-22T11:30:38.540Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark环境搭建（多种模式）">
 <meta name="twitter:description" content="Spark环境的搭建相比于Hadoop集群的搭建还是比较简单的，而且跟Hadoop集群的搭建流程也很相似，只是没有Hadoop集群那么多的配置文件要修改。本文中，我将详细介绍Spark的本地模式、Standalone模式（伪分布）、Standalone模式（全分布）、Yarn集群模式的搭建。 搭建环境：CentOS7+jdk8+spark2.3.2+hadoop2.7 Local本地模式 上传并解">
@@ -139,7 +139,7 @@
               </li>
           
         <li>
-          <i class="fa fa-calendar"></i>  2018-10-09
+          <i class="fa fa-calendar"></i>  2018-10-10
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -235,8 +235,8 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年10月22日 14:07</p>
-        <p>原始链接： <a class="post-url" href="/2018/10/09/Spark环境搭建（多种模式）/" title="Spark环境搭建（多种模式）">https://www.lousenjay.top/2018/10/09/Spark环境搭建（多种模式）/</a></p>
+        <p>最后更新： 2018年10月22日 19:30</p>
+        <p>原始链接： <a class="post-url" href="/2018/10/10/Spark环境搭建（多种模式）/" title="Spark环境搭建（多种模式）">https://www.lousenjay.top/2018/10/10/Spark环境搭建（多种模式）/</a></p>
         <footer>
             <a href="https://www.lousenjay.top">
                 <img src="/images/logo.png" alt="Lousen Jay">
@@ -258,7 +258,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/10/09/Spark环境搭建（多种模式）/&title=《Spark环境搭建（多种模式）》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_1.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/10/10/Spark环境搭建（多种模式）/&title=《Spark环境搭建（多种模式）》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_1.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -268,22 +268,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/10/09/Spark环境搭建（多种模式）/&title=《Spark环境搭建（多种模式）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/10/10/Spark环境搭建（多种模式）/&title=《Spark环境搭建（多种模式）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/10/09/Spark环境搭建（多种模式）/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/10/10/Spark环境搭建（多种模式）/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spark环境搭建（多种模式）》 — 若闲小阁&url=https://www.lousenjay.top/2018/10/09/Spark环境搭建（多种模式）/&via=https://www.lousenjay.top" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spark环境搭建（多种模式）》 — 若闲小阁&url=https://www.lousenjay.top/2018/10/10/Spark环境搭建（多种模式）/&via=https://www.lousenjay.top" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/10/09/Spark环境搭建（多种模式）/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/10/10/Spark环境搭建（多种模式）/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -293,7 +293,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/10/09/Spark环境搭建（多种模式）/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/10/10/Spark环境搭建（多种模式）/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -325,19 +325,9 @@
 
 <nav id="article-nav">
   
-    <a href="/2018/10/09/Spark入门详解（一）/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          Spark入门详解（一）
-        
-      </span>
-    </a>
   
-  
-    <a href="/2018/10/08/Scala入门详解（四）/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">Scala入门详解（四）</span>
+    <a href="/2018/10/09/Spark入门详解（一）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Spark入门详解（一）</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
