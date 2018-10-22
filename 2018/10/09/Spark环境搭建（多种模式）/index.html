@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="Spark环境的搭建相比于Hadoop集群的搭建还是比较简单的，而且跟Hadoop集群的搭建流程也很相似，只是没有Hadoop集群那么多的配置文件要修改。本文中，我将详细介绍Spark的本地模式、Standalone模式（伪分布）、Standalone模式（全分布）、Yarn集群模式的搭建。 搭建环境：CentOS7+jdk8+spark2.3.2+hadoop2.7 Local本地模式 上传并解">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-10T11:49:49.979Z">
+<meta property="og:updated_time" content="2018-10-22T06:07:16.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark环境搭建（多种模式）">
 <meta name="twitter:description" content="Spark环境的搭建相比于Hadoop集群的搭建还是比较简单的，而且跟Hadoop集群的搭建流程也很相似，只是没有Hadoop集群那么多的配置文件要修改。本文中，我将详细介绍Spark的本地模式、Standalone模式（伪分布）、Standalone模式（全分布）、Yarn集群模式的搭建。 搭建环境：CentOS7+jdk8+spark2.3.2+hadoop2.7 Local本地模式 上传并解">
@@ -175,7 +175,7 @@
 </ol>
 <p>source ~/.bashrc<br>注：此处必须要添加JAVA_HOME的路径，虽然你可能已经在/etc/profile例配置了JAVA_HOME，但是Spark识别不到，后面启动会报找不到JAVA_HOME的错误，所以这里必须再次添加一下JAVA_HOME的路径。</p>
 <ol>
-<li><p>修改配置文件spark-env.sh<br>cd /home/hadoop/apps/spark/conf<br>cp spark-env.sh.template spark-env.sh<br>vi spark-env.sh<br>在最下面添加</p>
+<li><p>修改配置文件spark-env.sh<br>cd /home/hadoop/apps/spark/conf<br>cp spark-env.sh.template spark-env.sh<br>vi spark-env.sh<br>在最下面添加 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># hadoop1是主节点，即本机的主机名</div><div class="line">export SPARK_MASTER_HOST=hadoop1</div><div class="line"># 默认端口号为7077</div><div class="line">export SPARK_MASTER_PORT=7077</div></pre></td></tr></table></figure>
 </li>
 <li><p>启动集群<br>进入sbin目录<br>cd /home/hadoop/apps/spark/sbin<br>启动master<br>./start-master.sh<br>启动slave<br>./start-slave.sh spark://hadoop1:7077</p>
@@ -192,7 +192,7 @@
 </ol>
 <p>source ~/.bashrc<br>注：此处必须要添加JAVA_HOME的路径，虽然你可能已经在/etc/profile例配置了JAVA_HOME，但是Spark识别不到，后面启动会报找不到JAVA_HOME的错误，所以这里必须再次添加一下JAVA_HOME的路径。</p>
 <ol>
-<li><p>修改配置文件spark-env.sh<br>cd /home/hadoop/apps/spark/conf<br>cp spark-env.sh.template spark-env.sh<br>vi spark-env.sh<br>在最下面添加</p>
+<li><p>修改配置文件spark-env.sh<br>cd /home/hadoop/apps/spark/conf<br>cp spark-env.sh.template spark-env.sh<br>vi spark-env.sh<br>在最下面添加 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># hadoop1是主节点，即本机的主机名</div><div class="line">export SPARK_MASTER_HOST=hadoop1</div><div class="line"># 默认端口号为7077</div><div class="line">export SPARK_MASTER_PORT=7077</div></pre></td></tr></table></figure>
 </li>
 <li><p>修改配置文件slaves<br>cd /home/hadoop/apps/spark/conf<br>cp slaves.template slaves<br>vi slaves<br>删除原有节点，添加从节点主机名</p>
@@ -235,7 +235,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年10月10日 19:49</p>
+        <p>最后更新： 2018年10月22日 14:07</p>
         <p>原始链接： <a class="post-url" href="/2018/10/09/Spark环境搭建（多种模式）/" title="Spark环境搭建（多种模式）">https://www.lousenjay.top/2018/10/09/Spark环境搭建（多种模式）/</a></p>
         <footer>
             <a href="https://www.lousenjay.top">
