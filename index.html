@@ -119,6 +119,259 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
+    <article id="post-Spark入门详解（四）-网页排名算子开发实例" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/19/Spark入门详解（四）-网页排名算子开发实例/"  >Spark入门详解（四）-网页排名算子开发实例</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/大数据/">大数据</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2018/10/19/Spark入门详解（四）-网页排名算子开发实例/" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_4.jpg" alt="Spark入门详解（四）-网页排名算子开发实例" title="Spark入门详解（四）-网页排名算子开发实例">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                思路分析：1.此操作需要用到两个pairRDD，第一个pairRDD，key：当前页面，value：当前页面所含链接页面的合集。2.第二个pairRDD，key：当前页面，value：当前页面的权重3.两个pairRDD在循环中根据key进行连接操作，计算每次循环返回后各个页面的权重值4.根据权重值的大小可知页面的排名
+开发代码：123456789101112131415...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2018-10-19</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Spark/" class="color1">Spark</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2018/10/19/Spark入门详解（四）-网页排名算子开发实例/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-Maven的pom.xml配置详解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/15/Maven的pom.xml配置详解/"  >Maven的pom.xml配置详解</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/IDE/">IDE</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2018/10/15/Maven的pom.xml配置详解/" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_3.jpg" alt="Maven的pom.xml配置详解" title="Maven的pom.xml配置详解">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                本次主要介绍了如何在IntelliJ IDEA中正确配置pom.xml文件，通常至少要包含三个部分：项目坐标和模型版本、引入依赖的jar包、构建项目的配置。关于Maven的安装和环境配置可以参考我之前的文章：Maven入门学习
+模型版本和项目坐标
+
+模型版本modelVersion：pom文件的模型版本
+项目坐标指的是项目在maven资源库的坐标，通过groupId + ...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2018-10-15</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Maven/" class="color1">Maven</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2018/10/15/Maven的pom.xml配置详解/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-Spark入门详解（三）-RDD编程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/15/Spark入门详解（三）-RDD编程/"  >Spark入门详解（三）-RDD编程</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/大数据/">大数据</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2018/10/15/Spark入门详解（三）-RDD编程/" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_3.jpg" alt="Spark入门详解（三）-RDD编程" title="Spark入门详解（三）-RDD编程">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                RDD简介RDD是弹性分布式数据集，完全弹性的，如果数据丢失一部分还可以重建。有自动容错、位置感知调度和可伸缩性。
+RDD共包含两种计算方式，一种是transformations转换，一种是actions操作，每种计算方式包含一些常用的方法。注：Transformations转换是Lazy的，也就是说从一个RDD转换生成另一个RDD的操作不是马上执行，Spark在遇到Tr...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2018-10-15</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Spark/" class="color1">Spark</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2018/10/15/Spark入门详解（三）-RDD编程/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-Spark入门详解（二）-Spark运行原理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/13/Spark入门详解（二）-Spark运行原理/"  >Spark入门详解（二）-Spark运行原理</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/大数据/">大数据</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2018/10/13/Spark入门详解（二）-Spark运行原理/" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_2.jpg" alt="Spark入门详解（二）-Spark运行原理" title="Spark入门详解（二）-Spark运行原理">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                Spark运行过程Spark应用程序以进程集合为单位在分布式集群上运行，通过driver程序的main方法创建的SparkContext对象与集群交互。
+Spark大致运行流程：
+1、Spark通过SparkContext向Cluster manager(资源管理器)申请所需执行的资源（cpu、内存等）
+2、Cluster manager分配应用程序执行需要的资源，在Wo...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2018-10-13</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Spark/" class="color1">Spark</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2018/10/13/Spark入门详解（二）-Spark运行原理/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
     <article id="post-Spark环境搭建（多种模式）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -182,14 +435,14 @@ L...
 
 
   
-    <article id="post-Spark入门详解（一）" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Spark入门详解（一）-Spark简介" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/09/Spark入门详解（一）/"  >Spark入门详解（一）</a>
+      <a class="article-title" href="/2018/10/09/Spark入门详解（一）-Spark简介/"  >Spark入门详解（一）-Spark简介</a>
     </h1>
   
 
@@ -206,16 +459,16 @@ L...
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/2018/10/09/Spark入门详解（一）/" >
+            <a href="/2018/10/09/Spark入门详解（一）-Spark简介/" >
                 
-                <img src="https://www.lousenjay.top/images/cover/c_17.jpg" alt="Spark入门详解（一）" title="Spark入门详解（一）">
+                <img src="https://www.lousenjay.top/images/cover/c_17.jpg" alt="Spark入门详解（一）-Spark简介" title="Spark入门详解（一）-Spark简介">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                简介Spark是基于内存计算的大数据分布式计算框架。Spark基于内存计算，提供可交互查询方式，提供近实时处理方式，提高了在同时保证了高容错性和高可伸缩性，允许用户将Spark部署在大量廉价硬件之上，形成集群。
-Spark使用Scala语言进行实现，它是一种面向对象、函数式编程语言，能够像操作本地集合对象一样轻松地操作分布式数据集（Scala提供一个称为Actor的并行模...
+                简介Spark是基于内存计算的大数据分布式计算框架。Spark基于内存计算，提供可交互查询方式，提供近实时处理方式，同时保证了高容错性和高可伸缩性，允许用户将Spark部署在大量廉价硬件之上，形成集群。
+Spark使用Scala语言进行实现，它是一种面向对象、函数式编程语言，能够像操作本地集合对象一样轻松地操作分布式数据集（Scala提供一个称为Actor的并行模型，其中...
             </p>
         </div>
       
@@ -236,7 +489,7 @@ Spark使用Scala语言进行实现，它是一种面向对象、函数式编程�
 
         </ul>
         
-            <a href="/2018/10/09/Spark入门详解（一）/#more" class="article-more-link" >more&gt;&gt;</a>
+            <a href="/2018/10/09/Spark入门详解（一）-Spark简介/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -491,269 +744,6 @@ Spark使用Scala语言进行实现，它是一种面向对象、函数式编程�
 
 
   
-    <article id="post-HBase入门详解（三）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/25/HBase入门详解（三）/"  >HBase入门详解（三）</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/大数据/">大数据</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2018/09/25/HBase入门详解（三）/" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_12.jpg" alt="HBase入门详解（三）" title="HBase入门详解（三）">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                环境：centos7+hadoop3.0.3+hbase2.0.1+jdk8
-HBase的MapReduce操作注意事项：    Map继承TableMapper    Reduce继承TableReducer    最后Reduce输出的value的类型是Mutation    通过TableMapReduceUtil来设置相关信息
-实例：统计行键并添加到指定列族123...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2018-09-25</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/hadoop/" class="color2">hadoop</a>
-      
-    <a href="/tags/hbase/" class="color1">hbase</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2018/09/25/HBase入门详解（三）/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-HBase入门详解（二）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/19/HBase入门详解（二）/"  >HBase入门详解（二）</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/大数据/">大数据</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2018/09/19/HBase入门详解（二）/" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_11.jpg" alt="HBase入门详解（二）" title="HBase入门详解（二）">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                环境：centos7+hadoop3.0.3+hbase2.0.1+jdk8
-HBase开发测试代码准备1234567891011121314151617181920212223242526Configuration conf = null;ExecutorService pool = null;Connection conn = null;Admin admin = n...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2018-09-19</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/hadoop/" class="color2">hadoop</a>
-      
-    <a href="/tags/hbase/" class="color1">hbase</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2018/09/19/HBase入门详解（二）/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-HBase入门详解（一）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/18/HBase入门详解（一）/"  >HBase入门详解（一）</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/大数据/">大数据</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2018/09/18/HBase入门详解（一）/" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_10.jpg" alt="HBase入门详解（一）" title="HBase入门详解（一）">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                环境：centos7+hadoop3.0.3+hbase2.0.1+jdk8
-简介什么是HBaseHBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。
-HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。
-HBASE...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2018-09-18</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/hadoop/" class="color2">hadoop</a>
-      
-    <a href="/tags/hbase/" class="color1">hbase</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2018/09/18/HBase入门详解（一）/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-Hive入门详解（三）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/16/Hive入门详解（三）/"  >Hive入门详解（三）</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/大数据/">大数据</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2018/09/16/Hive入门详解（三）/" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_9.jpg" alt="Hive入门详解（三）" title="Hive入门详解（三）">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                内置函数UDF和内置运算符
-取随机数rand()select rand() from t_product;
-
-求a的阶乘factorial(INT a)select factorial(10) from t_product;
-
-求最大值greatest(T v1, T v2, …)select greatest(10,123,53,34,1,23,502,120) fro...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2018-09-16</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/hadoop/" class="color2">hadoop</a>
-      
-    <a href="/tags/hive/" class="color5">hive</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2018/09/16/Hive入门详解（三）/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -815,7 +805,7 @@ HBASE...
             <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 16px;">Scala</a> <a href="/tags/Spark/" style="font-size: 12px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 14px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 11.67px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -854,7 +844,7 @@ HBASE...
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 14px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 16px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 12px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 16px;">Scala</a> <a href="/tags/Spark/" style="font-size: 12px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hive/" style="font-size: 14px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 14px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 12px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 12px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 11.67px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
         </div>
     </div>
 </div>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Spark入门详解（三）-RDD编程 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="RDD简介RDD是弹性分布式数据集，完全弹性的，如果数据丢失一部分还可以重建。有自动容错、位置感知调度和可伸缩性。 RDD共包含两种计算方式，一种是transformations转换，一种是actions操作，每种计算方式包含一些常用的方法。注：Transformations转换是Lazy的，也就是说从一个RDD转换生成另一个RDD的操作不是马上执行，Spark在遇到Transformations">
+<meta name="keywords" content="Spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark入门详解（三）-RDD编程">
+<meta property="og:url" content="https://www.lousenjay.top/2018/10/15/Spark入门详解（三）-RDD编程/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="RDD简介RDD是弹性分布式数据集，完全弹性的，如果数据丢失一部分还可以重建。有自动容错、位置感知调度和可伸缩性。 RDD共包含两种计算方式，一种是transformations转换，一种是actions操作，每种计算方式包含一些常用的方法。注：Transformations转换是Lazy的，也就是说从一个RDD转换生成另一个RDD的操作不是马上执行，Spark在遇到Transformations">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-05T11:59:38.299Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark入门详解（三）-RDD编程">
+<meta name="twitter:description" content="RDD简介RDD是弹性分布式数据集，完全弹性的，如果数据丢失一部分还可以重建。有自动容错、位置感知调度和可伸缩性。 RDD共包含两种计算方式，一种是transformations转换，一种是actions操作，每种计算方式包含一些常用的方法。注：Transformations转换是Lazy的，也就是说从一个RDD转换生成另一个RDD的操作不是马上执行，Spark在遇到Transformations">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.top/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//www.lousenjay.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Spark入门详解（三）-RDD编程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Spark入门详解（三）-RDD编程
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/大数据/">大数据</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-10-15
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="RDD简介"><a href="#RDD简介" class="headerlink" title="RDD简介"></a>RDD简介</h3><p>RDD是弹性分布式数据集，完全弹性的，如果数据丢失一部分还可以重建。有自动容错、位置感知调度和可伸缩性。</p>
+<p>RDD共包含两种计算方式，一种是transformations转换，一种是actions操作，每种计算方式包含一些常用的方法。<br>注：Transformations转换是Lazy的，也就是说从一个RDD转换生成另一个RDD的操作不是马上执行，Spark在遇到Transformations转换时只会记录需要这样的转换，并不会去执行，需要等到有Actions操作的时候才会真正启动计算过程进行计算。</p>
+<h3 id="创建RDD对象"><a href="#创建RDD对象" class="headerlink" title="创建RDD对象"></a>创建RDD对象</h3><p>1、 读取外部文件<br>2、 并行一个集合<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 构建conf对象 SparkConf对象</div><div class="line">// 必须设置的两个参数：运行模式，app的名字</div><div class="line">val conf = new SparkConf().setMaster(&quot;local&quot;).setAppName(&quot;My Spark&quot;)</div><div class="line">// 构建sc对象 SparkContext对象</div><div class="line">val sc = SparkContext.getOrCreate(conf)</div><div class="line"></div><div class="line">// 1.读取外部文件</div><div class="line">// textFile objectFile sequenceFile hadoopFile newAPIHadoopFile</div><div class="line">val text:RDD[String] = sc.textFile(&quot;src/data/fist.txt&quot;)</div><div class="line">// 2.通过并行一个集合</div><div class="line">val num:RDD[Int] = sc.parallelize(List(1,2,5,8,4))</div></pre></td></tr></table></figure></p>
+<h3 id="RDD编程操作"><a href="#RDD编程操作" class="headerlink" title="RDD编程操作"></a>RDD编程操作</h3><h4 id="转换操作（transformations）"><a href="#转换操作（transformations）" class="headerlink" title="转换操作（transformations）"></a>转换操作（transformations）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div></pre></td><td class="code"><pre><div class="line">object TestTransfer &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 设置日志级别</div><div class="line">    Logger.getLogger(&quot;org&quot;).setLevel(Level.WARN)</div><div class="line">    // 初始化sc对象</div><div class="line">    val conf = new SparkConf().setMaster(&quot;local[2]&quot;).setAppName(&quot;My Spark&quot;)</div><div class="line">    val sc = SparkContext.getOrCreate(conf)</div><div class="line">    // 准备测试数据</div><div class="line">    val num: RDD[Int] = sc.parallelize(1 to 10)</div><div class="line">    val num1: RDD[Int] = sc.parallelize(List(1,5,3,2,5))</div><div class="line">    val num2: RDD[Int] = sc.parallelize(List(2,7,3,5,1,0))</div><div class="line">    val list: RDD[Int] = sc.parallelize(List(1,5,2,6,3,2))</div><div class="line">    // 转化为PairRDD,(key,value)的形式</div><div class="line">    val pairRdd: RDD[(Int, Int)] = list.map(x =&gt; (x,1))</div><div class="line">    val pairRdd2: RDD[(Int, Int)] = list.map(x =&gt; (x,0))</div><div class="line"></div><div class="line">    // 1. 普通的RDD</div><div class="line">    // 2. PairRDD（键值对操作）</div><div class="line">    // 我们在进行并行聚合、分组等操作时，常常需要利用键值对形式的RDD，称为Pair RDD</div><div class="line">    // PairRDD相比于普通的RDD多了一些方法</div><div class="line"></div><div class="line">    // 映射</div><div class="line">    // 1. map(func) RDD</div><div class="line">    // 作用于RDD的每一行，产出新RDD每一行为经过函数处理后的结果。</div><div class="line">    list.map(_*2).foreach(println)</div><div class="line"></div><div class="line">    // 2. flatMap(func) RDD</div><div class="line">    // 展平元素，将每个符合条件的元素都放在一个集合中</div><div class="line">    list.flatMap(Range(0,_)).foreach(println)</div><div class="line"></div><div class="line">    // 过滤</div><div class="line">    // filter(func) RDD</div><div class="line">    // 将每个元素根据指定函数条件过滤</div><div class="line">    list.filter(_ % 3 != 0).foreach(println)</div><div class="line"></div><div class="line">    // 联合</div><div class="line">    // union(other) RDD</div><div class="line">    num1.union(num2).foreach(x =&gt; print(x + &quot; &quot;))</div><div class="line"></div><div class="line">    // 交集</div><div class="line">    // intersection(other) RDD</div><div class="line">    num1.intersection(num2).foreach(x =&gt; print(x + &quot; &quot;))</div><div class="line"></div><div class="line">    // 集合相减</div><div class="line">    // subtract(other) RDD</div><div class="line">    num1.subtract(num2).foreach(x =&gt; print(x + &quot; &quot;))</div><div class="line">    </div><div class="line">    // 去重复</div><div class="line">    // distinct() RDD</div><div class="line">    num.distinct().foreach(x =&gt; print(x + &quot; &quot;))</div><div class="line">    </div><div class="line">    // 聚合操作</div><div class="line">    // 1. reduceByKey(func) PairRDD</div><div class="line">    pairRdd.reduceByKey(_+_).foreach(println)</div><div class="line"></div><div class="line">    // 2. combineByKey PairRDD</div><div class="line">    // createCombiner: V =&gt; C ，这个函数把当前的值作为参数，此时我们可以对其做些附加操作(类型转换)并把它返回 (这一步类似于初始化操作)</div><div class="line">    // mergeValue: (C, V) =&gt; C，该函数把元素V合并到之前的元素C(createCombiner)上 (这个操作在每个分区内进行)</div><div class="line">    // mergeCombiners: (C, C) =&gt; C，该函数把2个元素C合并 (这个操作在不同分区间进行)</div><div class="line">    val sum = pairRdd.combineByKey(v =&gt; (v,1),(a:(Int,Int),b:Int) =&gt; (a._1+b,a._2+1),(c1:(Int,Int),c2:(Int,Int)) =&gt; (c1._1+c2._1,c1._2+c2._2))</div><div class="line">    val avg = sum.map&#123;case(key,value)=&gt;(key,value._1/value._2.toFloat)&#125;</div><div class="line">    avg.foreach(println)</div><div class="line"></div><div class="line">    // 分组操作</div><div class="line">    // 1. groupByKey()  PairRDD</div><div class="line">    pairRdd.groupByKey().foreach(println)</div><div class="line">    // 2. groupBy(func) RDD</div><div class="line">    pairRdd.groupBy(x =&gt; x._1).foreach(println) // 根据key分组，相当于groupByKey</div><div class="line">    pairRdd.groupBy(x =&gt; x._2).foreach(println) // 根据value分组</div><div class="line"></div><div class="line">    // 排序</div><div class="line">    // sortByKey(boolean) PairRDD</div><div class="line">    // 默认true 升序 false 降序</div><div class="line">    pairRdd.sortByKey().foreach(println)</div><div class="line">    // sortBy(func,boolean) 自定义排序 RDD</div><div class="line">    pairRdd.sortBy(x =&gt; x._2).foreach(println)</div><div class="line"></div><div class="line">    // 连接操作</div><div class="line">    // join(other) 等值连接 PairRDD</div><div class="line">    val jnum: RDD[(Int, (Int, Int))] = pairRdd.join(pairRdd2)</div><div class="line">    jnum.foreach(println)</div><div class="line">    // rightOuterJoin(other) 右外连接 PairRDD</div><div class="line">    val rnum: RDD[(Int, (Option[Int], Int))] = pairRdd.rightOuterJoin(pairRdd2)</div><div class="line">    rnum.foreach(println)</div><div class="line">    // leftOuterJoin(other) 左外连接 PairRDD</div><div class="line">    val lnum: RDD[(Int, (Int, Option[Int]))] = pairRdd.leftOuterJoin(pairRdd2)</div><div class="line">    lnum.foreach(println)</div><div class="line">    // cogroup 全连接 PairRDD</div><div class="line">    val cnum: RDD[(Int, (Iterable[Int], Iterable[Int]))] = pairRdd.cogroup(pairRdd2)</div><div class="line">    cnum.foreach(println)</div><div class="line">    // subtractByKey 根据key集合相减 PairRDD</div><div class="line">    val snum: RDD[(Int, Int)] = pairRdd.subtractByKey(pairRdd2)</div><div class="line">    snum.foreach(println)</div><div class="line"></div><div class="line">    sc.stop()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="行动操作（actions）"><a href="#行动操作（actions）" class="headerlink" title="行动操作（actions）"></a>行动操作（actions）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">object TestActions &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 设置日志级别</div><div class="line">    Logger.getLogger(&quot;org&quot;).setLevel(Level.WARN)</div><div class="line">    // 初始化sc对象</div><div class="line">    val conf = new SparkConf().setMaster(&quot;local[2]&quot;).setAppName(&quot;My Spark&quot;)</div><div class="line">    val sc = SparkContext.getOrCreate(conf)</div><div class="line"></div><div class="line">    // 创建测试数据</div><div class="line">    val num: RDD[Int] = sc.parallelize(1 to 10)</div><div class="line"></div><div class="line">    // 1. collect()</div><div class="line">    // 将rdd内容转化为本地集合，返回一个List集合</div><div class="line">    // retrieve rdd contents as a local collection</div><div class="line">    num.collect().foreach(println)</div><div class="line"></div><div class="line">    // 2. take(n)</div><div class="line">    // 返回前几个元素</div><div class="line">    // return fist n elements</div><div class="line">    num.take(3).foreach(println)</div><div class="line"></div><div class="line">    // 3. top(n)</div><div class="line">    // 返回最大的n个值</div><div class="line">    num.top(3).foreach(println)</div><div class="line"></div><div class="line">    // 4. takeOrdered(n)</div><div class="line">    // 返回最小的n个值</div><div class="line">    num.takeOrdered(3).foreach(println)</div><div class="line"></div><div class="line">    // 5. takeSample(withReplace,num,[seed])</div><div class="line">    // 随机采样(是否放回，采样数量，随机种子)</div><div class="line">    num.takeSample(false,5).foreach(println)</div><div class="line"></div><div class="line">    // 6. foreach(func)</div><div class="line">    // RDD的每个元素会被func处理。在分区节点上运行，不会将结果收集到Drive节点</div><div class="line">    num.foreach(println)</div><div class="line"></div><div class="line">    // 7. count()</div><div class="line">    // 返回RDD元素个数</div><div class="line">    // count number of elements</div><div class="line">    println(num.count())</div><div class="line"></div><div class="line">    // 8. countByKey()</div><div class="line">    // 统计PairRDD的key出现的次数</div><div class="line">    val pairRdd = num.map(x =&gt; (x,1))</div><div class="line">    println(pairRdd.countByKey())</div><div class="line"></div><div class="line">    // 9. countByValue()</div><div class="line">    // 统计RDD的value出现的次数</div><div class="line">    println(num.countByValue())</div><div class="line"></div><div class="line">    // 10. reduce(func)</div><div class="line">    // 合并操作</div><div class="line">    // merge elements with an associative function</div><div class="line">    println(num.reduce(_+_))  // 计算总和</div><div class="line"></div><div class="line">    // 11. fold(初始值)(func)</div><div class="line">    // 带初始值的合并操作，每个分区计算一次+driver</div><div class="line">    println(num.fold(10)(_+_))</div><div class="line"></div><div class="line">    // 12. saveAsTextFile</div><div class="line">    // 将RDD的元素输出到指定的外部存储介质中，如HDFS/AFS中</div><div class="line">    num.saveAsTextFile(&quot;src/sql_out/text/te_1&quot;)</div><div class="line"></div><div class="line">    sc.stop()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="RDD持久化方法"><a href="#RDD持久化方法" class="headerlink" title="RDD持久化方法"></a>RDD持久化方法</h3><p>Spark通过cache()方法可以将RDD持久化到内存中，一旦首次被触发，该RDD将会被保留在计算节点的内存中，之后再调用这个RDD就不会再重复计算。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">object TestActions &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 设置日志级别</div><div class="line">    Logger.getLogger(&quot;org&quot;).setLevel(Level.WARN)</div><div class="line">    // 初始化sc对象</div><div class="line">    val conf = new SparkConf().setMaster(&quot;local[2]&quot;).setAppName(&quot;My Spark&quot;)</div><div class="line">    val sc = SparkContext.getOrCreate(conf)</div><div class="line"></div><div class="line">    // 创建测试数据</div><div class="line">    val num: RDD[Int] = sc.parallelize(1 to 10)</div><div class="line">    // 持久化到内存</div><div class="line">    num.cache()</div><div class="line"></div><div class="line">    sc.stop()</div><div class="line">  &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="共享变量"><a href="#共享变量" class="headerlink" title="共享变量"></a>共享变量</h3><p>多个task想要共享某个变量，Spark为此提供了两个共享变量，一种是Broadcast Variable（广播变量），另一种是Accumulator（累加变量）。</p>
+<h4 id="广播变量"><a href="#广播变量" class="headerlink" title="广播变量"></a>广播变量</h4><p>Broadcast Variable会将使用到的变量，仅仅为每个节点拷贝一份，而不会为每个task都拷贝一份。当变量很大时，其最大的用处是优化性能，减少网络传输以及内存消耗。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">// 广播变量</div><div class="line">// 广播变量允许程序员将一个只读的变量缓存在每台机器上，而不用在任务之间传递变量。</div><div class="line">// 广播变量可被用于有效地给每个节点一个大输入数据集的副本</div><div class="line">// 注：为了确保所有的节点获得相同的变量，对象v在被广播之后就不应该再修改</div><div class="line">@Test</div><div class="line">def counter3()=&#123;</div><div class="line">  // 设置日志级别</div><div class="line">  Logger.getLogger(&quot;org&quot;).setLevel(Level.WARN)</div><div class="line">  // 初始化sc对象</div><div class="line">  val conf = new SparkConf().setMaster(&quot;local[2]&quot;).setAppName(&quot;My Spark&quot;)</div><div class="line">  val sc = SparkContext.getOrCreate(conf)    // 小数据集</div><div class="line">  val list = List(1,3,5,2,4,6)</div><div class="line">  val rdd = sc.parallelize(List(1,3,2,3,4,5,6,1,3,4,5)).cache()</div><div class="line">  // 广播变量</div><div class="line">  val broadcast = sc.broadcast(list)</div><div class="line">  rdd.filter(num =&gt; &#123;</div><div class="line">    // 使用到了匿名函数的非局部变量</div><div class="line">    // 从广播变量中获取数据  就近原则 本地的worker</div><div class="line">    val list = broadcast.value</div><div class="line">    list.contains(num)</div><div class="line">  &#125;).foreach(println)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="累加变量"><a href="#累加变量" class="headerlink" title="累加变量"></a>累加变量</h4><p>Accumulator可以让多个task共同操作一份变量，主要可以进行累加操作。但是task只能对Accumulator进行累加操作，不能读取它的值。只有Driver程序可以读取Accumulator的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">  // 累加器</div><div class="line">  // 累加器，提供了将工作节点中的值聚合到驱动器程序中的简单语法。</div><div class="line">  // 累加器的一个常见用途是在调式时对作业执行过程中的事件进行计数。</div><div class="line">  // 四种形式</div><div class="line">  // a. sc.longAccumulator(&quot;累加器名字&quot;);</div><div class="line">  // b. sc.doubleAccumulator(&quot;累加器名字&quot;);</div><div class="line">  // c. sc.collectionAccumulator[T](&quot;&quot;);</div><div class="line">  // d. 自定义累加器 extends AccumulatorV2[T,T]</div><div class="line">  @Test</div><div class="line">  def counter1()=&#123;</div><div class="line">    // 设置日志级别</div><div class="line">    Logger.getLogger(&quot;org&quot;).setLevel(Level.WARN)</div><div class="line">    // 初始化sc对象</div><div class="line">    val conf = new SparkConf().setMaster(&quot;local[2]&quot;).setAppName(&quot;My Spark&quot;)</div><div class="line">    val sc = SparkContext.getOrCreate(conf)</div><div class="line">    // 累加器</div><div class="line">    var countA = sc.longAccumulator(&quot;奇数个数&quot;)</div><div class="line">    val list = List(1,3,5,2,4,6)</div><div class="line">    // 计算rdd中所有的偶数和以及奇数个数</div><div class="line">    val rdd = sc.parallelize(list)</div><div class="line">    // 一次性计算两个值</div><div class="line">    val result = rdd.filter(</div><div class="line">      x =&gt; &#123;</div><div class="line">        // 注：累加器最好写在行动操作中</div><div class="line">        // 如果写在转化操作中，后面每次行动操作都会调用之前转化操作中的累加器，造成数值错误</div><div class="line">        // 解决方案：1 在第一次行动操作前先cache 2 避免写在转化操作中</div><div class="line">        if (x%2 != 0) countA.add(1L) // 累加器</div><div class="line">        x%2 == 0</div><div class="line">      &#125;</div><div class="line">    ).reduce(_+_)</div><div class="line"></div><div class="line">    println(result)</div><div class="line">    println(countA.value) // 通过累加器的value属性获取到累加值为3</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  // 对于行动操作中的累加器，Spark只会把每个任务对各类假期的修改应用一次，无论失败还是重复计算时都绝对可靠。</div><div class="line">  // 对于转化操作，可能会发生不止一次更新。</div><div class="line">  // 解决方案：1 在第一次行动操作前先cache 2 避免写在转化操作中</div><div class="line">  @Test</div><div class="line">  def counter2()=&#123;</div><div class="line">    // 设置日志级别</div><div class="line">    Logger.getLogger(&quot;org&quot;).setLevel(Level.WARN)</div><div class="line">    // 初始化sc对象</div><div class="line">    val conf = new SparkConf().setMaster(&quot;local[2]&quot;).setAppName(&quot;My Spark&quot;)</div><div class="line">    val sc = SparkContext.getOrCreate(conf)</div><div class="line">    // 累加器</div><div class="line">    var countA = sc.longAccumulator(&quot;奇数个数&quot;)</div><div class="line">    val list = List(1,3,5,2,4,6)</div><div class="line">    // 计算rdd中所有的偶数和以及奇数个数</div><div class="line">    val rdd = sc.parallelize(list)</div><div class="line">    // 一次性计算两个值</div><div class="line">    val sum = rdd.filter(</div><div class="line">      x =&gt; &#123;</div><div class="line">        if (x%2 != 0) countA.add(1L) // 累加器</div><div class="line">        x%2 == 0</div><div class="line">      &#125;</div><div class="line">    )</div><div class="line">    // 没有行动操作</div><div class="line">    println(countA.value)</div><div class="line">    sum.cache().reduce(_+_) // 第一次调用行动操作之前先缓存cache</div><div class="line">//    sum.reduce(_+_)</div><div class="line">    // 有一个行动操作</div><div class="line">    println(countA.value)</div><div class="line">    sum.count()</div><div class="line">    // 有两个行动操作</div><div class="line">    println(countA.value)</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年11月05日 19:59</p>
+        <p>原始链接： <a class="post-url" href="/2018/10/15/Spark入门详解（三）-RDD编程/" title="Spark入门详解（三）-RDD编程">https://www.lousenjay.top/2018/10/15/Spark入门详解（三）-RDD编程/</a></p>
+        <footer>
+            <a href="https://www.lousenjay.top">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/10/15/Spark入门详解（三）-RDD编程/&title=《Spark入门详解（三）-RDD编程》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_3.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/10/15/Spark入门详解（三）-RDD编程/&title=《Spark入门详解（三）-RDD编程》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/10/15/Spark入门详解（三）-RDD编程/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spark入门详解（三）-RDD编程》 — 若闲小阁&url=https://www.lousenjay.top/2018/10/15/Spark入门详解（三）-RDD编程/&via=https://www.lousenjay.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/10/15/Spark入门详解（三）-RDD编程/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/10/15/Spark入门详解（三）-RDD编程/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Spark/" class="color1">Spark</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RDD简介"><span class="post-toc-text">RDD简介</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建RDD对象"><span class="post-toc-text">创建RDD对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RDD编程操作"><span class="post-toc-text">RDD编程操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#转换操作（transformations）"><span class="post-toc-text">转换操作（transformations）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#行动操作（actions）"><span class="post-toc-text">行动操作（actions）</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RDD持久化方法"><span class="post-toc-text">RDD持久化方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#共享变量"><span class="post-toc-text">共享变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#广播变量"><span class="post-toc-text">广播变量</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#累加变量"><span class="post-toc-text">累加变量</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/10/15/Maven的pom.xml配置详解/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Maven的pom.xml配置详解
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/10/13/Spark入门详解（二）-Spark运行原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Spark入门详解（二）-Spark运行原理</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="Spark入门详解（三）-RDD编程" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "https://www.lousenjay.top",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 11.67px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 11.67px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="https://www.lousenjay.top/live2d/assets/waifu-tips.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("https://www.lousenjay.top/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>
