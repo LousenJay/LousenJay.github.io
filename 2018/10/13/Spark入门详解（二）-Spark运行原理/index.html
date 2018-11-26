@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://img-blog.csdn.net/20180816192426886?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVjaGVuZG9uZ3hpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://img-blog.csdn.net/20180816192433252?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVjaGVuZG9uZ3hpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://img-blog.csdn.net/20180816192439922?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVjaGVuZG9uZ3hpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:updated_time" content="2018-11-05T04:01:09.897Z">
+<meta property="og:updated_time" content="2018-11-26T06:32:55.709Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark入门详解（二）-Spark运行原理">
 <meta name="twitter:description" content="Spark运行过程Spark应用程序以进程集合为单位在分布式集群上运行，通过driver程序的main方法创建的SparkContext对象与集群交互。 Spark大致运行流程： 1、Spark通过SparkContext向Cluster manager(资源管理器)申请所需执行的资源（cpu、内存等） 2、Cluster manager分配应用程序执行需要的资源，在Worker节点上创建Exec">
@@ -181,7 +181,7 @@
 </li>
 <li><p>Driver<br>驱动程序：Spark中的Driver即运行上述Application的Main()函数并且创建SparkContext，其中创建SparkContext的目的是为了准备Spark应用程序的运行环境。在Spark中由SparkContext负责和ClusterManager通信，进行资源的申请、任务的分配和监控等；当Executor部分运行完毕后，Driver负责将SparkContext关闭。通常SparkContext代表Driver，如下图所示。<br><img src="https://img-blog.csdn.net/20180816192324848?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVjaGVuZG9uZ3hpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="Driver驱动程序组成"></p>
 </li>
-<li><p>Cluster Manager<br>资源管理器：指的是在集群上获取资源的外部服务，常用的有：Standalone，Spark原生的资源管理器，由Master负责资源的分配；Haddop Yarn，由Yarn中的ResearchManager负责资源的分配；Messos，由Messos中的Messos Master负责资源管理。</p>
+<li><p>Cluster Manager<br>资源管理器：指的是在集群上获取资源的外部服务，常用的有：Standalone，Spark原生的资源管理器，由Master负责资源的分配；Haddop Yarn，由Yarn中的ResourceManager负责资源的分配；Messos，由Messos中的Messos Master负责资源管理。</p>
 </li>
 <li><p>Executor<br>执行器： Application运行在Worker节点上的一个进程，该进程负责运行Task，并且负责将数据存在内存或者磁盘上，每个Application都有各自独立的一批Executor，如下图所示。<br><img src="https://img-blog.csdn.net/20180816192336808?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVjaGVuZG9uZ3hpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="Executor运行原理"></p>
 </li>
@@ -214,7 +214,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年11月05日 12:01</p>
+        <p>最后更新： 2018年11月26日 14:32</p>
         <p>原始链接： <a class="post-url" href="/2018/10/13/Spark入门详解（二）-Spark运行原理/" title="Spark入门详解（二）-Spark运行原理">https://www.lousenjay.top/2018/10/13/Spark入门详解（二）-Spark运行原理/</a></p>
         <footer>
             <a href="https://www.lousenjay.top">
