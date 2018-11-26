@@ -1291,7 +1291,7 @@ body {
   }
 }
 @media screen and (min-width: 768px) {
-  #article-nav-newer {
+  #article-nav-older {
     float: left;
     text-align: left;
     padding-right: 20px;
@@ -1299,7 +1299,7 @@ body {
   }
 }
 @media screen and (min-width: 768px) {
-  #article-nav-older {
+  #article-nav-newer {
     float: right;
     text-align: right;
     padding-left: 20px;
