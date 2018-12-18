@@ -22,11 +22,11 @@
 <meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-调度属性.png">
 <meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-查找数据.png">
 <meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-表查询.png">
-<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈任务开发流程任务运行说明.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈任务运行说明.png">
 <meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-任务属性.png">
 <meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-调度属性.png">
 <meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-删除任务.png">
-<meta property="og:updated_time" content="2018-12-18T14:33:17.359Z">
+<meta property="og:updated_time" content="2018-12-18T14:49:41.839Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数栈-数据开发学习笔记">
 <meta name="twitter:description" content="简介离线任务开发模块主要是设计数据计算流程，并实现为多个相互依赖的任务，供调度系统自动执行的主要操作页面。 对象在数据开发阶段，DTinsightBatch提供了4种对象：任务、脚本、资源和函数。它们之间的项目关系如下图所示： 任务：数据开发的主要对象，包含周期属性和依赖关系，是数据计算的主要载体，支持多种类型的任务和节点适应不同场景，详情请参见任务类型。脚本：数据开发的辅助对象，不包含周期属性和">
@@ -200,7 +200,7 @@
 <li>查找数据<br>点击数据模型&gt;模型设计，搜索表名，找到新建的表进行查询。<br>如图所示：<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-查找数据.png" alt="数栈-查找数据"></li>
 </ol>
 <h4 id="表查询"><a href="#表查询" class="headerlink" title="表查询"></a>表查询</h4><p>在数据开发页面，表查询模块下，默认会展示当前项目的表，单击表名即可看到表的列信息、分区信息以及数据预览。<br>注：表查询中不支持新建目录，将表放到目录下分类。<br>注：数据预览的数据是实时的。<br>如图所示：<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-表查询.png" alt="数栈-表查询"></p>
-<h4 id="任务运行"><a href="#任务运行" class="headerlink" title="任务运行"></a>任务运行</h4><p>DTinsightBatch提供了3种运行方式，以使任务中的计算语句生效，适用场景和限制条件如下：<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈任务开发流程任务运行说明.png" alt="数栈任务运行说明"></p>
+<h4 id="任务运行"><a href="#任务运行" class="headerlink" title="任务运行"></a>任务运行</h4><p>DTinsightBatch提供了3种运行方式，以使任务中的计算语句生效，适用场景和限制条件如下：<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈任务运行说明.png" alt="数栈任务运行说明"></p>
 <h4 id="发布任务"><a href="#发布任务" class="headerlink" title="发布任务"></a>发布任务</h4><p>提交任务操作，使得一个周期任务的代码和周期配置进入调度系统，从第二天开始，调度系统将根据该任务的周期配置每天生成实例并定时运行，直到该任务被删除，调度系统才会停止为该任务生成实例并运行。<br>注：新增或修改任务时，如果当天22:00前发布成功，则在第二天的实例中即可看到结果；如果当天22:00后发布成功，则在第三天的实例中才会看到结果。<br>注：一个周期任务只有发布成功后才会进入调度系统，从而使得调度系统按配置周期定时产生实例并运行。 </p>
 <ol>
 <li>发布SQL任务<br>单击打开该任务，在右上角点击“提交”按钮，可输入发布的备注信息，点击“确定”。</li>
@@ -225,7 +225,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年12月18日 22:33</p>
+        <p>最后更新： 2018年12月18日 22:49</p>
         <p>原始链接： <a class="post-url" href="/2018/12/18/数栈-数据开发学习笔记/" title="数栈-数据开发学习笔记">https://www.lousenjay.top/2018/12/18/数栈-数据开发学习笔记/</a></p>
         <footer>
             <a href="https://www.lousenjay.top">
