@@ -8,13 +8,13 @@
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="简介离线任务开发模块主要是设计数据计算流程，并实现为多个相互依赖的任务，供调度系统自动执行的主要操作页面。 对象在数据开发阶段，DTinsightBatch提供了4种对象：任务、脚本、资源和函数。它们之间的项目关系如下图所示：任务：数据开发的主要对象，包含周期属性和依赖关系，是数据计算的主要载体，支持多种类型的任务和节点适应不同场景，详情请参见任务类型。脚本：数据开发的辅助对象，不包含周期属性和依">
+  <meta name="description" content="简介离线任务开发模块主要是设计数据计算流程，并实现为多个相互依赖的任务，供调度系统自动执行的主要操作页面。 对象在数据开发阶段，DTinsightBatch提供了4种对象：任务、脚本、资源和函数。它们之间的项目关系如下图所示： 任务：数据开发的主要对象，包含周期属性和依赖关系，是数据计算的主要载体，支持多种类型的任务和节点适应不同场景，详情请参见任务类型。脚本：数据开发的辅助对象，不包含周期属性和">
 <meta name="keywords" content="DTinsight">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数栈-数据开发学习笔记">
 <meta property="og:url" content="https://www.lousenjay.top/2018/12/18/数栈-数据开发学习笔记/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="简介离线任务开发模块主要是设计数据计算流程，并实现为多个相互依赖的任务，供调度系统自动执行的主要操作页面。 对象在数据开发阶段，DTinsightBatch提供了4种对象：任务、脚本、资源和函数。它们之间的项目关系如下图所示：任务：数据开发的主要对象，包含周期属性和依赖关系，是数据计算的主要载体，支持多种类型的任务和节点适应不同场景，详情请参见任务类型。脚本：数据开发的辅助对象，不包含周期属性和依">
+<meta property="og:description" content="简介离线任务开发模块主要是设计数据计算流程，并实现为多个相互依赖的任务，供调度系统自动执行的主要操作页面。 对象在数据开发阶段，DTinsightBatch提供了4种对象：任务、脚本、资源和函数。它们之间的项目关系如下图所示： 任务：数据开发的主要对象，包含周期属性和依赖关系，是数据计算的主要载体，支持多种类型的任务和节点适应不同场景，详情请参见任务类型。脚本：数据开发的辅助对象，不包含周期属性和">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈对象之间的关系.png">
 <meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈任务开发流程.png">
@@ -26,10 +26,10 @@
 <meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-任务属性.png">
 <meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-调度属性.png">
 <meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-删除任务.png">
-<meta property="og:updated_time" content="2018-12-18T14:26:25.402Z">
+<meta property="og:updated_time" content="2018-12-18T14:33:17.359Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数栈-数据开发学习笔记">
-<meta name="twitter:description" content="简介离线任务开发模块主要是设计数据计算流程，并实现为多个相互依赖的任务，供调度系统自动执行的主要操作页面。 对象在数据开发阶段，DTinsightBatch提供了4种对象：任务、脚本、资源和函数。它们之间的项目关系如下图所示：任务：数据开发的主要对象，包含周期属性和依赖关系，是数据计算的主要载体，支持多种类型的任务和节点适应不同场景，详情请参见任务类型。脚本：数据开发的辅助对象，不包含周期属性和依">
+<meta name="twitter:description" content="简介离线任务开发模块主要是设计数据计算流程，并实现为多个相互依赖的任务，供调度系统自动执行的主要操作页面。 对象在数据开发阶段，DTinsightBatch提供了4种对象：任务、脚本、资源和函数。它们之间的项目关系如下图所示： 任务：数据开发的主要对象，包含周期属性和依赖关系，是数据计算的主要载体，支持多种类型的任务和节点适应不同场景，详情请参见任务类型。脚本：数据开发的辅助对象，不包含周期属性和">
 <meta name="twitter:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈对象之间的关系.png">
   
   
@@ -167,8 +167,10 @@
       
             
             <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>离线任务开发模块主要是设计数据计算流程，并实现为多个相互依赖的任务，供调度系统自动执行的主要操作页面。</p>
-<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><p>在数据开发阶段，DTinsightBatch提供了4种对象：任务、脚本、资源和函数。它们之间的项目关系如下图所示：<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈对象之间的关系.png" alt="数栈对象之间的关系"><br>任务：数据开发的主要对象，包含周期属性和依赖关系，是数据计算的主要载体，支持多种类型的任务和节点适应不同场景，详情请参见任务类型。<br>脚本：数据开发的辅助对象，不包含周期属性和依赖关系，主要用于实现非周期的临时数据处理，如临时表的增删改等，详情请参见脚本开发。<br>函数和资源：任务中的代码运行时需要引用的一些文件和计算函数，在任务正式执行前需要上传，详情请参见资源管理和函数管理。</p>
-<h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><p>一个任务的开发和使用流程如下图所示：<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈任务开发流程.png" alt="数栈任务开发流程"></p>
+<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><p>在数据开发阶段，DTinsightBatch提供了4种对象：任务、脚本、资源和函数。它们之间的项目关系如下图所示：</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈对象之间的关系.png" alt="数栈对象之间的关系"><br>任务：数据开发的主要对象，包含周期属性和依赖关系，是数据计算的主要载体，支持多种类型的任务和节点适应不同场景，详情请参见任务类型。<br>脚本：数据开发的辅助对象，不包含周期属性和依赖关系，主要用于实现非周期的临时数据处理，如临时表的增删改等，详情请参见脚本开发。<br>函数和资源：任务中的代码运行时需要引用的一些文件和计算函数，在任务正式执行前需要上传，详情请参见资源管理和函数管理。</p>
+<h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><p>一个任务的开发和使用流程如下图所示：</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈任务开发流程.png" alt="数栈任务开发流程"></p>
 <h3 id="任务开发"><a href="#任务开发" class="headerlink" title="任务开发"></a>任务开发</h3><p>任务开发的过程实际上就是对表的操作过程，从创建任务、创建表开始。</p>
 <h4 id="任务类型"><a href="#任务类型" class="headerlink" title="任务类型"></a>任务类型</h4><ol>
 <li>SQL任务<br> SQL任务支持直接在Web端编辑和维护SQL代码，并可方便地调试运行和协作开发。DTinsightBatch还支持代码内容的版本管理和上下游依赖自动解析等功能。<br> DTinsightBatch的SQL任务的代码内容遵循Hive的语法。</li>
@@ -223,7 +225,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年12月18日 22:26</p>
+        <p>最后更新： 2018年12月18日 22:33</p>
         <p>原始链接： <a class="post-url" href="/2018/12/18/数栈-数据开发学习笔记/" title="数栈-数据开发学习笔记">https://www.lousenjay.top/2018/12/18/数栈-数据开发学习笔记/</a></p>
         <footer>
             <a href="https://www.lousenjay.top">
