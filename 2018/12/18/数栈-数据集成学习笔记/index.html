@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数栈-数据集成学习笔记 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="简介数据集成模块是在各个存储单元之间执行数据交换的通道，具备分布式底层架构，稳定高效、弹性伸缩的特点，致力于提供复杂网络环境下、丰富的异构数据源之间数据高速稳定的数据移动及同步能力。为了在DTinsightBatch进行大规模数据集的挖掘与计算，通常的做法是在任务执行前将数据传输至DTinsightBatch，并在任务执行结束后将计算结果传输至外部存储单元（例如MySQL等应用数据库）。数据集成的">
+<meta name="keywords" content="DTinsight">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数栈-数据集成学习笔记">
+<meta property="og:url" content="https://www.lousenjay.top/2018/12/18/数栈-数据集成学习笔记/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="简介数据集成模块是在各个存储单元之间执行数据交换的通道，具备分布式底层架构，稳定高效、弹性伸缩的特点，致力于提供复杂网络环境下、丰富的异构数据源之间数据高速稳定的数据移动及同步能力。为了在DTinsightBatch进行大规模数据集的挖掘与计算，通常的做法是在任务执行前将数据传输至DTinsightBatch，并在任务执行结束后将计算结果传输至外部存储单元（例如MySQL等应用数据库）。数据集成的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈输入与输出图.png">
+<meta property="og:updated_time" content="2018-12-18T14:24:20.043Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数栈-数据集成学习笔记">
+<meta name="twitter:description" content="简介数据集成模块是在各个存储单元之间执行数据交换的通道，具备分布式底层架构，稳定高效、弹性伸缩的特点，致力于提供复杂网络环境下、丰富的异构数据源之间数据高速稳定的数据移动及同步能力。为了在DTinsightBatch进行大规模数据集的挖掘与计算，通常的做法是在任务执行前将数据传输至DTinsightBatch，并在任务执行结束后将计算结果传输至外部存储单元（例如MySQL等应用数据库）。数据集成的">
+<meta name="twitter:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈输入与输出图.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.top/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//www.lousenjay.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-数栈-数据集成学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      数栈-数据集成学习笔记
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/大数据/">大数据</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-12-18
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>数据集成模块是在各个存储单元之间执行数据交换的通道，具备分布式底层架构，稳定高效、弹性伸缩的特点，致力于提供复杂网络环境下、丰富的异构数据源之间数据高速稳定的数据移动及同步能力。为了在DTinsightBatch进行大规模数据集的挖掘与计算，通常的做法是在任务执行前将数据传输至DTinsightBatch，并在任务执行结束后将计算结果传输至外部存储单元（例如MySQL等应用数据库）。数据集成的作用如下图所示：<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈输入与输出图.png" alt="数栈输入与输出图"></p>
+<h3 id="数据源类型"><a href="#数据源类型" class="headerlink" title="数据源类型"></a>数据源类型</h3><p>数据集成提供丰富的数据源支持，如下所示：</p>
+<ol>
+<li>关系型数据库（MySQL / Oracle / SQLServer / PostgreSQL等）</li>
+<li>NoSQL（Redis / MongoDB / HBase / ElasticSearch等）</li>
+<li>大数据存储（MaxCompute / HDFS / Hive等）</li>
+<li>文本存储（FTP）<br>注1：Redis不支持抽取<br>注2：Redis、MongoDB、ElasticSearch不支持向导</li>
+</ol>
+<h3 id="数据源管理"><a href="#数据源管理" class="headerlink" title="数据源管理"></a>数据源管理</h3><p>数据源管理是对外部存储单元访问参数的管理，数据集成模块需要与数据开发配合起来才能发挥作用，实际是由定时任务来执行数据传输的。</p>
+<p>在项目上方的数据集成菜单，进入数据数据源管理页面，可看到目前已经集成的数据源列表，包括数据源名称、类型、连接信息、描述、最近修改人、最近修改时间、状态等信息，同时可执行编辑、删除等操作。</p>
+<p>在数据源列表右上角的新增数据源，选择不同的数据源类型，需要填写不同的配置信息。<br>具体配置信息：<a href="https://insight.dtstack.com/public/helpSite/dtinsight-batch/v3.0/DataIntegration/DataSourceManage.html#Hive" target="_blank" rel="external">https://insight.dtstack.com/public/helpSite/dtinsight-batch/v3.0/DataIntegration/DataSourceManage.html#Hive</a></p>
+<h3 id="同步任务配置"><a href="#同步任务配置" class="headerlink" title="同步任务配置"></a>同步任务配置</h3><p>数据同步任务的配置共分为5个步骤：</p>
+<ol>
+<li>选择数据来源：选择已配置的数据源，系统会读取其中的数据；</li>
+<li>选择数据目标：选择已配置的数据源，系统会向其写入数据；</li>
+<li>字段映射：配置数据来源与数据目标之间的字段映射关系，不同的数据类型在这步有不同的配置方法；</li>
+<li>通道控制：控制数据同步的执行速度、错误数据的处理方式等；</li>
+<li>预览保存：再次确认已配置的规则并保存；</li>
+</ol>
+<h4 id="同步任务的创建"><a href="#同步任务的创建" class="headerlink" title="同步任务的创建"></a>同步任务的创建</h4><p>创建同步任务时，在数据开发页面点击新建任务，并选择数据同步的任务类型，并进行向导/脚本模式的选择，模式一旦选择之后即不可修改。<br>如果选择了脚本模式，可以在编辑区左上角点击导入模板，并选择数据源类型、数据库等信息，确定后即可导入模板，只需编辑其中一部分信息。<br>注：导入模板后，之前填写的信息会被清空并覆盖</p>
+<h3 id="脚本模式的介绍"><a href="#脚本模式的介绍" class="headerlink" title="脚本模式的介绍"></a>脚本模式的介绍</h3><p>数据同步任务包括一个job元素，而这个元素包括setting和content两部分。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;job&quot;: &#123;</div><div class="line">        &quot;setting&quot;: &#123;...&#125;,</div><div class="line">        &quot;content&quot;: [...]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="content"><a href="#content" class="headerlink" title="content"></a>content</h4><p>content:用于配置具体任务信息，包括从哪里来（Reader插件信息），到哪里去（Writer插件信息）<br>reader: 用于读取数据的插件的信息<br>writer: 用于写入数据的插件的信息<br>reader和writer包括name和parameter，分别表示插件名称和插件参数<br>插件配置样例：<a href="https://insight.dtstack.com/public/helpSite/dtinsight-batch/v3.0/DataIntegration/JobConfig.html" target="_blank" rel="external">https://insight.dtstack.com/public/helpSite/dtinsight-batch/v3.0/DataIntegration/JobConfig.html</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&quot;content&quot;: [</div><div class="line">            &#123;</div><div class="line">               &quot;reader&quot;: &#123;</div><div class="line">                    &quot;name&quot;: &quot;...&quot;,</div><div class="line">                    &quot;parameter&quot;: &#123;</div><div class="line">                        ...</div><div class="line">                    &#125;</div><div class="line">                &#125;,</div><div class="line">               &quot;writer&quot;: &#123;</div><div class="line">                    &quot;name&quot;: &quot;...&quot;,</div><div class="line">                    &quot;parameter&quot;: &#123;</div><div class="line">                        ...</div><div class="line">                     &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        ]</div></pre></td></tr></table></figure></p>
+<h4 id="setting"><a href="#setting" class="headerlink" title="setting"></a>setting</h4><p>setting包括speed、errorLimit和dirty三部分，分别描述限速、错误控制和脏数据管理的配置信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&quot;setting&quot;: &#123;</div><div class="line">        &quot;speed&quot;: &#123;...&#125;,</div><div class="line">        &quot;errorLimit&quot;: &#123;...&#125;,</div><div class="line">        &quot;dirty&quot;: &#123;...&#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h5 id="speed"><a href="#speed" class="headerlink" title="speed"></a>speed</h5><p>channel: 任务并发数<br>bytes: 每秒字节数，默认为0（不限速）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;speed&quot;: &#123;</div><div class="line">     &quot;channel&quot;: 3,</div><div class="line">     &quot;bytes&quot;: 0</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="errorLimit"><a href="#errorLimit" class="headerlink" title="errorLimit"></a>errorLimit</h5><p>record: 出错记录数超过record设置的条数时，任务标记为失败<br>percentage: 当出错记录数超过percentage百分数时，任务标记为失败<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;errorLimit&quot;: &#123;</div><div class="line">                &quot;record&quot;: 10000,</div><div class="line">                &quot;percentage&quot;: 100</div><div class="line">            &#125;</div></pre></td></tr></table></figure></p>
+<h5 id="dirty"><a href="#dirty" class="headerlink" title="dirty"></a>dirty</h5><p>path: 脏数据存放路径<br>hadoopConfig: 脏数据存放路径对应hdfs的配置信息(hdfs高可用配置)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&quot;dirty&quot;: &#123;</div><div class="line">                &quot;path&quot;: &quot;/tmp&quot;,</div><div class="line">                &quot;hadoopConfig&quot;: &#123;</div><div class="line">                    &quot;fs.default.name&quot;: &quot;hdfs://ns1&quot;,</div><div class="line">                    &quot;dfs.nameservices&quot;: &quot;ns1&quot;,</div><div class="line">                    &quot;dfs.ha.namenodes.ns1&quot;: &quot;nn1,nn2&quot;,</div><div class="line">                    &quot;dfs.namenode.rpc-address.ns1.nn1&quot;: &quot;node02:9000&quot;,</div><div class="line">                    &quot;dfs.namenode.rpc-address.ns1.nn2&quot;: &quot;node03:9000&quot;,</div><div class="line">                    &quot;dfs.ha.automatic-failover.enabled&quot;: &quot;true&quot;,</div><div class="line">                    &quot;dfs.client.failover.proxy.provider.ns1&quot;: &quot;org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider&quot;,</div><div class="line">                    &quot;fs.hdfs.impl.disable.cache&quot;: &quot;true&quot;</div><div class="line">                &#125;</div><div class="line">            &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="整库迁移"><a href="#整库迁移" class="headerlink" title="整库迁移"></a>整库迁移</h3><p>整库迁移是为了提升用户效率、降低用户使用成本的一种快捷工具，它可以快速完成把MySQL数据库内所有表一并上传到DTinsightBatch（Hive）的工作。<br>操作步骤：</p>
+<ol>
+<li>登录到DTinsightBatch&gt;数据集成，进入数据源管理页面。</li>
+<li>单击右上角的新增数据源，添加一个面向整库迁移的MySQL数据源（这里假设为MySQL_Migrate），单击测试连通性验证数据源访问正确无误后，确认并保存此数据源。</li>
+<li>新增数据源成功后，即可在数据源列表中看到新增的MySQL数据源MySQL_Migrate。单击整库迁移，即可进入对应数据源的整库迁移功能界面，整库迁移界面主要分为3块功能区域：<br> a.待迁移表筛选区，此处将MySQL数据源MySQL<em>Migrate下的所有数据库表以表格的形式展现出来，您可以根据实际需要批量选择待迁移的数据库表。<br> b.高级设置，此处提供了MySQL数据表和DTinsightBatch数据表的表名称、列名称、列类型的映射转换规则。<br> c.迁移模式、并发控制区，此处可以控制整库迁移的模式（全量、增量）、并发度配置（分批上次、整批上传）、提交迁移任务进度状态信息等。<br> d.单击高级设置按钮，您可以根据您具体需求选择转换规则。比如DTinsightBatch端建表时统一增加了ods</em>这一前缀。<br> e.在迁移模式、并发控制区中，选择同步方式为每日增量，并配置增量字段为gmt_modified，数据集成默认会根据您选择的增量字段生成具体每个任务的增量抽取where条件，并配合DTinsightBatch调度参数（例如：${bdp.system.bizdate}）形成针对每天的数据抽取条件。<br> f.数据集成抽取MySQL库表的数据是通过JDBC连接远程MySQL数据库，并执行相应的SQL语句，将数据从MySQL库中select出来。由于是标准的SQL抽取语句，可以配置where子句控制数据范围。为了对源头MySQL数据源进行保护，避免同一时间点启动大量数据同步作业带来数据库压力过大，可选择分批上传模式，并配置从每日0点开始，每1小时启动3个数据库表同步。</li>
+<li>最后，单击提交任务按钮，这里可以看到迁移进度信息，以及每一个表的迁移任务状态。</li>
+<li>单击对应的迁移任务，会跳转到数据集成的任务开发界面，在左侧目录树clone<em>database目录下，会有对应的所有整库迁移任务，任务命名规则是：mysql2hive</em>源表名。</li>
+</ol>
+<p>注：这些任务会根据配置的调度周期（默认天调度）被调度执行，也可以使用DTinsight调度补数据功能完成历史数据的传输。通过整库迁移功能可以极大减少您初始化的配置、迁移成本。</p>
+<h3 id="版本支持"><a href="#版本支持" class="headerlink" title="版本支持"></a>版本支持</h3><p>DTinsightBatch数据集成模块对不同数据库的版本支持情况：<br>MySQL 5.0及以上<br>Oracle 11g、12c<br>SQL Server 2008及以上<br>Hive<br>HBase<br>HDFS<br>ElasticSearch</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年12月18日 22:24</p>
+        <p>原始链接： <a class="post-url" href="/2018/12/18/数栈-数据集成学习笔记/" title="数栈-数据集成学习笔记">https://www.lousenjay.top/2018/12/18/数栈-数据集成学习笔记/</a></p>
+        <footer>
+            <a href="https://www.lousenjay.top">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/12/18/数栈-数据集成学习笔记/&title=《数栈-数据集成学习笔记》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_7.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/12/18/数栈-数据集成学习笔记/&title=《数栈-数据集成学习笔记》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/12/18/数栈-数据集成学习笔记/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数栈-数据集成学习笔记》 — 若闲小阁&url=https://www.lousenjay.top/2018/12/18/数栈-数据集成学习笔记/&via=https://www.lousenjay.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/12/18/数栈-数据集成学习笔记/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/12/18/数栈-数据集成学习笔记/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/DTinsight/" class="color5">DTinsight</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数据源类型"><span class="post-toc-text">数据源类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数据源管理"><span class="post-toc-text">数据源管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#同步任务配置"><span class="post-toc-text">同步任务配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#同步任务的创建"><span class="post-toc-text">同步任务的创建</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脚本模式的介绍"><span class="post-toc-text">脚本模式的介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#content"><span class="post-toc-text">content</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#setting"><span class="post-toc-text">setting</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#speed"><span class="post-toc-text">speed</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#errorLimit"><span class="post-toc-text">errorLimit</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#dirty"><span class="post-toc-text">dirty</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#整库迁移"><span class="post-toc-text">整库迁移</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#版本支持"><span class="post-toc-text">版本支持</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/12/18/数栈-数据开发学习笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-title"> 
+        
+          数栈-数据开发学习笔记
+        
+		<i class="fa fa-hand-o-right" aria-hidden="true"></i>
+      </span>
+    </a>
+  
+  
+    <a href="/2018/10/21/Spark入门详解（五）-DataFrame编程/" id="article-nav-older" class="article-nav-link-wrap">
+	  <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+	  <span class="article-nav-title">Spark入门详解（五）-DataFrame编程</span>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="数栈-数据集成学习笔记" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "https://www.lousenjay.top",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 11.67px;">DTinsight</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 11.67px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 11.67px;">DTinsight</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 11.67px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="https://www.lousenjay.top/live2d/assets/waifu-tips.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("https://www.lousenjay.top/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>
