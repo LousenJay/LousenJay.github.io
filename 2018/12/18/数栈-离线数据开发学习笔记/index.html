@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数栈-离线数据开发学习笔记 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="离线任务开发离线任务开发模块主要是设计数据计算流程，并实现为多个相互依赖的任务，供调度系统自动执行的主要操作页面。 对象在数据开发阶段，DTinsightBatch提供了4种对象：任务、脚本、资源和函数。它们之间的项目关系如下图所示： 任务：数据开发的主要对象，包含周期属性和依赖关系，是数据计算的主要载体，支持多种类型的任务和节点适应不同场景，详情请参见任务类型。脚本：数据开发的辅助对象，不包含周">
+<meta name="keywords" content="DTinsight">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数栈-离线数据开发学习笔记">
+<meta property="og:url" content="https://www.lousenjay.top/2018/12/18/数栈-离线数据开发学习笔记/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="离线任务开发离线任务开发模块主要是设计数据计算流程，并实现为多个相互依赖的任务，供调度系统自动执行的主要操作页面。 对象在数据开发阶段，DTinsightBatch提供了4种对象：任务、脚本、资源和函数。它们之间的项目关系如下图所示： 任务：数据开发的主要对象，包含周期属性和依赖关系，是数据计算的主要载体，支持多种类型的任务和节点适应不同场景，详情请参见任务类型。脚本：数据开发的辅助对象，不包含周">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈对象之间的关系.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈任务开发流程.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-新建SQL任务.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-调度属性.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-查找数据.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-表查询.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈任务运行说明.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-任务属性.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-调度属性.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-删除任务.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-调度属性.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-任务实例的生成.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-脚本开发流程.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-创建脚本.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-资源管理.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-函数应用流程.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-创建自定义函数流程.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-注册自定义函数.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-查看函数.png">
+<meta property="og:updated_time" content="2018-12-19T06:15:14.471Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数栈-离线数据开发学习笔记">
+<meta name="twitter:description" content="离线任务开发离线任务开发模块主要是设计数据计算流程，并实现为多个相互依赖的任务，供调度系统自动执行的主要操作页面。 对象在数据开发阶段，DTinsightBatch提供了4种对象：任务、脚本、资源和函数。它们之间的项目关系如下图所示： 任务：数据开发的主要对象，包含周期属性和依赖关系，是数据计算的主要载体，支持多种类型的任务和节点适应不同场景，详情请参见任务类型。脚本：数据开发的辅助对象，不包含周">
+<meta name="twitter:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈对象之间的关系.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.top/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//www.lousenjay.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-数栈-离线数据开发学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      数栈-离线数据开发学习笔记
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/大数据/">大数据</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-12-18
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="离线任务开发"><a href="#离线任务开发" class="headerlink" title="离线任务开发"></a>离线任务开发</h3><p>离线任务开发模块主要是设计数据计算流程，并实现为多个相互依赖的任务，供调度系统自动执行的主要操作页面。</p>
+<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><p>在数据开发阶段，DTinsightBatch提供了4种对象：任务、脚本、资源和函数。它们之间的项目关系如下图所示：</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈对象之间的关系.png" alt="数栈对象之间的关系"><br>任务：数据开发的主要对象，包含周期属性和依赖关系，是数据计算的主要载体，支持多种类型的任务和节点适应不同场景，详情请参见任务类型。<br>脚本：数据开发的辅助对象，不包含周期属性和依赖关系，主要用于实现非周期的临时数据处理，如临时表的增删改等，详情请参见脚本开发。<br>函数和资源：任务中的代码运行时需要引用的一些文件和计算函数，在任务正式执行前需要上传，详情请参见资源管理和函数管理。</p>
+<h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><p>一个任务的开发和使用流程如下图所示：</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈任务开发流程.png" alt="数栈任务开发流程"></p>
+<h4 id="任务类型"><a href="#任务类型" class="headerlink" title="任务类型"></a>任务类型</h4><ol>
+<li>SQL任务<br> SQL任务支持直接在Web端编辑和维护SQL代码，并可方便地调试运行和协作开发。DTinsightBatch还支持代码内容的版本管理和上下游依赖自动解析等功能。<br> DTinsightBatch的SQL任务的代码内容遵循Hive的语法。</li>
+<li>MR任务<br> MR任务用于在Spark的MapReduce编程接口（Java API）基础上实现的数据处理程序的周期运行。<br> DTinsightBatch完全按照Spark官方的编程接口，将代码打包成为JAR类型的资源文件上传到DTinsightBatch中，然后配置MR任务。</li>
+<li>数据同步任务<br> 数据同步任务主要完成数据在不同存储单元之间的迁移。</li>
+<li>PySpark任务<br> Python任务用于在Spark的Python编程接口（Python API）基础上实现的数据处理程序的周期运行。<br> DTinsightBatch完全按照Spark官方的编程接口，您可以将代码打包，并以资源文件的形式上传到DTinsightBatch中，然后配置Python任务。</li>
+<li>虚节点任务<br> 虚拟节点属于控制类型节点，它不产生任何数据的空跑节点，常用于多个任务统筹节点的根节点。</li>
+<li>shell<br> Shell类型任务支持标准的Shell语法，不支持交互式语法。</li>
+<li>深度学习<br> 目前支持TensorFlow、MXNet2种深度学习框架，用户可编写基于深度学习框架的代码，由DTinsightBatch提交到对应的框架中运行，并可以与DTinsightBatch中的其他任务配合形成调度依赖关系。</li>
+<li>原生Python<br> 目前支持Python2、Python3的代码，由DTinsightBatch提交运行，支持在页面中直接运行Python代码或打包上传运行，可以与DTinsightBatch中的其他任务配合形成调度依赖关系。</li>
+</ol>
+<h4 id="新建任务"><a href="#新建任务" class="headerlink" title="新建任务"></a>新建任务</h4><ol>
+<li><p>新建SQL任务<br>进入“数据开发”菜单，点击“新建离线任务”按钮，并填写新建任务弹出框中的配置项。<br>任务名称：需输入英文字母、数字、下划线组成，不超过64个字符。<br>任务类型：可选择SQL、MR、数据同步、Python、虚节点。<br>存储位置：此任务在页面左侧的任务存储结构中的位置。<br>描述：此任务的描述，可输入长度不超过200个的任意字符。<br>如下图所示：<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-新建SQL任务.png" alt="数栈-新建SQL任务"></p>
+</li>
+<li><p>编辑SQL任务代码<br>SQL任务创建好后，可以在代码编辑器中编写SQL语句（该SQL的语法为Hive SQL)。</p>
+</li>
+<li><p>配置节点任务的调度属性<br>DTinsightBatch提供了丰富的时间周期和依赖关系支持，并提供了基于时间的系统参数和自定义参数支持。<br>代码和参数配置调试完毕后，一个周期任务需要发布以后才会触发调度系统按配置周期定时产生运行实例并执行代码。<br>为使周期任务运行并在每次运行时适应上下文环境，需要配置时间周期和参数。<br> 注：由于节点任务有周期调度属性，因此内容建议以计算类语句为主，表操作语句建议使用可视化建表和脚本开发等其他功能来运行和维护。<br>如下图所示：<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-调度属性.png" alt="数栈-调度属性"></p>
+</li>
+</ol>
+<h5 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h5><ol>
+<li>可视化建表<br>进入项目以后，数据模型&gt;模型设计&gt;建表</li>
+<li>SQL建表<br>新建一个类型为SQL的脚本文件，在编辑区填写任意SQL语句（包括新建或修改表的DDL语句）并单击直接运行。<br>建表语法如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">CREATE [EXTERNAL] TABLE [IF NOT EXISTS] table_name [(col_name data_type [COMMENT col_comment], ...)] [COMMENT table_comment]</div><div class="line">[PARTITIONED BY (col_name data_type [COMMENT col_comment], ...)]</div><div class="line">[CLUSTERED BY (col_name, col_name, ...) [SORTED BY (col_name [ASC|DESC], ...)] INTO num_buckets BUCKETS]</div><div class="line">[ROW FORMAT row_format]</div><div class="line">[STORED AS file_format]</div><div class="line">[LOCATION hdfs_path]</div><div class="line">lifecycle N;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>注：DTinsightBatch的建表语句与通用的Hive不同，建表时需要指定生命周期。</p>
+<ol>
+<li>查找数据<br>点击数据模型&gt;模型设计，搜索表名，找到新建的表进行查询。<br>如图所示：<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-查找数据.png" alt="数栈-查找数据"></li>
+</ol>
+<h5 id="表查询"><a href="#表查询" class="headerlink" title="表查询"></a>表查询</h5><p>在数据开发页面，表查询模块下，默认会展示当前项目的表，单击表名即可看到表的列信息、分区信息以及数据预览。<br>    注：表查询中不支持新建目录，将表放到目录下分类。<br>    注：数据预览的数据是实时的。<br>如图所示：<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-表查询.png" alt="数栈-表查询"></p>
+<h5 id="任务运行"><a href="#任务运行" class="headerlink" title="任务运行"></a>任务运行</h5><p>DTinsightBatch提供了3种运行方式，以使任务中的计算语句生效，适用场景和限制条件如下：<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈任务运行说明.png" alt="数栈任务运行说明"></p>
+<h5 id="发布任务"><a href="#发布任务" class="headerlink" title="发布任务"></a>发布任务</h5><p>提交任务操作，使得一个周期任务的代码和周期配置进入调度系统，从第二天开始，调度系统将根据该任务的周期配置每天生成实例并定时运行，直到该任务被删除，调度系统才会停止为该任务生成实例并运行。<br>    注：新增或修改任务时，如果当天22:00前发布成功，则在第二天的实例中即可看到结果；如果当天22:00后发布成功，则在第三天的实例中才会看到结果。<br>    注：一个周期任务只有发布成功后才会进入调度系统，从而使得调度系统按配置周期定时产生实例并运行。 </p>
+<ol>
+<li>发布SQL任务<br>单击打开该任务，在右上角点击“提交”按钮，可输入发布的备注信息，点击“确定”。</li>
+<li><p>查看任务历史版本<br>发布任务之后，系统会产生一条版本记录，通过点击任务开发-任务属性-历史发布版本中查看发布的时间和备注信息的。<br>如图所示：<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-任务属性.png" alt="数栈-任务属性"></p>
+</li>
+<li><p>对比任务版本<br>在SQL任务的历史发布版本中，可以查看到曾经提交过的代码。选择查看某个代码版本，点击代码，系统可对比当前代码与选中版本的代码的差别。</p>
+</li>
+</ol>
+<h5 id="冻结任务"><a href="#冻结任务" class="headerlink" title="冻结任务"></a>冻结任务</h5><p>如果需要让某个任务停止运行一段时间，可以在任务开发模块打开某任务，在右侧调度依赖面板中勾选冻结，表示此任务进入冻结状态。<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-调度属性.png" alt="数栈-调度属性"></p>
+<ol>
+<li>处于冻结状态的任务，其周期实例依然会生成，但不会运行。</li>
+<li>对于存在依赖关系的多个任务，如果将上游任务A冻结，则下游任务B也会进入“冻结”状态，B任务的实例也会产生，但不会运行，在B任务的执行日志中会打印出是由于A任务被冻结才没有运行的。</li>
+<li>周期任务的冻结，是第二天生效的，且冻结状态的任务，生成的实例也是冻结状态，不会直接运行，必须将实例解冻后再单击重跑，才会运行；如果需要紧急冻结任务，可以在周期实例中进行冻结操作。<br> 注：依然可以对冻结状态的任务执行补数据，补数据实例会正常运行。</li>
+</ol>
+<h5 id="删除任务"><a href="#删除任务" class="headerlink" title="删除任务"></a>删除任务</h5><p>如果在编辑过程中想要放弃一个任务编辑版本，或者周期任务提交后想从调度系统中去掉该任务的自动运行，可以在左侧的任务面板中右键点击此任务，选择删除。<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-删除任务.png" alt="数栈-删除任务"></p>
+<ol>
+<li>如果此任务被其他任务依赖（是其他任务的上游任务），则此任务不能被删除，您需要先解除依赖关系再进行删除。</li>
+<li>任务删除后，已生成的任务实例不会被删除，但会运行失败。</li>
+</ol>
+<h5 id="搜索任务"><a href="#搜索任务" class="headerlink" title="搜索任务"></a>搜索任务</h5><p>当任务数量很多时，可以在数据开发界面中的上方点击搜索，或按下Ctrl+P快捷键，通过输入任务名称并按下回车搜索并打开任务。</p>
+<h4 id="调度属性配置"><a href="#调度属性配置" class="headerlink" title="调度属性配置"></a>调度属性配置</h4><p>任务的时间属性目前支持月、周、天、小时和分钟5种配置方式。<br>    注1：上游依赖的实例没有全部运行成功并且定时运行时间已到，则实例不会运行。<br>    注2：上游依赖的实例全部运行成功并且定时运行时间还未到，则实例不会运行。<br>    注3：上游依赖的实例全部运行成功并且定时运行时间已到，则实例具备了运行的条件，待其获得集群的计算资源后即可以开始运行，集群资源的分配由Spark集群分配，用户不可干预。</p>
+<h5 id="调度属性"><a href="#调度属性" class="headerlink" title="调度属性"></a>调度属性</h5><p>调度属性的配置包括如下内容：此任务接受调度还是停止调度？此任务在什么时间生效？多长时间间隔运行一次？具体什么时候运行？如下图所示：</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-调度属性.png" alt="数栈-调度属性"></p>
+<ol>
+<li>调度状态<br>选中“冻结”，表示此任务停止调度，不会进行实际的计算（通常此功能用于暂时不需要运行，但也不想删除的任务）； 若勾选“冻结”，任务每天仍会产生实例，但调度时会直接返回失败状态，不会真正运行任务逻辑。</li>
+<li>生效日期：任务只在生效日期内执行；</li>
+<li>调度周期：分为{天；周；月；小时；分钟}，若选中“天”，则表示此任务每天执行一次；</li>
+<li>起调时间：用户设定调度周期后，还需要设定具体在哪个时刻点启动任务。根据用户选择的调度周期不同，起调时间需要配置不同的参数。</li>
+</ol>
+<h5 id="任务实例的生成"><a href="#任务实例的生成" class="headerlink" title="任务实例的生成"></a>任务实例的生成</h5><p>DTinsightIDE在每天22:00统一生成第二天所有需要的任务实例，基于以上设计，任务开发时需要注意任务的提交时间，这里以一个天周期调度任务A为例：</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-任务实例的生成.png" alt="数栈-任务实例的生成"></p>
+<p>任务被配置为冻结是否生成实例？<br>答：处于冻结状态的任务，其周期实例依然会生成，但不会运行。<br>对于存在依赖关系的多个任务，如果将上游任务A冻结，则下游任务B也会进入“冻结”状态，B任务的实例也会产生，但不会运行，在B任务的执行日志中会打印出是由于A任务被冻结才没有运行的。 </p>
+<p>任务被删除是否会影响实例的运行？<br>答：如果此任务被其他任务依赖（是其他任务的上游任务），则此任务不能被删除，您需要先解除依赖关系再进行删除。<br>任务删除后，已生成的任务实例不会被删除，但会运行失败 。</p>
+<p>想在每月的最后一天计算当月数据怎么办？<br>答：目前系统不支持配置每月最后一天，因此如果时间周期选择每月31日，那么在有31日的月份会有一天调度，其他日期都是生成实例然后直接设为运行成功。<br>需要统计每个月的数据时，建议选择每月的1日运行，计算上个月的数据。</p>
+<h5 id="参数配置"><a href="#参数配置" class="headerlink" title="参数配置"></a>参数配置</h5><p>为使任务自动周期运行时能动态适配环境变化，DTinsightIDE提供了参数配置的功能。<br>应用场景：某任务为每天调度一次，需要统计昨天的历史数据，那么可以在SQL或MR任务中添加业务日期变量，此变量需要随着系统时间而变化，即实现“今天的任务处理昨天的数据”。 </p>
+<p>1.系统参数<br>DTinsightIDE提供了4个系统参数，定义如下：<br>${bdp.system.cyctime}：一个实例的定时运行时间，默认格式为：yyyyMMddHHmmss。<br>${bdp.system.bizdate}：一个实例计算时对应的业务日期，业务日期默认为定时运行日期的前一天，以yyyyMMdd的格式显示。<br>${bdp.system.currmonth}：一个实例的定时运行时间所在的月份，默认以yyyyMM的格式显示。<br>${bdp.system.premonth}：一个实例的定时运行时间的上一个月，以yyyyMM的格式显示。</p>
+<p>从定义可知，运行时间和业务日期有如下计算公式：运行时间=（业务日期+1）+定时时间。<br>    注：若使用系统参数，无需在编辑框设置，直接在代码中引用${bdp.system.bizdate}和${bdp.system.cyctime}即可，系统将自动替换代码中对这两个参数的引用字段。</p>
+<p>2.自定义参数<br>使用自定义参数的使用方式：需要先在代码中编辑${key1},${key2}，然后在任务参数面板中输入“key1=value1 key2=value2”方可生效。</p>
+<p>常量：直接替换的字符串或数字，例如“key1=123 key2=abc”。</p>
+<p>变量：基于bdp.system.cyctime取值计算出的取值，例如“key1=${yyyy}”表示按bdp.system.cyctime的值取年的部分作为结果替换该参数。<br>变量的格式：变量的格式支持yyyyMMddHHmmss，其中MM表示月份，mm表示分钟，HH表示24小时制的小时。<br>常用变量参数配置列表：<br>后N周：yyyyMMdd+7<em>N<br>前N周：yyyyMMdd-7</em>N<br>后N天：yyyyMMdd+N<br>前N天：yyyyMMdd-N<br>后N小时：HHmmss+N/24<br>前N小时：HHmmss-N/24<br>后N分钟：HHmmss+N/24/60<br>前N分钟：HHmmss-N/24/60</p>
+<h5 id="依赖关系"><a href="#依赖关系" class="headerlink" title="依赖关系"></a>依赖关系</h5><p>在调度配置中，会需要配置两个任务级别的依赖：任务间依赖和跨周期依赖。</p>
+<ol>
+<li><p>任务间依赖<br>若某任务B必须在任务A完成后运行，则A为B的上游任务，这种依赖关系可通过如下方式配置：在“上游任务”输入框，输入任务关键字，在列出的可选任务中选中某个任务，此任务被添加到上游任务列表中，即完成了A、B间的依赖关系配置。<br> 注：一个任务可以依赖多个上游任务，同样，一个任务可被多个任务依赖。依赖属性为非必填项，当下游任务需依赖上游任务产出数据，则可配置依赖关系。<br> 注：上游任务失败后，下游任务不会运行，但其状态会被置为失败状态。 </p>
+</li>
+<li><p>跨周期依赖<br>配置任务的跨周期依赖，如：天调度任务中，今天需要执行的数据依赖本任务昨天执行的数据，那么可以配置依赖昨天任务的周期，这样一来，昨天的实例必须先执行成功，今天的实例才可以调度起来，这种依赖主要是体现在任务调度实例的依赖。<br> 注：依赖属性配置的调度依赖是同周期依赖和跨周期依赖不冲突。任务A可以配置依赖属性依赖任务B，也可以配置跨周期依赖依赖B，如此任务A既依赖任务B，本周期也依赖任务B上周期。 </p>
+</li>
+</ol>
+<h4 id="脚本开发"><a href="#脚本开发" class="headerlink" title="脚本开发"></a>脚本开发</h4><p>脚本文件是对周期任务的补充，通常用于辅助数据开发过程，主要用于实现非周期的临时数据处理，如临时表的增删改等，因此不包含周期属性和依赖关系。</p>
+<p>脚本文件仅支持SQL类型，并且仅支持页面直接运行生效，不支持发布，主要使用流程如下图所示：</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-脚本开发流程.png" alt="数栈-脚本开发流程"></p>
+<ol>
+<li>新建脚本<br>选中左侧的脚本管理面板，点击新建脚本按钮，填写新建脚本文件弹出框中的配置，如图所示：</li>
+</ol>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-创建脚本.png" alt="数栈-创建脚本"></p>
+<p>脚本名称：需输入英文字母、数字、下划线组成，不超过20个字符。<br>任务类型：目前仅支持SQL类型的脚本，不支持其他类型脚本。<br>存储位置：此任务在页面左侧的任务存储结构中的位置。<br>描述：此任务的描述，可输入长度不超过200个的任意字符。</p>
+<p>脚本信息输入完毕后，单击确认，脚本文件创建成功。打开创建好的脚本文件，即可进行脚本编辑。</p>
+<ol>
+<li><p>编辑脚本<br>脚本文件通常用于实现非周期的临时数据处理，如临时表的增删改，一次性的数据初始化或查询任务等。脚本编辑完成后，单击保存，下次打开网页时即可看到最近一次保存的内容。</p>
+</li>
+<li><p>运行代码<br>保存完毕后，可以选中部分代码单击运行。也可以不选中任何代码而直接运行，那么将运行全部代码。</p>
+</li>
+<li><p>查看日志<br>任务触发运行后，在编辑区下方会显示日志页，如果有语句的运行结果返回了数据集，则在日志页旁显示结果页，也支持结果下载。</p>
+</li>
+</ol>
+<p>无论运行几次，日志页只有一个，仅显示最近一次触发运行的日志信息，之前的日志会被覆盖。结果页可以存在多个，按语句执行顺序依次显示，最多可以显示20个结果页，方便您进行对比数据等操作。</p>
+<p>多个语句触发执行时，这些语句将串行执行，日志内容依次显示在日志页中。结果则按每个语句的执行顺序分别显示在不同的结果页中。</p>
+<ol>
+<li>删除脚本<br>右键单击选中的脚本，选择删除即可。</li>
+</ol>
+<h4 id="资源管理"><a href="#资源管理" class="headerlink" title="资源管理"></a>资源管理</h4><p>如果在代码或函数中需要使用.jar等资源文件，那么需要先将资源上传至该项目的项目空间下，然后在函数中进行引用，如图所示：</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-资源管理.png" alt="数栈-资源管理"></p>
+<pre><code>注：资源管理通常使用在UDF等自定义函数的场景中，因此可以将资源管理理解为函数管理的一个步骤。 
+</code></pre><ol>
+<li><p>上传资源<br>可上传jar/Python类型的资源，上传后资源会同步至DTinsightIDE中。<br>资源名称：需输入英文字母、数字、下划线组成，不超过20个字符。<br>资源类型：目前仅支持jar或Python类型的资源，不支持其他类型资源。<br>存储位置：此资源在页面左侧的资源管理存储结构中的位置。<br>描述：此资源的描述，可输入长度不超过200个的任意字符。<br> 注：DTinsightIDE不支持批量上传资源，同时也请您注意上传资源的大小，超过100M的文件，无法上传。</p>
+</li>
+<li><p>在函数中引用资源<br>如果现有的系统内置函数无法满足您的需求，DTinsightIDE支持创建自定义函数，实现个性化处理逻辑。将实现逻辑的Jar包上传至项目空间下，便可在创建自定义函数的时候进行引用。</p>
+</li>
+<li><p>不支持在代码中引用资源<br>DTinsightIDE不支持在代码中引用资源，只支持在函数中引用资源。</p>
+</li>
+<li><p>删除资源<br>如果需要删除一个资源，在资源管理中右键单击该资源，选择删除即可。<br> 注：删除资源后，引用该资源的函数或代码在运行时会报错，故请慎重操作。如有改动，尽量通知到依赖该资源的其他对象的负责人。 </p>
+</li>
+</ol>
+<h4 id="函数管理"><a href="#函数管理" class="headerlink" title="函数管理"></a>函数管理</h4><ol>
+<li>函数的使用<br>目前DTinsightIDE的工作对象大部分为SQL类型的脚本和任务。在编辑SQL类型的脚本和任务的代码时，常需要使用各种函数对数据做标准化处理。</li>
+</ol>
+<p>函数管理，是DTinsightIDE提供的专用于对SQL 编辑时需要的系统函数和自定义函数进行管理的功能，在此页面可以进行新建目录、新建函数的操作。</p>
+<p>函数管理模块下显示的全部函数，无论是系统默认的还是自定义函数，仅用于SQL类型的任务和脚本。</p>
+<p>函数的具体应用场景：</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-函数应用流程.png" alt="数栈-函数应用流程"></p>
+<ol>
+<li><p>系统函数<br>系统默认提供以下几类系统函数：<br>1.日期函数<br>2.数学函数<br>3.字符函数<br>4.聚合函数</p>
+</li>
+<li><p>自定义函数<br>用户自定义函数（User Defined Function，简称 UDF），是用户除了使用 DTinsightIDE提供的内建函数外，自行创建的函数，用于满足个性化的计算需求。自定义函数在使用上与普通的内建函数类似。</p>
+</li>
+</ol>
+<p>创建自定义函数流程：</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-创建自定义函数流程.png" alt="数栈-创建自定义函数流程"></p>
+<p>具体操作步骤：</p>
+<ul>
+<li><p>在本地编写代码并编译为Jar包<br>  在本地Java环境中按照Spark的UDF框架编写Java代码实现函数，本示例的代码如下所示</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import org.apache.hadoop.hive.ql.exec.UDF;</div><div class="line">public class HelloUDF extends UDF&#123;</div><div class="line">    public String evaluate(String str)&#123;</div><div class="line">        try&#123;</div><div class="line">            return &quot;helloWorld&quot; + str;</div><div class="line">        &#125;catch (Exception e)&#123;</div><div class="line">            return null;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>  将以上代码编译成Jar包。</p>
+</li>
+<li>上传资源到DTinsightIDE<br>  在任务开发模块，点击左侧的资源管理面板并上传资源文件。在目录树中选择一个文件夹，然后右键选择上传资源。<br>  填写资源上传弹出框中的各配置项，提交后资源创建成功。</li>
+<li>新建自定义函数并引用资源<br>  进入DTinsightIDE的数据开发模块，打开左侧的函数管理面板。在目录树中选择一个文件夹，然后右键选择新建函数，填写弹出框中的各配置项。<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-注册自定义函数.png" alt="数栈-注册自定义函数"></li>
+<li>在SQL任务或脚本中使用函数</li>
+</ul>
+<ol>
+<li>查看函数<br>单击函数名，可以查看函数的类型、命令格式以及参数说明，如下图所示：</li>
+</ol>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-查看函数.png" alt="数栈-查看函数"></p>
+<ol>
+<li>删除函数<br>在函数管理页面找到需要删除的函数，右键单击，在菜单栏选择删除，即可删除该函数。仅自定义函数可以被删除，系统函数无法被删除。</li>
+</ol>
+<h4 id="导入本地数据"><a href="#导入本地数据" class="headerlink" title="导入本地数据"></a>导入本地数据</h4><p>DTinsightIDE支持将保存在本地的文本文件中的数据上传到项目空间的表中。</p>
+<p>本地文本文件上传的限制如下：</p>
+<ul>
+<li>文件类型：仅支持.txt、.csv和.log格式。</li>
+<li>文件大小：不超过100M。</li>
+<li>操作对象：导入分区表时，分区不允许为中文。</li>
+</ul>
+<p>操作步骤<br>1.单击导入，选择导入本地数据。<br>2.选择本地数据文件，配置导入信息，单击下一步。<br>3.如果导入数据的表已存在，搜索表名即可。<br>4.如果没有创建导入数据的表，则可以单击去新建表，输入建表语句后，单击确认。<br>5.选择导入数据的表名后，选择字段匹配方式（按位置匹配或按名称匹配）。选择按位置匹配以后，如果是分区表，则会提示分区的选择，同时可以点击检测按钮，测试分区是否存在，检测后单击导入。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年12月19日 14:15</p>
+        <p>原始链接： <a class="post-url" href="/2018/12/18/数栈-离线数据开发学习笔记/" title="数栈-离线数据开发学习笔记">https://www.lousenjay.top/2018/12/18/数栈-离线数据开发学习笔记/</a></p>
+        <footer>
+            <a href="https://www.lousenjay.top">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/12/18/数栈-离线数据开发学习笔记/&title=《数栈-离线数据开发学习笔记》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_8.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/12/18/数栈-离线数据开发学习笔记/&title=《数栈-离线数据开发学习笔记》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/12/18/数栈-离线数据开发学习笔记/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数栈-离线数据开发学习笔记》 — 若闲小阁&url=https://www.lousenjay.top/2018/12/18/数栈-离线数据开发学习笔记/&via=https://www.lousenjay.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/12/18/数栈-离线数据开发学习笔记/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/12/18/数栈-离线数据开发学习笔记/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/DTinsight/" class="color5">DTinsight</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#离线任务开发"><span class="post-toc-text">离线任务开发</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#对象"><span class="post-toc-text">对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#流程"><span class="post-toc-text">流程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#任务类型"><span class="post-toc-text">任务类型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#新建任务"><span class="post-toc-text">新建任务</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#创建表"><span class="post-toc-text">创建表</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#表查询"><span class="post-toc-text">表查询</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#任务运行"><span class="post-toc-text">任务运行</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#发布任务"><span class="post-toc-text">发布任务</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#冻结任务"><span class="post-toc-text">冻结任务</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#删除任务"><span class="post-toc-text">删除任务</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#搜索任务"><span class="post-toc-text">搜索任务</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#调度属性配置"><span class="post-toc-text">调度属性配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#调度属性"><span class="post-toc-text">调度属性</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#任务实例的生成"><span class="post-toc-text">任务实例的生成</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#参数配置"><span class="post-toc-text">参数配置</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#依赖关系"><span class="post-toc-text">依赖关系</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#脚本开发"><span class="post-toc-text">脚本开发</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#资源管理"><span class="post-toc-text">资源管理</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#函数管理"><span class="post-toc-text">函数管理</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#导入本地数据"><span class="post-toc-text">导入本地数据</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/18/数栈-数据集成学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+	  <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+	  <span class="article-nav-title">数栈-数据集成学习笔记</span>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="数栈-离线数据开发学习笔记" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "https://www.lousenjay.top",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 11.67px;">DTinsight</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 11.67px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 11.67px;">DTinsight</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 11.67px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="https://www.lousenjay.top/live2d/assets/waifu-tips.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("https://www.lousenjay.top/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>
