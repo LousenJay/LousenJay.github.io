@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数栈-数据开发规范 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="术语解释 ODS(Operational Data Store):操作型数据，即源数据，指结构与源系统基本保持一致的增量或全量数据。作为DW数据的一个数据准备区，同时又承担基础数据记录历史变化。 CDM(Common Data Model):通用数据模型(数据中间层)，包含DWD和DWS。 DWD(Data Warehouse Detail):数据仓库明细层数据。 DWS(Data Warehou">
+<meta name="keywords" content="DTinsight">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数栈-数据开发规范">
+<meta property="og:url" content="https://www.lousenjay.top/2018/12/21/数栈-数据开发规范/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="术语解释 ODS(Operational Data Store):操作型数据，即源数据，指结构与源系统基本保持一致的增量或全量数据。作为DW数据的一个数据准备区，同时又承担基础数据记录历史变化。 CDM(Common Data Model):通用数据模型(数据中间层)，包含DWD和DWS。 DWD(Data Warehouse Detail):数据仓库明细层数据。 DWS(Data Warehou">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-离线数据处理流程.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-实时数据处理流程.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-工作流节点类型及命名.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-数据类型.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-字段排列要求.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-select子句排列要求.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-case语句的编写.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-子查询嵌套语句编写规范.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-新增业务需求测试项.png">
+<meta property="og:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-数据迁移重构修改.png">
+<meta property="og:updated_time" content="2018-12-21T06:29:42.815Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数栈-数据开发规范">
+<meta name="twitter:description" content="术语解释 ODS(Operational Data Store):操作型数据，即源数据，指结构与源系统基本保持一致的增量或全量数据。作为DW数据的一个数据准备区，同时又承担基础数据记录历史变化。 CDM(Common Data Model):通用数据模型(数据中间层)，包含DWD和DWS。 DWD(Data Warehouse Detail):数据仓库明细层数据。 DWS(Data Warehou">
+<meta name="twitter:image" content="https://www.lousenjay.top/images/show/DTinsight/数栈-离线数据处理流程.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.top/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                    <a  href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//www.lousenjay.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-数栈-数据开发规范" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      数栈-数据开发规范
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/大数据/">大数据</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-12-21
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="术语解释"><a href="#术语解释" class="headerlink" title="术语解释"></a>术语解释</h3><ul>
+<li>ODS(Operational Data Store):操作型数据，即源数据，指结构与源系统基本保持一致的增量或全量数据。作为DW数据的一个数据准备区，同时又承担基础数据记录历史变化。</li>
+<li>CDM(Common Data Model):通用数据模型(数据中间层)，包含DWD和DWS。</li>
+<li>DWD(Data Warehouse Detail):数据仓库明细层数据。</li>
+<li>DWS(Data Warehouse Summary):数据仓库汇总层数据。</li>
+<li>ADS(Application Data Service):面向应用的数据服务层。</li>
+<li>冒烟测试：文本中指代码运行能否正常结束，属于功能性测试。</li>
+</ul>
+<h3 id="数据处理流程"><a href="#数据处理流程" class="headerlink" title="数据处理流程"></a>数据处理流程</h3><p>1.离线数据处理流程<br>如图所示，离线数据公共层模型层次分为4个层次，其中DWD、DWS属于中间层(CDM)。<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-离线数据处理流程.png" alt="数栈-离线数据处理流程"></p>
+<p>2.实时数据处理流程<br>如图所示，实时数据公共层模型层次分为3个层次，其中DWD、DWS属于中间层(CDM)，其中DWD落地供后续应用(ADS)订阅使用，DWS为各数据域的中间汇总层。<br><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-实时数据处理流程.png" alt="数栈-实时数据处理流程"></p>
+<h3 id="项目管理"><a href="#项目管理" class="headerlink" title="项目管理"></a>项目管理</h3><p>1.项目命名<br>ODS层项目以ods为后缀，如mtods。<br>中间层项目以cdm为后缀，如mtcdm。<br>应用层项目分两类：<br>第一类，数据报表、数据分析等应用以bi为后缀，如mtbi。<br>第二类，数据产品等应用以app为后缀，如magicapp等。</p>
+<blockquote>
+<p>数据报表：报表就是用表格、图表等格式来动态显示数据，可以用公式表示为：“报表 = 多样的格式 + 动态的数据”。<br>数据分析：数据分析是指用适当的统计分析方法对收集来的大量数据进行分析，提取有用信息和形成结论而对数据加以详细研究和概括总结的过程。</p>
+</blockquote>
+<p>2.项目空间目录结构<br>a.工作流<br>应初始化2层目录(根目录算第0层)结构，第一层目录表示数据域（对于中间层项目）或业务线（对于应用层项目），如渠道、消费者、商品、交易、仓储物流、服务、营销、社交、日志，第二层目录表示层次，如DWD、DWS、DIM以及数据同步任务。<br>另外，建议增加三个一级目录为RESOURCE、TEMP和VIRTUAL NODE，其中RESOURCE目录主要放置资源文件，按照节点类型再进行细分，如UDF、JAR、SHELL等，TEMP目录按照开发人员姓名再进行细分，VIRTUAL NODE放置虚拟节点。如果虚拟节点或者UDF、JAR、SHELL 只是作用于某个表时，这些虚拟节点、资源请放在表级目录下，如果是公用的请放在RESOURE、TEMP和VIRTUAL NODE相应的目录下。<br>一般是：根目录(工作流)—&gt;数据域(交易)—&gt;数据层次(DWD)—&gt;表名称(dwd_mt_ord_evt_di)<br>b.临时查询<br>临时查询TAB页建议以开发人员姓名作为文件夹进行管理，以避免临时查询文件列表过多。</p>
+<p>3.工作流节点类型及命名</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-工作流节点类型及命名.png" alt="数栈-工作流节点类型及命名"></p>
+<p>4.工作流起始节点<br>每个Project必须设立一个起始节点，命名为<code>vt_{project_name}_start</code>，表示该project的任务起点。</p>
+<p>5.资源文件<br>项目中公用的资源文件建议放在RESOURCE目录中，资源名称需有后缀表示资源类型，如.java、.py、.sh等。如果某个资源文件如java只是服务于某个表，请把这个资源文件放在表级目录下。</p>
+<h3 id="表与视图"><a href="#表与视图" class="headerlink" title="表与视图"></a>表与视图</h3><p>1.表的命名<br>DWD表与视图命名规范：<br><code>dwd_{业务BU缩写/pub}_{数据域缩写}_{业务过程缩写}[_{自定义表命名标签缩写}]_{刷新周期标识}_{单分区增量全量标识}</code><br>例如：dwd_mt_ord_evt_di</p>
+<p>DWS表与视图命名规范：<br><code>dws_{业务BU缩写/pub}_{数据域缩写}_{数据粒度缩写}[_{自定义表命名标签缩写}]_{统计时间周期范围缩写}[_刷新周期标识][_单分区增量全量标识]</code><br>关于统计实际周期范围缩写，缺省情况下，离线计算应该包括最近一天（_1d）,最近N天（_nd）和历史截至当天(_td)三个表，如果出现_nd的表字段过多，需要拆分之时，只允许以一个统计周期单元作为原子拆分，也就是说一个统计周期拆分一个表，比如最近7天(_1w)拆分一个表；不允许拆分出来的一个表存储多个统计周期的。<br>例如：dws_mt_ord_shp_1d</p>
+<p>ADS表命名不做强制要求，以下是命名建议：<br><code>{project_name}.ads_{业务BU缩写/pub}_{应用名称}[_数据粒度] [_{自定义表命名标签缩写}]_刷新周期标识</code></p>
+<p>2.表的创建<br>创建表之前必须按照数据模型规范确定表和字段的命名，并根据需求确认表的生命周期并给表和字段加上完整的注释。分区字段必须加上注释。<br>建表样例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">create table if not exists dwd_mt_explore_item_di(</div><div class="line">    stat_date                    STRING COMMENT &apos;统计日期,星期日&apos;</div><div class="line">    ,seller_user_id              BIGINT COMMENT &apos;卖家ID&apos;</div><div class="line">    ,device_type                 STRING COMMENT &apos;所属访问终端类型&apos;</div><div class="line">    ,item_id                      BIGINT COMMENT &apos;宝贝ID&apos;</div><div class="line">    ,uv_cnt_cw_144               BIGINT COMMENT &apos;自然周访客UV&apos;</div><div class="line">    ,dpv_cnt_cw_058              BIGINT COMMENT &apos;自然周被浏览DPV&apos;</div><div class="line">)</div><div class="line">comment &apos;宝贝浏览自然周表&apos;</div><div class="line">partitioned by (ds STRING COMMENT &apos;账期分区，格式yyyymmdd&apos;)</div></pre></td></tr></table></figure></p>
+<p>3.视图<br>视图的命名为{表名}_v。<br>视图应创建独立的刷新任务以产生视图，刷新任务脚本为视图创建脚本。<br>创建视图样例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">create or replace view dwd_mt_explore_item_di_v as</div><div class="line">select stat_date, seller_user_id</div><div class="line">from tbcdm.dwd_mt_explore_item_di;</div></pre></td></tr></table></figure></p>
+<h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h3><p>1.编码原则</p>
+<ul>
+<li>要求代码行清晰、整齐，具有一定的可观赏性；</li>
+<li>代码编写要充分考虑执行速度最优的原则；</li>
+<li>代码行整体层次分明、结构化强；</li>
+<li>代码中应有必要的注释以增强代码的可读性；</li>
+<li>代码要做到整个节点可以多次重跑，结果不变；</li>
+<li>规范要求非强制性约束代码开发人员的代码编写行为，在实际应用中在不违反常规要求的前提下允许存在可理解的偏差；</li>
+</ul>
+<p>2.基本要求</p>
+<ul>
+<li>代码段中应用到的所有SQL关键字、保留字都使用全大写或小写，不能使用大小写混合的方式，如Select或seLECT等方式；</li>
+<li>代码段中应用到的除关键字、保留字之外，都使用小写；</li>
+<li>四个空格为一个缩进量，所有的缩进皆为一个缩进量的整数倍；</li>
+<li>最外层禁止使用<code>select *</code>操作,所有操作必须明确指定列名；</li>
+<li>禁止使用insert into语句，用union all代替；</li>
+<li>Where条件中字段空和空字符串要进行必要的coalesce处理；</li>
+<li>对应的括号通常要求在同一列的位置上。</li>
+</ul>
+<p>3.数据类型<br>一般情况下，使用以下四种：</p>
+<ul>
+<li>Bigint</li>
+<li>String</li>
+<li>Double</li>
+<li>Datetime</li>
+</ul>
+<blockquote>
+<p>由于潜在的兼容性问题和扩展性问题，不建议使用Boolean类型。<br>在对精度要求极其严格的场景下谨慎使用Decimal类型。</p>
+</blockquote>
+<p>具体类型，如下图所示：</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-数据类型.png" alt="数栈-数据类型"></p>
+<p>4.编码规范<br>a.代码头部<br>代码头部添加主题、功能描述、作者、日期等信息，并预留修改日志及标题栏，以便后续修改同学添加修改记录。注意每一行不超过80个字符。以下是模板：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">--**************************************************************************</div><div class="line">--所属主题: 日志域(项目名称)</div><div class="line">--功能描述: 页面引导成交</div><div class="line">--创建者  : XX</div><div class="line">--创建日期: 20171017</div><div class="line">--修改日期	修改人	修改内容</div><div class="line">--20130826	XX		init</div><div class="line">--20150127  YY   修改订单取数口径，只取支付订单</div><div class="line">--**************************************************************************</div></pre></td></tr></table></figure></p>
+<p>b.字段排列要求</p>
+<ul>
+<li>SELECT语句选择的字段按每行一个字段方式编排；</li>
+<li>SELECT单字后面一个缩进量后直接跟首个选择的字段，即字段离首起二个缩进量；</li>
+<li>其它字段前导二个缩进量再跟一‘，’点后放置字段名；</li>
+<li>两个字段之间的‘，’点分割符紧跟在第二个字段的前面</li>
+<li>‘AS’语句应与相应的字段在同一行；多个字段的‘AS’建议尽量对齐在同一列上；</li>
+</ul>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-字段排列要求.png" alt="数栈-字段排列要求"></p>
+<p>c.select子句排列要求<br>SELECT语句中所用到的FROM、WHERE、GROUP BY、HAVING、ORDER BY、JOIN、UNION等子句，需要遵循如下要求：</p>
+<ul>
+<li>换行编写；</li>
+<li>与相应的SELECT语句左对齐编排；</li>
+<li>子句后续的代码离子句首字母二个缩进量起编写；</li>
+<li>WHERE 子句下的逻辑判断符 AND、OR等与WHERE左对齐编排；</li>
+<li>超过两个缩进量长度的子句加一空格后编写后续代码，如：ORDER BY、GROUP BY等；</li>
+</ul>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-select子句排列要求.png" alt="数栈-select子句排列要求"></p>
+<p>d.运算符前后间隔要求<br>算术运算符、逻辑运算符的前后要保留一个空格</p>
+<p>e.case语句的编写规范<br>SELECT语句中对字段值进行判断取值的操作将用到的CASE语句，正确的编排CASE语句的写法对加强代码行的可阅读性也是很关键的一部分。<br>对CASE语句编排作如下约定：</p>
+<ul>
+<li>WHEN子语在CASE语句的同一行并缩进一个缩进量后开始编写；</li>
+<li>每个WHEN子句一行编写，当然如果语句较长可换行编排；</li>
+<li>CASE语句必须包含ELSE子语，ELSE子句与WHEN子句对齐；</li>
+</ul>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-case语句的编写.png" alt="数栈-case语句的编写"></p>
+<p>f.子查询嵌套语句的编写规范<br>子查询嵌套在数据仓库系统ETL开发中是经常要用到，因此代码的分层编排就非常重要。</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-子查询嵌套语句编写规范.png" alt="数栈-子查询嵌套语句编写规范"></p>
+<p>g.sql注释的编写规范</p>
+<ul>
+<li>每条SQL语句均应添加注释说明；</li>
+<li>每条SQL语句的注释单独成行、放在语句前面；</li>
+<li>字段注释紧跟在字段后面；</li>
+<li>应对不易理解的分支条件表达式加注释；</li>
+<li>对重要的计算应说明其功能；</li>
+<li>过长的函数实现，应将其语句按实现的功能分段加以概括性说明；</li>
+<li>常量及变量注释时，应注释被保存值的含义（必须），合法取值的范围（可选）；</li>
+</ul>
+<h3 id="节点配置规范"><a href="#节点配置规范" class="headerlink" title="节点配置规范"></a>节点配置规范</h3><p>1.小时任务配置<br>时间参数: date=$[yyyymmdd] hour=$[hh24]， ‘${date}’,’${hour}’ 可在代码中直接作为变量使用。Eg: insert overwrite table tmp_dwd_mt_ord_evt_hh partition (ds=’${date}’, hh=’${hour}’).<br>时间属性：开始时间必须选择00:59。</p>
+<p>2.天任务配置<br>时间参数: bizdate=$bizdate；’${ bizdate }’可在代码中直接作为变量使用。</p>
+<p>3.调度依赖<br>调度任务必须选择“自动解析”。 自动解析会把所有的from表作为input ，所有的insert的表作为输出。对于程序中辅助程序开发的过程表、临时表也会被解析出来，因此必须对这些临时表进行过滤。<br>在代码头部加入exclude 语句即可过滤相对应的表，调度依赖中就不会显示依赖关系。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">--@exclude_output=tmp_dwd_tb_trd_ord_subpay_di_1</div><div class="line">--@exclude_input=tmp_dwd_tb_trd_ord_subpay_di_1</div></pre></td></tr></table></figure></p>
+<h3 id="测试及质量保证"><a href="#测试及质量保证" class="headerlink" title="测试及质量保证"></a>测试及质量保证</h3><p>1.新增业务需求测试项</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-新增业务需求测试项.png" alt="数栈-新增业务需求测试项"></p>
+<p>2.数据迁移/重构/修改</p>
+<p><img src="https://www.lousenjay.top/images/show/DTinsight/数栈-数据迁移重构修改.png" alt="数栈-数据迁移重构修改"></p>
+<h3 id="发布上线"><a href="#发布上线" class="headerlink" title="发布上线"></a>发布上线</h3><p>无QA(质量保证)参与的项目，由开发负责自测，在开发测试环境通过后再自行发布到生产环境。有QA参与的项目必须由开发与QA都测试通过后方可发布。</p>
+<h3 id="维护及故障处理"><a href="#维护及故障处理" class="headerlink" title="维护及故障处理"></a>维护及故障处理</h3><p>1.数据重刷<br>如果任务运行失败，请直接重跑，如果是由于代码变更或上游数据变更导致输出数据发送变更，请预先评估给下游带来的影响而决定是否需要重跑。重跑之（前）后，一定要通知直接下游或重要的间接下游，让下游采取相关的措施。</p>
+<p>2.补数据<br>补数据如果只是针对历史分区回刷，可以直接执行补数操作。如果补数据还会对现有分区数据造成影响，请预先评估给下游带来的影响而决定是否需要进行相关操作，补数据（前）后，一定要通知直接下游或重要的间接下游，让下游采取相关的措施。</p>
+<p>3.口径修改<br>如果表的取数口径或者字段口径算法发生变更，必须提前通知下游并与下游达成一致后，方可进行后续操作。</p>
+<p>4.故障处理<br>遇到任务报错、上游问题、平台问题符合数据质量故障的走数据质量故障流程，不符合的走数据质量事件。对于他人转过来的流程请及时处理。</p>
+<p>5.工作交接<br>数据工程师在转岗、离职前，必须将手头任务转给相关的接手人，如在转岗、离职后还未交接的，该任务归属其主管负责。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年12月21日 14:29</p>
+        <p>原始链接： <a class="post-url" href="/2018/12/21/数栈-数据开发规范/" title="数栈-数据开发规范">https://www.lousenjay.top/2018/12/21/数栈-数据开发规范/</a></p>
+        <footer>
+            <a href="https://www.lousenjay.top">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/12/21/数栈-数据开发规范/&title=《数栈-数据开发规范》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_9.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/12/21/数栈-数据开发规范/&title=《数栈-数据开发规范》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/12/21/数栈-数据开发规范/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数栈-数据开发规范》 — 若闲小阁&url=https://www.lousenjay.top/2018/12/21/数栈-数据开发规范/&via=https://www.lousenjay.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/12/21/数栈-数据开发规范/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/12/21/数栈-数据开发规范/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/DTinsight/" class="color5">DTinsight</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#术语解释"><span class="post-toc-text">术语解释</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数据处理流程"><span class="post-toc-text">数据处理流程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#项目管理"><span class="post-toc-text">项目管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#表与视图"><span class="post-toc-text">表与视图</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编码"><span class="post-toc-text">编码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节点配置规范"><span class="post-toc-text">节点配置规范</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#测试及质量保证"><span class="post-toc-text">测试及质量保证</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#发布上线"><span class="post-toc-text">发布上线</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#维护及故障处理"><span class="post-toc-text">维护及故障处理</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/18/数栈-离线数据开发学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+	  <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+	  <span class="article-nav-title">数栈-离线数据开发学习笔记</span>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="数栈-数据开发规范" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2018 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "https://www.lousenjay.top",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 13.33px;">DTinsight</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 11.67px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/tasks">
+                    <i class="fa fa-tasks"></i><span>Tasks</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 13.33px;">DTinsight</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 11.67px;">数据库</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 10px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+		<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="https://www.lousenjay.top/live2d/assets/waifu-tips.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("https://www.lousenjay.top/live2d/assets/")
+	</script>
+
+  </div>
+  
+
+</body>
+</html>
