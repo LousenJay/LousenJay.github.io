@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="Kafka单机模式1.解压tar -xvf kafka_2.11-0.8.0.0.tgz -C /home/hadoop/apps/ 2.配置环境变量vi ~/.bashrc12export KAFKA_HOME=/opt/software/kafka      export PATH=$PATH:$KAFKA_HOME/bin source ~/.bashrc 3.启动zookeeperzkSe">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-31T13:49:30.596Z">
+<meta property="og:updated_time" content="2019-01-31T13:56:35.792Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka集群搭建">
 <meta name="twitter:description" content="Kafka单机模式1.解压tar -xvf kafka_2.11-0.8.0.0.tgz -C /home/hadoop/apps/ 2.配置环境变量vi ~/.bashrc12export KAFKA_HOME=/opt/software/kafka      export PATH=$PATH:$KAFKA_HOME/bin source ~/.bashrc 3.启动zookeeperzkSe">
@@ -155,37 +155,37 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <h3 id="Kafka单机模式"><a href="#Kafka单机模式" class="headerlink" title="Kafka单机模式"></a>Kafka单机模式</h3><p>1.解压<br>tar -xvf kafka_2.11-0.8.0.0.tgz -C /home/hadoop/apps/</p>
-<p>2.配置环境变量<br>vi ~/.bashrc<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export KAFKA_HOME=/opt/software/kafka      </div><div class="line">export PATH=$PATH:$KAFKA_HOME/bin</div></pre></td></tr></table></figure></p>
-<p>source ~/.bashrc</p>
-<p>3.启动zookeeper<br>zkServer.sh start<br>zkServer.sh status</p>
-<p>4.启动kafaka<br>kafka-server-start.sh /home/hadoop/apps/kafka/config/server.properties</p>
-<p>5.创建topic<br>kafka-topics.sh –create –zookeeper localhost:2181 –replication-factor 1 –partitions 1 –topic test<br>解释：<br>–zookeeper：zookeeper地址：端口<br>–replication-factor  ：副本数量<br>–partitions：分区数量<br>–topic：主题名称</p>
-<p>6.删除topic<br>前提要求：<br>server.properties中设置<br>delete.topic.enable=true<br>kafka-topics.sh –delete –zookeeper localhost:2181 –topic test<br>删除kafka存储目录（server.properties文件log.dirs配置，默认为”/tmp/kafka-logs”）相关topic目录。删除zookeeper “/brokers/topics/“目录下相关topic节点</p>
-<p>7.查看topic<br>kafka-topics.sh –list –zookeeper localhost:2181</p>
-<p>8.查看指定topic的详细信息<br>kafka-topics.sh –describe –zookeeper localhost:2181 –topic test<br>说明：{<br>partiton：分区：ID<br>leader：当前负责读写的lead broker idk<br>relicas：当前partition的所有replication broker<br>listisr：relicas的子集，只包含出于活动状态的broker}</p>
-<p>9.开启生产者<br>开启新窗口<br>kafka-console-producer.sh –broker-list localhost:9092 –topic test</p>
-<p>10.开启消费者<br>开启新窗口<br>kafka-console-consumer.sh –bootstrap-server  localhost:9092 –topic test –from-beginning </p>
+            <h3 id="Kafka单机模式"><a href="#Kafka单机模式" class="headerlink" title="Kafka单机模式"></a>Kafka单机模式</h3><p>1.解压<br><code>tar -xvf kafka_2.11-0.8.0.0.tgz -C /home/hadoop/apps/</code></p>
+<p>2.配置环境变量<br><code>vi ~/.bashrc</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export KAFKA_HOME=/opt/software/kafka      </div><div class="line">export PATH=$PATH:$KAFKA_HOME/bin</div></pre></td></tr></table></figure></p>
+<p><code>source ~/.bashrc</code></p>
+<p>3.启动zookeeper<br><code>zkServer.sh start</code><br><code>zkServer.sh status</code></p>
+<p>4.启动kafaka<br><code>kafka-server-start.sh /home/hadoop/apps/kafka/config/server.properties</code></p>
+<p>5.创建topic<br><code>kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test</code><br>解释：<br>–zookeeper：zookeeper地址：端口<br>–replication-factor  ：副本数量<br>–partitions：分区数量<br>–topic：主题名称</p>
+<p>6.删除topic<br>前提要求：<br>server.properties中设置<br>delete.topic.enable=true<br><code>kafka-topics.sh --delete --zookeeper localhost:2181 --topic test</code><br>删除kafka存储目录（server.properties文件log.dirs配置，默认为”/tmp/kafka-logs”）相关topic目录。删除zookeeper “/brokers/topics/“目录下相关topic节点</p>
+<p>7.查看topic<br><code>kafka-topics.sh --list --zookeeper localhost:2181</code></p>
+<p>8.查看指定topic的详细信息<br><code>kafka-topics.sh --describe --zookeeper localhost:2181 --topic test</code><br>说明：{<br>partiton：分区：ID<br>leader：当前负责读写的lead broker idk<br>relicas：当前partition的所有replication broker<br>listisr：relicas的子集，只包含出于活动状态的broker}</p>
+<p>9.开启生产者<br>开启新窗口<br><code>kafka-console-producer.sh --broker-list localhost:9092 --topic test</code></p>
+<p>10.开启消费者<br>开启新窗口<br><code>kafka-console-consumer.sh --bootstrap-server  localhost:9092 --topic test --from-beginning</code></p>
 <p>11.发送消息测试<br>在生产者一端输入数据，在消费者一端可以接收到数据</p>
-<h3 id="Kafka集群搭建"><a href="#Kafka集群搭建" class="headerlink" title="Kafka集群搭建"></a>Kafka集群搭建</h3><p>1.解压<br>tar -xvf kafka_2.11-0.8.0.0.tgz -C /home/hadoop/apps/</p>
-<p>2.配置环境变量<br>vi ~/.bashrc<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export KAFKA_HOME=/opt/software/kafka      </div><div class="line">export PATH=$PATH:$KAFKA_HOME/bin</div></pre></td></tr></table></figure></p>
-<p>source ~/.bashrc</p>
-<p>3.修改server.properties配置文件<br>vi /home/hadoop/apps/kafka/config/server.properties<br>    a. broker.id=0 (不同的机器值不同)<br>    b. log.dirs=/home/hadoop/apps/kafka/kafka-logs (指定存储目录)<br>    c. delete.topic.enable=true (设置可以删除topic，该条配置放在log.dirs下面即可)<br>    d. zookeeper.connect=hadoop1:2181,hadoop2:2181,hadoop3:2181 (zookeep集群ip:port)<br>    e. auto.create.topic.enable=true(自动创建topic)</p>
-<p>4.将整个kafaka发送到其他子集群<br>scp -r kafka_2.11-1.1.0/ hadoop2:/home/hadoop/apps/<br>scp -r kafka_2.11-1.1.0/ hadoop3:/home/hadoop/apps/</p>
+<h3 id="Kafka集群搭建"><a href="#Kafka集群搭建" class="headerlink" title="Kafka集群搭建"></a>Kafka集群搭建</h3><p>1.解压<br><code>tar -xvf kafka_2.11-0.8.0.0.tgz -C /home/hadoop/apps/</code></p>
+<p>2.配置环境变量<br><code>vi ~/.bashrc</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export KAFKA_HOME=/opt/software/kafka      </div><div class="line">export PATH=$PATH:$KAFKA_HOME/bin</div></pre></td></tr></table></figure></p>
+<p><code>source ~/.bashrc</code></p>
+<p>3.修改server.properties配置文件<br><code>vi /home/hadoop/apps/kafka/config/server.properties</code><br>    a. broker.id=0 (不同的机器值不同)<br>    b. log.dirs=/home/hadoop/apps/kafka/kafka-logs (指定存储目录)<br>    c. delete.topic.enable=true (设置可以删除topic，该条配置放在log.dirs下面即可)<br>    d. zookeeper.connect=hadoop1:2181,hadoop2:2181,hadoop3:2181 (zookeep集群ip:port)<br>    e. auto.create.topic.enable=true(自动创建topic)</p>
+<p>4.将整个kafaka发送到其他子集群<br><code>scp -r kafka_2.11-1.1.0/ hadoop2:/home/hadoop/apps/</code><br><code>scp -r kafka_2.11-1.1.0/ hadoop3:/home/hadoop/apps/</code></p>
 <p>5.修改子集群<br>    a. 环境变量<br>    b. server.properties文件的broker.id</p>
-<p>6.启动zookeeper集群<br>在所有机器上<br>zkServer.sh start<br>zkServer.sh status</p>
-<p>7.启动kafaka集群<br>在所有机器上<br>kafka-server-start.sh /home/hadoop/apps/kafka/config/server.properties</p>
-<p>8.创建topic<br>kafka-topics.sh –create –topic shop –partitions 2 –replication-factor 3 –zookeeper hadoop1:2181,hadoop2:2181,hadoop3:2181<br>解释：<br>–zookeeper：zookeeper地址：端口<br>–replication-factor  ：副本数量<br>–partitions：分区数量<br>–topic：主题名称</p>
-<p>9.删除topic<br>前提要求：<br>server.properties中设置<br>delete.topic.enable=true<br>kafka-topics.sh –delete –zookeeper hadoop1:2181,hadoop2:2181,hadoop3:2181 –topic shop<br>删除kafka存储目录（server.properties文件log.dirs配置，默认为”/tmp/kafka-logs”）相关topic目录。删除zookeeper “/brokers/topics/“目录下相关topic节点</p>
-<p>10.查看topic<br>kafka-topics.sh –list –zookeeper hadoop1:2181,hadoop2:2181,hadoop3:2181</p>
-<p>11.查看指定topic的详细信息<br>kafka-topics.sh –describe –zookeeper hadoop1:2181,hadoop2:2181,hadoop3:2181 –topic test<br>说明：{<br>partiton：分区：ID<br>leader：当前负责读写的lead broker idk<br>relicas：当前partition的所有replication broker<br>listisr：relicas的子集，只包含出于活动状态的broker}</p>
-<p>12.开启生产者<br>开启新窗口<br>kafka-console-producer.sh –broker-list hadoop1:9092,hadoop2:9092,hadoop3:9092 –topic shop</p>
-<p>13.开启消费者<br>开启新窗口<br>kafka-console-consumer.sh –bootstrap-server  hadoop1:9092,hadoop2:9092,hadoop3:9092 –topic shop –from-beginning  </p>
+<p>6.启动zookeeper集群<br>在所有机器上<br><code>zkServer.sh start</code><br><code>zkServer.sh status</code></p>
+<p>7.启动kafaka集群<br>在所有机器上<br><code>kafka-server-start.sh /home/hadoop/apps/kafka/config/server.properties</code></p>
+<p>8.创建topic<br><code>kafka-topics.sh --create --topic shop --partitions 2 --replication-factor 3 --zookeeper hadoop1:2181,hadoop2:2181,hadoop3:2181</code><br>解释：<br>–zookeeper：zookeeper地址：端口<br>–replication-factor  ：副本数量<br>–partitions：分区数量<br>–topic：主题名称</p>
+<p>9.删除topic<br>前提要求：<br>server.properties中设置<br>delete.topic.enable=true<br><code>kafka-topics.sh --delete --zookeeper hadoop1:2181,hadoop2:2181,hadoop3:2181 --topic shop</code><br>删除kafka存储目录（server.properties文件log.dirs配置，默认为”/tmp/kafka-logs”）相关topic目录。删除zookeeper “/brokers/topics/“目录下相关topic节点</p>
+<p>10.查看topic<br><code>kafka-topics.sh --list --zookeeper hadoop1:2181,hadoop2:2181,hadoop3:2181</code></p>
+<p>11.查看指定topic的详细信息<br><code>kafka-topics.sh --describe --zookeeper hadoop1:2181,hadoop2:2181,hadoop3:2181 --topic test</code><br>说明：{<br>partiton：分区：ID<br>leader：当前负责读写的lead broker idk<br>relicas：当前partition的所有replication broker<br>listisr：relicas的子集，只包含出于活动状态的broker}</p>
+<p>12.开启生产者<br>开启新窗口<br><code>kafka-console-producer.sh --broker-list hadoop1:9092,hadoop2:9092,hadoop3:9092 --topic shop</code></p>
+<p>13.开启消费者<br>开启新窗口<br><code>kafka-console-consumer.sh --bootstrap-server  hadoop1:9092,hadoop2:9092,hadoop3:9092 --topic shop --from-beginning</code></p>
 <p>14.发送消息测试<br>在生产者一端输入数据，在消费者一端可以接收到数据</p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年01月31日 21:49</p>
+        <p>最后更新： 2019年01月31日 21:56</p>
         <p>原始链接： <a class="post-url" href="/2019/01/31/kafka集群搭建/" title="kafka集群搭建">https://www.lousenjay.top/2019/01/31/kafka集群搭建/</a></p>
         <footer>
             <a href="https://www.lousenjay.top">
