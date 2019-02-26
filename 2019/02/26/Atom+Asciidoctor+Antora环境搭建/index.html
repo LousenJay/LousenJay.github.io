@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="Atom简介Atom是github专门为程序员推出的一个跨平台文本编辑器。具有简洁和直观的图形用户界面，并有很多有趣的特点：支持CSS，HTML，JavaScript等网页编程语言。它支持宏，自动完成分屏功能，集成了文件管理器。 安装【windows7】1.下载官网链接2.安装3.配置环境变量path中添加C:\Users\Administrator\AppData\Local\atom\bin4">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-26T08:28:33.742Z">
+<meta property="og:updated_time" content="2019-02-26T08:36:47.740Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Atom+Asciidoctor+Antora环境搭建">
 <meta name="twitter:description" content="Atom简介Atom是github专门为程序员推出的一个跨平台文本编辑器。具有简洁和直观的图形用户界面，并有很多有趣的特点：支持CSS，HTML，JavaScript等网页编程语言。它支持宏，自动完成分屏功能，集成了文件管理器。 安装【windows7】1.下载官网链接2.安装3.配置环境变量path中添加C:\Users\Administrator\AppData\Local\atom\bin4">
@@ -163,8 +163,14 @@
 <li>View    重载页面,全屏,字体大小的缩放等</li>
 <li>Find    都是关于查询的 ,跟Sublime text极其相似,快捷键基本一样</li>
 <li>Package    包,就是插件列表的集合点</li>
-<li>Help    帮助文档,软件更新,协议等<br>7.更改主题<br>打开Settings，在Themes页面选择即可<br>8.安装插件<br>  1.直接安装<br>  打开Settings，在Install页搜索插件名称，点击Install即可<br>  2.通过git手动安装<br>  打开Settings，在Install页搜索插件名称<br>  点入插件介绍找到github地址<br>  打开git切换到packages目录C:\Users\Administrator\AppData\Local\atom\packages<br>  输入指令<code>git clone https://github.com/emmetio/emmet-atom.git</code><br>  切换到安装的插件文件夹<code>cd emmet-atom</code><br>  开始安装<code>npm install</code><br>  重启Atom<br>9.自定义快捷键<br>File -&gt; 打开keymap.cson文件</li>
+<li>Help    帮助文档,软件更新,协议等</li>
 </ul>
+<p>7.更改主题<br>打开Settings，在Themes页面选择即可<br>8.安装插件</p>
+<ul>
+<li>直接安装<br>  打开Settings，在Install页搜索插件名称，点击Install即可</li>
+<li>通过git手动安装<br>  打开Settings，在Install页搜索插件名称<br>  点入插件介绍找到github地址<br>  打开git切换到packages目录C:\Users\Administrator\AppData\Local\atom\packages<br>  输入指令<code>git clone https://github.com/emmetio/emmet-atom.git</code><br>  切换到安装的插件文件夹<code>cd emmet-atom</code><br>  开始安装<code>npm install</code><br>  重启Atom</li>
+</ul>
+<p>9.自定义快捷键<br>File -&gt; 打开keymap.cson文件</p>
 <h3 id="Asciidoctor"><a href="#Asciidoctor" class="headerlink" title="Asciidoctor"></a>Asciidoctor</h3><h4 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h4><p>Asciidoctor是一个快速的文本处理器和发布工具链，用于将AsciiDoc内容转换为HTML5、EPUB3、PDF、DocBook 5(或4.5)slidedeck等格式。Asciidoctor是用Ruby编写的，打包为RubyGem并发布到(RubyGems.org)。gem还打包在几个Linux发行版中，包括Fedora、Debian和Ubuntu。</p>
 <h4 id="安装【windows7】-1"><a href="#安装【windows7】-1" class="headerlink" title="安装【windows7】"></a>安装【windows7】</h4><p>1.准备Ruby环境<br>    下载安装并配置环境变量【若勾选自动添加到path则可略过】<br>    <a href="http://rubyinstaller.org/" target="_blank" rel="external">下载链接</a><br>    检测是否安装成功<br>    在命令行输入：<code>ruby -v</code><br>2.安装asciidoctor<br>    在命令行输入：<code>gem install asciidoctor</code><br>3.检测是否安装成功<br>    在命令行输入：<code>asciidoctor --version</code><br>4.如果需要绘制图表，还需要安装asciidoctor-diagram<br>    在命令行输入：<code>gem install asciidoctor-diagram</code><br>5.从asciidoc文档生成html文档（DEMO）<br>    在命令行输入：<code>asciidoctor -r asciidoctor-diagram xxx.adoc</code></p>
 <h3 id="Antora"><a href="#Antora" class="headerlink" title="Antora"></a>Antora</h3><h4 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h4><p>Antora可以很容易地创建文档并将其发布到web上。作为一名技术作者，您只需使用AsciiDoc (Antora的内容标记语言)编写内容。然后将这些文件组织到一个或多个内容存储库中的标准项目结构中。Antora从那里获取您的内容并将其转换为网站。</p>
@@ -210,7 +216,7 @@ sitemap.xml
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年02月26日 16:28</p>
+        <p>最后更新： 2019年02月26日 16:36</p>
         <p>原始链接： <a class="post-url" href="/2019/02/26/Atom+Asciidoctor+Antora环境搭建/" title="Atom+Asciidoctor+Antora环境搭建">https://www.lousenjay.top/2019/02/26/Atom+Asciidoctor+Antora环境搭建/</a></p>
         <footer>
             <a href="https://www.lousenjay.top">
