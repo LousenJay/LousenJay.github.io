@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Spark入门详解（四）-网页排名算子开发实例 | 若闲小阁</title>
+  <title>Atom+Asciidoctor+Antora环境搭建 | 若闲小阁</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="思路分析：1.此操作需要用到两个pairRDD，第一个pairRDD，key：当前页面，value：当前页面所含链接页面的合集。2.第二个pairRDD，key：当前页面，value：当前页面的权重3.两个pairRDD在循环中根据key进行连接操作，计算每次循环返回后各个页面的权重值4.根据权重值的大小可知页面的排名 开发代码：1234567891011121314151617181920212">
-<meta name="keywords" content="Spark">
+  <meta name="description" content="Atom简介Atom是github专门为程序员推出的一个跨平台文本编辑器。具有简洁和直观的图形用户界面，并有很多有趣的特点：支持CSS，HTML，JavaScript等网页编程语言。它支持宏，自动完成分屏功能，集成了文件管理器。 安装【windows7】1.下载官网链接2.安装3.配置环境变量path中添加C:\Users\Administrator\AppData\Local\atom\bin4">
+<meta name="keywords" content="软件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark入门详解（四）-网页排名算子开发实例">
-<meta property="og:url" content="https://www.lousenjay.top/2018/10/19/Spark入门详解（四）-网页排名算子开发实例/index.html">
+<meta property="og:title" content="Atom+Asciidoctor+Antora环境搭建">
+<meta property="og:url" content="https://www.lousenjay.top/2019/02/26/Atom+Asciidoctor+Antora环境搭建/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="思路分析：1.此操作需要用到两个pairRDD，第一个pairRDD，key：当前页面，value：当前页面所含链接页面的合集。2.第二个pairRDD，key：当前页面，value：当前页面的权重3.两个pairRDD在循环中根据key进行连接操作，计算每次循环返回后各个页面的权重值4.根据权重值的大小可知页面的排名 开发代码：1234567891011121314151617181920212">
+<meta property="og:description" content="Atom简介Atom是github专门为程序员推出的一个跨平台文本编辑器。具有简洁和直观的图形用户界面，并有很多有趣的特点：支持CSS，HTML，JavaScript等网页编程语言。它支持宏，自动完成分屏功能，集成了文件管理器。 安装【windows7】1.下载官网链接2.安装3.配置环境变量path中添加C:\Users\Administrator\AppData\Local\atom\bin4">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-27T00:08:18.522Z">
+<meta property="og:updated_time" content="2019-02-26T08:10:27.428Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark入门详解（四）-网页排名算子开发实例">
-<meta name="twitter:description" content="思路分析：1.此操作需要用到两个pairRDD，第一个pairRDD，key：当前页面，value：当前页面所含链接页面的合集。2.第二个pairRDD，key：当前页面，value：当前页面的权重3.两个pairRDD在循环中根据key进行连接操作，计算每次循环返回后各个页面的权重值4.根据权重值的大小可知页面的排名 开发代码：1234567891011121314151617181920212">
+<meta name="twitter:title" content="Atom+Asciidoctor+Antora环境搭建">
+<meta name="twitter:description" content="Atom简介Atom是github专门为程序员推出的一个跨平台文本编辑器。具有简洁和直观的图形用户界面，并有很多有趣的特点：支持CSS，HTML，JavaScript等网页编程语言。它支持宏，自动完成分屏功能，集成了文件管理器。 安装【windows7】1.下载官网链接2.安装3.配置环境变量path中添加C:\Users\Administrator\AppData\Local\atom\bin4">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -119,14 +119,14 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-Spark入门详解（四）-网页排名算子开发实例" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-Atom+Asciidoctor+Antora环境搭建" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      Spark入门详解（四）-网页排名算子开发实例
+      Atom+Asciidoctor+Antora环境搭建
     </h1>
     <div class="post-title-bar">
       <ul>
@@ -134,12 +134,12 @@
               <li>
                   <i class="fa fa-book"></i>
                   
-                      <a href="/categories/大数据/">大数据</a>
+                      <a href="/categories/计算机/">计算机</a>
                   
               </li>
           
         <li>
-          <i class="fa fa-calendar"></i>  2018-10-19
+          <i class="fa fa-calendar"></i>  2019-02-26
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -155,13 +155,76 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>思路分析：<br>1.此操作需要用到两个pairRDD，第一个pairRDD，key：当前页面，value：当前页面所含链接页面的合集。<br>2.第二个pairRDD，key：当前页面，value：当前页面的权重<br>3.两个pairRDD在循环中根据key进行连接操作，计算每次循环返回后各个页面的权重值<br>4.根据权重值的大小可知页面的排名</p>
-<p>开发代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div></pre></td><td class="code"><pre><div class="line">object PageRankTest &#123;</div><div class="line">  def main(args: Array[String]): Unit = &#123;</div><div class="line">    // 设置日志级别</div><div class="line">    Logger.getLogger(&quot;org&quot;).setLevel(Level.WARN)</div><div class="line">    // 初始化sc对象</div><div class="line">    val conf = new SparkConf().setMaster(&quot;local[2]&quot;).setAppName(&quot;My Spark&quot;)</div><div class="line">    val sc = SparkContext.getOrCreate(conf)</div><div class="line">    // 获取程序开始时的时间</div><div class="line">    val start = System.currentTimeMillis()</div><div class="line">    // 建立模拟数据来测试</div><div class="line">    // key:当前页面</div><div class="line">    // value:链接的页面</div><div class="line">    val links = List(</div><div class="line">      (&quot;A&quot;,List(&quot;B&quot;,&quot;C&quot;)),</div><div class="line">      (&quot;B&quot;,List(&quot;C&quot;)),</div><div class="line">      (&quot;C&quot;,List(&quot;D&quot;)),</div><div class="line">      (&quot;D&quot;,List(&quot;A&quot;,&quot;C&quot;))</div><div class="line">    )</div><div class="line">    // key:页面</div><div class="line">    // value:权重 初始默认值为1</div><div class="line">    val ranks = List(</div><div class="line">      (&quot;A&quot;,1.0),</div><div class="line">      (&quot;B&quot;,1.0),</div><div class="line">      (&quot;C&quot;,1.0),</div><div class="line">      (&quot;D&quot;,1.0)</div><div class="line">    )</div><div class="line">    // 创建页面的RDD 分区 持久化</div><div class="line">    val linksRDD = sc.parallelize(links).partitionBy(new HashPartitioner(4)).persist()</div><div class="line">    // 创建权重的RDD</div><div class="line">    var ranksRDD = sc.parallelize(ranks)</div><div class="line"></div><div class="line">    /**</div><div class="line">      * 迭代多次获取一个相对稳定的权重值</div><div class="line">      * 如果迭代次数过大，栈内存会溢出可以设置一下栈的最小内存</div><div class="line">      *</div><div class="line">      * 设置JVM虚拟内存的允许最小 最大 以及栈的最小内存</div><div class="line">      *   -Xms1024m -Xmx2048m -Xss1024m</div><div class="line">      * */</div><div class="line">    // 设置迭代次数</div><div class="line">    val iterator = 50</div><div class="line">    (1 to iterator).foreach(x =&gt; &#123;</div><div class="line">      /**</div><div class="line">        * 两个RDD在循环中进行连接操作，需要对其中一个RDD提前预定义分区。</div><div class="line">        * 由于ranksRDD中的数据需要发生变化，因此对linksRDD进行预定义分区</div><div class="line">        *</div><div class="line">        * 3134</div><div class="line">        * 并行度=4 2674 并行度=5 2568</div><div class="line">        * */</div><div class="line">      // 连接操作  join key --&gt; String</div><div class="line">      // RDD[(页面,(链接数据集合,权重值))]</div><div class="line">      val joinRDD: RDD[(String, (List[String], Double))] = linksRDD.join(ranksRDD)</div><div class="line"></div><div class="line">      val newRDD: RDD[(String, Double)] = joinRDD.flatMap(x=&gt;&#123;</div><div class="line">        // 当前页面</div><div class="line">        val page = x._1</div><div class="line">        // (链接数据集合,权重值)</div><div class="line">        val (linkSet,rank) = x._2</div><div class="line">        // 当前page分给其他链接页面的平均值</div><div class="line">        val avg = rank / linkSet.size</div><div class="line"></div><div class="line">        // 链接的页面,分给的均值</div><div class="line">        linkSet.map(page1 =&gt; &#123;</div><div class="line">          (page1,avg)</div><div class="line">        &#125;)</div><div class="line">      &#125;)</div><div class="line"></div><div class="line">      // 按照key,即页面相同,权重值聚合+  聚合之后按照0.15+0.85*权重值重新修改值</div><div class="line">      ranksRDD = newRDD.reduceByKey(_+_).mapValues(rank =&gt; rank*0.85 + 0.15)</div><div class="line">    &#125;)</div><div class="line">    ranksRDD.foreach(println)</div><div class="line"></div><div class="line">    // 获取程序结束时的时间</div><div class="line">    val end = System.currentTimeMillis()</div><div class="line">    println(&quot;耗时：&quot; + (end - start))</div><div class="line">    sc.stop()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+            <h3 id="Atom"><a href="#Atom" class="headerlink" title="Atom"></a>Atom</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>Atom是github专门为程序员推出的一个跨平台文本编辑器。具有简洁和直观的图形用户界面，并有很多有趣的特点：支持CSS，HTML，JavaScript等网页编程语言。它支持宏，自动完成分屏功能，集成了文件管理器。</p>
+<h4 id="安装【windows7】"><a href="#安装【windows7】" class="headerlink" title="安装【windows7】"></a>安装【windows7】</h4><p>1.下载<br><a href="https://atom.io/" target="_blank" rel="external">官网链接</a><br>2.安装<br>3.配置环境变量<br>path中添加C:\Users\Administrator\AppData\Local\atom\bin<br>4.检测环境变量是否配置成功<br>5.打开cmd，使用apm命令查看<br>6.介绍atom界面</p>
+<ul>
+<li>File    文件和项目的保存与加载，设置中心，用户自定义配置</li>
+<li>Edit    文件编辑的操作,文件编码格式,及行跳转等</li>
+<li>View    重载页面,全屏,字体大小的缩放等</li>
+<li>Find    都是关于查询的 ,跟Sublime text极其相似,快捷键基本一样</li>
+<li>Package    包,就是插件列表的集合点</li>
+<li>Help    帮助文档,软件更新,协议等<br>7.更改主题<br>打开Settings，在Themes页面选择即可<br>8.安装插件<br>  1.直接安装<pre><code>打开Settings，在Install页搜索插件名称，点击Install即可
+</code></pre>  2.通过git手动安装<pre><code>打开Settings，在Install页搜索插件名称
+点入插件介绍找到github地址
+打开git切换到packages目录C:\Users\Administrator\AppData\Local\atom\packages
+输入指令`git clone https://github.com/emmetio/emmet-atom.git`
+切换到安装的插件文件夹`cd emmet-atom`
+开始安装`npm install`
+重启Atom
+</code></pre>9.自定义快捷键<br>File -&gt; 打开keymap.cson文件</li>
+</ul>
+<h3 id="Asciidoctor"><a href="#Asciidoctor" class="headerlink" title="Asciidoctor"></a>Asciidoctor</h3><h4 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h4><p>Asciidoctor是一个快速的文本处理器和发布工具链，用于将AsciiDoc内容转换为HTML5、EPUB3、PDF、DocBook 5(或4.5)slidedeck等格式。Asciidoctor是用Ruby编写的，打包为RubyGem并发布到(RubyGems.org)。gem还打包在几个Linux发行版中，包括Fedora、Debian和Ubuntu。</p>
+<h4 id="安装【windows7】-1"><a href="#安装【windows7】-1" class="headerlink" title="安装【windows7】"></a>安装【windows7】</h4><p>1.准备Ruby环境<br>    下载安装并配置环境变量【若勾选自动添加到path则可略过】<br>    <a href="http://rubyinstaller.org/" target="_blank" rel="external">下载链接</a><br>    检测是否安装成功<br>    在命令行输入：<code>ruby -v</code><br>2.安装asciidoctor<br>    在命令行输入：<code>gem install asciidoctor</code><br>3.检测是否安装成功<br>    在命令行输入：<code>asciidoctor --version</code><br>4.如果需要绘制图表，还需要安装asciidoctor-diagram<br>    在命令行输入：<code>gem install asciidoctor-diagram</code><br>5.从asciidoc文档生成html文档（DEMO）<br>    在命令行输入：<code>asciidoctor -r asciidoctor-diagram xxx.adoc</code></p>
+<h3 id="Antora"><a href="#Antora" class="headerlink" title="Antora"></a>Antora</h3><h4 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h4><p>Antora可以很容易地创建文档并将其发布到web上。作为一名技术作者，您只需使用AsciiDoc (Antora的内容标记语言)编写内容。然后将这些文件组织到一个或多个内容存储库中的标准项目结构中。Antora从那里获取您的内容并将其转换为网站。</p>
+<h4 id="安装【winodws7】"><a href="#安装【winodws7】" class="headerlink" title="安装【winodws7】"></a>安装【winodws7】</h4><p>1.准备Node环境<br>    检测是否有node.js<br>    打开命令行cmd，输入：node –version<br>    如果没有返回版本信息则要去官网下载Node<br>    <a href="https://nodejs.org/en/" target="_blank" rel="external">官网链接</a><br>    安装并配置环境变量，再检测是否安装成功</p>
+<pre><code>&gt; 注：如果版本过低，可以去官网下载最新版本，然后安装覆盖原目录即可实现更新
+</code></pre><p>2.开始安装antora<br>    打开命令行cmd，输入：<code>npm i -g @antora/cli@2.0 @antora/site-generator-default@2.0</code><br>    命令解释：包名开头的@很重要。它告诉npm cli包位于antora组中。如果省略这个字符，npm将假定包名是GitHub上git存储库的名称。第二个@抵消了请求的版本号。只指定主要和次要部分，以确保您接收到最新的补丁更新。<br>3.检测是否安装成功<br>    在命令行输入：<code>antora version</code></p>
+<h3 id="简单的使用流程"><a href="#简单的使用流程" class="headerlink" title="简单的使用流程"></a>简单的使用流程</h3><p>1.选择一个剧本<br>要创建文档站点，Antora需要一个剧本。但首先，您需要创建或选择一个目录，在其中存储剧本，并保存生成的站点文件(假设使用默认输出配置)。<br>    a.打开终端并创建一个名为demo-site的新目录。<br>        <code>mkdir demo-site</code><br>    b.进入到该目录中<br>        <code>cd demo-site</code><br>    c.使用文本编辑器或IDE，创建一个名为site的新剧本文件。用下面示例的内容填充它。<br>    site.yml</p>
+<pre><code>site:
+  title: Antora Demo Site
+  url: https://example.org/docs 
+  start_page: component-b::index.adoc 
+content:
+  sources:
+  - url: https://gitlab.com/antora/demo/demo-component-a.git
+    branches: master
+  - url: https://gitlab.com/antora/demo/demo-component-b.git
+    branches: [v2.0, v1.0]
+    start_path: docs
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+</code></pre><p>注：404页面和站点地图文件仅在站点生成时生成。设置url属性。<br>注：该网站。site.start_page属性接受与xref中使用的相同的页ID语法。<br>d.将site.yml剧本作为站点保存</p>
+<p>2.运行Antora<br>    a.要使用默认的Antora站点生成器生成站点，请将Antora命令指向您的playbook文件。在终端输入命令<br>        <code>antora site.yml</code>    </p>
+<pre><code>    &gt; 注：首先，Antora将克隆内容存储库。终端显示每个存储库的克隆进度。克隆完成后，Antora将AsciiDoc页面转换为可嵌入的HTML，在UI页面模板中包装HTML，然后将这些页面组装到目标文件夹下的站点中，默认构建目录bulid/site/。
+b.当命令提示符($)重新出现在终端时，Antora已经运行完成。
+c.切换到站点文件夹(cd)并列出其内容。
+    `cd build/site/`
+    `ls -l`
+    然后你将看到以下文件或目录列表
+    ```
+    _
+    404.html
+    component-a
+    component-b
+    index.html
+    sitemap-component-a.xml
+    sitemap-component-b.xml
+    sitemap.xml
+    ```        
+    &gt; 注：如果站点不存在，404.html和sitemap文件将丢失。剧本中没有定义site.url属性。主sitemap文件实际上是一个sitemap索引。该文件链接到每个组件的sitemap，在这里可以找到各个页面的URL。
+d.在某些操作系统上，可以通过输入open和HTML文件的名称，直接从命令行打开站点。
+    `open index.html`
+    &gt; 注：或者可以直接通过build/site/index.html打开站点
+</code></pre><p>3.缓存<br>    a.当Antora第一次运行时，它将在缓存目录中缓存资源。Antora缓存两种类型的资源:克隆的git存储库和UI包下载。<br>    b.如果您想完全清除缓存，您需要找到系统上的Antora缓存目录并删除它。</p>
+<p>4.私人git仓库<br>    a.Antora支持通过SSH或HTTP/HTTPS来连接私有仓库。    b.如果剧本被配置为通过SSH获取私有存储库，那么您必须运行具有标识的SSH代理(即您已经链接到git主机上的帐户。如果SSH代理没有运行，或者您的密钥和帐户不匹配，Antora在尝试克隆私有存储库时将失败。</p>
+<p>5.本地预览<br>    a.因为Antora生成静态站点，所以不需要为了预览站点而将站点发布到服务器,可以直接通过build/site/index.html打开站点<br>    b.也可以在本地服务器上运行，需要先使用npm全局安装服务包<br>        <code>npm i -g serve@6.5.8</code><br>        现在，通过将web服务器指向生成的站点的位置来启动它<br>        <code>serve build/site</code><br>        将提供的URL粘贴到浏览器的位置栏中，以便通过本地web服务器查看站点。<br>6.发布到github页面<br>    注意事项：避免站点发布到github page被删除UI相关文件内容，解决方案是将.nojekyll文件添加到已发布站点的根目录中。在将文件提交到GitHub页面之前，只需在输出目录中创建一个空的.nojekyll文件。</p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2018年11月27日 08:08</p>
-        <p>原始链接： <a class="post-url" href="/2018/10/19/Spark入门详解（四）-网页排名算子开发实例/" title="Spark入门详解（四）-网页排名算子开发实例">https://www.lousenjay.top/2018/10/19/Spark入门详解（四）-网页排名算子开发实例/</a></p>
+        <p>最后更新： 2019年02月26日 16:10</p>
+        <p>原始链接： <a class="post-url" href="/2019/02/26/Atom+Asciidoctor+Antora环境搭建/" title="Atom+Asciidoctor+Antora环境搭建">https://www.lousenjay.top/2019/02/26/Atom+Asciidoctor+Antora环境搭建/</a></p>
         <footer>
             <a href="https://www.lousenjay.top">
                 <img src="/images/logo.png" alt="Lousen Jay">
@@ -183,7 +246,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/10/19/Spark入门详解（四）-网页排名算子开发实例/&title=《Spark入门详解（四）-网页排名算子开发实例》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_5.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2019/02/26/Atom+Asciidoctor+Antora环境搭建/&title=《Atom+Asciidoctor+Antora环境搭建》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_12.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -193,22 +256,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/10/19/Spark入门详解（四）-网页排名算子开发实例/&title=《Spark入门详解（四）-网页排名算子开发实例》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2019/02/26/Atom+Asciidoctor+Antora环境搭建/&title=《Atom+Asciidoctor+Antora环境搭建》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/10/19/Spark入门详解（四）-网页排名算子开发实例/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2019/02/26/Atom+Asciidoctor+Antora环境搭建/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spark入门详解（四）-网页排名算子开发实例》 — 若闲小阁&url=https://www.lousenjay.top/2018/10/19/Spark入门详解（四）-网页排名算子开发实例/&via=https://www.lousenjay.top" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Atom+Asciidoctor+Antora环境搭建》 — 若闲小阁&url=https://www.lousenjay.top/2019/02/26/Atom+Asciidoctor+Antora环境搭建/&via=https://www.lousenjay.top" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/10/19/Spark入门详解（四）-网页排名算子开发实例/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2019/02/26/Atom+Asciidoctor+Antora环境搭建/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -218,7 +281,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/10/19/Spark入门详解（四）-网页排名算子开发实例/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2019/02/26/Atom+Asciidoctor+Antora环境搭建/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -230,7 +293,7 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/Spark/" class="color1">Spark</a>
+    <a href="/tags/软件/" class="color3">软件</a>
       
   </li>
 
@@ -241,22 +304,19 @@
 </article>
 
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Atom"><span class="post-toc-text">Atom</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装【windows7】"><span class="post-toc-text">安装【windows7】</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Asciidoctor"><span class="post-toc-text">Asciidoctor</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#简介-1"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装【windows7】-1"><span class="post-toc-text">安装【windows7】</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Antora"><span class="post-toc-text">Antora</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#简介-2"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装【winodws7】"><span class="post-toc-text">安装【winodws7】</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单的使用流程"><span class="post-toc-text">简单的使用流程</span></a></li></ol>
+        </nav>
+    </aside>
+    
 
 <nav id="article-nav">
   
-    <a href="/2018/10/21/Spark入门详解（五）-DataFrame编程/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-title"> 
-        
-          Spark入门详解（五）-DataFrame编程
-        
-		<i class="fa fa-hand-o-right" aria-hidden="true"></i>
-      </span>
-    </a>
   
-  
-    <a href="/2018/10/15/Maven的pom.xml配置详解/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/01/31/kafka集群搭建/" id="article-nav-older" class="article-nav-link-wrap">
 	  <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-	  <span class="article-nav-title">Maven的pom.xml配置详解</span>
+	  <span class="article-nav-title">kafka集群搭建</span>
     </a>
   
 </nav>
@@ -264,7 +324,7 @@
 
 
     
-        <div id="SOHUCS" sid="Spark入门详解（四）-网页排名算子开发实例" ></div>
+        <div id="SOHUCS" sid="Atom+Asciidoctor+Antora环境搭建" ></div>
 <script type="text/javascript">
     (function(){
         var appid = 'cyti47zsk';
