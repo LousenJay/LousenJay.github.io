@@ -99,7 +99,7 @@ function APlayer_Controler(elem){
 			}
 			$(apc.APC_dom).css({'top':apc.position.top,'bottom':apc.position.bottom,'width':apc.width+'px','height':apc.height+'px'});
 			apc.jqdoms.tips.top.css({'background-color':apc.tips_color,'width':apc.tips_width+'px','height':apc.tips_height+'px','position':'absolute','top':-apc.tips_height+'px','color':'#9400D3','border-radius':'8px'});
-			apc.jqdoms.btn.css({'position':'absolute','width':apc.btn_width+'px','height':apc.btn_height+'px','background-color':'rgba(220,20,60,1)','z-index':99999});
+			apc.jqdoms.btn.css({'position':'fixed','width':apc.btn_width+'px','height':apc.btn_height+'px','background-color':'rgba(220,20,60,1)','z-index':99999,'bottom':0px});
 			apc.img_src.length && apc.jqdoms.btn.css({'background':'url(' + apc.img_src[Math.round(Math.random()*(apc.img_src.length-1))] + ')'});
 			apc.img_style.repeat && apc.jqdoms.btn.css('background-repeat',apc.img_style.repeat);
 			apc.img_style.position && apc.jqdoms.btn.css('background-position',apc.img_style.position);
@@ -110,7 +110,7 @@ function APlayer_Controler(elem){
 				apc.jqdoms.btn.css('cursor','auto');
 			});
 			apc.jqdoms.tips.bottom.css({'background-color':apc.tips_color,'width':apc.tips_width+'px','height':apc.tips_height+'px','position':'absolute','top':apc.btn_height+'px','color':'#FF4500','border-radius':'8px'});
-			apc.jqdoms.ctrl.css({'position':'absolute','width':apc.ctrl_wh+'px','height':apc.btn_height+'px','z-index':99999})
+			apc.jqdoms.ctrl.css({'position':'fixed','width':apc.ctrl_wh+'px','height':apc.btn_height+'px','z-index':99999,'bottom':0px})
 			apc.jqdoms.ctrl_divs.css({'position':'absolute','width':apc.ctrl_divs_wh+'px','height':apc.ctrl_divs_wh+'px','background-color':apc.ctrls_color,'border-radius':'80px','border':'1px solid black'});
 			apc.jqdoms.modes.dom.hover(function(){
 				apc.jqdoms.modes.dom.css({'background-color':apc.ctrls_hover_color,'border':'2px solid black'});
