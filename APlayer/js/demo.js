@@ -31,6 +31,7 @@ var ap1 = new APlayer({
 
 var myapc1=new APlayer_Controler({
 		APC_dom:$('#apc1'),
+		//APC_dom:getElementById('#apc1'),
 		aplayer:ap1,
 		attach_right:false, //APlayer_Controler附着在左边或者右边，默认为右边(true)
 		position:{top:'200px',bottom:''}, //APlayer_Controler的位置,无默认值。示例：position:{top:'250px',bottom:''}
