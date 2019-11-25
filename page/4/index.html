@@ -37,6 +37,19 @@
 </head>
 
 <body>
+	
+	<!--APlayer-->
+	<script src="https://www.lousenjay.top/APlayer/js/velocity.min.js"></script>
+	<script src="https://www.lousenjay.top/APlayer/js/aplayer.min.js"></script>
+	<script src="https://www.lousenjay.top/APlayer/js/aplayer-controler.js"></script>
+	<div class="demo-ap" style="display:none">
+		<div id="player1" class="aplayer"></div>
+	</div>
+	<div class="demo-apc">
+		<div id="apc1" class="apc"></div>
+	</div>
+	<script src="https://www.lousenjay.top/APlayer/js/demo.js"></script>
+	
   <div id="container">
       <header id="header">
     <div id="banner"></div>
@@ -723,14 +736,14 @@ echo $JAVA_HO...
 
 
   
-    <article id="post-zookeeper入门学习" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Linux学习笔记（CentOS7）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/08/zookeeper入门学习/"  target="_blank"  >zookeeper入门学习</a>
+      <a class="article-title" href="/2018/08/08/Linux学习笔记（CentOS7）/"  target="_blank"  >Linux学习笔记（CentOS7）</a>
     </h1>
   
 
@@ -738,7 +751,7 @@ echo $JAVA_HO...
               <span class="header-cate">
                 <i class="fa fa-map-marker"></i>
                   
-                  <a href="/categories/分布式/">分布式</a>
+                  <a href="/categories/OS/">OS</a>
                   
               </span>
           
@@ -747,21 +760,22 @@ echo $JAVA_HO...
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/2018/08/08/zookeeper入门学习/"  target="_blank" >
+            <a href="/2018/08/08/Linux学习笔记（CentOS7）/"  target="_blank" >
                 
-                <img src="https://www.lousenjay.top/images/cover/c_13.jpg" alt="zookeeper入门学习" title="zookeeper入门学习">
+                <img src="https://www.lousenjay.top/images/cover/c_12.jpg" alt="Linux学习笔记（CentOS7）" title="Linux学习笔记（CentOS7）">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                搭建环境：CentOS7+zookeeper-3.4.5
-简介Zookeeper是一个分布式协调服务，就是为用户的分布式应用程序提供协调服务。
+                在学习搭建hadoop集群的过程中，我发现在Linux方面还有许多命令我并没有掌握，特此补充相关的知识点以及CentOS7的新特性。
+主机名
+查看当前主机名hostname
+修改主机名（重启后失效）hostname XXX
+修改主机名（永久修改）vi /etc/sysconfig/network添加：NETWORKING=yesHOSTNAME=XXX
 
-zookeeper是为别的分布式程序服务的
-zookeeper所提供的服务涵盖：主从协调、服务器节点动态上下线、统一配置管理、分布式共享锁、统一名称服务……
-zookeeper在底层其实只提供了两个功能
-管理(存储，读取)用户程...
+IP地址
+查看当...
             </p>
         </div>
       
@@ -778,13 +792,13 @@ zookeeper在底层其实只提供了两个功能
       
     <a href="/tags/Linux/" class="color1">Linux</a>
       
-    <a href="/tags/zookeeper/" class="color5">zookeeper</a>
+    <a href="/tags/CentOS7/" class="color4">CentOS 7</a>
       
   </li>
 
         </ul>
         
-            <a href="/2018/08/08/zookeeper入门学习/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+            <a href="/2018/08/08/Linux学习笔记（CentOS7）/#more" class="article-more-link"  target="_blank" >阅读全文</a>
         
     </footer>
   </div>
@@ -957,20 +971,6 @@ zookeeper在底层其实只提供了两个功能
 	<script type="text/javascript">
 		initModel("https://www.lousenjay.top/live2d/assets/")
 	</script>
-	
-	<!--APlayer-->
-	<script src="https://www.lousenjay.top/APlayer/js/jquery.min.js"></script>
-	<script src="https://www.lousenjay.top/APlayer/js/velocity.min.js"></script>
-	<script src="https://www.lousenjay.top/APlayer/js/aplayer.min.js"></script>
-	<script src="https://www.lousenjay.top/APlayer/js/aplayer-controler.js"></script>
-	<div class="demo-ap" style="display:none">
-		<div id="player1" class="aplayer"></div>
-	</div>
-	<div class="demo-apc">
-		<div id="apc1" class="apc"></div>
-	</div>
-	
-	<script src="https://www.lousenjay.top/APlayer/js/demo.js"></script>
 	
   </div>
   
