@@ -36,9 +36,9 @@ function APlayer_Controler(elem){
 		if(apc.showOnPhone || !apc.aplayer.isMobile){
 			//初始化
 			$apc_content=$("<div class='apc_tips_top'><p></p></div>"
-							+"<div class='apc_btn' style='display: inline-block'></div>"
+							+"<div class='apc_btn' style='display: inline-block;z-index: 99999'></div>"
 							+"<div class='apc_tips_bottom'><p></p></div>"
-							+"<div id='apc_ctrl' class='apc_ctrl'>"
+							+"<div id='apc_ctrl' class='apc_ctrl' style='z-index: 99999'>"
 								+"<div class='apmode'><svg class='icon' aria-hidden='true'><use  xlink:href=''></use></svg></div>"
 								+"<div class='lastsong'><svg class='icon' aria-hidden='true'><use xlink:href='#icon-shangyishou1'></use></svg></div>"
 								+"<div class='play_pause'><svg class='icon' aria-hidden='true'><use xlink:href='#icon-zanting'></use></svg></div>"
