@@ -252,14 +252,14 @@ HDFS简介HDFS(HadoopDistributedFileSystem)即hadoop分布式文件存储系统�
 
 
   
-    <article id="post-hadoop3.0伪分布式集群搭建 " class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-hadoop3.0伪分布式集群搭建" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/21/hadoop3.0伪分布式集群搭建 /"  target="_blank"  >hadoop3.0伪分布式集群搭建</a>
+      <a class="article-title" href="/2018/08/21/hadoop3.0伪分布式集群搭建/"  target="_blank"  >hadoop3.0全分布式集群搭建</a>
     </h1>
   
 
@@ -276,25 +276,19 @@ HDFS简介HDFS(HadoopDistributedFileSystem)即hadoop分布式文件存储系统�
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/2018/08/21/hadoop3.0伪分布式集群搭建 /"  target="_blank" >
+            <a href="/2018/08/21/hadoop3.0伪分布式集群搭建/"  target="_blank" >
                 
-                <img src="https://www.lousenjay.top/images/cover/c_1.jpg" alt="hadoop3.0伪分布式集群搭建" title="hadoop3.0伪分布式集群搭建">
+                <img src="https://www.lousenjay.top/images/cover/c_18.jpg" alt="hadoop3.0全分布式集群搭建" title="hadoop3.0全分布式集群搭建">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                搭建环境：CentOS7+hadoop3.0.3+jdk8
+                hadoop3.0的全分布式搭建折腾了好久，因为网上基本上都是2.x的搭建教程，期间有好几个坑比较难弄，不过最后还是都解决了，下面简要记录笔者的搭建过程，以及遇到的坑。
+搭建环境：CentOS7+hadoop3.0.3+jdk8集群配置：1台主节点+3台子节点主节点：hadoop1子节点：hadoop2 hadoop3 hadoop4
 前提准备
-安装配置jdk
-配置静态ip地址
-修改主机名
-配置主机名和ip地址映射
-关闭防火墙，设置开机不自启动注：以上操作在笔者之前的Linux相关笔记中均有介绍
-
-正式搭建集群
-添加用户hadoop useradd hadoop passwd hadoop 注：后面都统一在hadoop用户下操作，统一权限
-创建...
+安装scp服务
+安装配置j...
             </p>
         </div>
       
@@ -315,7 +309,7 @@ HDFS简介HDFS(HadoopDistributedFileSystem)即hadoop分布式文件存储系统�
 
         </ul>
         
-            <a href="/2018/08/21/hadoop3.0伪分布式集群搭建 /#more" class="article-more-link"  target="_blank" >阅读全文</a>
+            <a href="/2018/08/21/hadoop3.0伪分布式集群搭建/#more" class="article-more-link"  target="_blank" >阅读全文</a>
         
     </footer>
   </div>

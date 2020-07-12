@@ -12,11 +12,11 @@
 <meta name="keywords" content="hadoop">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hadoop3.0全分布式集群搭建">
-<meta property="og:url" content="https://www.lousenjay.top/2018/08/21/hadoop3.0全分布式集群搭建/index.html">
+<meta property="og:url" content="https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/index.html">
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="hadoop3.0的全分布式搭建折腾了好久，因为网上基本上都是2.x的搭建教程，期间有好几个坑比较难弄，不过最后还是都解决了，下面简要记录笔者的搭建过程，以及遇到的坑。 搭建环境：CentOS7+hadoop3.0.3+jdk8集群配置：1台主节点+3台子节点主节点：hadoop1子节点：hadoop2 hadoop3 hadoop4 前提准备 安装scp服务 安装配置jdk 配置静态ip地址 修">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-09T08:19:26.793Z">
+<meta property="og:updated_time" content="2020-07-12T19:59:08.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hadoop3.0全分布式集群搭建">
 <meta name="twitter:description" content="hadoop3.0的全分布式搭建折腾了好久，因为网上基本上都是2.x的搭建教程，期间有好几个坑比较难弄，不过最后还是都解决了，下面简要记录笔者的搭建过程，以及遇到的坑。 搭建环境：CentOS7+hadoop3.0.3+jdk8集群配置：1台主节点+3台子节点主节点：hadoop1子节点：hadoop2 hadoop3 hadoop4 前提准备 安装scp服务 安装配置jdk 配置静态ip地址 修">
@@ -119,7 +119,7 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-hadoop3.0全分布式集群搭建" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-hadoop3.0伪分布式集群搭建" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -213,8 +213,8 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年01月09日 16:19</p>
-        <p>原始链接： <a class="post-url" href="/2018/08/21/hadoop3.0全分布式集群搭建/" title="hadoop3.0全分布式集群搭建">https://www.lousenjay.top/2018/08/21/hadoop3.0全分布式集群搭建/</a></p>
+        <p>最后更新： 2020年07月13日 03:59</p>
+        <p>原始链接： <a class="post-url" href="/2018/08/21/hadoop3.0伪分布式集群搭建/" title="hadoop3.0全分布式集群搭建">https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/</a></p>
         <footer>
             <a href="https://www.lousenjay.top">
                 <img src="/images/logo.png" alt="Lousen Jay">
@@ -236,7 +236,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/08/21/hadoop3.0全分布式集群搭建/&title=《hadoop3.0全分布式集群搭建》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_18.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/&title=《hadoop3.0全分布式集群搭建》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_18.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -246,22 +246,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/08/21/hadoop3.0全分布式集群搭建/&title=《hadoop3.0全分布式集群搭建》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/&title=《hadoop3.0全分布式集群搭建》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/08/21/hadoop3.0全分布式集群搭建/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《hadoop3.0全分布式集群搭建》 — 若闲小阁&url=https://www.lousenjay.top/2018/08/21/hadoop3.0全分布式集群搭建/&via=https://www.lousenjay.top" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《hadoop3.0全分布式集群搭建》 — 若闲小阁&url=https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/&via=https://www.lousenjay.top" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/08/21/hadoop3.0全分布式集群搭建/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -271,7 +271,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/08/21/hadoop3.0全分布式集群搭建/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -303,19 +303,19 @@
 
 <nav id="article-nav">
   
-    <a href="/2018/08/21/hadoop3.0伪分布式集群搭建/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/08/24/HDFS入门详解（一）/" id="article-nav-newer" class="article-nav-link-wrap">
       <span class="article-nav-title"> 
         
-          hadoop3.0全分布式集群搭建
+          HDFS入门详解（一）
         
 		<i class="fa fa-hand-o-right" aria-hidden="true"></i>
       </span>
     </a>
   
   
-    <a href="/2018/08/20/hadoop3.0单机模式搭建/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/08/21/hadoop3.0全分布式集群搭建/" id="article-nav-older" class="article-nav-link-wrap">
 	  <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-	  <span class="article-nav-title">hadoop集群单机模式搭建</span>
+	  <span class="article-nav-title">hadoop3.0全分布式集群搭建</span>
     </a>
   
 </nav>
@@ -323,7 +323,7 @@
 
 
     
-        <div id="SOHUCS" sid="hadoop3.0全分布式集群搭建" ></div>
+        <div id="SOHUCS" sid="hadoop3.0伪分布式集群搭建" ></div>
 <script type="text/javascript">
     (function(){
         var appid = 'cyti47zsk';
