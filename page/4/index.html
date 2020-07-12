@@ -119,6 +119,72 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
+    <article id="post-MapReduce入门详解（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/29/MapReduce入门详解（一）/"  target="_blank"  >MapReduce入门详解（一）</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/大数据/">大数据</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2018/08/29/MapReduce入门详解（一）/"  target="_blank" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_4.jpg" alt="MapReduce入门详解（一）" title="MapReduce入门详解（一）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                简介Mapreduce是一个分布式运算程序的编程框架，是用户开发“基于hadoop的数据分析应用”的核心框架；Mapreduce核心功能是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，并发运行在一个hadoop集群上。
+MapReduce框架的结构一个完整的mapreduce程序在分布式运行时有三类实例进程：
+
+MapReduceApplicati...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2018-08-29</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/hadoop/" class="color2">hadoop</a>
+      
+    <a href="/tags/mapreduce/" class="color5">mapreduce</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2018/08/29/MapReduce入门详解（一）/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
     <article id="post-HDFS入门详解（二）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -259,7 +325,7 @@ HDFS简介HDFS(HadoopDistributedFileSystem)即hadoop分布式文件存储系统�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/21/hadoop3.0伪分布式集群搭建/"  target="_blank"  >hadoop3.0全分布式集群搭建</a>
+      <a class="article-title" href="/2018/08/22/hadoop3.0伪分布式集群搭建/"  target="_blank"  >hadoop3.0伪分布式集群搭建</a>
     </h1>
   
 
@@ -276,19 +342,25 @@ HDFS简介HDFS(HadoopDistributedFileSystem)即hadoop分布式文件存储系统�
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/2018/08/21/hadoop3.0伪分布式集群搭建/"  target="_blank" >
+            <a href="/2018/08/22/hadoop3.0伪分布式集群搭建/"  target="_blank" >
                 
-                <img src="https://www.lousenjay.top/images/cover/c_18.jpg" alt="hadoop3.0全分布式集群搭建" title="hadoop3.0全分布式集群搭建">
+                <img src="https://www.lousenjay.top/images/cover/c_1.jpg" alt="hadoop3.0伪分布式集群搭建" title="hadoop3.0伪分布式集群搭建">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                hadoop3.0的全分布式搭建折腾了好久，因为网上基本上都是2.x的搭建教程，期间有好几个坑比较难弄，不过最后还是都解决了，下面简要记录笔者的搭建过程，以及遇到的坑。
-搭建环境：CentOS7+hadoop3.0.3+jdk8集群配置：1台主节点+3台子节点主节点：hadoop1子节点：hadoop2 hadoop3 hadoop4
+                搭建环境：CentOS7+hadoop3.0.3+jdk8
 前提准备
-安装scp服务
-安装配置j...
+安装配置jdk
+配置静态ip地址
+修改主机名
+配置主机名和ip地址映射
+关闭防火墙，设置开机不自启动注：以上操作在笔者之前的Linux相关笔记中均有介绍
+
+正式搭建集群
+添加用户hadoop useradd hadoop passwd hadoop 注：后面都统一在hadoop用户下操作，统一权限
+创建...
             </p>
         </div>
       
@@ -297,7 +369,7 @@ HDFS简介HDFS(HadoopDistributedFileSystem)即hadoop分布式文件存储系统�
         
         <ul class="article-footer-menu">
             
-                <li><i class="fa fa-calendar"></i>2018-08-21</li>
+                <li><i class="fa fa-calendar"></i>2018-08-22</li>
             
             
   <li class="article-footer-tags">
@@ -309,7 +381,7 @@ HDFS简介HDFS(HadoopDistributedFileSystem)即hadoop分布式文件存储系统�
 
         </ul>
         
-            <a href="/2018/08/21/hadoop3.0伪分布式集群搭建/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+            <a href="/2018/08/22/hadoop3.0伪分布式集群搭建/#more" class="article-more-link"  target="_blank" >阅读全文</a>
         
     </footer>
   </div>
@@ -710,76 +782,6 @@ echo $JAVA_HO...
         </ul>
         
             <a href="/2018/08/09/Shell编程(CentOS7)/#more" class="article-more-link"  target="_blank" >阅读全文</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-Linux学习笔记（CentOS7）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/08/Linux学习笔记（CentOS7）/"  target="_blank"  >Linux学习笔记（CentOS7）</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/OS/">OS</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2018/08/08/Linux学习笔记（CentOS7）/"  target="_blank" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_12.jpg" alt="Linux学习笔记（CentOS7）" title="Linux学习笔记（CentOS7）">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                在学习搭建hadoop集群的过程中，我发现在Linux方面还有许多命令我并没有掌握，特此补充相关的知识点以及CentOS7的新特性。
-主机名
-查看当前主机名hostname
-修改主机名（重启后失效）hostname XXX
-修改主机名（永久修改）vi /etc/sysconfig/network添加：NETWORKING=yesHOSTNAME=XXX
-
-IP地址
-查看当...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2018-08-08</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/Linux/" class="color1">Linux</a>
-      
-    <a href="/tags/CentOS7/" class="color4">CentOS 7</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2018/08/08/Linux学习笔记（CentOS7）/#more" class="article-more-link"  target="_blank" >阅读全文</a>
         
     </footer>
   </div>

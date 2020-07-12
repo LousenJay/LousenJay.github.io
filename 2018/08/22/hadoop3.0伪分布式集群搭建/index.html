@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>hadoop3.0全分布式集群搭建 | 若闲小阁</title>
+  <title>hadoop3.0伪分布式集群搭建 | 若闲小阁</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
-  <meta name="description" content="hadoop3.0的全分布式搭建折腾了好久，因为网上基本上都是2.x的搭建教程，期间有好几个坑比较难弄，不过最后还是都解决了，下面简要记录笔者的搭建过程，以及遇到的坑。 搭建环境：CentOS7+hadoop3.0.3+jdk8集群配置：1台主节点+3台子节点主节点：hadoop1子节点：hadoop2 hadoop3 hadoop4 前提准备 安装scp服务 安装配置jdk 配置静态ip地址 修">
+  <meta name="description" content="搭建环境：CentOS7+hadoop3.0.3+jdk8 前提准备 安装配置jdk 配置静态ip地址 修改主机名 配置主机名和ip地址映射 关闭防火墙，设置开机不自启动注：以上操作在笔者之前的Linux相关笔记中均有介绍  正式搭建集群 添加用户hadoop useradd hadoop passwd hadoop 注：后面都统一在hadoop用户下操作，统一权限 创建目录 mkdir -p /">
 <meta name="keywords" content="hadoop">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hadoop3.0全分布式集群搭建">
-<meta property="og:url" content="https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/index.html">
+<meta property="og:title" content="hadoop3.0伪分布式集群搭建">
+<meta property="og:url" content="https://www.lousenjay.top/2018/08/22/hadoop3.0伪分布式集群搭建/index.html">
 <meta property="og:site_name" content="若闲小阁">
-<meta property="og:description" content="hadoop3.0的全分布式搭建折腾了好久，因为网上基本上都是2.x的搭建教程，期间有好几个坑比较难弄，不过最后还是都解决了，下面简要记录笔者的搭建过程，以及遇到的坑。 搭建环境：CentOS7+hadoop3.0.3+jdk8集群配置：1台主节点+3台子节点主节点：hadoop1子节点：hadoop2 hadoop3 hadoop4 前提准备 安装scp服务 安装配置jdk 配置静态ip地址 修">
+<meta property="og:description" content="搭建环境：CentOS7+hadoop3.0.3+jdk8 前提准备 安装配置jdk 配置静态ip地址 修改主机名 配置主机名和ip地址映射 关闭防火墙，设置开机不自启动注：以上操作在笔者之前的Linux相关笔记中均有介绍  正式搭建集群 添加用户hadoop useradd hadoop passwd hadoop 注：后面都统一在hadoop用户下操作，统一权限 创建目录 mkdir -p /">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-07-12T19:59:08.015Z">
+<meta property="og:updated_time" content="2020-07-12T20:06:01.987Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hadoop3.0全分布式集群搭建">
-<meta name="twitter:description" content="hadoop3.0的全分布式搭建折腾了好久，因为网上基本上都是2.x的搭建教程，期间有好几个坑比较难弄，不过最后还是都解决了，下面简要记录笔者的搭建过程，以及遇到的坑。 搭建环境：CentOS7+hadoop3.0.3+jdk8集群配置：1台主节点+3台子节点主节点：hadoop1子节点：hadoop2 hadoop3 hadoop4 前提准备 安装scp服务 安装配置jdk 配置静态ip地址 修">
+<meta name="twitter:title" content="hadoop3.0伪分布式集群搭建">
+<meta name="twitter:description" content="搭建环境：CentOS7+hadoop3.0.3+jdk8 前提准备 安装配置jdk 配置静态ip地址 修改主机名 配置主机名和ip地址映射 关闭防火墙，设置开机不自启动注：以上操作在笔者之前的Linux相关笔记中均有介绍  正式搭建集群 添加用户hadoop useradd hadoop passwd hadoop 注：后面都统一在hadoop用户下操作，统一权限 创建目录 mkdir -p /">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -126,7 +126,7 @@
         
   
     <h1 class="post-title" itemprop="name">
-      hadoop3.0全分布式集群搭建
+      hadoop3.0伪分布式集群搭建
     </h1>
     <div class="post-title-bar">
       <ul>
@@ -139,7 +139,7 @@
               </li>
           
         <li>
-          <i class="fa fa-calendar"></i>  2018-08-21
+          <i class="fa fa-calendar"></i>  2018-08-22
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -155,10 +155,8 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>hadoop3.0的全分布式搭建折腾了好久，因为网上基本上都是2.x的搭建教程，期间有好几个坑比较难弄，不过最后还是都解决了，下面简要记录笔者的搭建过程，以及遇到的坑。</p>
-<p>搭建环境：CentOS7+hadoop3.0.3+jdk8<br>集群配置：1台主节点+3台子节点<br>主节点：hadoop1<br>子节点：hadoop2 hadoop3 hadoop4</p>
+            <p>搭建环境：CentOS7+hadoop3.0.3+jdk8</p>
 <h3 id="前提准备"><a href="#前提准备" class="headerlink" title="前提准备"></a>前提准备</h3><ol>
-<li>安装scp服务</li>
 <li>安装配置jdk</li>
 <li>配置静态ip地址</li>
 <li>修改主机名</li>
@@ -166,16 +164,15 @@
 <li>关闭防火墙，设置开机不自启动<br>注：以上操作在笔者之前的Linux相关笔记中均有介绍</li>
 </ol>
 <h3 id="正式搭建集群"><a href="#正式搭建集群" class="headerlink" title="正式搭建集群"></a>正式搭建集群</h3><ol>
-<li>在所有机器添加统一用户hadoop<br> useradd hadoop<br> passwd hadoop</li>
-<li>配置sudo免密<br> 在root用户下<br> vi /etc/sudoers<br> 在<br> root    ALL=(ALL)       ALL<br> 下面添加<br> hadoop  ALL=(ALL)       ALL<br> 注：修改完退出root用户，回到hadoop用户</li>
-<li>创建hadoop相关目录<br> mkdir -p /home/hadoop/apps/dfs/data<br> mkdir /home/hadoop/apps/dfs/name<br> mkdir /home/hadoop/apps/tmp</li>
-<li>上传并解压hadoop-3.0.3.tar.gz到apps目录下<br> sftp上传<br> tar -zxvf hadoop-3.0.3.tar.gz -C /home/hadoop/apps/</li>
-<li>配置hadoop-env.sh<br> vi /home/hadoop/apps/hadoop-3.0.3/etc/hadoop/hadoop-env.sh<br> 找到#export JAVA_HOME<br> 在下面添加<br> export JAVA_HOME=/usr/local/jdk</li>
+<li>添加用户hadoop<br> useradd hadoop<br> passwd hadoop<br> 注：后面都统一在hadoop用户下操作，统一权限</li>
+<li>创建目录<br> mkdir -p /home/hadoop/apps/dfs/data<br> mkdir /home/hadoop/apps/dfs/name<br> mkdir /home/hadoop/apps/tmp</li>
+<li>上传并解压hadoop-3.0.3.tar.gz<br> sftp上传<br> tar -zxvf hadoop-3.0.3.tar.gz apps/</li>
+<li>配置hadoop-env.sh<br> vi /home/hadoop/apps/hadoop-3.0.3/etc/hadoop/hadoop-env.sh<br> 找到export JAVA_HOME<br> 并添加<br> export JAVA_HOME=/usr/local/jdk</li>
 <li><p>修改核心配置文件core-site.xml<br> vi core-site.xml<br> 在configuration标签中添加属性</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;   #默认</div><div class="line">        &lt;value&gt;hdfs://hadoop1:9000&lt;/value&gt; #hdfs的api接口</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt; #hadoop运行时产生临时数据的存储目录</div><div class="line">        &lt;value&gt;/home/hadoop/apps/tmp&lt;/value&gt; #该目录的地址</div><div class="line">    &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;   #默认</div><div class="line">        &lt;value&gt;hdfs://hadoop5:9000&lt;/value&gt; #hdfs的api接口</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt; #hadoop运行时产生临时数据的存储目录</div><div class="line">        &lt;value&gt;/home/hadoop/apps/tmp&lt;/value&gt; #该目录的地址</div><div class="line">    &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
 </li>
 <li><p>配置hadoop的底层存储hdfs-site.xml<br> vi hdfs-site.xml<br> 在configuration标签中添加属性</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line">        &lt;property&gt;</div><div class="line">                &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;</div><div class="line">                &lt;value&gt;hadoop1:50090&lt;/value&gt;</div><div class="line">        &lt;/property&gt;</div><div class="line">        &lt;property&gt;</div><div class="line">                &lt;name&gt;dfs.replication&lt;/name&gt; #设置副本个数</div><div class="line">                &lt;value&gt;3&lt;/value&gt;</div><div class="line">        &lt;/property&gt;</div><div class="line">        &lt;property&gt;</div><div class="line">                &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt; #设置namende数据存放点</div><div class="line">                &lt;value&gt;file:/home/hadoop/apps/dfs/name&lt;/value&gt;</div><div class="line">        &lt;/property&gt;</div><div class="line">        &lt;property&gt;</div><div class="line">                &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt; #设置datanode数据存放点</div><div class="line">                &lt;value&gt;file:/home/hadoop/apps/dfs/data&lt;/value&gt;</div><div class="line">        &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line">        &lt;property&gt;</div><div class="line">                &lt;name&gt;dfs.replication&lt;/name&gt; #设置副本个数</div><div class="line">                &lt;value&gt;1&lt;/value&gt;</div><div class="line">        &lt;/property&gt;</div><div class="line">        &lt;property&gt;</div><div class="line">                &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt; #设置namende数据存放点</div><div class="line">                &lt;value&gt;file:/home/hadoop/apps/dfs/name&lt;/value&gt;</div><div class="line">        &lt;/property&gt;</div><div class="line">        &lt;property&gt;</div><div class="line">                &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt; #设置datanode数据存放点</div><div class="line">                &lt;value&gt;file:/home/hadoop/apps/dfs/data&lt;/value&gt;</div><div class="line">        &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
 </li>
 <li><p>复制并重命名mapred-site.xml.template<br> cp mapred-site.xml.template mapred-site.xml</p>
 </li>
@@ -183,38 +180,25 @@
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;mapreduce.framwork.name&lt;/name&gt;    #设置mapreduce的运行平台的名称</div><div class="line">        &lt;value&gt;yarn&lt;/value&gt; #设置mapreduce的运行平台为yarn</div><div class="line">    &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
 </li>
 <li><p>修改配置文件yarn-site.xml<br>vi yarn-site.xml<br>在configuration标签中添加属性</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt; #指定yarn的老大的地址</div><div class="line">        &lt;value&gt;hadoop1&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;  #reducer获取数据的方式</div><div class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt; </div><div class="line">    &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt; #指定yarn的老大的地址</div><div class="line">        &lt;value&gt;hadoop5&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;  #reducer获取数据的方式</div><div class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt; </div><div class="line">    &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
 </li>
-<li><p>修改workers文件<br>注：这个文件是填写从节点的主机名称<br>添加<br>hadoop2<br>hadoop3<br>hadoop4</p>
+<li><p>修改配置文件workers<br>添加<br>hadoop5</p>
 </li>
-<li>将apps文件夹分发到其他机器<br>scp -r /home/hadoop/apps hadoop2:/home/hadoop/<br>scp -r /home/hadoop/apps hadoop3:/home/hadoop/<br>scp -r /home/hadoop/apps hadoop4:/home/hadoop/</li>
-<li>配置hadoop的环境变量<br>sudo vi ~/.bash_profile<br>添加<br>HADOOP_HOME=/home/hadoop/apps/hadoop-3.0.3<br>PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin<br>export HADOOP_HOME PATH<br>重新加载<br>source ~/.bash_profile</li>
-<li>在其他机器同样配置hadoop的环境变量</li>
+<li>配置hadoop环境变量<br>vi ~/.bash_profile<br>添加<br>HADOOP_HOME=/home/hadoop/apps/hadoop-3.0.3<br>PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin<br>export HADOOP_HOME PATH</li>
 <li>格式化hdfs（没事不要用这个命令，蛋疼）<br>hdfs namenode -format</li>
-<li>配置hadoop用户免密登录<br>ssh-keygen<br>ssh-copy-id hadoop1<br>ssh-copy-id hadoop2<br>ssh-copy-id hadoop3<br>ssh-copy-id hadoop4</li>
-<li>启动hdfs集群<br>start-dfs.sh<br>停止hdfs<br>stop-dfs.sh</li>
-<li>启动yarn集群<br>start-yarn.sh<br>停止yarn<br>stop-yarn.sh</li>
+<li>配置免密登录<br>ssh-keygen<br>ssh-copy-id hadoop5</li>
 <li>启动所有服务(不推荐)<br>start-all.sh<br>相当于start-dfs.sh+start-yarn.sh</li>
 <li>停止所有服务<br>stop-all.sh</li>
-<li>在浏览器查看<br>hadoop1:9870<br>hadoop1:8088</li>
-<li>查看该dfs -ls /</li>
-<li>创建自己的家目录<br>hdfs 集群根目录<br>hdfs dfs -mkdir /user/xujie</li>
+<li>在浏览器查看<br>hadoop5:9870<br>hadoop5:8088</li>
+<li>查看该集群的根目录<br>hdfs dfs -ls /</li>
+<li>创建自己的家目录<br>hdfs dfs -mkdir /user/xujie</li>
 <li>测试实例<br>cd /home/hadoop/apps/hadoop-3.0.3/share/hadoop/mapreduce/<br>调用jar包计算pi的值，计算100次<br>hadoop jar hadoop-mapreduce-examples-3.0.3.jar pi 3 100</li>
-</ol>
-<h3 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h3><ol>
-<li>没有配置文件salves<br>解决方案：因为3.0以后slaves更改名称为workers了</li>
-<li>启动所有服务，datanode却没有启动<br>一般是hdfs格式化以后运行了程序，然后又格式化了，好了gg，datanode无法启动，因为name的clusterID和data的clusterID不一致了。<br>解决方案：<ul>
-<li>方案一（推荐-慎用）：删除所有机器的/home/hadoop/apps/dfs/data目录，重新再hdfs格式化一遍，不过数据也会全部gg。</li>
-<li>方案二：把/home/hadoop/apps/dfs/name/current/VERSION中的clusterID复制替换/home/hadoop/apps/dfs/data/current/VERSION中的clusterID</li>
-</ul>
-</li>
-<li>启动从节点报错<br>解决方案：不要在格式化hdfs以后产生了相关数据以后才scp整个hadoop到其他机器，会产生冲突。</li>
 </ol>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年07月13日 03:59</p>
-        <p>原始链接： <a class="post-url" href="/2018/08/21/hadoop3.0伪分布式集群搭建/" title="hadoop3.0全分布式集群搭建">https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/</a></p>
+        <p>最后更新： 2020年07月13日 04:06</p>
+        <p>原始链接： <a class="post-url" href="/2018/08/22/hadoop3.0伪分布式集群搭建/" title="hadoop3.0伪分布式集群搭建">https://www.lousenjay.top/2018/08/22/hadoop3.0伪分布式集群搭建/</a></p>
         <footer>
             <a href="https://www.lousenjay.top">
                 <img src="/images/logo.png" alt="Lousen Jay">
@@ -236,7 +220,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/&title=《hadoop3.0全分布式集群搭建》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_18.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2018/08/22/hadoop3.0伪分布式集群搭建/&title=《hadoop3.0伪分布式集群搭建》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_1.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -246,22 +230,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/&title=《hadoop3.0全分布式集群搭建》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2018/08/22/hadoop3.0伪分布式集群搭建/&title=《hadoop3.0伪分布式集群搭建》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2018/08/22/hadoop3.0伪分布式集群搭建/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《hadoop3.0全分布式集群搭建》 — 若闲小阁&url=https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/&via=https://www.lousenjay.top" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《hadoop3.0伪分布式集群搭建》 — 若闲小阁&url=https://www.lousenjay.top/2018/08/22/hadoop3.0伪分布式集群搭建/&via=https://www.lousenjay.top" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2018/08/22/hadoop3.0伪分布式集群搭建/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -271,7 +255,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/08/21/hadoop3.0伪分布式集群搭建/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2018/08/22/hadoop3.0伪分布式集群搭建/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -296,7 +280,7 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前提准备"><span class="post-toc-text">前提准备</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#正式搭建集群"><span class="post-toc-text">正式搭建集群</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题汇总"><span class="post-toc-text">问题汇总</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前提准备"><span class="post-toc-text">前提准备</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#正式搭建集群"><span class="post-toc-text">正式搭建集群</span></a></li></ol>
         </nav>
     </aside>
     
