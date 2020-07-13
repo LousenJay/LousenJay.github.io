@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>集中式架构vs分布式架构 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="历史自从20世纪60年代大型主机被发明出来以后，凭借其超强的计算和I/O处理能力以及在稳定性和安全性方面的卓越表现，在很长一段时间内，大型主机引领了计算机行业以及商业计算领域的发展。由于大型主机卓越的性能和良好的稳定性，其在单机处理能力方面的优势非常明显，使得IT系统快速进入了集中式处理阶段，其对应的计算机系统称为集中式系统。 但从20世纪80年代以来，随着微型计算机的出现，越来越多廉价的PC机成">
+<meta name="keywords" content="概念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="集中式架构vs分布式架构">
+<meta property="og:url" content="https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="历史自从20世纪60年代大型主机被发明出来以后，凭借其超强的计算和I/O处理能力以及在稳定性和安全性方面的卓越表现，在很长一段时间内，大型主机引领了计算机行业以及商业计算领域的发展。由于大型主机卓越的性能和良好的稳定性，其在单机处理能力方面的优势非常明显，使得IT系统快速进入了集中式处理阶段，其对应的计算机系统称为集中式系统。 但从20世纪80年代以来，随着微型计算机的出现，越来越多廉价的PC机成">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-07-13T16:23:19.758Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="集中式架构vs分布式架构">
+<meta name="twitter:description" content="历史自从20世纪60年代大型主机被发明出来以后，凭借其超强的计算和I/O处理能力以及在稳定性和安全性方面的卓越表现，在很长一段时间内，大型主机引领了计算机行业以及商业计算领域的发展。由于大型主机卓越的性能和良好的稳定性，其在单机处理能力方面的优势非常明显，使得IT系统快速进入了集中式处理阶段，其对应的计算机系统称为集中式系统。 但从20世纪80年代以来，随着微型计算机的出现，越来越多廉价的PC机成">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.top/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a target="_blank" href="/">
+                        <i class="fa fa-home"></i>
+                        <span>主页</span>
+                    </a>
+                    
+                    <a target="_blank" href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>归档</span>
+                    </a>
+                    
+                    <a target="_blank" href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>关于我</span>
+                    </a>
+                    
+                    <a target="_blank" href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>任务表</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//www.lousenjay.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-集中式架构vs分布式架构" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      集中式架构vs分布式架构
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/大数据/">大数据</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-02-11
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h3><p>自从20世纪60年代大型主机被发明出来以后，凭借其超强的计算和I/O处理能力以及在稳定性和安全性方面的卓越表现，在很长一段时间内，大型主机引领了计算机行业以及商业计算领域的发展。由于大型主机卓越的性能和良好的稳定性，其在单机处理能力方面的优势非常明显，使得IT系统快速进入了集中式处理阶段，其对应的计算机系统称为集中式系统。</p>
+<p>但从20世纪80年代以来，随着微型计算机的出现，越来越多廉价的PC机成为了各大IT企业架构的首选，分布式的处理方式越来越受到业界的青睐，计算机系统正在经历一场前所未有的从集中式到分布式架构的变革。</p>
+<p>主要有以下几点原因：</p>
+<ol>
+<li>大型主机的人才培养成本非常高，通常一台大型主机汇集了大量精密的计算机组件，操作非常复杂，这对一个运维人员掌握其技术细节提出了非常高的要求。</li>
+</ol>
+<ol>
+<li><p>大型主机也是非常昂贵的，通常一台配置较好的IBM大型主机，其售价达到上百万美元甚至更高，因此也只有像政府、金融和电信等企业才有能力采购大型主机。</p>
+</li>
+<li><p>集中式有非常明显的单点问题，大型主机虽然在性能和稳定性方面表现卓越，但并不代表其永远不会出故障。一旦一台大型主机出现了故障，那么整个系统将处于不可用的状态，后果相当严重。</p>
+</li>
+<li><p>随着业务的不断发展，用户访问量迅速提高， 计算机系统的规模也在不断扩大，在单一大型主机上进行扩容往往比较困难。</p>
+</li>
+<li><p>随着PC机性能的不断提升和网络技术的快速普及，大型主机的市场份额变得越来越小，很多企业开始放弃原来的大型主机，而改用小型机和普通PC服务器来搭建分布式计算机。</p>
+</li>
+</ol>
+<h3 id="集中式系统架构"><a href="#集中式系统架构" class="headerlink" title="集中式系统架构"></a>集中式系统架构</h3><p>集中式系统就是指由一台或多台主计算机组成中心节点，数据集中存储于这个中心节点中，并且整个系统的所有业务单元都集中部署在这个中心节点上，系统所有的功能均由其集中处理。也就是说，集中式系统中，每个终端或客户端及其仅仅负责数据的录入和输出，而数据的存储与控制处理完全交由主机来完成。</p>
+<h3 id="分布式系统架构"><a href="#分布式系统架构" class="headerlink" title="分布式系统架构"></a>分布式系统架构</h3><p>分布式系统是一个硬件或软件组件分布在不同的网络计算机上，彼此之间仅仅通过消息传递进行通信和协调的系统。一个标准的分布式系统在没有任何特定业务逻辑约束的情况下，都会有以下几个特征：</p>
+<ul>
+<li><p>分布性<br>分布式系统中的多台计算机都会在空间上随意分布，这些计算机可能被放在不同的机柜上，也可能在不同的机房中，甚至分布在不同的城市。同时，其分布情况也会随时变动。</p>
+</li>
+<li><p>对等性<br>分布式系统中的计算机没有主/从之分，既没有控制整个系统的主机，也没有被控制的从机，组成分布式系统的所有节点都是对等的。副本(Replica)是分布式系统最常见的概念之一，指的是分布式系统对数据和服务提供的一种冗余方式。在常见的分布式系统中，为了对外提高可用的服务，我们往往会对数据和服务进行副本处理。数据副本是指在不同的节点上持久化同一份数据，当某一个节点上存储的数据丢失时，可以从副本上读取到该数据，这是解决分布式系统数据丢失问题最为有效的手段。另一类副本是服务副本，指多个节点提供同样的服务，每个节点都有能力接收来自外部的请求并进行相应的处理。</p>
+</li>
+<li><p>并发性<br>在一个计算机网络中，程序运行过程中的并发性操作是非常常见的行为，例如，同一个分布式系统的多个节点，可能会并发地操作一些共享的资源，诸如数据库或分布式存储等，如何准确并高效地协调分布式并发操作也成为了分布式系统架构与设计中最大的挑战之一。</p>
+</li>
+<li><p>缺乏全局时钟<br>一个典型的分布式系统是由一系列空间上随意分布的多个进程组成的，具有明显的分布性，这些进程之间通过交换消息来进行相互通信。因此，在分布式系统中，很难定义两个事件究竟谁先谁后，原因就是因为分布式系统缺乏一个全局的始终控制序列。</p>
+</li>
+<li><p>故障总是会发生<br>组成分布式系统的所有计算机，都有可能发生任何形式的故障。一个被大量工程实践过的黄金定理是：任何在设计阶段考虑到的异常情况，一定会在系统实际运行中发生，并且，在系统实际运行中还会遇到很多在设计时未考虑到的异常故障。所以，除非需求指标允许，在系统设计时不能放过任何异常情况。</p>
+</li>
+<li><p>处理单点故障<br>在整个分布式系统中，如果某个角色或者功能只有某台单机在支撑，那么这个节点称为单点，其发生的故障称为单点故障，也就是通常说的SPoF（Single Point of Failure），避免单点而对关键就是把这个功能从单机实现变为集群实现，当然，这种变化一般会比较困难，否则就不会有单点问题了。如果不能把单点变为集群实现，那么一般还有两种选择：1、给这个单点做好备份，能够在出现问题时进行恢复，并且尽量做到自动恢复。2、降低单点故障的影响范围。</p>
+</li>
+</ul>
+<h3 id="集中式架构vs分布式架构"><a href="#集中式架构vs分布式架构" class="headerlink" title="集中式架构vs分布式架构"></a>集中式架构vs分布式架构</h3><table>
+<thead>
+<tr>
+<th>核心要素</th>
+<th>集中式架构</th>
+<th>分布式架构</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>成本</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>安全/自主性</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>灵活/兼容性</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>扩展/伸缩性</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>可用性</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>一致/可靠性</td>
+<td>高</td>
+<td>中</td>
+</tr>
+<tr>
+<td>维护性</td>
+<td>高</td>
+<td>中</td>
+</tr>
+<tr>
+<td>业务恢复</td>
+<td>中</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+<h3 id="业务支撑能力"><a href="#业务支撑能力" class="headerlink" title="业务支撑能力"></a>业务支撑能力</h3><p>在集中式架构下，为了应对更高的性能，更大的数据量，往往只能向上升级到更高配置的机器，如升级更强的 CPU，升级多核，升级内存，升级存储等，一般这种方式被称为 Scale Up，但单机的性能永远都有瓶颈,随着业务量的增长，只能通过 Scale Out 的方式来支持，即横向扩展出同样架构的服务器。在集中式架构下，由于单个服务器的造价昂贵，所以 Scale Out 的方式成本非常高，无法做到按需扩展。而分布式架构的解决方案是基于廉价的 PC Server 来做 Scale Out, 借助高速网络组建的 PC 集群在整体上提供的计算能力已大幅高于传统主机，并且成本很低，横向的扩展性还可带来系统良好的成长性。</p>
+<p>分布式架构在价格成本、自主研发、灵活兼容、伸缩扩展方面有比较显著的优势。互联网行业具有请求量大，数据量大的特点，业务上又可能在集中的时间段出现高于日常流量数倍的业务高峰，这些特征对架构的可扩展性提出了极高的要求。</p>
+<h3 id="可用性与一致性"><a href="#可用性与一致性" class="headerlink" title="可用性与一致性"></a>可用性与一致性</h3><p>集中式系统的计算、存储都在一套硬件体系内，无需面对网络分区（网络无法连接）问题，能很容易实现高一致性，并通过存储的冗余和软硬件结合的高度优化，达到了较高的可靠性。但在可用性方面，由于集中式架构在设计上是一个单点，单机不可用即全部不可用，所以集中式的系统只能在停机维护时暂停业务，这一点在很多互联网场景下是难以接受的。</p>
+<p>分布式架构设计，天然就有多个节点，很容易通过主备（HA）、冗余、哈希等手段实现计算和存储冗余备份，从而实现高可用。但是，分布式架构多个节点的设计也带来了保持一致性和高可靠性上的巨大挑战。根据CAP理论，任何基于网络的数据共享系统（即分布式系统）最多只能满足数据一致性（Consistency）、可用性（Availability）和网络分区容忍（Partition Tolerance）三个特性中的两个。在大规模的分布式环境下，网络故障是常态，所以网络分区是必须容忍的现实，只能在可用性和一致性两者间做出选择，即 CP 模型或者 AP 模型，实际的选择需要通过业务场景来权衡。</p>
+<p>对于一些离线的应用，或者对可用率不敏感的业务，可以适当牺牲可用性来保证强一致，即采用 CP 模型，这样会大大简化设计，系统具备不可用的发现和恢复机制就能让系统保持正常的运转，纯粹的 CP 模型还是比较简单，但适用场景也非常有限。更多场景需要保证提供连续可靠的服务，需要在采取AP模型的同时尽可能保证一致性。根据BASE三要素，在保证单机事务的 ACID 原则的前提下，确保全局分布式事务的最终一致性。</p>
+<h3 id="运维复杂度与故障恢复能力"><a href="#运维复杂度与故障恢复能力" class="headerlink" title="运维复杂度与故障恢复能力"></a>运维复杂度与故障恢复能力</h3><p>在==发布部署==方面，集中式架构部署结构简单，设备数量少，一般只需应对百台内规模的代码/配置更新，通过简单的脚本或者平台就可以自动化完成，发布时间一般也能控制在小时级别。而且采用集中式架构的系统一般比较稳定，发布周期也不会太频繁；在分布式环境下，千台甚至万台服务器的规模很常见，如果按照传统的串行操作和自动化脚本，整个发布周期会非常长，一旦出现问题，回滚也会非常慢。在分布式架构下，往往需要提供 P2P 分发或类似的技术手段来加速发布过程，同时通过 beta 发布、分组发布、蓝绿发布等手段来解决大规模集群下的发布验证、灰度引流和快速回滚等问题。</p>
+<p>在==系统监控==方面，集中式架构比较简单。而在分布式环境下做监控，主要挑战在于海量日志的实时分析和秒级展示。系统运行的状态分散在上万台规模的集群中，每时每刻都在产生新的状态。监控系统需要通过日志或者消息的方式采集整个集群的数据做各种统计分析。在巨大的业务量下，每晚一秒钟发现问题就会带来大量的业务异常，在极端情况下还会产生不可估量的损失。因此，也需要监控体系具备秒级的实时计算能力。</p>
+<p>在系统的==容灾机制==和==故障恢复==方面，集中式架构一般会采用主备复制和主备切换的方式来实现，几种典型设计原则包括一主多备，同城双活，两地三中心等。集中式的容灾方案比较成熟，也沉淀了数据复制、镜像快照、一体化迁移等一系列容灾相关的技术，可以从容应对各种场景，但仍然在以下几个方面存在不足：</p>
+<ul>
+<li>成本较高：在集中式架构下，经典的灾备方案一般会做全量备份，在一些改进方案中会通过余量空间做交叉互备等方式来降低成本，但整体上看还成本还是较高。为 1% 甚至概率更低的灾难场景，而付出与支撑当前业务量相等的成本，这对需要承载海量业务的互联网业务来说更是一个巨大的负担；</li>
+<li>恢复时间较长：灾备方案中大量用到数据复制技术，但由于网络带宽或者异地延迟等问题，在恢复时，需要等待数据完全一致后才能切换，而且无论备份数据是冷备还是热备，切换都有一个预热的过程。综合切换复杂度和上述的技术限制等因素，很难缩短恢复时间。</li>
+<li>业务影响面较大：由于集中式架构本身扩展性的不足，所有业务都跑在一个单点上，一旦发生故障就可能影响到所有用户。在承载海量业务的系统上，这种影响更容易被放大，尤其在金融系统上，更有可能引发一些社会事件。</li>
+</ul>
+<p>分布式架构在容灾恢复方面却有着天然的优势，数据天然分布在不同的存储、机房和城市，而且架构上容易按合适的容量进行水平拆分，随着这几年互联网的高速发展，各家互联网公司都遇到了集中式架构下灾备方案的几个痛点，并进行了类似的架构改造，一般业界称之为单元化改造，其本质是将分布式下可扩展的特性运用到灾备场景，这个在第四章节中有提到。这种架构能将业务影响面控制在一定的范围内（取决于单元的大小），并通过交叉互备降低灾备成本，这种机房架构下的逻辑单元具备以下三个特征：</p>
+<ol>
+<li>每个单元在业务处理能力上自包含，对外承载一定业务分片的业务流量，内部的系统调用链路和各类存储访问是局部化在本单元内的；</li>
+<li>每个单元的实时数据是独立不共享的，配置类数据或读多写少且对延时性要求不高的数据全局共享；</li>
+<li>单元间的通信统一管控，尽量以异步化消息进行通信，同步调用则通过单元间代理方案实现，实现网络上的收敛，便于监控和管控。</li>
+</ol>
+<p>该架构解决了以下四个关键问题：</p>
+<ol>
+<li>由于尽量减少了跨单元交互和使用异步化，使得异地部署成为可能。整个系统的水平可伸缩性大大提高，不再依赖同城 IDC ，真正实现异地多活架构；</li>
+<li>可以实现 N+1 的异地灾备策略，大大缩减灾备成本，同时确保灾备设施真实可用；</li>
+<li>整个系统已无单点存在，大大提升了整体的高可用性；同城和异地部署的多个单元可用作互备的容灾设施，通过运维管控平台进行快速切换，有机会实现 100% 的持续可用率；</li>
+<li>该架构下业务级别的流量入口和出口形成了统一的可管控、可路由的控制点，整体系统的可管控能力得到很大提升。基于该架构，线上压测、流量管控、灰度发布等以前难以实现的运维管控模式，现在能够十分轻松地实现。</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>分布式架构在成本、安全性、灵活性、可伸缩性等方面有明显优势，随着互联网的发展，需要处理的交易量与数据量越来越大，分布式架构在这方面的优势也会越来越明显。集中式系统在可维护性、一致性方面有优势，而分布式系统需要达到同等或更高的可维护性与高一致性，需要通过先进的分布式中间件与大规模运维平台来支持。</p>
+<p>参考博文：<a href="https://blog.csdn.net/qq_27384769/article/details/80223473" target="_blank" rel="external">https://blog.csdn.net/qq_27384769/article/details/80223473</a></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年07月14日 00:23</p>
+        <p>原始链接： <a class="post-url" href="/2020/02/11/集中式架构vs分布式架构/" title="集中式架构vs分布式架构">https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/</a></p>
+        <footer>
+            <a href="https://www.lousenjay.top">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/&title=《集中式架构vs分布式架构》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_1.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/&title=《集中式架构vs分布式架构》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《集中式架构vs分布式架构》 — 若闲小阁&url=https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/&via=https://www.lousenjay.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/概念/" class="color3">概念</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#历史"><span class="post-toc-text">历史</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#集中式系统架构"><span class="post-toc-text">集中式系统架构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分布式系统架构"><span class="post-toc-text">分布式系统架构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#集中式架构vs分布式架构"><span class="post-toc-text">集中式架构vs分布式架构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#业务支撑能力"><span class="post-toc-text">业务支撑能力</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#可用性与一致性"><span class="post-toc-text">可用性与一致性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运维复杂度与故障恢复能力"><span class="post-toc-text">运维复杂度与故障恢复能力</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2020/02/11/关系型数据库vs非关系型数据库/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-title"> 
+        
+          关系型数据库vs非关系型数据库
+        
+		<i class="fa fa-hand-o-right" aria-hidden="true"></i>
+      </span>
+    </a>
+  
+  
+    <a href="/2019/07/02/Windows转Mac的踩坑记录/" id="article-nav-older" class="article-nav-link-wrap">
+	  <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+	  <span class="article-nav-title">Windows转Mac的踩坑记录</span>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="集中式架构vs分布式架构" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2020 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "https://www.lousenjay.top",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a><a class="category-link" href="/categories/运维/">运维</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 13.33px;">DTinsight</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 15px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 11.67px;">杂谈</a> <a href="/tags/概念/" style="font-size: 11.67px;">概念</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 13.33px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a target="_blank" href="/">
+                    <i class="fa fa-home"></i><span>主页</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/archives">
+                    <i class="fa fa-archive"></i><span>归档</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/about">
+                    <i class="fa fa-user"></i><span>关于我</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/tasks">
+                    <i class="fa fa-tasks"></i><span>任务表</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 13.33px;">DTinsight</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 15px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 11.67px;">杂谈</a> <a href="/tags/概念/" style="font-size: 11.67px;">概念</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 13.33px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+	<!--APlayer-->
+	<script src="https://www.lousenjay.top/APlayer/js/jquery.min.js"></script>
+	<script src="https://www.lousenjay.top/APlayer/js/velocity.min.js"></script>
+	<script src="https://www.lousenjay.top/APlayer/js/aplayer.min.js"></script>
+	<script src="https://www.lousenjay.top/APlayer/js/aplayer-controler.js"></script>
+	<div class="demo-ap" style="display:none">
+		<div id="player1" class="aplayer"></div>
+	</div>
+	<div class="demo-apc">
+		<div id="apc1" class="apc"></div>
+	</div>
+	
+	
+	
+	<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="https://www.lousenjay.top/live2d/assets/waifu-tips.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("https://www.lousenjay.top/live2d/assets/")
+	</script>
+	
+  </div>
+  
+  <!--APlayer-->
+  <script src="https://www.lousenjay.top/APlayer/js/demo.js"></script>
+  
+
+</body>
+</html>

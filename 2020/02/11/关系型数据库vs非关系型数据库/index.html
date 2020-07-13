@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>关系型数据库vs非关系型数据库 | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="关系型数据库关系型数据库(Relational database)，是指采用了关系模型来组织数据的数据库，其以行和列的形式存储数据，以便于用户理解，关系型数据库这一系列的行和列被称为表，一组表组成了数据库。用户通过查询来检索数据库中的数据，而查询是一个用于限定数据库中某些区域的执行代码。关系模型可以简单理解为二维表格模型，而一个关系型数据库就是由二维表及其之间的关系组成的一个数据组织。 非关系型数">
+<meta name="keywords" content="概念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关系型数据库vs非关系型数据库">
+<meta property="og:url" content="https://www.lousenjay.top/2020/02/11/关系型数据库vs非关系型数据库/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="关系型数据库关系型数据库(Relational database)，是指采用了关系模型来组织数据的数据库，其以行和列的形式存储数据，以便于用户理解，关系型数据库这一系列的行和列被称为表，一组表组成了数据库。用户通过查询来检索数据库中的数据，而查询是一个用于限定数据库中某些区域的执行代码。关系模型可以简单理解为二维表格模型，而一个关系型数据库就是由二维表及其之间的关系组成的一个数据组织。 非关系型数">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-07-13T16:21:10.069Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关系型数据库vs非关系型数据库">
+<meta name="twitter:description" content="关系型数据库关系型数据库(Relational database)，是指采用了关系模型来组织数据的数据库，其以行和列的形式存储数据，以便于用户理解，关系型数据库这一系列的行和列被称为表，一组表组成了数据库。用户通过查询来检索数据库中的数据，而查询是一个用于限定数据库中某些区域的执行代码。关系模型可以简单理解为二维表格模型，而一个关系型数据库就是由二维表及其之间的关系组成的一个数据组织。 非关系型数">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.top/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a target="_blank" href="/">
+                        <i class="fa fa-home"></i>
+                        <span>主页</span>
+                    </a>
+                    
+                    <a target="_blank" href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>归档</span>
+                    </a>
+                    
+                    <a target="_blank" href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>关于我</span>
+                    </a>
+                    
+                    <a target="_blank" href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>任务表</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//www.lousenjay.top">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-关系型数据库vs非关系型数据库" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      关系型数据库vs非关系型数据库
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/数据库/">数据库</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-02-11
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="关系型数据库"><a href="#关系型数据库" class="headerlink" title="关系型数据库"></a>关系型数据库</h3><p>关系型数据库(Relational database)，是指采用了关系模型来组织数据的数据库，其以行和列的形式存储数据，以便于用户理解，关系型数据库这一系列的行和列被称为表，一组表组成了数据库。用户通过查询来检索数据库中的数据，而查询是一个用于限定数据库中某些区域的执行代码。关系模型可以简单理解为二维表格模型，而一个关系型数据库就是由二维表及其之间的关系组成的一个数据组织。</p>
+<h3 id="非关系型数据库"><a href="#非关系型数据库" class="headerlink" title="非关系型数据库"></a>非关系型数据库</h3><p>非关系型数据库(NoSQL)，有时也被称为Not Only SQL的缩写，是对不同于传统的关系型数据库的数据库管理系统的统称。NoSQL用于超大规模数据的存储。这些类型的数据存储不需要固定的模式，无需多余操作就可以横向扩展。</p>
+<h3 id="NoSQL的优缺点"><a href="#NoSQL的优缺点" class="headerlink" title="NoSQL的优缺点"></a>NoSQL的优缺点</h3><table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>高可拓展性</td>
+<td>没有标准化</td>
+</tr>
+<tr>
+<td>分布式计算</td>
+<td>有限的查询功能（到目前为止）</td>
+</tr>
+<tr>
+<td>低成本</td>
+<td>最终一致是不直观的程序</td>
+</tr>
+<tr>
+<td>架构的灵活性，半结构化数据</td>
+<td></td>
+</tr>
+<tr>
+<td>没有复杂的关系</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="常见NoSQL数据库"><a href="#常见NoSQL数据库" class="headerlink" title="常见NoSQL数据库"></a>常见NoSQL数据库</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>代表</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>列存储</td>
+<td>Hbase、Cassandra、Hypertable</td>
+<td>按列存储数据。最大的特点是方便存储结构化和半结构化数据，方便做数据压缩，对针对某一列或者某几列的查询有非常大的IO优势。</td>
+</tr>
+<tr>
+<td>文档存储</td>
+<td>MongoDB、CouchDB</td>
+<td>文档存储一般用类似json的格式存储，存储的内容是文档型的。这样也就有机会对某些字段建立索引，实现关系数据库的某些功能。</td>
+</tr>
+<tr>
+<td>键值对存储</td>
+<td>Tokyo Cabinet/Tyrant、Berkeley DB、MemcacheDB、Redis</td>
+<td>可以通过key快速查询到其value。一般来说，存储不管value的格式，照单全收。（Redis包含了其他功能）</td>
+</tr>
+<tr>
+<td>图存储</td>
+<td>Neo4J、FlockDB</td>
+<td>图形关系的最佳存储。使用传统关系数据库来解决的话性能低下，而且设计使用不方便。</td>
+</tr>
+<tr>
+<td>对象存储</td>
+<td>db4o、Versant</td>
+<td>通过类似面向对象语言的语法操作数据库，通过对象的方式存取数据。</td>
+</tr>
+<tr>
+<td>xml数据库</td>
+<td>Berkeley DB XML、BaseX</td>
+<td>高效的存储XML数据，并支持XML的内部查询语法，比如XQuery,Xpath。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ACID原则"><a href="#ACID原则" class="headerlink" title="ACID原则"></a>ACID原则</h3><p>事务(Transaction)是由一系列对系统中数据进行访问与更新的操作所组成的一个程序执行逻辑单元，狭义上的事务特指数据库事务。一方面，事务为多个应用程序并发访问数据库提供一个隔离方法，防止彼此的操作互相干扰。另一方面，事务为数据库操作序列提供了一个从失败中恢复到正常状态的方法，同时提供了数据库即使在异常状态下仍能保持数据一致性的办法关系型数据库遵循ACID原则，它有如下四个特性：</p>
+<ul>
+<li><p>A (Atomicity) 原子性<br>  原子性很容易理解，也就是说事务里的所有操作要么全部做完，要么都不做，事务成功的条件是事务里的所有操作都成功，只要有一个操作失败，整个事务就失败，需要回滚。<br>  比如银行转账，从A账户转100元至B账户，分为两个步骤：1）从A账户取100元；2）存入100元至B账户。这两步要么一起完成，要么一起不完成，如果只完成第一步，第二步失败，钱会莫名其妙少了100元。</p>
+</li>
+<li><p>C (Consistency) 一致性<br>  一致性也比较容易理解，也就是说数据库要一直处于一致的状态，事务的运行不会改变数据库原本的一致性约束。<br>  例如现有完整性约束a+b=10，如果一个事务改变了a，那么必须得改变b，使得事务结束后依然满足a+b=10，否则事务失败。</p>
+</li>
+<li><p>I (Isolation) 独立性<br>  所谓的独立性是指并发的事务之间不会互相影响，如果一个事务要访问的数据正在被另外一个事务修改，只要另外一个事务未提交，它所访问的数据就不受未提交事务的影响。<br>  比如现在有个交易是从A账户转100元至B账户，在这个交易还未完成的情况下，如果此时B查询自己的账户，是看不到新增加的100元的。</p>
+</li>
+<li><p>D (Durability) 持久性<br>  持久性是指一旦事务提交后，它所做的修改将会永久的保存在数据库上，即使出现宕机也不会丢失。</p>
+<blockquote>
+<p>在标准的SQL规范中，定义了4个事务隔离级别：</p>
+<ul>
+<li>读未提交（Read Uncommited）：允许读取到其他事务未提交的数据，其事务隔离级别最低。</li>
+<li>读已提交（Read Commited）：允许读取到其他事务已提交的数据。</li>
+<li>可重复读（Repeatable Read）：事务处理过程中，多次读取同一个数据，其值都和事务开始时刻是一致的。</li>
+<li>串行化（Serializable）：最严格的事务隔离级别，要求所有事务被串行执行，即事务只能按顺序一个接一个地处理，不能并发执行。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="CAP定理"><a href="#CAP定理" class="headerlink" title="CAP定理"></a>CAP定理</h3><p>在计算机科学中, CAP定理（CAP theorem）, 又被称作布鲁尔定理（Brewer’s theorem）, 它指出对于一个分布式计算系统来说，不可能同时满足以下三点:</p>
+<ul>
+<li>一致性(Consistency) ：所有节点在同一时间具有相同的数据。</li>
+<li>可用性(Availability) ：指系统提供的服务必须一直处于可用的状态，每一个操作请求总是能够在指定时间（即响应时间）内返回结果，不管成功或者失败。</li>
+<li>分区容错(Partition tolerance) ：分布式系统在遇到任何网络分区故障的时候，仍然需要能够保证继续运作，除非是整个网络环境都发送了故障。</li>
+</ul>
+<p>CAP理论的核心是：一个分布式系统不可能同时很好的满足一致性，可用性和分区容错性这三个需求，最多只能同时较好的满足两个。因此，根据 CAP 原理将 NoSQL 数据库分成了满足 CA 原则、满足 CP 原则和满足 AP 原则三 大类：</p>
+<ul>
+<li>CA - 单点集群，满足一致性，可用性的系统，通常在可扩展性上不太强大。</li>
+<li>CP - 满足一致性，分区容忍性的系统，通常性能不是特别高。</li>
+<li>AP - 满足可用性，分区容忍性的系统，通常可能对一致性要求低一些。</li>
+</ul>
+<h3 id="BASE三要素"><a href="#BASE三要素" class="headerlink" title="BASE三要素"></a>BASE三要素</h3><p>BASE是NoSQL数据库通常对可用性及一致性的弱要求原则:</p>
+<ul>
+<li>基本可用(Basically Availble) ：指分布式系统在出现不可预知故障时，允许损失部分可用性。不等价于系统不可用。</li>
+<li>软状态/弱状态(Soft-state) ：指允许系统中数据存在中间状态，并认为该中间状态的存在不影响系统的整体可用性。即允许系统在不同节点的数据副本之间进行数据同步的过程中存在延时。</li>
+<li>最终一致性(Eventual Consistency)：强调系统中所有数据副本，在经过一段时间的同步后，最终能够达到一个一致的状态。并不需要实时保证系统数据的强一致性。<blockquote>
+<p>强一致性：各节点数据保持实时的一致性，和全局时钟下的顺序一致。<br>顺序一致性：各节点数据保持实时的一致性，不需要和全局时钟下的顺序一致，错的话一起错，对的话一起对。<br>最终一致性：允许各节点数据有一段时间延迟，最终保持一致。<br>弱一致性：即使过了一段时间延迟，也不保证一致。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="RDBMS-vs-NoSQL"><a href="#RDBMS-vs-NoSQL" class="headerlink" title="RDBMS vs NoSQL"></a>RDBMS vs NoSQL</h3><table>
+<thead>
+<tr>
+<th>RDBMS</th>
+<th>NoSQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>高度组织结构化数据</td>
+<td>非结构化和不可预知的数据</td>
+</tr>
+<tr>
+<td>结构化查询语言SQL</td>
+<td>没有声明性查询语言，不仅仅是SQL</td>
+</tr>
+<tr>
+<td>数据和关系都存储在单独的表</td>
+<td>键值对存储，列存储，文档存储，图形数据库</td>
+</tr>
+<tr>
+<td>数据操作语言，数据定义语言</td>
+<td>没有预定义的模式</td>
+</tr>
+<tr>
+<td>强一致性</td>
+<td>最终一致性</td>
+</tr>
+<tr>
+<td>ACID原则</td>
+<td>CAP定理</td>
+</tr>
+<tr>
+<td>-</td>
+<td>高性能，高可用性和可伸缩性</td>
+</tr>
+</tbody>
+</table>
+<p>参考地址：<a href="https://www.runoob.com/mongodb/nosql.html" target="_blank" rel="external">https://www.runoob.com/mongodb/nosql.html</a></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年07月14日 00:21</p>
+        <p>原始链接： <a class="post-url" href="/2020/02/11/关系型数据库vs非关系型数据库/" title="关系型数据库vs非关系型数据库">https://www.lousenjay.top/2020/02/11/关系型数据库vs非关系型数据库/</a></p>
+        <footer>
+            <a href="https://www.lousenjay.top">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2020/02/11/关系型数据库vs非关系型数据库/&title=《关系型数据库vs非关系型数据库》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_17.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2020/02/11/关系型数据库vs非关系型数据库/&title=《关系型数据库vs非关系型数据库》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2020/02/11/关系型数据库vs非关系型数据库/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《关系型数据库vs非关系型数据库》 — 若闲小阁&url=https://www.lousenjay.top/2020/02/11/关系型数据库vs非关系型数据库/&via=https://www.lousenjay.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2020/02/11/关系型数据库vs非关系型数据库/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2020/02/11/关系型数据库vs非关系型数据库/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/概念/" class="color3">概念</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#关系型数据库"><span class="post-toc-text">关系型数据库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#非关系型数据库"><span class="post-toc-text">非关系型数据库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NoSQL的优缺点"><span class="post-toc-text">NoSQL的优缺点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常见NoSQL数据库"><span class="post-toc-text">常见NoSQL数据库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ACID原则"><span class="post-toc-text">ACID原则</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CAP定理"><span class="post-toc-text">CAP定理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BASE三要素"><span class="post-toc-text">BASE三要素</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RDBMS-vs-NoSQL"><span class="post-toc-text">RDBMS vs NoSQL</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/11/集中式架构vs分布式架构/" id="article-nav-older" class="article-nav-link-wrap">
+	  <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+	  <span class="article-nav-title">集中式架构vs分布式架构</span>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="关系型数据库vs非关系型数据库" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2020 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "https://www.lousenjay.top",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a><a class="category-link" href="/categories/运维/">运维</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 13.33px;">DTinsight</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 15px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 11.67px;">杂谈</a> <a href="/tags/概念/" style="font-size: 11.67px;">概念</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 13.33px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a target="_blank" href="/">
+                    <i class="fa fa-home"></i><span>主页</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/archives">
+                    <i class="fa fa-archive"></i><span>归档</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/about">
+                    <i class="fa fa-user"></i><span>关于我</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/tasks">
+                    <i class="fa fa-tasks"></i><span>任务表</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 13.33px;">DTinsight</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 15px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 11.67px;">杂谈</a> <a href="/tags/概念/" style="font-size: 11.67px;">概念</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 13.33px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+	<!--APlayer-->
+	<script src="https://www.lousenjay.top/APlayer/js/jquery.min.js"></script>
+	<script src="https://www.lousenjay.top/APlayer/js/velocity.min.js"></script>
+	<script src="https://www.lousenjay.top/APlayer/js/aplayer.min.js"></script>
+	<script src="https://www.lousenjay.top/APlayer/js/aplayer-controler.js"></script>
+	<div class="demo-ap" style="display:none">
+		<div id="player1" class="aplayer"></div>
+	</div>
+	<div class="demo-apc">
+		<div id="apc1" class="apc"></div>
+	</div>
+	
+	
+	
+	<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="https://www.lousenjay.top/live2d/assets/waifu-tips.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("https://www.lousenjay.top/live2d/assets/")
+	</script>
+	
+  </div>
+  
+  <!--APlayer-->
+  <script src="https://www.lousenjay.top/APlayer/js/demo.js"></script>
+  
+
+</body>
+</html>
