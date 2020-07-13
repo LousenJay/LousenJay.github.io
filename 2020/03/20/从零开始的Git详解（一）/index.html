@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200115001134349.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200115001416319.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/2020011500155011.png">
-<meta property="og:updated_time" content="2020-07-13T16:38:23.125Z">
+<meta property="og:updated_time" content="2020-07-13T17:02:52.381Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始的Git详解（一）">
 <meta name="twitter:description" content="前言Git作为目前最流行的版本控制系统，几乎是每个程序猿的必修课程。笔者之前对于Git的使用只停留在基本的操作上，趁这次机会打算重新梳理一遍这个知识点。本文主要流程参照了廖雪峰老师官网的Git课程，记录了笔者自身操作步骤的截图以及遇到的问题。 目录Git常用命令速查表安装Git版本回退工作原理管理修改远程仓库分支管理标签管理 安装Git 下载Git Windows Git-2.24.1.2-64-">
@@ -167,7 +167,7 @@
       
             
             <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Git作为目前最流行的版本控制系统，几乎是每个程序猿的必修课程。笔者之前对于Git的使用只停留在基本的操作上，趁这次机会打算重新梳理一遍这个知识点。本文主要流程参照了廖雪峰老师官网的Git课程，记录了笔者自身操作步骤的截图以及遇到的问题。</p>
-<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><p><a href="https://blog.csdn.net/a1135497143/article/details/107308780" target="_blank" rel="external">Git常用命令速查表</a><br><a href="https://blog.csdn.net/a1135497143/article/details/103965967" target="_blank" rel="external">安装Git</a><br><a href="https://blog.csdn.net/a1135497143/article/details/105061117" target="_blank" rel="external">版本回退</a><br><a href="https://blog.csdn.net/a1135497143/article/details/105084899" target="_blank" rel="external">工作原理</a><br><a href="https://blog.csdn.net/a1135497143/article/details/105108123" target="_blank" rel="external">管理修改</a><br><a href="https://blog.csdn.net/a1135497143/article/details/105131540" target="_blank" rel="external">远程仓库</a><br><a href="https://blog.csdn.net/a1135497143/article/details/105235509" target="_blank" rel="external">分支管理</a><br><a href="https://blog.csdn.net/a1135497143/article/details/107197516" target="_blank" rel="external">标签管理</a></p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><p><a href="https://www.lousenjay.top/2020/07/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Git%E8%AF%A6%E8%A7%A3%EF%BC%88%E5%AE%8C%EF%BC%89/">Git常用命令速查表</a><br><a href="https://www.lousenjay.top/2020/03/20/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Git%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/">安装Git</a><br><a href="https://www.lousenjay.top/2020/03/24/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Git%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/">版本回退</a><br><a href="https://www.lousenjay.top/2020/03/25/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Git%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%89%EF%BC%89/">工作原理</a><br><a href="https://www.lousenjay.top/2020/03/26/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Git%E8%AF%A6%E8%A7%A3%EF%BC%88%E5%9B%9B%EF%BC%89/">管理修改</a><br><a href="https://www.lousenjay.top/2020/03/27/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Git%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/">远程仓库</a><br><a href="https://www.lousenjay.top/2020/07/08/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Git%E8%AF%A6%E8%A7%A3%EF%BC%88%E5%85%AD%EF%BC%89/">分支管理</a><br><a href="https://www.lousenjay.top/2020/07/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Git%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%83%EF%BC%89/">标签管理</a></p>
 <h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h3><ol>
 <li>下载Git<br> Windows Git-2.24.1.2-64-bit.exe<br> 地址：<a href="https://pan.baidu.com/s/1YlZpp8PSoYac6TVHjC8z9Q" target="_blank" rel="external">https://pan.baidu.com/s/1YlZpp8PSoYac6TVHjC8z9Q</a>   提取码：iehq</li>
 <li>安装Git<br> 全部选择默认，一路next</li>
@@ -189,7 +189,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年07月14日 00:38</p>
+        <p>最后更新： 2020年07月14日 01:02</p>
         <p>原始链接： <a class="post-url" href="/2020/03/20/从零开始的Git详解（一）/" title="从零开始的Git详解（一）">https://www.lousenjay.top/2020/03/20/从零开始的Git详解（一）/</a></p>
         <footer>
             <a href="https://www.lousenjay.top">
