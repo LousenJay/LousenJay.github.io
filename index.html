@@ -119,6 +119,585 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
+    <article id="post-从零开始的Git详解（完）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/13/从零开始的Git详解（完）/"  target="_blank"  >从零开始的Git详解（完）</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/分布式/">分布式</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/07/13/从零开始的Git详解（完）/"  target="_blank" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_9.jpg" alt="从零开始的Git详解（完）" title="从零开始的Git详解（完）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                Git常用命令速查表创建
+创建一个已存在的仓库。git clone git@github.com:LousenJay/DingGong.git
+创建一个新的本地仓库。git init
+
+本地修改
+查看工作区当前状态git status
+查看工作区与版本库里面最新版本的区别git diff
+将工作区当前所有的修改内容添加到暂存区git add .
+将工作区指定的修改内容添加...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-07-13</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Git/" class="color4">Git</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/07/13/从零开始的Git详解（完）/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-从零开始的Git详解（七）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/13/从零开始的Git详解（七）/"  target="_blank"  >从零开始的Git详解（七）</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/分布式/">分布式</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/07/13/从零开始的Git详解（七）/"  target="_blank" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_8.jpg" alt="从零开始的Git详解（七）" title="从零开始的Git详解（七）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                标签管理常见场景：每一个commit都有对应的commit id，我们可以根据commit id找到对应的版本。但是commit id是一串无规律的字符串，不便于记忆。解决方案：Git提供了标签的功能，可以给对应版本打上标签，标签相当于是版本库的快照，取某个标签的版本，就是把打标签的时刻的历史版本取出来。简而言之，标签和指定的commit id是绑定的，相当于取了一个便于...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-07-13</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Git/" class="color4">Git</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/07/13/从零开始的Git详解（七）/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-从零开始的Git详解（六）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/08/从零开始的Git详解（六）/"  target="_blank"  >从零开始的Git详解（六）</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/分布式/">分布式</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/07/08/从零开始的Git详解（六）/"  target="_blank" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_7.jpg" alt="从零开始的Git详解（六）" title="从零开始的Git详解（六）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                分支管理概念：分支好比两条互不干扰的时间线，合并相当于两条时间线重叠了。场景：在自己的分支干活，不影响其他分支。自己代码写的咋样没点B数吗。 
+创建与合并分支在Git里，有一个主分支被叫做master，有一个指针被叫做HEAD。
+
+一开始，只有master这一条分支，HEAD指向当前分支即master，master指向提交。
+
+使用命令git branch查看当前分支
+
+...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-07-08</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Git/" class="color4">Git</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/07/08/从零开始的Git详解（六）/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-从零开始的Git详解（五）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/27/从零开始的Git详解（五）/"  target="_blank"  >从零开始的Git详解（五）</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/分布式/">分布式</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/03/27/从零开始的Git详解（五）/"  target="_blank" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_6.jpg" alt="从零开始的Git详解（五）" title="从零开始的Git详解（五）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                远程仓库Git是分布式版本控制器，同一个Git仓库可以分布到不同的机器上，而且每台机器的版本库都是一样的没有主次之分。实际上，一般找一台电脑充当服务器角色，每天24小时运行，其他成员可以从这台服务器的版本库克隆一份到自己的电脑上，并且各自把各自的提交推送到服务器版本库里，也可以从服务器仓库中拉取别人的提交。
+绑定github世界上有一个gay里gay气的网站叫“gayhu...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-03-27</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Git/" class="color4">Git</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/03/27/从零开始的Git详解（五）/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-从零开始的Git详解（四）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/26/从零开始的Git详解（四）/"  target="_blank"  >从零开始的Git详解（四）</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/分布式/">分布式</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/03/26/从零开始的Git详解（四）/"  target="_blank" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_5.jpg" alt="从零开始的Git详解（四）" title="从零开始的Git详解（四）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                查看修改相较于其它版本控制系统，Git跟踪的是修改而不是文件本身，可以使用git diff HEAD -- filename命令来查看工作区与版本库里面最新版本的区别。例：当前工作区相较于版本库最新版本删除了两行内容
+撤销修改
+将工作区的修改全部丢弃，恢复到和版本库最新版本一致的状态，使用git checkout -- filename命令。
+将暂存区的修改全部丢弃，第一...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-03-26</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Git/" class="color4">Git</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/03/26/从零开始的Git详解（四）/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-从零开始的Git详解（三）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/25/从零开始的Git详解（三）/"  target="_blank"  >从零开始的Git详解（三）</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/分布式/">分布式</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/03/25/从零开始的Git详解（三）/"  target="_blank" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_4.jpg" alt="从零开始的Git详解（三）" title="从零开始的Git详解（三）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                Git工作原理工作区工作区（Working Directory）就是在电脑里能看到的一个单独的文件夹，对应一个Project，如下图所示Test文件夹就是一个工作区。
+版本库Git版本库（Repostitory）是指工作区内隐藏的文件夹.git，这个文件夹存放了很多东西，其中最主要的是stage（或称为index）的暂存区，还有Git自动创建的第一个master分支，以及...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-03-25</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Git/" class="color4">Git</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/03/25/从零开始的Git详解（三）/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-从零开始的Git详解（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/24/从零开始的Git详解（二）/"  target="_blank"  >从零开始的Git详解（二）</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/分布式/">分布式</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/03/24/从零开始的Git详解（二）/"  target="_blank" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_3.jpg" alt="从零开始的Git详解（二）" title="从零开始的Git详解（二）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                版本回退不断对文件进行修改并提交时，版本库会产生多个历史版本，git reset命令可以使其回退到指定的版本。
+
+创建多个版本Version 1.0Version 2.0Version 3.0
+查看历史提交日志a.查看所有日志git log注：按q键退出浏览
+b.查看格式化后的日志git log --pretty=oneline
+
+回退版本在git用HEAD表示当前版本，...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-03-24</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Git/" class="color4">Git</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/03/24/从零开始的Git详解（二）/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-从零开始的Git详解（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/20/从零开始的Git详解（一）/"  target="_blank"  >从零开始的Git详解（一）</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/分布式/">分布式</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/03/20/从零开始的Git详解（一）/"  target="_blank" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_2.jpg" alt="从零开始的Git详解（一）" title="从零开始的Git详解（一）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                前言Git作为目前最流行的版本控制系统，几乎是每个程序猿的必修课程。笔者之前对于Git的使用只停留在基本的操作上，趁这次机会打算重新梳理一遍这个知识点。本文主要流程参照了廖雪峰老师官网的Git课程，记录了笔者自身操作步骤的截图以及遇到的问题。
+目录Git常用命令速查表安装Git版本回退工作原理管理修改远程仓库分支管理标签管理
+安装Git
+下载Git Windows Git...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-03-20</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Git/" class="color4">Git</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/03/20/从零开始的Git详解（一）/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-集中式架构vs分布式架构" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/12/集中式架构vs分布式架构/"  target="_blank"  >集中式架构vs分布式架构</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/大数据/">大数据</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/02/12/集中式架构vs分布式架构/"  target="_blank" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_1.jpg" alt="集中式架构vs分布式架构" title="集中式架构vs分布式架构">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                历史自从20世纪60年代大型主机被发明出来以后，凭借其超强的计算和I/O处理能力以及在稳定性和安全性方面的卓越表现，在很长一段时间内，大型主机引领了计算机行业以及商业计算领域的发展。由于大型主机卓越的性能和良好的稳定性，其在单机处理能力方面的优势非常明显，使得IT系统快速进入了集中式处理阶段，其对应的计算机系统称为集中式系统。
+但从20世纪80年代以来，随着微型计算机的出...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-02-12</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/杂谈/" class="color3">杂谈</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/02/12/集中式架构vs分布式架构/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
     <article id="post-关系型数据库vs非关系型数据库" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -166,7 +745,7 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/概念/" class="color3">概念</a>
+    <a href="/tags/杂谈/" class="color3">杂谈</a>
       
   </li>
 
@@ -180,594 +759,10 @@
 
 
   
-    <article id="post-集中式架构vs分布式架构" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/11/集中式架构vs分布式架构/"  target="_blank"  >集中式架构vs分布式架构</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/大数据/">大数据</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/02/11/集中式架构vs分布式架构/"  target="_blank" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_1.jpg" alt="集中式架构vs分布式架构" title="集中式架构vs分布式架构">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                历史自从20世纪60年代大型主机被发明出来以后，凭借其超强的计算和I/O处理能力以及在稳定性和安全性方面的卓越表现，在很长一段时间内，大型主机引领了计算机行业以及商业计算领域的发展。由于大型主机卓越的性能和良好的稳定性，其在单机处理能力方面的优势非常明显，使得IT系统快速进入了集中式处理阶段，其对应的计算机系统称为集中式系统。
-但从20世纪80年代以来，随着微型计算机的出...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-02-11</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/概念/" class="color3">概念</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2020/02/11/集中式架构vs分布式架构/#more" class="article-more-link"  target="_blank" >阅读全文</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-Windows转Mac的踩坑记录" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/02/Windows转Mac的踩坑记录/"  target="_blank"  >Windows转Mac的踩坑记录</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/计算机/">计算机</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2019/07/02/Windows转Mac的踩坑记录/"  target="_blank" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_16.jpg" alt="Windows转Mac的踩坑记录" title="Windows转Mac的踩坑记录">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                掌握基本手势启动台——系统偏好设置——触控板
-
-光标与点按
-滚动缩放
-更多手势
-
-掌握常用快捷键
-聚焦【相当于win的搜索】 command+空格
-访达【相当于win的搜索全屏显示】 option+command+空格
-打开或关闭程序坞【相当于win的显示桌面】 option+command+D
-切换上一个输入法 control+空格
-切换下一个输入法 control+o...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2019-07-02</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/软件/" class="color3">软件</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2019/07/02/Windows转Mac的踩坑记录/#more" class="article-more-link"  target="_blank" >阅读全文</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-常用Hive开窗函数示例" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/31/常用Hive开窗函数示例/"  target="_blank"  >常用Hive开窗函数示例</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/大数据/">大数据</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2019/05/31/常用Hive开窗函数示例/"  target="_blank" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_15.jpg" alt="常用Hive开窗函数示例" title="常用Hive开窗函数示例">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                简介普通的聚合函数每组(group by)只返回一个值，而开窗函数则可以为每行都返回一个值。简而言之，相当于对查询的结果添加新的一列值，这一列可以是聚合值，也可以是排序号。开窗函数的关键字是over()。
-准备测试数据
-建表 create table if not exists student_scores( id string, studentId string, la...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2019-05-31</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/hive/" class="color5">hive</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2019/05/31/常用Hive开窗函数示例/#more" class="article-more-link"  target="_blank" >阅读全文</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-SaaS，PaaS和IaaS的概念和区别" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/22/SaaS，PaaS和IaaS的概念和区别/"  target="_blank"  >SaaS，PaaS和IaaS的概念和区别</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/运维/">运维</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2019/04/22/SaaS，PaaS和IaaS的概念和区别/"  target="_blank" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_14.jpg" alt="SaaS，PaaS和IaaS的概念和区别" title="SaaS，PaaS和IaaS的概念和区别">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                IaaS, PaaS和SaaS是云计算的三种服务模式，以下分别从官方和通俗两个角度来理解SaaS、PaaS和IaaS的概念以及它们之间的区别
-
-
-官方角度IaaS基础设施即服务(IaaS ：Infrastructure as a Service)，IaaS把计算基础(服务器、网络技术、存储和数据中心空间)作为一项服务提供给客户。它也包括提供操作系统和虚拟化技术、来管理资源...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2019-04-22</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/杂谈/" class="color3">杂谈</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2019/04/22/SaaS，PaaS和IaaS的概念和区别/#more" class="article-more-link"  target="_blank" >阅读全文</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-收集的网易云评论" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/05/收集的网易云评论/"  target="_blank"  >那些年触动我的网易云评论</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/人生/">人生</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2019/03/05/收集的网易云评论/"  target="_blank" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_13.jpg" alt="那些年触动我的网易云评论" title="那些年触动我的网易云评论">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                简介经常会被网易云的一些评论所触动，优美的曲子配上恰到好处的评论，总能引发内心的共鸣，也许这就是音乐的魅力所在吧，跨越时间的长河，打破空间的阻隔，这一刻，心与心的碰撞，我想，知音莫过于此吧。
-记录了一些触动我的曲子和评论，后续或许我会在blog上添加个音乐播放器来播放这些歌曲，敬请期待~
-远方
-桥墩下有流浪人在打瞌睡。
-遗世而独立的摇晃。
-如果可以。
-去草原，
-去海边，
-...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2019-03-05</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/杂谈/" class="color3">杂谈</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2019/03/05/收集的网易云评论/#more" class="article-more-link"  target="_blank" >阅读全文</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-Atom+Asciidoctor+Antora环境搭建" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/26/Atom+Asciidoctor+Antora环境搭建/"  target="_blank"  >Atom+Asciidoctor+Antora环境搭建</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/计算机/">计算机</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2019/02/26/Atom+Asciidoctor+Antora环境搭建/"  target="_blank" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_12.jpg" alt="Atom+Asciidoctor+Antora环境搭建" title="Atom+Asciidoctor+Antora环境搭建">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                Atom简介Atom是github专门为程序员推出的一个跨平台文本编辑器。具有简洁和直观的图形用户界面，并有很多有趣的特点：支持CSS，HTML，JavaScript等网页编程语言。它支持宏，自动完成分屏功能，集成了文件管理器。
-安装【windows7】1.下载官网链接2.安装3.配置环境变量path中添加C:\Users\Administrator\AppData\Lo...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2019-02-26</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/软件/" class="color3">软件</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2019/02/26/Atom+Asciidoctor+Antora环境搭建/#more" class="article-more-link"  target="_blank" >阅读全文</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-kafka集群搭建" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/31/kafka集群搭建/"  target="_blank"  >kafka集群搭建</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/大数据/">大数据</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2019/01/31/kafka集群搭建/"  target="_blank" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_11.jpg" alt="kafka集群搭建" title="kafka集群搭建">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                Kafka单机模式1.解压tar -xvf kafka_2.11-0.8.0.0.tgz -C /home/hadoop/apps/
-2.配置环境变量vi ~/.bashrc12export KAFKA_HOME=/opt/software/kafka      export PATH=$PATH:$KAFKA_HOME/bin
-source ~/.bashrc
-3.启动...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2019-01-31</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/kafka/" class="color1">kafka</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2019/01/31/kafka集群搭建/#more" class="article-more-link"  target="_blank" >阅读全文</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-如何免费下载各大数据库资源" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/28/如何免费下载各大数据库资源/"  target="_blank"  >如何免费下载各大数据库资源</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/大数据/">大数据</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2018/12/28/如何免费下载各大数据库资源/"  target="_blank" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_10.jpg" alt="如何免费下载各大数据库资源" title="如何免费下载各大数据库资源">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                主要步骤：
-支付宝内搜索并关注“浙江图书馆”的生活号，点击“服务”-》“服务大厅”-》“办理读者证（免费的，自定义读者证的密码）”，办理完读者证后可以去支付宝卡包查看读者证的卡号。
-打开浙江图书馆的官网链接（浙江图书馆）用读者证的卡号和密码登录浙江图书馆，在右下角会有数据库推荐版块，里面有知网（CNKI）、维普、万方等数据库都可以免费访问和下载资源了~ps：偶尔可能404...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2018-12-28</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/数据库/" class="color4">数据库</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2018/12/28/如何免费下载各大数据库资源/#more" class="article-more-link"  target="_blank" >阅读全文</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-数栈-数据开发规范" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/21/数栈-数据开发规范/"  target="_blank"  >数栈-数据开发规范</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/大数据/">大数据</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2018/12/21/数栈-数据开发规范/"  target="_blank" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_9.jpg" alt="数栈-数据开发规范" title="数栈-数据开发规范">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                术语解释
-ODS(Operational Data Store):操作型数据，即源数据，指结构与源系统基本保持一致的增量或全量数据。作为DW数据的一个数据准备区，同时又承担基础数据记录历史变化。
-CDM(Common Data Model):通用数据模型(数据中间层)，包含DWD和DWS。
-DWD(Data Warehouse Detail):数据仓库明细层数据。
-DWS...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2018-12-21</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/DTinsight/" class="color5">DTinsight</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2018/12/21/数栈-数据开发规范/#more" class="article-more-link"  target="_blank" >阅读全文</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">Next >></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next >></a>
   </nav>
 </section>
         
@@ -825,7 +820,7 @@ DWS...
             <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a><a class="category-link" href="/categories/运维/">运维</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 13.33px;">DTinsight</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 15px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 11.67px;">杂谈</a> <a href="/tags/概念/" style="font-size: 11.67px;">概念</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 13.33px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 13.33px;">DTinsight</a> <a href="/tags/Git/" style="font-size: 18.33px;">Git</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 15px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 15px;">杂谈</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 13.33px;">软件</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -864,7 +859,7 @@ DWS...
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 13.33px;">DTinsight</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 15px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 11.67px;">杂谈</a> <a href="/tags/概念/" style="font-size: 11.67px;">概念</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 13.33px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 13.33px;">DTinsight</a> <a href="/tags/Git/" style="font-size: 18.33px;">Git</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 15px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 15px;">杂谈</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 13.33px;">软件</a>
         </div>
     </div>
 </div>

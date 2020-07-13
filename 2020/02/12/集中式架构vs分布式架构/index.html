@@ -9,14 +9,14 @@
     <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
   
   <meta name="description" content="历史自从20世纪60年代大型主机被发明出来以后，凭借其超强的计算和I/O处理能力以及在稳定性和安全性方面的卓越表现，在很长一段时间内，大型主机引领了计算机行业以及商业计算领域的发展。由于大型主机卓越的性能和良好的稳定性，其在单机处理能力方面的优势非常明显，使得IT系统快速进入了集中式处理阶段，其对应的计算机系统称为集中式系统。 但从20世纪80年代以来，随着微型计算机的出现，越来越多廉价的PC机成">
-<meta name="keywords" content="概念">
+<meta name="keywords" content="杂谈">
 <meta property="og:type" content="article">
 <meta property="og:title" content="集中式架构vs分布式架构">
-<meta property="og:url" content="https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/index.html">
+<meta property="og:url" content="https://www.lousenjay.top/2020/02/12/集中式架构vs分布式架构/index.html">
 <meta property="og:site_name" content="若闲小阁">
 <meta property="og:description" content="历史自从20世纪60年代大型主机被发明出来以后，凭借其超强的计算和I/O处理能力以及在稳定性和安全性方面的卓越表现，在很长一段时间内，大型主机引领了计算机行业以及商业计算领域的发展。由于大型主机卓越的性能和良好的稳定性，其在单机处理能力方面的优势非常明显，使得IT系统快速进入了集中式处理阶段，其对应的计算机系统称为集中式系统。 但从20世纪80年代以来，随着微型计算机的出现，越来越多廉价的PC机成">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-07-13T16:23:19.758Z">
+<meta property="og:updated_time" content="2020-07-13T16:37:52.645Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="集中式架构vs分布式架构">
 <meta name="twitter:description" content="历史自从20世纪60年代大型主机被发明出来以后，凭借其超强的计算和I/O处理能力以及在稳定性和安全性方面的卓越表现，在很长一段时间内，大型主机引领了计算机行业以及商业计算领域的发展。由于大型主机卓越的性能和良好的稳定性，其在单机处理能力方面的优势非常明显，使得IT系统快速进入了集中式处理阶段，其对应的计算机系统称为集中式系统。 但从20世纪80年代以来，随着微型计算机的出现，越来越多廉价的PC机成">
@@ -139,7 +139,7 @@
               </li>
           
         <li>
-          <i class="fa fa-calendar"></i>  2020-02-11
+          <i class="fa fa-calendar"></i>  2020-02-12
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -243,9 +243,9 @@
 <h3 id="可用性与一致性"><a href="#可用性与一致性" class="headerlink" title="可用性与一致性"></a>可用性与一致性</h3><p>集中式系统的计算、存储都在一套硬件体系内，无需面对网络分区（网络无法连接）问题，能很容易实现高一致性，并通过存储的冗余和软硬件结合的高度优化，达到了较高的可靠性。但在可用性方面，由于集中式架构在设计上是一个单点，单机不可用即全部不可用，所以集中式的系统只能在停机维护时暂停业务，这一点在很多互联网场景下是难以接受的。</p>
 <p>分布式架构设计，天然就有多个节点，很容易通过主备（HA）、冗余、哈希等手段实现计算和存储冗余备份，从而实现高可用。但是，分布式架构多个节点的设计也带来了保持一致性和高可靠性上的巨大挑战。根据CAP理论，任何基于网络的数据共享系统（即分布式系统）最多只能满足数据一致性（Consistency）、可用性（Availability）和网络分区容忍（Partition Tolerance）三个特性中的两个。在大规模的分布式环境下，网络故障是常态，所以网络分区是必须容忍的现实，只能在可用性和一致性两者间做出选择，即 CP 模型或者 AP 模型，实际的选择需要通过业务场景来权衡。</p>
 <p>对于一些离线的应用，或者对可用率不敏感的业务，可以适当牺牲可用性来保证强一致，即采用 CP 模型，这样会大大简化设计，系统具备不可用的发现和恢复机制就能让系统保持正常的运转，纯粹的 CP 模型还是比较简单，但适用场景也非常有限。更多场景需要保证提供连续可靠的服务，需要在采取AP模型的同时尽可能保证一致性。根据BASE三要素，在保证单机事务的 ACID 原则的前提下，确保全局分布式事务的最终一致性。</p>
-<h3 id="运维复杂度与故障恢复能力"><a href="#运维复杂度与故障恢复能力" class="headerlink" title="运维复杂度与故障恢复能力"></a>运维复杂度与故障恢复能力</h3><p>在==发布部署==方面，集中式架构部署结构简单，设备数量少，一般只需应对百台内规模的代码/配置更新，通过简单的脚本或者平台就可以自动化完成，发布时间一般也能控制在小时级别。而且采用集中式架构的系统一般比较稳定，发布周期也不会太频繁；在分布式环境下，千台甚至万台服务器的规模很常见，如果按照传统的串行操作和自动化脚本，整个发布周期会非常长，一旦出现问题，回滚也会非常慢。在分布式架构下，往往需要提供 P2P 分发或类似的技术手段来加速发布过程，同时通过 beta 发布、分组发布、蓝绿发布等手段来解决大规模集群下的发布验证、灰度引流和快速回滚等问题。</p>
-<p>在==系统监控==方面，集中式架构比较简单。而在分布式环境下做监控，主要挑战在于海量日志的实时分析和秒级展示。系统运行的状态分散在上万台规模的集群中，每时每刻都在产生新的状态。监控系统需要通过日志或者消息的方式采集整个集群的数据做各种统计分析。在巨大的业务量下，每晚一秒钟发现问题就会带来大量的业务异常，在极端情况下还会产生不可估量的损失。因此，也需要监控体系具备秒级的实时计算能力。</p>
-<p>在系统的==容灾机制==和==故障恢复==方面，集中式架构一般会采用主备复制和主备切换的方式来实现，几种典型设计原则包括一主多备，同城双活，两地三中心等。集中式的容灾方案比较成熟，也沉淀了数据复制、镜像快照、一体化迁移等一系列容灾相关的技术，可以从容应对各种场景，但仍然在以下几个方面存在不足：</p>
+<h3 id="运维复杂度与故障恢复能力"><a href="#运维复杂度与故障恢复能力" class="headerlink" title="运维复杂度与故障恢复能力"></a>运维复杂度与故障恢复能力</h3><p>在发布部署方面，集中式架构部署结构简单，设备数量少，一般只需应对百台内规模的代码/配置更新，通过简单的脚本或者平台就可以自动化完成，发布时间一般也能控制在小时级别。而且采用集中式架构的系统一般比较稳定，发布周期也不会太频繁；在分布式环境下，千台甚至万台服务器的规模很常见，如果按照传统的串行操作和自动化脚本，整个发布周期会非常长，一旦出现问题，回滚也会非常慢。在分布式架构下，往往需要提供 P2P 分发或类似的技术手段来加速发布过程，同时通过 beta 发布、分组发布、蓝绿发布等手段来解决大规模集群下的发布验证、灰度引流和快速回滚等问题。</p>
+<p>在系统监控方面，集中式架构比较简单。而在分布式环境下做监控，主要挑战在于海量日志的实时分析和秒级展示。系统运行的状态分散在上万台规模的集群中，每时每刻都在产生新的状态。监控系统需要通过日志或者消息的方式采集整个集群的数据做各种统计分析。在巨大的业务量下，每晚一秒钟发现问题就会带来大量的业务异常，在极端情况下还会产生不可估量的损失。因此，也需要监控体系具备秒级的实时计算能力。</p>
+<p>在系统的容灾机制和故障恢复方面，集中式架构一般会采用主备复制和主备切换的方式来实现，几种典型设计原则包括一主多备，同城双活，两地三中心等。集中式的容灾方案比较成熟，也沉淀了数据复制、镜像快照、一体化迁移等一系列容灾相关的技术，可以从容应对各种场景，但仍然在以下几个方面存在不足：</p>
 <ul>
 <li>成本较高：在集中式架构下，经典的灾备方案一般会做全量备份，在一些改进方案中会通过余量空间做交叉互备等方式来降低成本，但整体上看还成本还是较高。为 1% 甚至概率更低的灾难场景，而付出与支撑当前业务量相等的成本，这对需要承载海量业务的互联网业务来说更是一个巨大的负担；</li>
 <li>恢复时间较长：灾备方案中大量用到数据复制技术，但由于网络带宽或者异地延迟等问题，在恢复时，需要等待数据完全一致后才能切换，而且无论备份数据是冷备还是热备，切换都有一个预热的过程。综合切换复杂度和上述的技术限制等因素，很难缩短恢复时间。</li>
@@ -269,8 +269,8 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年07月14日 00:23</p>
-        <p>原始链接： <a class="post-url" href="/2020/02/11/集中式架构vs分布式架构/" title="集中式架构vs分布式架构">https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/</a></p>
+        <p>最后更新： 2020年07月14日 00:37</p>
+        <p>原始链接： <a class="post-url" href="/2020/02/12/集中式架构vs分布式架构/" title="集中式架构vs分布式架构">https://www.lousenjay.top/2020/02/12/集中式架构vs分布式架构/</a></p>
         <footer>
             <a href="https://www.lousenjay.top">
                 <img src="/images/logo.png" alt="Lousen Jay">
@@ -292,7 +292,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/&title=《集中式架构vs分布式架构》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_1.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2020/02/12/集中式架构vs分布式架构/&title=《集中式架构vs分布式架构》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_1.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -302,22 +302,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/&title=《集中式架构vs分布式架构》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2020/02/12/集中式架构vs分布式架构/&title=《集中式架构vs分布式架构》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2020/02/12/集中式架构vs分布式架构/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《集中式架构vs分布式架构》 — 若闲小阁&url=https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/&via=https://www.lousenjay.top" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《集中式架构vs分布式架构》 — 若闲小阁&url=https://www.lousenjay.top/2020/02/12/集中式架构vs分布式架构/&via=https://www.lousenjay.top" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2020/02/12/集中式架构vs分布式架构/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -327,7 +327,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2020/02/11/集中式架构vs分布式架构/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2020/02/12/集中式架构vs分布式架构/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -339,7 +339,7 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/概念/" class="color3">概念</a>
+    <a href="/tags/杂谈/" class="color3">杂谈</a>
       
   </li>
 
@@ -359,19 +359,19 @@
 
 <nav id="article-nav">
   
-    <a href="/2020/02/11/关系型数据库vs非关系型数据库/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/03/20/从零开始的Git详解（一）/" id="article-nav-newer" class="article-nav-link-wrap">
       <span class="article-nav-title"> 
         
-          关系型数据库vs非关系型数据库
+          从零开始的Git详解（一）
         
 		<i class="fa fa-hand-o-right" aria-hidden="true"></i>
       </span>
     </a>
   
   
-    <a href="/2019/07/02/Windows转Mac的踩坑记录/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/02/11/关系型数据库vs非关系型数据库/" id="article-nav-older" class="article-nav-link-wrap">
 	  <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-	  <span class="article-nav-title">Windows转Mac的踩坑记录</span>
+	  <span class="article-nav-title">关系型数据库vs非关系型数据库</span>
     </a>
   
 </nav>
@@ -444,7 +444,7 @@
             <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/OS/">OS</a><a class="category-link" href="/categories/SSH/">SSH</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/算法/">算法</a><a class="category-link" href="/categories/计算机/">计算机</a><a class="category-link" href="/categories/软件工程/">软件工程</a><a class="category-link" href="/categories/运维/">运维</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 13.33px;">DTinsight</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 15px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 11.67px;">杂谈</a> <a href="/tags/概念/" style="font-size: 11.67px;">概念</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 13.33px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 13.33px;">DTinsight</a> <a href="/tags/Git/" style="font-size: 18.33px;">Git</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 15px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 15px;">杂谈</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 13.33px;">软件</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -483,7 +483,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 13.33px;">DTinsight</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 15px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 11.67px;">杂谈</a> <a href="/tags/概念/" style="font-size: 11.67px;">概念</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 13.33px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS-6-9/" style="font-size: 10px;">CentOS 6.9</a> <a href="/tags/CentOS-7/" style="font-size: 13.33px;">CentOS 7</a> <a href="/tags/DTinsight/" style="font-size: 13.33px;">DTinsight</a> <a href="/tags/Git/" style="font-size: 18.33px;">Git</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 15px;">Hibernate</a> <a href="/tags/I-O/" style="font-size: 11.67px;">I/O</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.67px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.67px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 11.67px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 13.33px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hive/" style="font-size: 15px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 13.33px;">mapreduce</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/基础算法/" style="font-size: 10px;">基础算法</a> <a href="/tags/基础语法/" style="font-size: 10px;">基础语法</a> <a href="/tags/多线程/" style="font-size: 11.67px;">多线程</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 15px;">杂谈</a> <a href="/tags/虚拟端口/" style="font-size: 10px;">虚拟端口</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 13.33px;">软件</a>
         </div>
     </div>
 </div>
