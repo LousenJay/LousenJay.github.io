@@ -38,7 +38,7 @@ var myapc1=new APlayer_Controler({
 		fixed:false,
 		btn_width:170,
 		btn_height:200,
-		img_src:['https://www.lousenjay.top/APlayer/img/13.gif'],  // 背景图1,3,
+		img_src:['https://www.lousenjay.top/APlayer/img/10.gif'],  // 背景图1,3,
 		img_style:{repeat:'no-repeat',position:'center',size:'contain'}, // 背景图样式
 		ctrls_color:'rgba(173,255,47,0.7)',
 		ctrls_hover_color:'rgba(255,140,0,0.8)',
