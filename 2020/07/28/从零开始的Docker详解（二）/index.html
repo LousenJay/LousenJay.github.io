@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200728033140205.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200728033911785.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200728034109102.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2020-07-29T01:12:15.918Z">
+<meta property="og:updated_time" content="2020-07-29T01:19:47.381Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始的Docker详解（二）">
 <meta name="twitter:description" content="Docker容器Docker客户端1.使用docker命令查看docker客户端支持的命令列表2.使用docker &amp;lt;command&amp;gt; --help命令查看指定命令的使用方法 Docker容器基本操作命令1.使用命令docker pull &amp;lt;image&amp;gt;来获取指定镜像2.使用命令docker run -it &amp;lt;image&amp;gt; &amp;lt;command&amp;gt;来启动一">
@@ -188,19 +188,15 @@
 <ul>
 <li>created（已创建）</li>
 <li>restarting（重启中）</li>
-<li>runnning（运行中）<ul>
+<li>runnning（运行中）</li>
 <li>removing（迁移中）</li>
-</ul>
-</li>
 <li>paused（暂停）</li>
 <li>exited（停止）</li>
 <li>dead （死亡）</li>
 </ul>
 </blockquote>
 <p>4.使用命令<code>docker start &lt;container id&gt;</code>启动一个已经停止的容器<br><img src="https://img-blog.csdnimg.cn/20200728025420669.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<ol>
-<li>使用命令<code>docker run -itd --name &lt;names&gt; &lt;image&gt; &lt;command&gt;</code>在后台运行指定容器<br><img src="https://img-blog.csdnimg.cn/2020072802583367.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
-</ol>
+<p>5.使用命令<code>docker run -itd --name &lt;names&gt; &lt;image&gt; &lt;command&gt;</code>在后台运行指定容器<br><img src="https://img-blog.csdnimg.cn/2020072802583367.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>参数说明：</p>
 <ul>
 <li>-i：交互式操作</li>
@@ -232,14 +228,11 @@
 <li>方式二<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker import &lt;URL&gt;</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>11.使用命令<code>docker rm -f &lt;command id&gt;</code>来删除容器<br><img src="https://img-blog.csdnimg.cn/20200728033911785.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<ol>
-<li>使用命令<code>docker container prune</code>来批量删除处于停止状态的容器<br><img src="https://img-blog.csdnimg.cn/20200728034109102.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
-</ol>
+<p>11.使用命令<code>docker rm -f &lt;command id&gt;</code>来删除容器<br><img src="https://img-blog.csdnimg.cn/20200728033911785.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>12.使用命令<code>docker container prune</code>来批量删除处于停止状态的容器<br><img src="https://img-blog.csdnimg.cn/20200728034109102.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年07月29日 09:12</p>
+        <p>最后更新： 2020年07月29日 09:19</p>
         <p>原始链接： <a class="post-url" href="/2020/07/28/从零开始的Docker详解（二）/" title="从零开始的Docker详解（二）">https://www.lousenjay.top/2020/07/28/从零开始的Docker详解（二）/</a></p>
         <footer>
             <a href="https://www.lousenjay.top">
@@ -329,7 +322,7 @@
 
 <nav id="article-nav">
   
-    <a href="/2020/07/29/从零开始的Docker详解（三） /" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/07/29/从零开始的Docker详解（三）/" id="article-nav-newer" class="article-nav-link-wrap">
       <span class="article-nav-title"> 
         
           从零开始的Docker详解（三）
