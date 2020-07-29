@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>从零开始的Docker详解（二） | 若闲小阁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="LousenJay,LousenJay's Blog,若闲小阁,技术博客,Hexo" />
+  
+  <meta name="description" content="Docker容器Docker客户端1.使用docker命令查看docker客户端支持的命令列表2.使用docker &amp;lt;command&amp;gt; --help命令查看指定命令的使用方法 Docker容器基本操作命令1.使用命令docker pull &amp;lt;image&amp;gt;来获取指定镜像2.使用命令docker run -it &amp;lt;image&amp;gt; &amp;lt;command&amp;gt;来启动一">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始的Docker详解（二）">
+<meta property="og:url" content="https://www.lousenjay.top/2020/07/28/从零开始的Docker详解（二）/index.html">
+<meta property="og:site_name" content="若闲小阁">
+<meta property="og:description" content="Docker容器Docker客户端1.使用docker命令查看docker客户端支持的命令列表2.使用docker &amp;lt;command&amp;gt; --help命令查看指定命令的使用方法 Docker容器基本操作命令1.使用命令docker pull &amp;lt;image&amp;gt;来获取指定镜像2.使用命令docker run -it &amp;lt;image&amp;gt; &amp;lt;command&amp;gt;来启动一">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200728021545832.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200728021743819.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200728022143228.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200728023013294.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200728023840952.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200728025420669.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020072802583367.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200728030144619.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200728030650210.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200728031748776.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200728032159966.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200728032547752.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200728033140205.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200728033911785.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200728034109102.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2020-07-29T01:12:15.918Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从零开始的Docker详解（二）">
+<meta name="twitter:description" content="Docker容器Docker客户端1.使用docker命令查看docker客户端支持的命令列表2.使用docker &amp;lt;command&amp;gt; --help命令查看指定命令的使用方法 Docker容器基本操作命令1.使用命令docker pull &amp;lt;image&amp;gt;来获取指定镜像2.使用命令docker run -it &amp;lt;image&amp;gt; &amp;lt;command&amp;gt;来启动一">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200728021545832.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!--live2d-->
+  <link rel="stylesheet" type="text/css" href="https://www.lousenjay.top/live2d/assets/waifu.css"/>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LousenJay&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a target="_blank" href="/">
+                        <i class="fa fa-home"></i>
+                        <span>主页</span>
+                    </a>
+                    
+                    <a target="_blank" href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>归档</span>
+                    </a>
+                    
+                    <a target="_blank" href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>关于我</span>
+                    </a>
+                    
+                    <a target="_blank" href="/tasks">
+                        <i class="fa fa-tasks"></i>
+                        <span>任务表</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LousenJay&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        若闲小阁
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="LousenJay" target="_blank" href="//me.csdn.net/a1135497143">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LousenJay">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="FaceBook" target="_blank" href="//facebook.com/lousenjay">
+                            <i class="fa fa-facebook fa-2x"></i></a>
+                    
+                        <a title="QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1135497143&site=qq&menu=yes">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-从零开始的Docker详解（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      从零开始的Docker详解（二）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/服务端/">服务端</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-07-28
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h2 id="Docker容器"><a href="#Docker容器" class="headerlink" title="Docker容器"></a>Docker容器</h2><h3 id="Docker客户端"><a href="#Docker客户端" class="headerlink" title="Docker客户端"></a>Docker客户端</h3><p>1.使用<code>docker</code>命令查看docker客户端支持的命令列表<br><img src="https://img-blog.csdnimg.cn/20200728021545832.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2.使用<code>docker &lt;command&gt; --help</code>命令查看指定命令的使用方法<br><img src="https://img-blog.csdnimg.cn/20200728021743819.png" alt="在这里插入图片描述"></p>
+<h3 id="Docker容器基本操作命令"><a href="#Docker容器基本操作命令" class="headerlink" title="Docker容器基本操作命令"></a>Docker容器基本操作命令</h3><p>1.使用命令<code>docker pull &lt;image&gt;</code>来获取指定镜像<br><img src="https://img-blog.csdnimg.cn/20200728022143228.png" alt="在这里插入图片描述"><br>2.使用命令<code>docker run -it &lt;image&gt; &lt;command&gt;</code>来启动一个容器<br><img src="https://img-blog.csdnimg.cn/20200728023013294.png" alt="在这里插入图片描述">参数说明：</p>
+<ul>
+<li>-i：交互式操作</li>
+<li>-t：终端</li>
+<li>ubunt：ubunt镜像</li>
+<li>/bin/bash：命令，此处为启动交互式shell<blockquote>
+<p>注：退出终端，使用<code>exit</code>命令</p>
+</blockquote>
+</li>
+</ul>
+<p>3.使用命令<code>docker ps -a</code>查看所有的容器及其状态<br><img src="https://img-blog.csdnimg.cn/20200728023840952.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>CONTAINER ID：容器id<br>IMAGE：使用的镜像<br>NAMES：自动分配的容器名称<br>COMMAND：启动容器时运行的命令<br>CREATED：容器创建的时间<br>PORTS：容器的端口信息和使用的连接类型（tcp\udp）<br>STATUS：容器状态</p>
+<blockquote>
+<p>容器的7种状态：</p>
+<ul>
+<li>created（已创建）</li>
+<li>restarting（重启中）</li>
+<li>runnning（运行中）<ul>
+<li>removing（迁移中）</li>
+</ul>
+</li>
+<li>paused（暂停）</li>
+<li>exited（停止）</li>
+<li>dead （死亡）</li>
+</ul>
+</blockquote>
+<p>4.使用命令<code>docker start &lt;container id&gt;</code>启动一个已经停止的容器<br><img src="https://img-blog.csdnimg.cn/20200728025420669.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ol>
+<li>使用命令<code>docker run -itd --name &lt;names&gt; &lt;image&gt; &lt;command&gt;</code>在后台运行指定容器<br><img src="https://img-blog.csdnimg.cn/2020072802583367.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+</ol>
+<p>参数说明：</p>
+<ul>
+<li>-i：交互式操作</li>
+<li>-t：终端</li>
+<li>-d：在后台运行</li>
+<li>–name：自定义容器名称</li>
+<li>ubunt：ubunt镜像</li>
+<li>/bin/bash：命令，此处为启动交互式shell</li>
+</ul>
+<p>6.使用命令<code>docker stop &lt;command id&gt;</code>停止指定容器<br><img src="https://img-blog.csdnimg.cn/20200728030144619.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>7.使用命令<code>docker restart</code>重启一个正在运行的容器<br><img src="https://img-blog.csdnimg.cn/20200728030650210.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>注：<br><code>docker start</code>：启动一个停止的容器，包含容器文件系统挂载的操作<br><code>docker restart</code>：重启一个正在运行的容器，不包含容器文件的卸载与挂载操作，本质上不涉及文件系统操作，因此restart命令并不是stop+start两个命令的叠加</p>
+</blockquote>
+<p>8.使用命令<code>docker attach/exec &lt;command id&gt;</code>进入指定容器<br>在使用 -d 参数时，容器启动后会进入后台。此时想要进入容器，可以通过以下指令进入：</p>
+<ul>
+<li>attach：进入容器后，再退出容器终端会导致容器运行停止</li>
+<li>exec：进入容器后，再退出容器终端不会导致容器运行停止</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker attach 6ca9f1a80bb6</div></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200728031748776.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker <span class="built_in">exec</span> -it 6ca9f1a80bb6 /bin/bash</div></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200728032159966.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>9.使用命令<code>docker export &lt;command id&gt; &gt; xxx.tar</code>导出本地指定容器，生成容器快照<br><img src="https://img-blog.csdnimg.cn/20200728032547752.png" alt="在这里插入图片描述">10.使用命令<code>docker import</code>命令从容器快照再导入为镜像</p>
+<ul>
+<li>方式一：<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cat docker my-ubuntu.tar | docker import - mytest/ubuntu:v1.0</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200728033140205.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>方式二<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker import &lt;URL&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>11.使用命令<code>docker rm -f &lt;command id&gt;</code>来删除容器<br><img src="https://img-blog.csdnimg.cn/20200728033911785.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ol>
+<li>使用命令<code>docker container prune</code>来批量删除处于停止状态的容器<br><img src="https://img-blog.csdnimg.cn/20200728034109102.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMTM1NDk3MTQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年07月29日 09:12</p>
+        <p>原始链接： <a class="post-url" href="/2020/07/28/从零开始的Docker详解（二）/" title="从零开始的Docker详解（二）">https://www.lousenjay.top/2020/07/28/从零开始的Docker详解（二）/</a></p>
+        <footer>
+            <a href="https://www.lousenjay.top">
+                <img src="/images/logo.png" alt="Lousen Jay">
+                Lousen Jay
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lousenjay.top/2020/07/28/从零开始的Docker详解（二）/&title=《从零开始的Docker详解（二）》 — 若闲小阁&pic=https://www.lousenjay.top/images/cover/c_11.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lousenjay.top/2020/07/28/从零开始的Docker详解（二）/&title=《从零开始的Docker详解（二）》 — 若闲小阁&source=LousenJay's Blog" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lousenjay.top/2020/07/28/从零开始的Docker详解（二）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《从零开始的Docker详解（二）》 — 若闲小阁&url=https://www.lousenjay.top/2020/07/28/从零开始的Docker详解（二）/&via=https://www.lousenjay.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lousenjay.top/2020/07/28/从零开始的Docker详解（二）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.lousenjay.top/2020/07/28/从零开始的Docker详解（二）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/docker/" class="color2">docker</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Docker容器"><span class="post-toc-text">Docker容器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker客户端"><span class="post-toc-text">Docker客户端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker容器基本操作命令"><span class="post-toc-text">Docker容器基本操作命令</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2020/07/29/从零开始的Docker详解（三） /" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-title"> 
+        
+          从零开始的Docker详解（三）
+        
+		<i class="fa fa-hand-o-right" aria-hidden="true"></i>
+      </span>
+    </a>
+  
+  
+    <a href="/2020/07/27/从零开始的Docker详解（一）/" id="article-nav-older" class="article-nav-link-wrap">
+	  <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+	  <span class="article-nav-title">从零开始的Docker详解（一）</span>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="从零开始的Docker详解（二）" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyti47zsk';
+        var conf = '314010e5823d86e70a00e697d54f95dc';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2020 Lousen Jay<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+	
+<script>
+  var mihoConfig = {
+      root: "https://www.lousenjay.top",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/JavaScript/">JavaScript</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/服务端/">服务端</a><a class="category-link" href="/categories/涨知识/">涨知识</a><a class="category-link" href="/categories/计算机/">计算机</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 13.33px;">CentOS</a> <a href="/tags/DTinsight/" style="font-size: 12.22px;">DTinsight</a> <a href="/tags/Git/" style="font-size: 17.78px;">Git</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 13.33px;">Hibernate</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.89px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.11px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.11px;">Maven</a> <a href="/tags/MyEclipse/" style="font-size: 10px;">MyEclipse</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Spark/" style="font-size: 15.56px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 12.22px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.11px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 12.22px;">mapreduce</a> <a href="/tags/win/" style="font-size: 10px;">win</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 14.44px;">杂谈</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 12.22px;">软件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a target="_blank" href="/">
+                    <i class="fa fa-home"></i><span>主页</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/archives">
+                    <i class="fa fa-archive"></i><span>归档</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/about">
+                    <i class="fa fa-user"></i><span>关于我</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/tasks">
+                    <i class="fa fa-tasks"></i><span>任务表</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 13.33px;">CentOS</a> <a href="/tags/DTinsight/" style="font-size: 12.22px;">DTinsight</a> <a href="/tags/Git/" style="font-size: 17.78px;">Git</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 13.33px;">Hibernate</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.89px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.11px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.11px;">Maven</a> <a href="/tags/MyEclipse/" style="font-size: 10px;">MyEclipse</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Spark/" style="font-size: 15.56px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 12.22px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.11px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 12.22px;">mapreduce</a> <a href="/tags/win/" style="font-size: 10px;">win</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 14.44px;">杂谈</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 12.22px;">软件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+	
+	<!--APlayer-->
+	<script src="https://www.lousenjay.top/APlayer/js/jquery.min.js"></script>
+	<script src="https://www.lousenjay.top/APlayer/js/velocity.min.js"></script>
+	<script src="https://www.lousenjay.top/APlayer/js/aplayer.min.js"></script>
+	<script src="https://www.lousenjay.top/APlayer/js/aplayer-controler.js"></script>
+	<div class="demo-ap" style="display:none">
+		<div id="player1" class="aplayer"></div>
+	</div>
+	<div class="demo-apc">
+		<div id="apc1" class="apc"></div>
+	</div>
+	
+	
+	
+	<!--live2d-->
+	<div class="waifu">
+		<div class="waifu-tips"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="waifu-tool">
+			<span class="fui-home"></span>
+			<span class="fui-chat"></span>
+			<span class="fui-eye"></span>
+			<span class="fui-user"></span>
+			<span class="fui-photo"></span>
+			<span class="fui-info-circle"></span>
+			<span class="fui-cross"></span>
+		</div>
+	</div>
+	<!--live2d-->
+	<script src="https://www.lousenjay.top/live2d/assets/waifu-tips.js"></script>
+	<script src="https://www.lousenjay.top/live2d/assets/live2d.js"></script>
+	<script type="text/javascript">
+		initModel("https://www.lousenjay.top/live2d/assets/")
+	</script>
+	
+  </div>
+  
+  <!--APlayer-->
+  <script src="https://www.lousenjay.top/APlayer/js/demo.js"></script>
+  
+
+</body>
+</html>

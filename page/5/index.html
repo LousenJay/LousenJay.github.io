@@ -119,6 +119,206 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
+    <article id="post-Hive入门详解（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/10/Hive入门详解（一）/"  target="_blank"  >Hive入门详解（一）</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/大数据/">大数据</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2018/09/10/Hive入门详解（一）/"  target="_blank" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_7.jpg" alt="Hive入门详解（一）" title="Hive入门详解（一）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                简介Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供类SQL查询功能
+Hive的优点
+学习成本低，避免使用复杂的MapReduce
+开发周期短，使用类sql语法，十分简洁
+拓展性强
+
+Hive的缺点执行延迟高，处理速度慢，只适合用来做大规模批量数据统计
+Hive的组件
+用户接口：CLI、JDBC/ODBC、WebGUI  CL...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2018-09-10</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/hadoop/" class="color2">hadoop</a>
+      
+    <a href="/tags/hive/" class="color5">hive</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2018/09/10/Hive入门详解（一）/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-MapReduce入门详解（三）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/03/MapReduce入门详解（三）/"  target="_blank"  >MapReduce入门详解（三）</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/大数据/">大数据</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2018/09/03/MapReduce入门详解（三）/"  target="_blank" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_6.jpg" alt="MapReduce入门详解（三）" title="MapReduce入门详解（三）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                join操作左外连接(map)-JoinMapSideMR问题描述：将两个文件中每行的内容拼接到一个文件中思路分析：准备好两个map，firstMapper和joinMapper，firstMapper负责获取文件内容，joinMapper负责拼接文件内容。利用Job开启两个firstMapper任务，获取到两个文件的内容，然后再开启一个joinMapper任务负责拼接获...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2018-09-03</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/hadoop/" class="color2">hadoop</a>
+      
+    <a href="/tags/mapreduce/" class="color5">mapreduce</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2018/09/03/MapReduce入门详解（三）/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-MapReduce入门详解（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/31/MapReduce入门详解（二）/"  target="_blank"  >MapReduce入门详解（二）</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/大数据/">大数据</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2018/08/31/MapReduce入门详解（二）/"  target="_blank" >
+                
+                <img src="https://www.lousenjay.top/images/cover/c_5.jpg" alt="MapReduce入门详解（二）" title="MapReduce入门详解（二）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                MapReduce实践攻略超详细入门级-WordCount问题描述：统计一个文件中，各种单词出现的次数思路分析：
+
+在map阶段，对每行数据调用一次map方法，对读取到的每行数据按空格进行切割，将分割得到的每个单词作为key，value的值给定为1传递给reduce
+在reduce阶段，从map接收到传递过来的key和value，key值相同的为同一组，对每一组只调用一次...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2018-08-31</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/hadoop/" class="color2">hadoop</a>
+      
+    <a href="/tags/mapreduce/" class="color5">mapreduce</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2018/08/31/MapReduce入门详解（二）/#more" class="article-more-link"  target="_blank" >阅读全文</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
     <article id="post-MapReduce入门详解（一）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -587,206 +787,6 @@ HDFS简介HDFS(HadoopDistributedFileSystem)即hadoop分布式文件存储系统�
 
 
   
-    <article id="post-设计模式-代理模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/15/设计模式-代理模式/"  target="_blank"  >设计模式-代理模式</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/服务端/">服务端</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2018/08/15/设计模式-代理模式/"  target="_blank" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_15.jpg" alt="设计模式-代理模式" title="设计模式-代理模式">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                简介
-给目标对象(被代理对象)提供一个代理对象，并由代理对象控制对目标对象(被代理对象)的引用，代理对象相当于一个中介。
-通过引入代理对象的方式来间接访问目标对象，防止直接访问对象给系统带来不必要的复杂性。
-相当于，代理对象拥有被代理对象的所有功能，并且代理对象还添加了额外的功能来控制被代理对象。
-
-静态代理代理类与被代理类实现同一个接口，将被代理类组合到代理类中并添加控...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2018-08-15</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/Java/" class="color5">Java</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2018/08/15/设计模式-代理模式/#more" class="article-more-link"  target="_blank" >阅读全文</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-Maven入门学习" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/14/Maven入门学习/"  target="_blank"  >Maven入门学习</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/服务端/">服务端</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2018/08/14/Maven入门学习/"  target="_blank" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_14.jpg" alt="Maven入门学习" title="Maven入门学习">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                简介Maven项目对象模型，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。主要功能：相同的项目结构和统一维护jar包。
-安装
-下载官方下载地址：http://maven.apache.org/download.cgi 
-配置环境变量右键我的电脑-属性-高级系统设置-环境变量-系统变量-Path添加maven路径：D:\学习\Soft\Maven\a...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2018-08-14</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/Maven/" class="color1">Maven</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2018/08/14/Maven入门学习/#more" class="article-more-link"  target="_blank" >阅读全文</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-Shell编程(CentOS7)" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/09/Shell编程(CentOS7)/"  target="_blank"  >Shell编程（CentOS7）</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/服务器/">服务器</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2018/08/09/Shell编程(CentOS7)/"  target="_blank" >
-                
-                <img src="https://www.lousenjay.top/images/cover/c_1.jpg" alt="Shell编程（CentOS7）" title="Shell编程（CentOS7）">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                简介
-Shell是用户与内核进行交互操作的一种接口，目前最流行的Shell称为bash Shell
-Shell也是一门编程语言&lt;解释型的编程语言&gt;，即shell脚本
-一个系统可以存在多个shell，可以通过cat /etc/shells命令查看系统中安装的shell，不同的shell可能支持的命令语法是不相同的
-
-变量
-输出变量的值
-echo $JAVA_HO...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2018-08-09</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/Linux/" class="color1">Linux</a>
-      
-    <a href="/tags/CentOS/" class="color2">CentOS</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2018/08/09/Shell编程(CentOS7)/#more" class="article-more-link"  target="_blank" >阅读全文</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -848,7 +848,7 @@ echo $JAVA_HO...
             <a class="category-link" href="/categories/Blog/">Blog</a><a class="category-link" href="/categories/IDE/">IDE</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/JavaScript/">JavaScript</a><a class="category-link" href="/categories/人生/">人生</a><a class="category-link" href="/categories/分布式/">分布式</a><a class="category-link" href="/categories/大数据/">大数据</a><a class="category-link" href="/categories/数据库/">数据库</a><a class="category-link" href="/categories/服务器/">服务器</a><a class="category-link" href="/categories/服务端/">服务端</a><a class="category-link" href="/categories/涨知识/">涨知识</a><a class="category-link" href="/categories/计算机/">计算机</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 13.33px;">CentOS</a> <a href="/tags/DTinsight/" style="font-size: 12.22px;">DTinsight</a> <a href="/tags/Git/" style="font-size: 17.78px;">Git</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 13.33px;">Hibernate</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.89px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.11px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.11px;">Maven</a> <a href="/tags/MyEclipse/" style="font-size: 10px;">MyEclipse</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Spark/" style="font-size: 15.56px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 12.22px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.11px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 12.22px;">mapreduce</a> <a href="/tags/win/" style="font-size: 10px;">win</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 14.44px;">杂谈</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 12.22px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 13.33px;">CentOS</a> <a href="/tags/DTinsight/" style="font-size: 12.22px;">DTinsight</a> <a href="/tags/Git/" style="font-size: 17.78px;">Git</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 13.33px;">Hibernate</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.89px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.11px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.11px;">Maven</a> <a href="/tags/MyEclipse/" style="font-size: 10px;">MyEclipse</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Spark/" style="font-size: 15.56px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 12.22px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.11px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 12.22px;">mapreduce</a> <a href="/tags/win/" style="font-size: 10px;">win</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 14.44px;">杂谈</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 12.22px;">软件</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -887,7 +887,7 @@ echo $JAVA_HO...
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 13.33px;">CentOS</a> <a href="/tags/DTinsight/" style="font-size: 12.22px;">DTinsight</a> <a href="/tags/Git/" style="font-size: 17.78px;">Git</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 13.33px;">Hibernate</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.89px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.11px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.11px;">Maven</a> <a href="/tags/MyEclipse/" style="font-size: 10px;">MyEclipse</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Spark/" style="font-size: 15.56px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 12.22px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.11px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 12.22px;">mapreduce</a> <a href="/tags/win/" style="font-size: 10px;">win</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 14.44px;">杂谈</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 12.22px;">软件</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/CentOS/" style="font-size: 13.33px;">CentOS</a> <a href="/tags/DTinsight/" style="font-size: 12.22px;">DTinsight</a> <a href="/tags/Git/" style="font-size: 17.78px;">Git</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Hibernate/" style="font-size: 13.33px;">Hibernate</a> <a href="/tags/JQuery/" style="font-size: 10px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Java/" style="font-size: 18.89px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 11.11px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Maven/" style="font-size: 11.11px;">Maven</a> <a href="/tags/MyEclipse/" style="font-size: 10px;">MyEclipse</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Spark/" style="font-size: 15.56px;">Spark</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/hadoop/" style="font-size: 20px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 12.22px;">hbase</a> <a href="/tags/hdfs/" style="font-size: 11.11px;">hdfs</a> <a href="/tags/hive/" style="font-size: 13.33px;">hive</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/mapreduce/" style="font-size: 12.22px;">mapreduce</a> <a href="/tags/win/" style="font-size: 10px;">win</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/杂谈/" style="font-size: 14.44px;">杂谈</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/读后感/" style="font-size: 10px;">读后感</a> <a href="/tags/软件/" style="font-size: 12.22px;">软件</a>
         </div>
     </div>
 </div>
